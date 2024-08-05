@@ -1,0 +1,15 @@
+{
+  "hash": "058f02b5cb037b33857ab074e0fe875e",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Zhenglei Gao\"\ntoc: false\nabout: \n  id: hero-heading\n  template: trestles\n  image-shape: round\n  image-width: 20em\n  links:\n    - text: LinkedIn\n      href: https://www.linkedin.com/in/samanthacsik/\n    - text: GitHub\n      href: https://github.com/samanthacsik\n    - text: Email\n      href: mailto:scsik@ucsb.edu\n---\n\n\n### This content appears above the formatted about page content.\n\n:::{#hero-heading}\n\nFinley Malloc is the Chief Data Scientist at Wengo Analytics. When not innovating on data platforms, Finley enjoys spending time unicycling and playing with her pet iguana.\n\n## Education\n\nUniversity of California, San Diego | San Diego, CA\nPhD in Mathematics | Sept 2011 - June 2015\n\nMacalester College | St. Paul MA\nB.A in Economics | Sept 2007 - June 2011\n\n## Experience\n\nWengo Analytics | Head Data Scientist | April 2018 - present\n\nGeoScynce | Chief Analyst | Sept 2012 - April 2018\n\n:::\n\n### This content appears below the formatted about page content.\n\nThis is a Quarto website.\n\nTo learn more about Quarto websites visit <https://quarto.org/docs/websites>.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

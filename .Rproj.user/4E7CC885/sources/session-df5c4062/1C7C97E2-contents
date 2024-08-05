@@ -1,0 +1,9 @@
+---
+title: "Thoughts and Learnings"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  # (additional metadata excluded for brevity)
+  categories: true
+---
