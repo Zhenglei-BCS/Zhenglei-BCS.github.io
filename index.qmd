@@ -1,5 +1,17 @@
 ---
-title: "zhenglei.github.io"
+title: "Zhenglei Gao"
+toc: false
+about: 
+  template: trestles
+  image-shape: round
+  image-width: 20em
+  links:
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/samanthacsik/
+    - text: GitHub
+      href: https://github.com/samanthacsik
+    - text: Email
+      href: mailto:scsik@ucsb.edu
 ---
 
 This is a Quarto website.
