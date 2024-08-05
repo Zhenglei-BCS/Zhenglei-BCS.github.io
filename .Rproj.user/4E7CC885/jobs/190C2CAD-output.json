@@ -1,4 +1,0 @@
-[1,"==> quarto preview --render all --no-watch-inputs --no-browse\n\n"]
-[1,"Terminating existing preview server...."]
-[1,"DONE\n\nRendering:\n\r[1/2] about.qmd\n"]
-[1,"\nUnable to locate an installed version of R.\nInstall R from https://cloud.r-project.org/\n\n"]
