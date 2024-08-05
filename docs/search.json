@@ -1,10 +1,38 @@
 [
   {
+    "objectID": "posts/tutorials.html",
+    "href": "posts/tutorials.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "4*5\n\n[1] 20"
+  },
+  {
+    "objectID": "posts/tutorials.html#tutorials",
+    "href": "posts/tutorials.html#tutorials",
+    "title": "Post With Code",
+    "section": "",
+    "text": "4*5\n\n[1] 20"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Zhenglei Gao",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "LinkedIn\n  \n  \n     GitHub\n  \n  \n     Email\n  \n\n  \n  \nFinley Malloc is the Chief Data Scientist at Wengo Analytics. When not innovating on data platforms, Finley enjoys spending time unicycling and playing with her pet iguana.\n\n\nUniversity of California, San Diego | San Diego, CA PhD in Mathematics | Sept 2011 - June 2015\nMacalester College | St. Paul MA B.A in Economics | Sept 2007 - June 2011\n\n\n\nWengo Analytics | Head Data Scientist | April 2018 - present\nGeoScynce | Chief Analyst | Sept 2012 - April 2018"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Zhenglei Gao",
+    "section": "",
+    "text": "University of California, San Diego | San Diego, CA PhD in Mathematics | Sept 2011 - June 2015\nMacalester College | St. Paul MA B.A in Economics | Sept 2007 - June 2011"
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Zhenglei Gao",
+    "section": "",
+    "text": "Wengo Analytics | Head Data Scientist | April 2018 - present\nGeoScynce | Chief Analyst | Sept 2012 - April 2018"
   },
   {
     "objectID": "about.html",
@@ -12,5 +40,12 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Thoughts and Learnings",
+    "section": "",
+    "text": "testing blog\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 22, 2024\n\n\nFizz McPhee\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nMay 22, 2021\n\n\nFizz McPhee\n\n\n\n\n\n\nNo matching items"
   }
 ]

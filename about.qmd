@@ -1,8 +1,8 @@
 ---
-title: "About"
+title: "About Me"
 ---
 
-About this site
+About this site: A temporary listings of my learnings and thoughts.
 
 ```{r}
 1 + 1

@@ -9,6 +9,16 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: blog.qmd
+        text: "Blog"
+  sidebar:
+    - title: "Blog"
+      style: "docked"
+      background: light
+      contents: posts
+        - tutorials.qmd
+        - tutorial-1.qmd
+        - tutorial-2.qmd
 
 format:
   html:
