@@ -1,0 +1,18 @@
+---
+title: "WACOM tablet"
+description: "My WACOM tablet arrived today"
+author: "Zhenglei Gao"
+date: "08/06/2024"
+categories:
+  - journal
+---
+
+## New Experiences
+
+It is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.
+
+
+
+```{r}
+4*5
+```
