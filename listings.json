@@ -3,6 +3,7 @@
     "listing": "/blog.html",
     "items": [
       "/posts/test.html",
+      "/posts/wacom_tablet.html",
       "/posts/tutorials.html"
     ]
   }
