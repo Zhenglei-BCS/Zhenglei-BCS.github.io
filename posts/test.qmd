@@ -1,10 +1,13 @@
 ---
 title: "testing blog"
 description: "Post description"
-author: "Fizz McPhee"
-date: "8/22/2024"
+author: "Zhenglei Gao"
+date: "8/22/2023"
 categories:
   - code
   - analysis
 ---
 
+```{r}
+plot(mtcars)
+```
