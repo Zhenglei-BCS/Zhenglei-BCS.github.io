@@ -1,0 +1,27 @@
+---
+title: "How to generate a risk asessment report for an R Package"
+description: "Here is a collection of resources and my thoughts"
+author: "Zhenglei Gao"
+date: "8/07/2024"
+categories:
+  - code
+  - howto
+---
+
+
+I have learned a great deal from my involvement in the R Validation Hub. `riskassessment` and  `riskmetric` are the two packages needed to generate  a risk assessment report for a "standard" R package. 
+
+The validation philosophy proposed in [this white paper](https://www.pharmar.org/white-paper/) is a valuable resource to understand the general concerns and has helped shape my own thoughts on the validation strategy of a self-developed R-package or a tool.  
+
+One aspect that has consistently puzzled me is the tendency to consider software from third-party vendors as trustworthy, despite my experience as a statistician uncovering errors or bugs in such software. Conversely, in-house developed tools are subjected to much greater scrutiny. This discrepancy in perceptions between the QAs, project managers, and subject matter experts has highlighted the need for clear communication and a shared commitment to bridge the gap. 
+
+I find it challenging to cultivate a robust ecosystem for leveraging open-source tools such as R for GxP purpose analyses. I believe rigorous validation of both open-source tools and commercial tools for GxP purposes is necessary, irrespective of their origin. It is my hope that through my advocacy efforts, I can contribute to the establishment of a more inclusive and reliable ecosystem for statistical analyses in regulated environments within my area of expertise.
+
+- An excerpt from that white paper. 
+
+```{comment}
+6.5. Vendor Assessments and Trusted Resources
+For proprietary software it is common to perform vendor assessments / audits to explore the internal validation practices of the vendor. If a company is satisfied with the internal validation practices of the vendor, they may designate the vendor a ’trusted’ status. The impact of this might be that any software produced by that vendor is deemed to be low risk.
+
+For open source software such audits are not logistically feasible. However, based on information available in the open source domain, it may still be possible to perform a virtual audit of a vendor and their practices. For example, R Foundation and R Core team, have published information about their practices in R: Regulatory Compliance and Validation Issues. A Guidance Document for the Use of R in Regulated Clinical Trial Environments. It is the opinion of the R Validation Hub that this is sufficient to allocate the R Foundation a trusted status. This would render the collection of Base R and Recommended packages low risk as a result.
+```
