@@ -1,17 +1,31 @@
 [
   {
-    "objectID": "posts/tutorials.html",
-    "href": "posts/tutorials.html",
-    "title": "Post With Code",
+    "objectID": "posts/wacom_tablet.html",
+    "href": "posts/wacom_tablet.html",
+    "title": "WACOM tablet",
     "section": "",
-    "text": "4*5\n\n[1] 20"
+    "text": "It is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.\n\n4*5\n\n[1] 20"
   },
   {
-    "objectID": "posts/tutorials.html#tutorials",
-    "href": "posts/tutorials.html#tutorials",
-    "title": "Post With Code",
+    "objectID": "posts/wacom_tablet.html#new-experiences",
+    "href": "posts/wacom_tablet.html#new-experiences",
+    "title": "WACOM tablet",
     "section": "",
-    "text": "4*5\n\n[1] 20"
+    "text": "It is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.\n\n4*5\n\n[1] 20"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Thoughts and Learnings",
+    "section": "",
+    "text": "testing blog\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 22, 2024\n\n\nFizz McPhee\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nMay 22, 2021\n\n\nFizz McPhee\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "About this site: A temporary listings of my learnings and thoughts.\n\n1 + 1\n\n[1] 2"
   },
   {
     "objectID": "index.html",
@@ -35,17 +49,17 @@
     "text": "Wengo Analytics | Head Data Scientist | April 2018 - present\nGeoScynce | Chief Analyst | Sept 2012 - April 2018"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About Me",
+    "objectID": "posts/tutorials.html",
+    "href": "posts/tutorials.html",
+    "title": "WACOM tablet",
     "section": "",
-    "text": "About this site: A temporary listings of my learnings and thoughts.\n\n1 + 1\n\n[1] 2"
+    "text": "4*5\n\n[1] 20"
   },
   {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Thoughts and Learnings",
+    "objectID": "posts/tutorials.html#new-experiences",
+    "href": "posts/tutorials.html#new-experiences",
+    "title": "WACOM tablet",
     "section": "",
-    "text": "testing blog\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 22, 2024\n\n\nFizz McPhee\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nMay 22, 2021\n\n\nFizz McPhee\n\n\n\n\n\n\nNo matching items"
+    "text": "4*5\n\n[1] 20"
   }
 ]
