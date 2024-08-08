@@ -18,28 +18,14 @@
     "href": "posts/risk_metric.html",
     "title": "How to generate a risk asessment report for an R Package",
     "section": "",
-    "text": "I have learned a great deal from my involvement in the R Validation Hub. riskassessment and riskmetric are the two packages needed to generate a risk assessment report for a “standard” R package.\nThe validation philosophy proposed in this white paper is a valuable resource to understand the general concerns and has helped shape my own thoughts on the validation strategy of a self-developed R-package or a tool.\nOne aspect that has consistently puzzled me is the tendency to consider software from third-party vendors as trustworthy, despite my experience as a statistician uncovering errors or bugs in such software. Conversely, in-house developed tools are subjected to much greater scrutiny. This discrepancy in perceptions between the QAs, project managers, and subject matter experts has highlighted the need for clear communication and a shared commitment to bridge the gap.\nI find it challenging to cultivate a robust ecosystem for leveraging open-source tools such as R for GxP purpose analyses. I believe rigorous validation of both open-source tools and commercial tools for GxP purposes is necessary, irrespective of their origin. It is my hope that through my advocacy efforts, I can contribute to the establishment of a more inclusive and reliable ecosystem for statistical analyses in regulated environments within my area of expertise.\n\nAn excerpt from that white paper.\n\n\n6.5. Vendor Assessments and Trusted Resources\n\n\nFor proprietary software it is common to perform vendor assessments / audits to explore the internal validation practices of the vendor. If a company is satisfied with the internal validation practices of the vendor, they may designate the vendor a ’trusted’ status. The impact of this might be that any software produced by that vendor is deemed to be low risk.\n\n\nFor open source software such audits are not logistically feasible. However, based on information available in the open source domain, it may still be possible to perform a virtual audit of a vendor and their practices. For example, R Foundation and R Core team, have published information about their practices in R: Regulatory Compliance and Validation Issues. A Guidance Document for the Use of R in Regulated Clinical Trial Environments. It is the opinion of the R Validation Hub that this is sufficient to allocate the R Foundation a trusted status. This would render the collection of Base R and Recommended packages low risk as a result. ```"
-  },
-  {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Thoughts and Learnings",
-    "section": "",
-    "text": "How to generate a risk asessment report for an R Package\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nHere is a collection of resources and my thoughts.\n\n\n\n\n\nAug 7, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nTesting blog\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About Me",
-    "section": "",
-    "text": "About this site: A temporary listings of my learnings and thoughts.\n\n1 + 1\n\n[1] 2"
+    "text": "I have learned a great deal from my involvement in the R Validation Hub. riskassessment and riskmetric are the two packages needed to generate a risk assessment report for a “standard” R package.\nThe validation philosophy proposed in this white paper is a valuable resource to understand the general concerns and has helped shape my own thoughts on the validation strategy of a self-developed R-package or a tool.\nOne aspect that has consistently puzzled me is the tendency to consider software from third-party vendors as trustworthy, despite my experience as a statistician uncovering errors or bugs in such software. Conversely, in-house developed tools are subjected to much greater scrutiny. This discrepancy in perceptions between the QAs, project managers, and subject matter experts has highlighted the need for clear communication and a shared commitment to bridge the gap.\nI find it challenging to cultivate a robust ecosystem for leveraging open-source tools such as R for GxP purpose analyses. I believe rigorous validation of both open-source tools and commercial tools for GxP purposes is necessary, irrespective of their origin. It is my hope that through my advocacy efforts, I can contribute to the establishment of a more inclusive and reliable ecosystem for statistical analyses in regulated environments within my area of expertise.\n\nAn excerpt from that white paper.\n\n\n6.5. Vendor Assessments and Trusted Resources\n\n\nFor proprietary software it is common to perform vendor assessments / audits to explore the internal validation practices of the vendor. If a company is satisfied with the internal validation practices of the vendor, they may designate the vendor a ’trusted’ status. The impact of this might be that any software produced by that vendor is deemed to be low risk.\n\n\nFor open source software such audits are not logistically feasible. However, based on information available in the open source domain, it may still be possible to perform a virtual audit of a vendor and their practices. For example, R Foundation and R Core team, have published information about their practices in R: Regulatory Compliance and Validation Issues. A Guidance Document for the Use of R in Regulated Clinical Trial Environments. It is the opinion of the R Validation Hub that this is sufficient to allocate the R Foundation a trusted status. This would render the collection of Base R and Recommended packages low risk as a result."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Zhenglei Gao",
     "section": "",
-    "text": "LinkedIn\n  \n  \n     GitHub\n  \n  \n     Email\n  \n\n  \n  \nExample Notes\n\n\nUniversity of California, San Diego | San Diego, CA PhD in Mathematics | Sept 2011 - June 2015\nMacalester College | St. Paul MA B.A in Economics | Sept 2007 - June 2011\n\n\n\nWengo Analytics | Head Data Scientist | April 2018 - present\nGeoScynce | Chief Analyst | Sept 2012 - April 2018"
+    "text": "LinkedIn\n  \n  \n     GitHub\n  \n  \n     Email\n  \n\n  \n  \nExample Notes\n\n\nUniversity of California, San Diego | San Diego, CA PhD in Mathematics | Sept 2011 - June 2015\nMacalester College | St. Paul MA B.A in Economics | Sept 2007 - June 2011\n\n\n\nBayer AG | Environmental Statistician, Statistical Expert | Jan 2016 - present\ntier3 solutions | Modelling Expert, Principal Statistician| Apr 2011 - Dec 2016"
   },
   {
     "objectID": "index.html#education",
@@ -53,7 +39,35 @@
     "href": "index.html#experience",
     "title": "Zhenglei Gao",
     "section": "",
-    "text": "Wengo Analytics | Head Data Scientist | April 2018 - present\nGeoScynce | Chief Analyst | Sept 2012 - April 2018"
+    "text": "Bayer AG | Environmental Statistician, Statistical Expert | Jan 2016 - present\ntier3 solutions | Modelling Expert, Principal Statistician| Apr 2011 - Dec 2016"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "About this site: A temporary listings of my learnings and thoughts.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Thoughts and Learnings",
+    "section": "",
+    "text": "How to deal with proxy issues\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nSome hacks working in a corporate envrionment\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to generate a risk asessment report for an R Package\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nHere is a collection of resources and my thoughts.\n\n\n\n\n\nAug 7, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nTesting blog\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/proxy_powershell.html",
+    "href": "posts/proxy_powershell.html",
+    "title": "How to deal with proxy issues",
+    "section": "",
+    "text": "show system-wide proxy settings\nnetsh winhttp show proxy\nGet-ItemProperty -Path \"Registry::HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\"\nor\nreg query \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\""
+  },
+  {
+    "objectID": "posts/proxy_powershell.html#useful-resources",
+    "href": "posts/proxy_powershell.html#useful-resources",
+    "title": "How to deal with proxy issues",
+    "section": "Useful Resources",
+    "text": "Useful Resources\n\nPowerShell: Check If Port is Open – Test TCP Connection"
   },
   {
     "objectID": "posts/test.html",
