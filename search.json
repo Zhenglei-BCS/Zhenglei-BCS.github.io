@@ -53,7 +53,7 @@
     "href": "posts/proxy_powershell.html",
     "title": "How to deal with proxy issues",
     "section": "",
-    "text": "show system-wide proxy settings\nnetsh winhttp show proxy\nGet-ItemProperty -Path \"Registry::HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\"\nor\nreg query \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\""
+    "text": "Note\n\n\n\nTo be written\nnetsh winhttp show proxy\nGet-ItemProperty -Path \"Registry::HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\"\nor\nreg query \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\""
   },
   {
     "objectID": "posts/proxy_powershell.html#useful-resources",
