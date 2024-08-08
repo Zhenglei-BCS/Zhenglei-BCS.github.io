@@ -12,13 +12,14 @@ website:
       - href: blog.qmd
         text: "Blog"
   sidebar:
-    - title: "Blog"
-      style: "docked"
-      background: light
-      contents: posts
-        - tutorials.qmd
-        - tutorial-1.qmd
-        - tutorial-2.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            href:  https://github.com/Zhenglei-BCS/Zhenglei-BCS.github.io
+          - text: Report a Bug
+            href:  https://github.com/Zhenglei-BCS/Zhenglei-BCS.github.io/issues
+
 
 format:
   html:
@@ -28,5 +29,5 @@ format:
     css: styles.css
     toc: true
 
-editor: visual
+editor: source
 
