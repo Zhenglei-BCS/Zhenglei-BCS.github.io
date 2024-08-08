@@ -2,10 +2,12 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/why_I_dont_like_ipynb.html",
       "/posts/proxy_powershell.html",
       "/posts/risk_metric.html",
       "/posts/test.html",
-      "/posts/wacom_tablet.html"
+      "/posts/wacom_tablet.html",
+      "/posts/my_dso_journey.html"
     ]
   }
 ]
