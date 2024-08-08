@@ -1,0 +1,40 @@
+---
+title: "How to deal with proxy issues"
+description: "Some hacks working in a corporate envrionment"
+author: "Zhenglei Gao"
+date: "8/08/2024"
+categories:
+  - code
+  - howto
+---
+
+::: {.callout-note}
+To be written
+:::
+
+```{r include=FALSE}
+knitr::opts_chunk$set(eval = FALSE,echo = TRUE)
+```
+
+- show system-wide proxy settings
+
+```{bash}
+netsh winhttp show proxy
+```
+
+- Get user-specific proxy settings
+
+```{bash}
+Get-ItemProperty -Path "Registry::HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
+```
+
+or 
+
+```{bash}
+reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
+```
+
+
+## Useful Resources
+
+- [PowerShell: Check If Port is Open – Test TCP Connection](https://www.shellhacks.com/powershell-check-if-port-is-open-test-tcp-connection/)

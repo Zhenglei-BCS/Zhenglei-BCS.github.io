@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/proxy_powershell.html",
       "/posts/risk_metric.html",
       "/posts/test.html",
       "/posts/wacom_tablet.html"

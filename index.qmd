@@ -15,22 +15,17 @@ about:
       href: mailto:zhenglei.gao@bayer.com
 ---
 
-### This content appears above the formatted about page content.
+#### This content appears above the formatted about page content.
 
 ::: {#hero-heading}
 Example Notes
 
-## Education
-
-University of California, San Diego \| San Diego, CA PhD in Mathematics \| Sept 2011 - June 2015
-
-Macalester College \| St. Paul MA B.A in Economics \| Sept 2007 - June 2011
 
 ## Experience
 
-Wengo Analytics \| Head Data Scientist \| April 2018 - present
+Bayer AG \| Environmental Statistician, Statistical Expert \| Jan 2016 - present
 
-GeoScynce \| Chief Analyst \| Sept 2012 - April 2018
+tier3 solutions \| Modelling Expert, Principal Statistician\| Apr 2011 - Dec 2016
 :::
 
 ### This content appears below the formatted about page content.
