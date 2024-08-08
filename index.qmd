@@ -15,25 +15,22 @@ about:
       href: mailto:zhenglei.gao@bayer.com
 ---
 
-#### This content appears above the formatted about page content.
+::: callout-warning
+Still under construction.
+:::
 
 ::: {#hero-heading}
 Example Notes
 
-
 ## Experience
 
-Bayer AG \| Environmental Statistician, Statistical Expert \| Jan 2016 - present
+Bayer AG \| Environmental Statistician, Statistical Expert \| 2016 - present
 
-tier3 solutions \| Modelling Expert, Principal Statistician\| Apr 2011 - Dec 2016
+tier3 solutions \| Modelling Expert, Principal Statistician\| 2011 - 2016
+
+Bayer AG \| Postdoc  \| 2010 - 2011
 :::
 
 ### This content appears below the formatted about page content.
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+Not sure what I should put here. 

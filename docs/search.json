@@ -1,52 +1,17 @@
 [
   {
-    "objectID": "posts/wacom_tablet.html",
-    "href": "posts/wacom_tablet.html",
-    "title": "WACOM tablet",
-    "section": "",
-    "text": "It is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.\n\n4*5\n\n[1] 20"
-  },
-  {
-    "objectID": "posts/wacom_tablet.html#new-experiences",
-    "href": "posts/wacom_tablet.html#new-experiences",
-    "title": "WACOM tablet",
-    "section": "",
-    "text": "It is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.\n\n4*5\n\n[1] 20"
-  },
-  {
-    "objectID": "posts/risk_metric.html",
-    "href": "posts/risk_metric.html",
-    "title": "How to generate a risk asessment report for an R Package",
-    "section": "",
-    "text": "I have learned a great deal from my involvement in the R Validation Hub. riskassessment and riskmetric are the two packages needed to generate a risk assessment report for a “standard” R package.\nThe validation philosophy proposed in this white paper is a valuable resource to understand the general concerns and has helped shape my own thoughts on the validation strategy of a self-developed R-package or a tool.\nOne aspect that has consistently puzzled me is the tendency to consider software from third-party vendors as trustworthy, despite my experience as a statistician uncovering errors or bugs in such software. Conversely, in-house developed tools are subjected to much greater scrutiny. This discrepancy in perceptions between the QAs, project managers, and subject matter experts has highlighted the need for clear communication and a shared commitment to bridge the gap.\nI find it challenging to cultivate a robust ecosystem for leveraging open-source tools such as R for GxP purpose analyses. I believe rigorous validation of both open-source tools and commercial tools for GxP purposes is necessary, irrespective of their origin. It is my hope that through my advocacy efforts, I can contribute to the establishment of a more inclusive and reliable ecosystem for statistical analyses in regulated environments within my area of expertise.\n\nAn excerpt from that white paper.\n\n\n6.5. Vendor Assessments and Trusted Resources\n\n\nFor proprietary software it is common to perform vendor assessments / audits to explore the internal validation practices of the vendor. If a company is satisfied with the internal validation practices of the vendor, they may designate the vendor a ’trusted’ status. The impact of this might be that any software produced by that vendor is deemed to be low risk.\n\n\nFor open source software such audits are not logistically feasible. However, based on information available in the open source domain, it may still be possible to perform a virtual audit of a vendor and their practices. For example, R Foundation and R Core team, have published information about their practices in R: Regulatory Compliance and Validation Issues. A Guidance Document for the Use of R in Regulated Clinical Trial Environments. It is the opinion of the R Validation Hub that this is sufficient to allocate the R Foundation a trusted status. This would render the collection of Base R and Recommended packages low risk as a result."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
+    "objectID": "posts/why_I_dont_like_ipynb.html",
+    "href": "posts/why_I_dont_like_ipynb.html",
     "title": "Zhenglei Gao",
     "section": "",
-    "text": "LinkedIn\n  \n  \n     GitHub\n  \n  \n     Email\n  \n\n  \n  \nExample Notes\n\n\nBayer AG | Environmental Statistician, Statistical Expert | Jan 2016 - present\ntier3 solutions | Modelling Expert, Principal Statistician| Apr 2011 - Dec 2016"
+    "text": "Warning\n\n\n\nJust personal habits and preferences.\n\n\nTrained as a statistician, I have extensive experience using R for a significant period of time. However, in order to collaborate effectively with my colleagues, many of whom prefer Python over other languages, I recognize the importance of being proficient in Python. While I currently use Python intermittently to execute specific machine learning models developed by my peers on different training data sets, I feel the necessity to enhance my proficiency in Python in a more structured manner. The syntax, especially the data.pipe(func_def).pipe(func2_def) and \\ or other pipeline operators, does not come naturally to me. This has led me to enroll in the training “Machine Learnign with Python” offered by Bayer.\nThe instructor, LEO, of this course has shared his IPython Notebooks. Today I downloaded to my local computer and try to run the python code blocks. I encountered error shown in Figure 1. This is THE moment I realized I don’t like .ipynb files and I won’t use it for my own projects anymore.\nThe problem is that .ipynb files are not reproducible. They are more for exploration purposes. If I had opened the file directly from the instructor, I would have seen this cell was not run by my instructor, he put it there merely as an example. However, when I open it in VS Code, what I can see is that it is a python code block. I had no idea that it should not be run. I am so used to rmarkdown (.Rmd) and quarto (.qmd), assuming directly the execution of each block is clearly defined.\n\n\n\n\n\n\nFigure 1: screenshot of running error\n\n\n\nMy other issue with .ipynb files is, they are essentially JSON files, and viewing the raw files can be confusing and not the best way to share with colleagues. I find they don’t effectively combine code blocks and markdown documentation in a clear and simple way. There are too many UI elements that I don’t really need, which adds unnecessary complexity. I believe that explicit definitions inside the code blocks with suitable tags or in the YAML header would provide a more streamlined and organized approach."
   },
   {
-    "objectID": "index.html#experience",
-    "href": "index.html#experience",
-    "title": "Zhenglei Gao",
+    "objectID": "posts/test.html",
+    "href": "posts/test.html",
+    "title": "Testing blog",
     "section": "",
-    "text": "Bayer AG | Environmental Statistician, Statistical Expert | Jan 2016 - present\ntier3 solutions | Modelling Expert, Principal Statistician| Apr 2011 - Dec 2016"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About Me",
-    "section": "",
-    "text": "About this site: A temporary listings of my learnings and thoughts.\n\n1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Thoughts and Learnings",
-    "section": "",
-    "text": "How to deal with proxy issues\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nSome hacks working in a corporate envrionment\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to generate a risk asessment report for an R Package\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nHere is a collection of resources and my thoughts.\n\n\n\n\n\nAug 7, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nTesting blog\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items"
+    "text": "plot(mtcars)"
   },
   {
     "objectID": "posts/proxy_powershell.html",
@@ -63,10 +28,59 @@
     "text": "Useful Resources\n\nPowerShell: Check If Port is Open – Test TCP Connection"
   },
   {
-    "objectID": "posts/test.html",
-    "href": "posts/test.html",
-    "title": "Testing blog",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Zhenglei Gao",
     "section": "",
-    "text": "plot(mtcars)"
+    "text": "Warning\n\n\n\nStill under construction."
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Zhenglei Gao",
+    "section": "Experience",
+    "text": "Experience\nBayer AG | Environmental Statistician, Statistical Expert | 2016 - present\ntier3 solutions | Modelling Expert, Principal Statistician| 2011 - 2016\nBayer AG | Postdoc | 2010 - 2011"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "About this site: A temporary listings of my learnings and thoughts.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Thoughts and Learnings",
+    "section": "",
+    "text": "code\n\n\nR_python_julia\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to deal with proxy issues\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nSome hacks working in a corporate envrionment\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to generate a risk asessment report for an R Package\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nHere is a collection of resources and my thoughts.\n\n\n\n\n\nAug 7, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nTesting blog\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\njournal\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2023\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/my_dso_journey.html",
+    "href": "posts/my_dso_journey.html",
+    "title": "Zhenglei Gao",
+    "section": "",
+    "text": "Warning\n\n\n\nTo be recorded."
+  },
+  {
+    "objectID": "posts/risk_metric.html",
+    "href": "posts/risk_metric.html",
+    "title": "How to generate a risk asessment report for an R Package",
+    "section": "",
+    "text": "I have learned a great deal from my involvement in the R Validation Hub. riskassessment and riskmetric are the two packages needed to generate a risk assessment report for a “standard” R package.\nThe validation philosophy proposed in this white paper is a valuable resource to understand the general concerns and has helped shape my own thoughts on the validation strategy of a self-developed R-package or a tool.\nOne aspect that has consistently puzzled me is the tendency to consider software from third-party vendors as trustworthy, despite my experience as a statistician uncovering errors or bugs in such software. Conversely, in-house developed tools are subjected to much greater scrutiny. This discrepancy in perceptions between the QAs, project managers, and subject matter experts has highlighted the need for clear communication and a shared commitment to bridge the gap.\nI find it challenging to cultivate a robust ecosystem for leveraging open-source tools such as R for GxP purpose analyses. I believe rigorous validation of both open-source tools and commercial tools for GxP purposes is necessary, irrespective of their origin. It is my hope that through my advocacy efforts, I can contribute to the establishment of a more inclusive and reliable ecosystem for statistical analyses in regulated environments within my area of expertise.\n\nAn excerpt from that white paper.\n\n\n6.5. Vendor Assessments and Trusted Resources\n\n\nFor proprietary software it is common to perform vendor assessments / audits to explore the internal validation practices of the vendor. If a company is satisfied with the internal validation practices of the vendor, they may designate the vendor a ’trusted’ status. The impact of this might be that any software produced by that vendor is deemed to be low risk.\n\n\nFor open source software such audits are not logistically feasible. However, based on information available in the open source domain, it may still be possible to perform a virtual audit of a vendor and their practices. For example, R Foundation and R Core team, have published information about their practices in R: Regulatory Compliance and Validation Issues. A Guidance Document for the Use of R in Regulated Clinical Trial Environments. It is the opinion of the R Validation Hub that this is sufficient to allocate the R Foundation a trusted status. This would render the collection of Base R and Recommended packages low risk as a result."
+  },
+  {
+    "objectID": "posts/wacom_tablet.html",
+    "href": "posts/wacom_tablet.html",
+    "title": "WACOM tablet",
+    "section": "",
+    "text": "It is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.\n\n4*5\n\n[1] 20"
+  },
+  {
+    "objectID": "posts/wacom_tablet.html#new-experiences",
+    "href": "posts/wacom_tablet.html#new-experiences",
+    "title": "WACOM tablet",
+    "section": "",
+    "text": "It is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.\n\n4*5\n\n[1] 20"
   }
 ]

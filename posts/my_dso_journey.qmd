@@ -1,0 +1,17 @@
+---
+title: ""
+description: "Why I don't like IPython Notebooks"
+author: "Zhenglei Gao"
+date: "8/09/2023"
+categories:
+  - journal
+---
+
+::: {.callout-warning}
+To be recorded. 
+:::
+
+```{r include=FALSE}
+knitr::opts_chunk$set(eval = FALSE,echo = TRUE)
+```
+
