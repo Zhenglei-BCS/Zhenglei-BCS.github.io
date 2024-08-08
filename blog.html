@@ -80,9 +80,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -226,21 +226,16 @@ window.Quarto = {
 
 
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="code,R_python_julia" data-listing-date-sort="1723154400000" data-listing-file-modified-sort="1723128406274" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="356">
-<div class="thumbnail">
-<p><a href="./posts/why_I_dont_like_ipynb.html" class="no-external"></a></p><a href="./posts/why_I_dont_like_ipynb.html" class="no-external">
-<p class="card-img-top"><img src="posts\assets\ipynberror.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/why_I_dont_like_ipynb.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/why_I_dont_like_ipynb.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/why_I_dont_like_ipynb.html" class="no-external"></a>
-</div>
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="code,R_python_julia" data-listing-date-sort="1723154400000" data-listing-file-modified-sort="1723136117024" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="356">
+<a href="./posts/why_I_dont_like_ipynb.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img src="posts\assets\ipynberror.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+I prefer Rmd and qmd
+</h5>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
 code
@@ -249,34 +244,29 @@ code
 R_python_julia
 </div>
 </div>
-<div class="listing-description">
-<a href="./posts/why_I_dont_like_ipynb.html" class="no-external">Why I don’t like IPython Notebooks</a>
+<div class="card-text listing-description">
+Why I don’t like IPython Notebooks
 </div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Zhenglei Gao
 </div>
-<div class="metadata">
-<a href="./posts/why_I_dont_like_ipynb.html" class="no-external">
 <div class="listing-date">
 Aug 9, 2024
 </div>
-<div class="listing-author">
-Zhenglei Gao
+</div>
+</div>
 </div>
 </a>
 </div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="code,howto" data-listing-date-sort="1723068000000" data-listing-file-modified-sort="1723116427796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="37">
-<div class="thumbnail">
-<p><a href="./posts/proxy_powershell.html" class="no-external"></a></p><a href="./posts/proxy_powershell.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/proxy_powershell.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/proxy_powershell.html" class="no-external">How to deal with proxy issues</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/proxy_powershell.html" class="no-external"></a>
-</div>
+<div class="g-col-1" data-index="1" data-categories="code,howto" data-listing-date-sort="1723068000000" data-listing-file-modified-sort="1723116427796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="37">
+<a href="./posts/proxy_powershell.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+How to deal with proxy issues
+</h5>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
 code
@@ -285,34 +275,29 @@ code
 howto
 </div>
 </div>
-<div class="listing-description">
-<a href="./posts/proxy_powershell.html" class="no-external">Some hacks working in a corporate envrionment</a>
+<div class="card-text listing-description">
+Some hacks working in a corporate envrionment
 </div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Zhenglei Gao
 </div>
-<div class="metadata">
-<a href="./posts/proxy_powershell.html" class="no-external">
 <div class="listing-date">
 Aug 8, 2024
 </div>
-<div class="listing-author">
-Zhenglei Gao
+</div>
+</div>
 </div>
 </a>
 </div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="code,howto" data-listing-date-sort="1722981600000" data-listing-file-modified-sort="1723028392381" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="389">
-<div class="thumbnail">
-<p><a href="./posts/risk_metric.html" class="no-external"></a></p><a href="./posts/risk_metric.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/risk_metric.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/risk_metric.html" class="no-external">How to generate a risk asessment report for an R Package</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/risk_metric.html" class="no-external"></a>
-</div>
+<div class="g-col-1" data-index="2" data-categories="code,howto" data-listing-date-sort="1722981600000" data-listing-file-modified-sort="1723028392381" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="389">
+<a href="./posts/risk_metric.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+How to generate a risk asessment report for an R Package
+</h5>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
 code
@@ -321,34 +306,29 @@ code
 howto
 </div>
 </div>
-<div class="listing-description">
-<a href="./posts/risk_metric.html" class="no-external">Here is a collection of resources and my thoughts.</a>
+<div class="card-text listing-description">
+Here is a collection of resources and my thoughts.
 </div>
-</div>
-<div class="metadata">
-<a href="./posts/risk_metric.html" class="no-external">
-<div class="listing-date">
-Aug 7, 2024
-</div>
+<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Zhenglei Gao
 </div>
+<div class="listing-date">
+Aug 7, 2024
+</div>
+</div>
+</div>
+</div>
 </a>
 </div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="code,analysis" data-listing-date-sort="1722895200000" data-listing-file-modified-sort="1723028210571" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="./posts/test.html" class="no-external"></a></p><a href="./posts/test.html" class="no-external">
-<p class="card-img-top"><img src="posts\test_files\figure-html\unnamed-chunk-1-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/test.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/test.html" class="no-external">Testing blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/test.html" class="no-external"></a>
-</div>
+<div class="g-col-1" data-index="3" data-categories="code,analysis" data-listing-date-sort="1722895200000" data-listing-file-modified-sort="1723028210571" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<a href="./posts/test.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top"><img src="posts\test_files\figure-html\unnamed-chunk-1-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Testing blog
+</h5>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
 code
@@ -357,86 +337,73 @@ code
 analysis
 </div>
 </div>
-<div class="listing-description">
-<a href="./posts/test.html" class="no-external">Post description</a>
+<div class="card-text listing-description">
+Post description
 </div>
-</div>
-<div class="metadata">
-<a href="./posts/test.html" class="no-external">
-<div class="listing-date">
-Aug 6, 2024
-</div>
+<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Zhenglei Gao
 </div>
+<div class="listing-date">
+Aug 6, 2024
+</div>
+</div>
+</div>
+</div>
 </a>
 </div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="journal" data-listing-date-sort="1722895200000" data-listing-file-modified-sort="1722948307364" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="24">
-<div class="thumbnail">
-<p><a href="./posts/wacom_tablet.html" class="no-external"></a></p><a href="./posts/wacom_tablet.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/wacom_tablet.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/wacom_tablet.html" class="no-external">WACOM tablet</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/wacom_tablet.html" class="no-external"></a>
-</div>
+<div class="g-col-1" data-index="4" data-categories="journal" data-listing-date-sort="1722895200000" data-listing-file-modified-sort="1722948307364" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="24">
+<a href="./posts/wacom_tablet.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+WACOM tablet
+</h5>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('journal'); return false;">
 journal
 </div>
 </div>
-<div class="listing-description">
-<a href="./posts/wacom_tablet.html" class="no-external">My WACOM tablet arrived today</a>
+<div class="card-text listing-description">
+My WACOM tablet arrived today
 </div>
-</div>
-<div class="metadata">
-<a href="./posts/wacom_tablet.html" class="no-external">
-<div class="listing-date">
-Aug 6, 2024
-</div>
+<div class="card-attribution card-text-small justify">
 <div class="listing-author">
 Zhenglei Gao
 </div>
+<div class="listing-date">
+Aug 6, 2024
+</div>
+</div>
+</div>
+</div>
 </a>
 </div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="journal" data-listing-date-sort="1691532000000" data-listing-file-modified-sort="1723127428359" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="10">
-<div class="thumbnail">
-<p><a href="./posts/my_dso_journey.html" class="no-external"></a></p><a href="./posts/my_dso_journey.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/my_dso_journey.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/my_dso_journey.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/my_dso_journey.html" class="no-external"></a>
-</div>
+<div class="g-col-1" data-index="5" data-categories="journal" data-listing-date-sort="1691532000000" data-listing-file-modified-sort="1723127428359" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="10">
+<a href="./posts/my_dso_journey.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
+<div class="card-body post-contents">
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('journal'); return false;">
 journal
 </div>
 </div>
-<div class="listing-description">
-<a href="./posts/my_dso_journey.html" class="no-external">Why I don’t like IPython Notebooks</a>
+<div class="card-text listing-description">
+Why I don’t like IPython Notebooks
 </div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+Zhenglei Gao
 </div>
-<div class="metadata">
-<a href="./posts/my_dso_journey.html" class="no-external">
 <div class="listing-date">
 Aug 9, 2023
 </div>
-<div class="listing-author">
-Zhenglei Gao
+</div>
+</div>
 </div>
 </a>
-</div>
 </div>
 </div>
 <div class="listing-no-matching d-none">
