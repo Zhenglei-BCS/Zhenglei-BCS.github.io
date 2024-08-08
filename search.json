@@ -46,7 +46,17 @@
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "About this site: A temporary listings of my learnings and thoughts.\n\n1 + 1\n\n[1] 2",
+    "text": "Warning\n\n\n\nStill under construction.",
+    "crumbs": [
+      "About Me"
+    ]
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "About Me",
+    "section": "Experience",
+    "text": "Experience\nBayer AG | Environmental Statistician, Statistical Expert | 2016 - present\ntier3 solutions | Modelling Expert, Principal Statistician| 2011 - 2016\nBayer AG | Postdoc | 2010 - 2011",
     "crumbs": [
       "About Me"
     ]
@@ -56,7 +66,11 @@
     "href": "blog.html",
     "title": "Thoughts and Learnings",
     "section": "",
-    "text": "code\n\n\nR_python_julia\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to deal with proxy issues\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nSome hacks working in a corporate envrionment\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to generate a risk asessment report for an R Package\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nHere is a collection of resources and my thoughts.\n\n\n\n\n\nAug 7, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nTesting blog\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\njournal\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2023\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items"
+    "text": "code\n\n\nR_python_julia\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to deal with proxy issues\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nSome hacks working in a corporate envrionment\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to generate a risk asessment report for an R Package\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nHere is a collection of resources and my thoughts.\n\n\n\n\n\nAug 7, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nTesting blog\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\njournal\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2023\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Blog",
+      "Thoughts and Learnings"
+    ]
   },
   {
     "objectID": "posts/my_dso_journey.html",
