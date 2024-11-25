@@ -3,6 +3,7 @@
     "listing": "/blog.html",
     "items": [
       "/posts/Hessian_and_likehood.html",
+      "/posts/PseudoR2.html",
       "/posts/why_I_dont_like_ipynb.html",
       "/posts/proxy_powershell.html",
       "/posts/risk_metric.html",

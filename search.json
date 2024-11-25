@@ -14,36 +14,74 @@
     "text": "plot(mtcars)"
   },
   {
-    "objectID": "posts/proxy_powershell.html",
-    "href": "posts/proxy_powershell.html",
-    "title": "How to deal with proxy issues",
-    "section": "",
-    "text": "Note\n\n\n\nTo be written\nnetsh winhttp show proxy\nGet-ItemProperty -Path \"Registry::HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\"\nor\nreg query \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\""
-  },
-  {
-    "objectID": "posts/proxy_powershell.html#useful-resources",
-    "href": "posts/proxy_powershell.html#useful-resources",
-    "title": "How to deal with proxy issues",
-    "section": "Useful Resources",
-    "text": "Useful Resources\n\nPowerShell: Check If Port is Open – Test TCP Connection"
-  },
-  {
-    "objectID": "posts/Hessian_and_likehood.html",
-    "href": "posts/Hessian_and_likehood.html",
+    "objectID": "posts/PseudoR2.html",
+    "href": "posts/PseudoR2.html",
     "title": "Hessian and Likelihood",
     "section": "",
-    "text": "I was discussing with Johannes on how to calculate confidence intervals for a growth model, or more in general, confidence interval, credibal interval, prediction interval, tolerance interval. I need to write that up too. I have written him a formula for deriving the SEs from the Hessian matrix of the optim output or using the numDeriv::hessian function. However, our beloved myGenAssist does not agree with me. After a clarification with the assistant, we reached an agreement.\nAnyway, I first did a search on Hessian, likelihood, fisher information matrix and came to [this post] (https://stats.stackexchange.com/questions/381984/standard-error-from-hessian-matrix-when-likelihood-is-used-rather-than-ln-l). Below is to reproduce the results of that post.\nDenote \\[l(x) = \\ln L(x)\\] and ’ for differentiation,\n\\[l'(x) = \\frac{L'(x)}{L(x)}\\]\nand\n\\[l''(x) = \\frac{L''(x)}{L(x)}  - \\left(\\frac{L'(x)}{L(x)}\\right)^2\\]\nAt a critical point \\(x_0\\), \\(L'(x_0)\\) is 0, so\n\\[l''(x_0) = \\frac{L''(x_0)}{L(x_0)}\\]\nThe problem seems to be round-off error or objective functions being much, much smaller than the default stopping-rule thresholds as WarrenWeckesser and JimB pointed out.\n\n  x = c(1, 3, 4, 5, 7.5, 10, 12, 23, 39, 40)\n    \n    # The *exact* MLE for the normal distribution is\n    #    mu = mean(x),  sigma = sqrt(var(x)*(length(x) - 1)/length(x))\n    \n    p0 = c(mean=mean(x), sd=sd(x))\n    \n    Llikelihood &lt;- function(par, x) {\n       return(sum(dnorm(x, mean=par[\"mean\"], sd=abs(par[\"sd\"]), log = TRUE)))\n    }\n    o1 &lt;- optim(par=p0, fn=Llikelihood, x=x, hessian=TRUE, method=\"CG\", control=list(fnscale=-1, reltol=1e-12, maxit=10000))\n    \n    cat(\"\\n*** Using log-likelihood ***\\n\\n\")\n\n\n*** Using log-likelihood ***\n\n    cat(\"Estimated parameters:\\n\")\n\nEstimated parameters:\n\n    o1$par\n\n    mean       sd \n14.45000 13.83194 \n\n    cat(\"\\nEstimated Hessian:\\n\")\n\n\nEstimated Hessian:\n\n    o1$hessian\n\n            mean         sd\nmean -0.05226777  0.0000000\nsd    0.00000000 -0.1045355\n\n    cat(\"\\nEstimated standard errors:\\n\")\n\n\nEstimated standard errors:\n\n    sqrt(diag(solve(-o1$hessian)))\n\n    mean       sd \n4.374043 3.092915 \n\n    cat(\"\\n*** Using (plain) likelihood ***\\n\\n\")\n\n\n*** Using (plain) likelihood ***\n\n    likelihood &lt;- function(par, x) {\n     return(prod(dnorm(x, mean=par[\"mean\"], sd=abs(par[\"sd\"]), log = FALSE)))\n    }\n    o2 &lt;- optim(par=p0, fn=likelihood, x=x, hessian=TRUE, method=\"CG\", control=list(fnscale=-likelihood(p0, x), reltol=1e-12, maxit=10000))\n    \n    cat(\"Estimated parameters:\\n\")\n\nEstimated parameters:\n\n    o2$par\n\n    mean       sd \n14.45000 13.83194 \n\n    cat(\"\\nEstimated Hessian of neg. log likelihood:\\n\")\n\n\nEstimated Hessian of neg. log likelihood:\n\n    o2$hessian/o2$value\n\n              mean            sd\nmean -5.226776e-02 -5.404307e-11\nsd   -5.404307e-11 -1.045355e-01\n\n    cat(\"\\nEstimated standard errors:\\n\")\n\n\nEstimated standard errors:\n\n    sqrt(diag(solve(-o2$hessian/o2$value)))\n\n    mean       sd \n4.374043 3.092916 \n\n\n\nset.seed(12345)\nx = rnorm(10,3,4)\nx = rnorm(100,3,4)\nLlikelihood &lt;- function(par, x) {\n    return(sum(dnorm(x, mean=par[\"mean\"], sd=abs(par[\"sd\"]), log = TRUE)))\n }\no &lt;- optim(par=c(mean=3, sd=4), fn=Llikelihood, x=x, hessian = TRUE, control=list(fnscale=-1))\nsqrt(diag(solve(-o$hessian)))\n\n     mean        sd \n0.4440061 0.3139321 \n\nlikelihood &lt;- function(par, x) {\n  return(prod(dnorm(x, mean=par[\"mean\"], sd=abs(par[\"sd\"]), log = FALSE)))\n}\n\nlikelihood_amplified &lt;- function(par, x) {\n  return(10^128*prod(dnorm(x, mean=par[\"mean\"], sd=abs(par[\"sd\"]), log = FALSE)))\n }\no &lt;- optim(par=c(mean=3, sd=4), fn=likelihood, x=x, hessian = TRUE, control=list(fnscale=-1))\nsqrt(diag(solve(-o$hessian/o$value)))\n\n     mean        sd \n0.2792765 0.1573949 \n\no &lt;- optim(par=c(mean=3, sd=4), fn=likelihood_amplified, x=x, hessian = TRUE, control=list(fnscale=-1))\nsqrt(diag(solve(-o$hessian/o$value)))\n\n     mean        sd \n0.4440330 0.3139792"
+    "text": "When discussing with Johannes, I mentioned that GoF is making sense when comparing with other models, most of the time with Null or full models."
   },
   {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Thoughts and Learnings",
+    "objectID": "posts/PseudoR2.html#general-considerations",
+    "href": "posts/PseudoR2.html#general-considerations",
+    "title": "Hessian and Likelihood",
+    "section": "General considerations",
+    "text": "General considerations\nWhen used in nonlinear regression, the pseudo \\(R^2\\) cannot be interpreted as in linear regression."
+  },
+  {
+    "objectID": "posts/PseudoR2.html#try-with-some-examples",
+    "href": "posts/PseudoR2.html#try-with-some-examples",
+    "title": "Hessian and Likelihood",
+    "section": "Try with some examples",
+    "text": "Try with some examples\nFrom the pscl package:\n\nllh: The log-likelihood from the fitted model\nllhNull: The log-likelihood from the intercept-only restricted model\nG2: Minus two times the difference in the log-likelihoods\nMcFadden: McFadden’s pseudo r-squared\nr2ML: Maximum likelihood pseudo r-squared\nr2CU: Cragg and Uhler’s pseudo r-squared\n\n\nExample with random data\n\n# Load necessary libraries\nlibrary(MASS)\n## install.packages(\"pscl\")\nlibrary(pscl)  # For the pseudo R-squared function\n\nWarning: package 'pscl' was built under R version 4.4.2\n\n\nClasses and Methods for R originally developed in the\nPolitical Science Computational Laboratory\nDepartment of Political Science\nStanford University (2002-2015),\nby and under the direction of Simon Jackman.\nhurdle and zeroinfl functions by Achim Zeileis.\n\n# Simulate some data\nset.seed(123)\nn &lt;- 100\nx &lt;- rnorm(n)\ny &lt;- rbinom(n, 1, prob = 0.5)  # Random binary outcome that is not related to x\n\n# Fit a logistic regression model\nmodel &lt;- glm(y ~ x, family = binomial)\n\n# Calculate pseudo R-squared\npseudo_r2 &lt;- pR2(model)\n\nfitting null model for pseudo-r2\n\nprint(pseudo_r2)\n\n          llh       llhNull            G2      McFadden          r2ML \n-68.920601482 -69.234696709   0.628190454   0.004536674   0.006262215 \n         r2CU \n  0.008354080 \n\nsummary(lm(y~predict(model)))\n\n\nCall:\nlm(formula = y ~ predict(model))\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-0.5428 -0.4866 -0.3965  0.5260  0.5735 \n\nCoefficients:\n               Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)     0.49998    0.05637   8.870 3.42e-14 ***\npredict(model)  0.24817    0.31575   0.786    0.434    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.5031 on 98 degrees of freedom\nMultiple R-squared:  0.006264,  Adjusted R-squared:  -0.003876 \nF-statistic: 0.6177 on 1 and 98 DF,  p-value: 0.4338\n\n# Check the model summary\nsummary(model)\n\n\nCall:\nglm(formula = y ~ x, family = binomial)\n\nCoefficients:\n            Estimate Std. Error z value Pr(&gt;|z|)\n(Intercept) -0.09639    0.20191  -0.477    0.633\nx            0.17543    0.22231   0.789    0.430\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 138.47  on 99  degrees of freedom\nResidual deviance: 137.84  on 98  degrees of freedom\nAIC: 141.84\n\nNumber of Fisher Scoring iterations: 3\n\n# Visualize the fit\nplot(x, y, main = \"Logistic Regression Fit\", xlab = \"x\", ylab = \"y\")\npoints(x, fitted(model), col = \"red\", pch = 19)\n\n\n\n\n\n\n\n\n\n\nExample where R2 works\n\n# Simulate data with outliers\n# Load necessary libraries\nlibrary(MASS)\nlibrary(pscl)  # For the pseudo R-squared function\n\n# Simulate some data\nset.seed(456)\nn &lt;- 100\nx &lt;- rnorm(n)\nx0 &lt;- x\n# Create a binary outcome based on a logistic function\ny &lt;- rbinom(n, 1, prob = plogis(x))\ny0 &lt;- y\n# Introduce influential points by adding extreme values to the predictor\nr1 &lt;- order(x)\nind &lt;- r1[91:100]\nind &lt;- r1[1:10]\nx[ind] &lt;- rep(3, 10)  # Make these points influential by shifting x\n\n# Recalculate the binary response based on the new x values\ny[ind] &lt;- rbinom(10, 1, prob = plogis(x[ind]))  # Ensure y is binary\n\n# Fit a logistic regression model\nmodel_with_influential_points &lt;- glm(y ~ x0, family = binomial)\nsummary(lm(y~predict(model_with_influential_points)))\n\n\nCall:\nlm(formula = y ~ predict(model_with_influential_points))\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-0.6966 -0.5061  0.3009  0.4337  0.6795 \n\nCoefficients:\n                                       Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)                             0.49994    0.05396   9.265 4.77e-15 ***\npredict(model_with_influential_points)  0.24128    0.12965   1.861   0.0657 .  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4948 on 98 degrees of freedom\nMultiple R-squared:  0.03413,   Adjusted R-squared:  0.02428 \nF-statistic: 3.463 on 1 and 98 DF,  p-value: 0.06574\n\nmodel_without_influential_points &lt;- glm(y ~ x, family = binomial)\nsummary(lm(y0~predict(model_without_influential_points)))\n\n\nCall:\nlm(formula = y0 ~ predict(model_without_influential_points))\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-0.6667 -0.4104 -0.3316  0.5131  0.6904 \n\nCoefficients:\n                                          Estimate Std. Error t value Pr(&gt;|t|)\n(Intercept)                                0.43755    0.05067   8.635  1.1e-13\npredict(model_without_influential_points)  0.05975    0.03029   1.973   0.0513\n                                             \n(Intercept)                               ***\npredict(model_without_influential_points) .  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4937 on 98 degrees of freedom\nMultiple R-squared:  0.03819,   Adjusted R-squared:  0.02838 \nF-statistic: 3.892 on 1 and 98 DF,  p-value: 0.05135\n\n# Calculate pseudo R-squared\npseudo_r2_outliers &lt;- pR2(model_with_influential_points)\n\nfitting null model for pseudo-r2\n\nprint(pseudo_r2_outliers)\n\n         llh      llhNull           G2     McFadden         r2ML         r2CU \n-67.26284391 -68.99437585   3.46306388   0.02509671   0.03403786   0.04548126 \n\nrbind(pseudo_r2_outliers,pR2(model_without_influential_points))\n\nfitting null model for pseudo-r2\n\n\n                         llh   llhNull        G2   McFadden       r2ML\npseudo_r2_outliers -67.26284 -68.99438  3.463064 0.02509671 0.03403786\n                   -51.49928 -68.99438 34.990197 0.25357282 0.29524283\n                         r2CU\npseudo_r2_outliers 0.04548126\n                   0.39450231\n\n# Check the model summary\nsummary(model_with_influential_points)\n\n\nCall:\nglm(formula = y ~ x0, family = binomial)\n\nCoefficients:\n            Estimate Std. Error z value Pr(&gt;|z|)  \n(Intercept)   0.1199     0.2051   0.585   0.5588  \nx0            0.3830     0.2103   1.821   0.0686 .\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 137.99  on 99  degrees of freedom\nResidual deviance: 134.53  on 98  degrees of freedom\nAIC: 138.53\n\nNumber of Fisher Scoring iterations: 4\n\n# Predict probabilities\npredicted_probabilities &lt;- predict(model_with_influential_points, type = \"response\")\n\n# Classify predictions (using 0.5 as the cutoff)\npredicted_classes &lt;- ifelse(predicted_probabilities &gt; 0.5, 1, 0)\n\n# Calculate classification error\nclassification_error &lt;- mean(predicted_classes != y)\nprint(paste(\"Classification Error:\", round(classification_error, 4)))\n\n[1] \"Classification Error: 0.42\"\n\n# Predict probabilities\npredicted_probabilities &lt;- predict(model_without_influential_points, type = \"response\")\n\n# Classify predictions (using 0.5 as the cutoff)\npredicted_classes &lt;- ifelse(predicted_probabilities &gt; 0.5, 1, 0)\n\n# Calculate classification error\nclassification_error &lt;- mean(predicted_classes != y0)\nprint(paste(\"Classification Error:\", round(classification_error, 4)))\n\n[1] \"Classification Error: 0.3\"\n\n# Visualize the fit\nplot(x0, y, main = \"Logistic Regression Fit with Influential Points\", xlab = \"x\", ylab = \"y\", ylim = c(-0.1, 1.1))\npoints(x0, fitted(model_with_influential_points), col = \"green\", pch = 3)\npoints(x0[ind], y0[ind]-0.1, col = \"red\", pch = 3)\npoints(x0[ind], y[ind]-0.05, col = \"darkgreen\", pch = 4)\npoints(x0, fitted(model_without_influential_points), col = \"red\", pch = 19)"
+  },
+  {
+    "objectID": "posts/PseudoR2.html#a-case-where-r2-can-be-0-to-1",
+    "href": "posts/PseudoR2.html#a-case-where-r2-can-be-0-to-1",
+    "title": "Hessian and Likelihood",
+    "section": "A case where R^2 can be 0 to 1",
+    "text": "A case where R^2 can be 0 to 1\ndepending on x is between (-3,3), (-3,6), (-1,3)!\n\n# Create data that does not fit a logistic model well\nset.seed(789)\nn &lt;- 100\nx &lt;- seq(-3, 6, length.out = n)\ny &lt;- ifelse(x^2 &gt; 1, 1, 0)  # Nonlinear relationship\ny1 &lt;- ifelse(x &gt; 0, 1, 0)  # Perfect fit\n# Fit a logistic regression model\nmodel_nonlinear &lt;- glm(y ~ x, family = binomial)\n\n# Calculate pseudo R-squared\npseudo_r2_nonlinear &lt;- pR2(model_nonlinear)\n\nfitting null model for pseudo-r2\n\nprint(pseudo_r2_nonlinear)\n\n         llh      llhNull           G2     McFadden         r2ML         r2CU \n-48.80265582 -53.92763415  10.24995667   0.09503436   0.09742146   0.14762782 \n\nxa &lt;- rep(1,length(y))\nsummary(lm(y~predict(model_nonlinear)))\n\n\nCall:\nlm(formula = y ~ predict(model_nonlinear))\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-0.74495  0.01252  0.12525  0.23797  0.45545 \n\nCoefficients:\n                         Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)               0.54857    0.07910   6.935 4.38e-10 ***\npredict(model_nonlinear)  0.16011    0.04918   3.256  0.00155 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 0.4038 on 98 degrees of freedom\nMultiple R-squared:  0.0976,    Adjusted R-squared:  0.08839 \nF-statistic:  10.6 on 1 and 98 DF,  p-value: 0.001554\n\n# Check the model summary\nsummary(model_nonlinear)\n\n\nCall:\nglm(formula = y ~ x, family = binomial)\n\nCoefficients:\n            Estimate Std. Error z value Pr(&gt;|z|)    \n(Intercept)   0.9136     0.2547   3.588 0.000334 ***\nx             0.3129     0.1054   2.969 0.002991 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 107.855  on 99  degrees of freedom\nResidual deviance:  97.605  on 98  degrees of freedom\nAIC: 101.61\n\nNumber of Fisher Scoring iterations: 4\n\n# Visualize the fit\nplot(x, y, main = \"Logistic Regression Fit for Nonlinear Data\", xlab = \"x\", ylab = \"y\")\npoints(x, fitted(model_nonlinear), col = \"red\", pch = 19)"
+  },
+  {
+    "objectID": "posts/PseudoR2.html#some-additional-notes",
+    "href": "posts/PseudoR2.html#some-additional-notes",
+    "title": "Hessian and Likelihood",
+    "section": "Some Additional Notes",
+    "text": "Some Additional Notes\n\nhttps://rcompanion.org/rcompanion/b_04.html"
+  },
+  {
+    "objectID": "posts/PseudoR2.html#g-test-likelihood-ratio-test",
+    "href": "posts/PseudoR2.html#g-test-likelihood-ratio-test",
+    "title": "Hessian and Likelihood",
+    "section": "G-test = Likelihood ratio test?",
+    "text": "G-test = Likelihood ratio test?\n\nobserved = c(1752, 1895)    # observed frequencies\nexpected = c(0.5, 0.5)      # expected proportions\n\nlibrary(DescTools)\n\nWarning: package 'DescTools' was built under R version 4.4.2\n\nGTest(x=observed,\n      p=expected,\n      correct=\"none\") \n\n\n    Log likelihood ratio (G-test) goodness of fit test\n\ndata:  observed\nG = 5.6085, X-squared df = 1, p-value = 0.01787\n\ndegrees = 1                       # degrees of freedom\n\n\n\nobserved      = c(1752, 1895)     # observed frequencies\nexpected.prop = c(0.5, 0.5)       # expected proportions\nexpected.count = sum(observed)*expected.prop\n\nG = 2 * sum(observed * log(observed / expected.count))\n\npchisq(G,\n       df=degrees,\n       lower.tail=FALSE)\n\n[1] 0.01787343\n\n\n\n\\(R^2\\) can only increase when adding more variables"
+  },
+  {
+    "objectID": "posts/PseudoR2.html#an-error-in-reporting-r2.",
+    "href": "posts/PseudoR2.html#an-error-in-reporting-r2.",
+    "title": "Hessian and Likelihood",
+    "section": "An error in reporting R2.",
+    "text": "An error in reporting R2.\nThe null mean model is different in those two types of model specifications, even though they are the same model.\n\n\n\n\n\n\nNote\n\n\n\nr.squared: R^2, the ‘fraction of variance explained by the model’, R^2 = 1 - Sum(R[i]^2) / Sum((y[i]- y)^2), where y is the mean of y[i] if there is an intercept and zero otherwise.\n\n\n\nlibrary(\"sigr\")\n\nWarning: package 'sigr' was built under R version 4.4.2\n\nlibrary(\"broom\")\nset.seed(23255)\n\nd &lt;- data.frame(y= runif(100),\n                x= ifelse(runif(100)&gt;=0.5, 'a', 'b'),\n                stringsAsFactors = FALSE)\nm1 &lt;- lm(y~x, data=d)\nt(broom::glance(m1))\n\n                       [,1]\nr.squared       0.002177326\nadj.r.squared  -0.008004538\nsigma           0.302851476\nstatistic       0.213843593\np.value         0.644796456\ndf              1.000000000\nlogLik        -21.432440763\nAIC            48.864881526\nBIC            56.680392084\ndeviance        8.988463618\ndf.residual    98.000000000\nnobs          100.000000000\n\nd$pred1 &lt;- predict(m1, newdata = d)\ncat(render(sigr::wrapFTest(d, 'pred1', 'y'),\n           format='markdown'))\n\n**F Test** summary: (&lt;i&gt;R^2^&lt;/i&gt;=0.002177, *F*(1,98)=0.2138, *p*=n.s.).\n\nm2 &lt;- lm(y~0+x, data=d)\nt(broom::glance(m2))\n\n                       [,1]\nr.squared      7.524811e-01\nadj.r.squared  7.474297e-01\nsigma          3.028515e-01\nstatistic      1.489647e+02\np.value        1.935559e-30\ndf             2.000000e+00\nlogLik        -2.143244e+01\nAIC            4.886488e+01\nBIC            5.668039e+01\ndeviance       8.988464e+00\ndf.residual    9.800000e+01\nnobs           1.000000e+02"
+  },
+  {
+    "objectID": "posts/my_dso_journey.html",
+    "href": "posts/my_dso_journey.html",
+    "title": "Zhenglei Gao",
     "section": "",
-    "text": "Hessian and Likelihood\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nA discussion on confidence intervals\n\n\n\n\n\nNov 20, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nI prefer Rmd and qmd\n\n\n\n\n\n\ncode\n\n\nR_python_julia\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to deal with proxy issues\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nSome hacks working in a corporate envrionment\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to generate a risk asessment report for an R Package\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nHere is a collection of resources and my thoughts.\n\n\n\n\n\nAug 7, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to publish the site\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nMy DSO Journey\n\n\n\n\n\n\njournal\n\n\n\nI realized I have been working as a self contributor\n\n\n\n\n\nAug 9, 2023\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items",
-    "crumbs": [
-      "Blog",
-      "Thoughts and Learnings"
-    ]
+    "text": "Warning\n\n\n\nTo be recorded."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Zhenglei Gao",
+    "section": "",
+    "text": "Warning\n\n\n\nStill under construction."
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "Zhenglei Gao",
+    "section": "Experience",
+    "text": "Experience\nBayer AG | Environmental Statistician, Statistical Expert | 2016 - present\ntier3 solutions | Modelling Expert, Principal Statistician| 2011 - 2016\nBayer AG | Postdoc | 2010 - 2011"
   },
   {
     "objectID": "about.html",
@@ -66,25 +104,36 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Zhenglei Gao",
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Thoughts and Learnings",
     "section": "",
-    "text": "Warning\n\n\n\nStill under construction."
+    "text": "Hessian and Likelihood\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nA discussion on confidence intervals\n\n\n\n\n\nNov 20, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHessian and Likelihood\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nA discussion on confidence intervals\n\n\n\n\n\nNov 20, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nI prefer Rmd and qmd\n\n\n\n\n\n\ncode\n\n\nR_python_julia\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to deal with proxy issues\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nSome hacks working in a corporate envrionment\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to generate a risk asessment report for an R Package\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nHere is a collection of resources and my thoughts.\n\n\n\n\n\nAug 7, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to publish the site\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nPost description\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nMy DSO Journey\n\n\n\n\n\n\njournal\n\n\n\nI realized I have been working as a self contributor\n\n\n\n\n\nAug 9, 2023\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Blog",
+      "Thoughts and Learnings"
+    ]
   },
   {
-    "objectID": "index.html#experience",
-    "href": "index.html#experience",
-    "title": "Zhenglei Gao",
-    "section": "Experience",
-    "text": "Experience\nBayer AG | Environmental Statistician, Statistical Expert | 2016 - present\ntier3 solutions | Modelling Expert, Principal Statistician| 2011 - 2016\nBayer AG | Postdoc | 2010 - 2011"
+    "objectID": "posts/Hessian_and_likehood.html",
+    "href": "posts/Hessian_and_likehood.html",
+    "title": "Hessian and Likelihood",
+    "section": "",
+    "text": "I was discussing with Johannes on how to calculate confidence intervals for a growth model, or more in general, confidence interval, credibal interval, prediction interval, tolerance interval. I need to write that up too. I have written him a formula for deriving the SEs from the Hessian matrix of the optim output or using the numDeriv::hessian function. However, our beloved myGenAssist does not agree with me. After a clarification with the assistant, we reached an agreement.\nAnyway, I first did a search on Hessian, likelihood, fisher information matrix and came to [this post] (https://stats.stackexchange.com/questions/381984/standard-error-from-hessian-matrix-when-likelihood-is-used-rather-than-ln-l). Below is to reproduce the results of that post.\nDenote \\[l(x) = \\ln L(x)\\] and ’ for differentiation,\n\\[l'(x) = \\frac{L'(x)}{L(x)}\\]\nand\n\\[l''(x) = \\frac{L''(x)}{L(x)}  - \\left(\\frac{L'(x)}{L(x)}\\right)^2\\]\nAt a critical point \\(x_0\\), \\(L'(x_0)\\) is 0, so\n\\[l''(x_0) = \\frac{L''(x_0)}{L(x_0)}\\]\nThe problem seems to be round-off error or objective functions being much, much smaller than the default stopping-rule thresholds as WarrenWeckesser and JimB pointed out.\n\n  x = c(1, 3, 4, 5, 7.5, 10, 12, 23, 39, 40)\n    \n    # The *exact* MLE for the normal distribution is\n    #    mu = mean(x),  sigma = sqrt(var(x)*(length(x) - 1)/length(x))\n    \n    p0 = c(mean=mean(x), sd=sd(x))\n    \n    Llikelihood &lt;- function(par, x) {\n       return(sum(dnorm(x, mean=par[\"mean\"], sd=abs(par[\"sd\"]), log = TRUE)))\n    }\n    o1 &lt;- optim(par=p0, fn=Llikelihood, x=x, hessian=TRUE, method=\"CG\", control=list(fnscale=-1, reltol=1e-12, maxit=10000))\n    \n    cat(\"\\n*** Using log-likelihood ***\\n\\n\")\n\n\n*** Using log-likelihood ***\n\n    cat(\"Estimated parameters:\\n\")\n\nEstimated parameters:\n\n    o1$par\n\n    mean       sd \n14.45000 13.83194 \n\n    cat(\"\\nEstimated Hessian:\\n\")\n\n\nEstimated Hessian:\n\n    o1$hessian\n\n            mean         sd\nmean -0.05226777  0.0000000\nsd    0.00000000 -0.1045355\n\n    cat(\"\\nEstimated standard errors:\\n\")\n\n\nEstimated standard errors:\n\n    sqrt(diag(solve(-o1$hessian)))\n\n    mean       sd \n4.374043 3.092915 \n\n    cat(\"\\n*** Using (plain) likelihood ***\\n\\n\")\n\n\n*** Using (plain) likelihood ***\n\n    likelihood &lt;- function(par, x) {\n     return(prod(dnorm(x, mean=par[\"mean\"], sd=abs(par[\"sd\"]), log = FALSE)))\n    }\n    o2 &lt;- optim(par=p0, fn=likelihood, x=x, hessian=TRUE, method=\"CG\", control=list(fnscale=-likelihood(p0, x), reltol=1e-12, maxit=10000))\n    \n    cat(\"Estimated parameters:\\n\")\n\nEstimated parameters:\n\n    o2$par\n\n    mean       sd \n14.45000 13.83194 \n\n    cat(\"\\nEstimated Hessian of neg. log likelihood:\\n\")\n\n\nEstimated Hessian of neg. log likelihood:\n\n    o2$hessian/o2$value\n\n              mean            sd\nmean -5.226776e-02 -5.404307e-11\nsd   -5.404307e-11 -1.045355e-01\n\n    cat(\"\\nEstimated standard errors:\\n\")\n\n\nEstimated standard errors:\n\n    sqrt(diag(solve(-o2$hessian/o2$value)))\n\n    mean       sd \n4.374043 3.092916 \n\n\n\nset.seed(12345)\nx = rnorm(10,3,4)\nx = rnorm(100,3,4)\nLlikelihood &lt;- function(par, x) {\n    return(sum(dnorm(x, mean=par[\"mean\"], sd=abs(par[\"sd\"]), log = TRUE)))\n }\no &lt;- optim(par=c(mean=3, sd=4), fn=Llikelihood, x=x, hessian = TRUE, control=list(fnscale=-1))\nsqrt(diag(solve(-o$hessian)))\n\n     mean        sd \n0.4440061 0.3139321 \n\nlikelihood &lt;- function(par, x) {\n  return(prod(dnorm(x, mean=par[\"mean\"], sd=abs(par[\"sd\"]), log = FALSE)))\n}\n\nlikelihood_amplified &lt;- function(par, x) {\n  return(10^128*prod(dnorm(x, mean=par[\"mean\"], sd=abs(par[\"sd\"]), log = FALSE)))\n }\no &lt;- optim(par=c(mean=3, sd=4), fn=likelihood, x=x, hessian = TRUE, control=list(fnscale=-1))\nsqrt(diag(solve(-o$hessian/o$value)))\n\n     mean        sd \n0.2792765 0.1573949 \n\no &lt;- optim(par=c(mean=3, sd=4), fn=likelihood_amplified, x=x, hessian = TRUE, control=list(fnscale=-1))\nsqrt(diag(solve(-o$hessian/o$value)))\n\n     mean        sd \n0.4440330 0.3139792"
   },
   {
-    "objectID": "posts/my_dso_journey.html",
-    "href": "posts/my_dso_journey.html",
-    "title": "Zhenglei Gao",
+    "objectID": "posts/proxy_powershell.html",
+    "href": "posts/proxy_powershell.html",
+    "title": "How to deal with proxy issues",
     "section": "",
-    "text": "Warning\n\n\n\nTo be recorded."
+    "text": "Note\n\n\n\nTo be written\nnetsh winhttp show proxy\nGet-ItemProperty -Path \"Registry::HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\"\nor\nreg query \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\""
+  },
+  {
+    "objectID": "posts/proxy_powershell.html#useful-resources",
+    "href": "posts/proxy_powershell.html#useful-resources",
+    "title": "How to deal with proxy issues",
+    "section": "Useful Resources",
+    "text": "Useful Resources\n\nPowerShell: Check If Port is Open – Test TCP Connection"
   },
   {
     "objectID": "posts/risk_metric.html",
