@@ -1,9 +1,42 @@
 ---
 title: "About Me"
+toc: false
+about: 
+  id: hero-heading
+  template: trestles
+  image-shape: round
+  image-width: 20em
+  links:
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/zhenglei-gao-069967b/
+    - text: GitHub
+      href: https://github.com/Zhenglei-BCS
+    - text: Email
+      href: mailto:zhenglei.gao@bayer.com
 ---
 
-About this site: A temporary listings of my learnings and thoughts.
+::: callout-warning
+Still under construction.
+:::
 
-```{r}
-1 + 1
-```
+::: {#hero-heading}
+
+- Work as a statistician.
+- Love data and data interpretation and enjoy challenges in this area.
+- Do coding but not a programmer.
+
+
+
+## Experience
+
+Bayer AG \| Environmental Statistician, Statistical Expert \| 2016 - present
+
+tier3 solutions \| Modelling Expert, Principal Statistician\| 2011 - 2016
+
+Bayer AG \| Postdoc  \| 2010 - 2011
+:::
+
+### This content appears below the formatted about page content.
+
+Not sure what I should put here. 
+- Love food and cooking.

@@ -1,0 +1,15 @@
+{
+  "hash": "2f76c5ecba67c1567c4f8cd9e274072d",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"How to deal with proxy issues\"\ndescription: \"Some hacks working in a corporate envrionment\"\nauthor: \"Zhenglei Gao\"\ndate: \"8/08/2024\"\ncategories:\n  - code\n  - howto\n---\n\n\n::: {.callout-note}\nTo be written\n:::\n\n\n\n\n\n- show system-wide proxy settings\n\n\n::: {.cell}\n\n```{.bash .cell-code}\nnetsh winhttp show proxy\n```\n:::\n\n\n- Get user-specific proxy settings\n\n\n::: {.cell}\n\n```{.bash .cell-code}\nGet-ItemProperty -Path \"Registry::HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\"\n```\n:::\n\n\nor \n\n\n::: {.cell}\n\n```{.bash .cell-code}\nreg query \"HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\"\n```\n:::\n\n\n\n## Useful Resources\n\n- [PowerShell: Check If Port is Open – Test TCP Connection](https://www.shellhacks.com/powershell-check-if-port-is-open-test-tcp-connection/)\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

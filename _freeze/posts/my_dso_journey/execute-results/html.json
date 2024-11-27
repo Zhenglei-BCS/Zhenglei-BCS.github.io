@@ -1,0 +1,15 @@
+{
+  "hash": "0a053053da4ac959f72cf8782e6e3e6e",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"\"\ndescription: \"Why I don't like IPython Notebooks\"\nauthor: \"Zhenglei Gao\"\ndate: \"8/09/2023\"\ncategories:\n  - journal\n---\n\n\n::: {.callout-warning}\nTo be recorded. \n:::\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,5 +1,5 @@
 ---
-title: "Testing blog"
+title: "How to publish the site"
 description: "Post description"
 author: "Zhenglei Gao"
 date: "8/06/2024"

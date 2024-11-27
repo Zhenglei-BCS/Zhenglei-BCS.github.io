@@ -1,0 +1,164 @@
+---
+title: "Check overdispersion"
+description: "binomial and poisson overdispersion checks"
+author: "Zhenglei Gao"
+date: "11/20/2024"
+categories:
+  - code
+  - Stats
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+
+- https://cran.r-project.org/web/packages/aods3/
+- https://cran.r-project.org/web/packages/dispmod/dispmod.pdf
+- https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html
+- performance::check_overdispersion
+- https://stats.stackexchange.com/questions/409490/how-do-i-carry-out-a-significance-test-with-tarones-z-statistic
+- https://rpubs.com/cakapourani/beta-binomial
+
+## Overdipersion from package performance
+
+```{r eval=F}
+library(glmmTMB)
+data(Salamanders)
+m <- glm(count ~ spp + mined, family = poisson, data = Salamanders)
+check_overdispersion(m)
+
+m <- glmmTMB(
+  count ~ mined + spp + (1 | site),
+  family = poisson,
+  data = Salamanders
+)
+check_overdispersion(m)
+```
+
+```{r}
+library(dispmod)
+help(glm.binomial.disp)
+data(orobanche)
+mod <- glm(cbind(germinated, seeds-germinated) ~ host*variety, data = orobanche,
+           family = binomial(logit))
+summary(mod)
+
+mod.disp <- glm.binomial.disp(mod)
+summary(mod.disp)
+mod.disp$dispersion
+```
+
+```{r}
+library(DHARMa)
+citation("DHARMa")
+```
+
+
+## Tarone's test
+
+```{r}
+#' Tarone's Z Test
+#' 
+#' Tests the goodness of fit of the binomial distribution.
+#' 
+#' @param M Counts
+#' @param N Trials
+#' 
+#' @return a \code{htest} object
+#' 
+#' @author \href{https://stats.stackexchange.com/users/173082/reinstate-monica}{Ben O'Neill}
+#' @references \url{https://stats.stackexchange.com/a/410376/6378} and
+#' R. E. TARONE, Testing the goodness of fit of the binomial distribution, Biometrika, Volume 66, Issue 3, December 1979, Pages 585–590, \url{https://doi.org/10.1093/biomet/66.3.585}
+#' @importFrom stats pnorm
+#' @export
+#' @examples 
+#'  #Generate example data
+#' N <- c(30, 32, 40, 28, 29, 35, 30, 34, 31, 39)
+#' M <- c( 9, 10, 22, 15,  8, 19, 16, 19, 15, 10)
+#' Tarone.test(N, M)
+Tarone.test <- function(N, M) {
+  
+  #Check validity of inputs
+  if(!(all(N == as.integer(N)))) { stop("Error: Number of trials should be integers"); }
+  if(min(N) < 1) { stop("Error: Number of trials should be positive"); }
+  if(!(all(M == as.integer(M)))) { stop("Error: Count values should be integers"); }
+  if(min(M) < 0) { stop("Error: Count values cannot be negative"); }
+  if(any(M > N)) { stop("Error: Observed count value exceeds number of trials"); }
+  
+  #Set description of test and data
+  method      <- "Tarone's Z test";
+  data.name   <- paste0(deparse(substitute(M)), " successes from ", 
+                        deparse(substitute(N)), " trials");
+  
+  #Set null and alternative hypotheses
+  null.value  <- 0;
+  attr(null.value, "names") <- "dispersion parameter";
+  alternative <- "greater";
+  
+  #Calculate test statistics
+  estimate    <- sum(M)/sum(N);
+  attr(estimate, "names") <- "proportion parameter";
+  S           <- ifelse(estimate == 1, sum(N),
+                        sum((M - N*estimate)^2/(estimate*(1 - estimate))));
+  statistic   <- (S - sum(N))/sqrt(2*sum(N*(N-1))); 
+  attr(statistic, "names") <- "z";
+  
+  #Calculate p-value
+  p.value     <- 2*pnorm(-abs(statistic), 0, 1);
+  attr(p.value, "names") <- NULL;
+  
+  #Create htest object
+  TEST        <- list(method = method, data.name = data.name,
+                      null.value = null.value, alternative = alternative,
+                      estimate = estimate, statistic = statistic, p.value = p.value);
+  class(TEST) <- "htest";
+  TEST; 
+}
+```
+
+
+```{r}
+#Generate example data
+N <- c(30, 32, 40, 28, 29, 35, 30, 34, 31, 39);
+M <- c( 9, 10, 22, 15,  8, 19, 16, 19, 15, 10);
+#Apply Tarone's test to the example data
+TEST <- Tarone.test(N, M);
+TEST;
+```
+In this case we have a low p-value, so we find strong evidence to reject the null hypothesis of a binomial distribution in favour of the alternative of over-dispersion. We can fit the data to the beta-binomial model to estimate the dispersion parameter:
+
+```{r}
+#Fit the example data to a beta-binomial distribution
+DATA <- data.frame(m=M,n=N)
+library(VGAM)
+MODEL <- VGAM::vglm(cbind(DATA$m, DATA$n-DATA$m) ~ 1, betabinomial, trace = FALSE);
+Coef(MODEL);
+```
+
+
+```{r}
+library(lme4)
+set.seed(101)
+
+# "actual" data
+intercept <- 0.1; slope <- 0.8
+covariate <- runif(1000)
+latent_response <- intercept + covariate*slope
+observed_response <- rbinom(1000, prob=plogis(latent_response), size=10)
+realdat <- data.frame(m = observed_response, n=rep(10,1000), x = covariate, grp = rep(1:100, each = 10))
+null <- glmer(cbind(m, n-m) ~ x + (1|grp), data=realdat, family="binomial")
+
+# parametric bootstrap with function from Ben's answer
+sims <- replicate(1000,{ fakedat <- simulate(null)[[1]]; Tarone.test(rowSums(fakedat), fakedat[,1])$statistic })
+obs <- Tarone.test(realdat$n, realdat$m)$statistic
+# approximate one-tailed pval
+sum(sims > obs)/length(sims)
+hist(sims);abline(v=obs,col="red") #no evidence for overdispersion
+
+# what if covariate was not measured?
+null2 <- glmer(cbind(n, n-m) ~ (1|grp), data=realdat, family="binomial")
+sims2 <- replicate(1000,{ fakedat <- simulate(null2)[[1]]; Tarone.test(rowSums(fakedat), fakedat[,1])$statistic })
+sum(sims2 > obs)/length(sims2)
+hist(sims2);abline(v=obs,col="red") #now appears to be evidence for overdispersion
+```
+

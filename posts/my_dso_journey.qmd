@@ -1,6 +1,6 @@
 ---
-title: ""
-description: "Why I don't like IPython Notebooks"
+title: "My DSO Journey"
+description: "I realized I have been working as a self contributor"
 author: "Zhenglei Gao"
 date: "8/09/2023"
 categories:
@@ -8,7 +8,7 @@ categories:
 ---
 
 ::: {.callout-warning}
-To be recorded. 
+To be written. 
 :::
 
 ```{r include=FALSE}

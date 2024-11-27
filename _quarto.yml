@@ -4,6 +4,7 @@ project:
 
 website:
   title: "Zhenglei Gao"
+
   navbar:
     left:
       - href: index.qmd
@@ -11,14 +12,25 @@ website:
       - about.qmd
       - href: blog.qmd
         text: "Blog"
+
   sidebar:
-    tools:
-      - icon: github
-        menu:
-          - text: Source Code
-            href:  https://github.com/Zhenglei-BCS/Zhenglei-BCS.github.io
-          - text: Report a Bug
-            href:  https://github.com/Zhenglei-BCS/Zhenglei-BCS.github.io/issues
+    - title: "About Me"
+      style: "docked"
+      contents:
+        - about.qmd
+
+
+    - title: "Blog"
+      contents:
+        - blog.qmd
+
+    - title: "Fundamentals"
+      contents:
+        - fundamentals.qmd
+
+    - title: "Reference"
+      contents:
+        - reference.qmd
 
 
 format:

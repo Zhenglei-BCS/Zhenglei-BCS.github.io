@@ -1,0 +1,15 @@
+{
+  "hash": "da595ae5103369e8f5c38f7bacac69c2",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"WACOM tablet\"\ndescription: \"My WACOM tablet arrived today\"\nauthor: \"Zhenglei Gao\"\ndate: \"08/06/2024\"\ncategories:\n  - journal\n---\n\n\n## New Experiences\n\nIt is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n4*5\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 20\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

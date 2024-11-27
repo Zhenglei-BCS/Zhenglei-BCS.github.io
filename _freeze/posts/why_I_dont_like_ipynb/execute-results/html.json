@@ -1,0 +1,15 @@
+{
+  "hash": "873564068768918491b99f9f9dc65e1b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"I prefer Rmd and qmd\"\ndescription: \"Why I don't like IPython Notebooks\"\nauthor: \"Zhenglei Gao\"\ndate: \"8/09/2024\"\ncategories:\n  - code\n  - R_python_julia\n---\n\n\n::: callout-warning\nJust personal habits and preferences.\n:::\n\n\n\n\n\nTrained as a statistician, I have extensive experience using R for a significant period of time. However, in order to collaborate effectively with my colleagues, many of whom prefer Python over other languages, I recognize the importance of being proficient in Python. While I currently use Python intermittently to execute specific machine learning models developed by my peers on different training data sets, I feel the necessity to enhance my proficiency in Python in a more structured manner. The syntax, especially the `data.pipe(func_def).pipe(func2_def)` and `\\` or other pipeline operators, does not come naturally to me. This has led me to enroll in the training \"Machine Learnign with Python\" offered by Bayer.\n\nThe instructor, LEO, of this course has shared his IPython Notebooks. Today I downloaded to my local computer and try to run the python code blocks. I encountered error shown in @fig-ipynberror. This is THE moment I realized I don't like .ipynb files and I won't use it for my own projects anymore.\n\nThe problem is that .ipynb files are not reproducible. They are more for exploration purposes. If I had opened the file directly from the instructor, I would have seen this cell was not run by my instructor, he put it there merely as an example. However, when I open it in VS Code, what I can see is that it is a python code block. I had no idea that it should not be run. I am so used to rmarkdown (.Rmd) and quarto (.qmd), assuming directly the execution of each block is clearly defined.\n\n![screenshot of running error](assets/ipynberror.png){#fig-ipynberror}\n\nMy other issue with .ipynb files is, they are essentially JSON files, and viewing the raw files can be confusing and not the best way to share with colleagues. I find they don't effectively combine code blocks and markdown documentation in a clear and simple way. There are too many UI elements that I don't really need, which adds unnecessary complexity. I believe that explicit definitions inside the code blocks with suitable tags or in the YAML header would provide a more streamlined and organized approach. \n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

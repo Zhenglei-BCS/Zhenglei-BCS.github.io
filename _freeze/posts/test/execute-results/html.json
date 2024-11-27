@@ -1,0 +1,17 @@
+{
+  "hash": "5a4edffa4599db2c80835742b3c3b8e6",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Testing blog\"\ndescription: \"Post description\"\nauthor: \"Zhenglei Gao\"\ndate: \"8/06/2024\"\ncategories:\n  - code\n  - analysis\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nplot(mtcars)\n```\n\n::: {.cell-output-display}\n![](test_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "test_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

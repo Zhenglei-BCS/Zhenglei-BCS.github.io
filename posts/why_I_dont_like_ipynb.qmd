@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "I prefer Rmd and qmd"
 description: "Why I don't like IPython Notebooks"
 author: "Zhenglei Gao"
 date: "8/09/2024"
