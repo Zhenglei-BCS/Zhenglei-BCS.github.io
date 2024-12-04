@@ -2,7 +2,7 @@
 title: "Deploy a Shiny App on AWS"
 description: "Reproduce "
 author: "Zhenglei Gao"
-date: "11/20/2024"
+date: "12/03/2024"
 categories:
   - code
   - Stats
@@ -84,7 +84,7 @@ Copied from the guide^1
 > From EC2 dashborad, select your instance.
 > In the bottom half of your screen, find the line Security groups and click on the link.
 > In the new window, again the bottom half of the screen, click on Inbound, the 2nd tab. Notice that only the port 22 is open.
->  Click on Edit, and the popup that opens, enter the following settings:
+> Click on Edit, and the popup that opens, enter the following settings:
 
 
 EC2 dashboard $\rightarrow$ go to column IPv4 Public IP.

@@ -1,5 +1,5 @@
 ---
-title: "Hessian and Likelihood"
+title: "Pseudo $R^2$"
 description: "A discussion on confidence intervals"
 author: "Zhenglei Gao"
 date: "11/20/2024"

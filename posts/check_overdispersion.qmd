@@ -2,7 +2,7 @@
 title: "Check overdispersion"
 description: "binomial and poisson overdispersion checks"
 author: "Zhenglei Gao"
-date: "11/20/2024"
+date: "11/11/2024"
 categories:
   - code
   - Stats

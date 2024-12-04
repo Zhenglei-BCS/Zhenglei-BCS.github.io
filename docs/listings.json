@@ -2,6 +2,8 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/deploy_a_shinyapp_on_aws.html",
+      "/posts/check_overdispersion.html",
       "/posts/Hessian_and_likehood.html",
       "/posts/PseudoR2.html",
       "/posts/why_I_dont_like_ipynb.html",
