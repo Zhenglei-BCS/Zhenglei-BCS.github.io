@@ -1,0 +1,15 @@
+{
+  "hash": "f7ee73b0a185c8af6763012255a2bc7e",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Risk Report and Metric\"\ndescription: \"Reproduce \"\nauthor: \"Zhenglei Gao\"\ndate: \"12/06/2024\"\ncategories:\n  - code\n  - Stats\n  - R\neditor_options: \n  chunk_output_type: console\n---\n\n\n\n## Testing the Idea\n\n1. Install the package\n\n::: {.cell}\n\n```{.r .cell-code}\npak::pak(\"pharmaR/riskreports\")\n```\n:::\n\n\n2. Start generating a report\n\n\n::: {.cell}\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

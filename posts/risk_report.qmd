@@ -1,0 +1,26 @@
+---
+title: "Risk Report and Metric"
+description: "Reproduce "
+author: "Zhenglei Gao"
+date: "12/06/2024"
+categories:
+  - code
+  - Stats
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+
+## Testing the Idea
+
+1. Install the package
+```{r eval=FALSE}
+pak::pak("pharmaR/riskreports")
+```
+
+2. Start generating a report
+
+```{r}
+
+```
