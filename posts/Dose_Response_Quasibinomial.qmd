@@ -1,0 +1,281 @@
+---
+title: "Binomial, Quasibinomial, DRC for proportions"
+description: "If all 3 types can model percentage data"
+author: "Zhenglei Gao"
+date: "12/12/2024"
+categories:
+  - code
+  - stats
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+The quasi-binomial isn't necessarily a particular distribution. The only assumption is that for a generalized linear model with binomial assumption of "p" (mean of the binomial should be $np$), the variance is $\phi$ times the variance for that binomial = np(1-p). In case of missing sample size, then it is just  $\phi p(1-p)$ 
+
+The data is generated using the cumulative function for logistic distribution.
+$$F(x;\mu,s) = \frac{1}{2} + \frac{1}{2} \tanh((x-\mu)/2s) = \frac{1}{1+e^{-(x-\mu)/s}}$$
+
+where,  $\tanh(x) = \frac{\sinh(x)}{\cosh(x)} = \frac{e^x - e^{-x}}{e^x + e^{-x}$, is the hyperbolic tangent function that maps real numbers to the range between -1 and 1. 
+
+Quantile of the CDF is then $\mu+s\log(\frac{p}{1-p})$
+
+Random noises are added afterwards to the logistic distribution CDF.
+
+We simulate $n$ studies over concentration $x$, denoted, $X_{1}, X_{2}, …, X_{n}$ for $k$ study $X=(x_{1}, x_{2}, …, x_{k})$, where $k$ is the number of different studies with different $\mu$ and $\sigma$. 
+
+Let’s say there are $k=6$ study groups with the following parameter sets, $\mu = \{9,2,3,5,7,5\}$  and $s=\{2,2,4,3,4,2\}$
+
+```{r}
+generate_logit_cdf <- function(mu, s, 
+                               sigma_y=0.1, 
+                               x=seq(-5,20,0.1)) {
+  x_ms <- (x-mu)/s
+  y    <- 0.5 + 0.5 * tanh(x_ms)  
+  y    <- abs(y + rnorm(length(x), 0, sigma_y))
+  ix   <- which(y>=1.0)
+  if(length(ix)>=1) { 
+    y[ix] <- 1.0
+  }
+  return(y)
+}
+set.seed(424242)
+x      <- seq(-5,15,0.025) # 1001 observations
+mu_vec <- c(1,2,3,5,7,8)   # 6 variables
+s_vec  <- c(2,2,4,3,4,2)
+# Syntetic Studyiables
+studies_df<- mapply(generate_logit_cdf, 
+                              mu_vec, 
+                              s_vec, 
+                              MoreArgs = list(x=x))
+# Give them names
+colnames(studies_df) <- c("Study1", "Study2", "Study3", "Study4", "Study5", "Study6")
+head(studies_df)  
+dim(studies_df)
+```
+
+```{r fig.width=8,fig.height=5}
+library(ggplot2)
+theme_set(theme_bw())
+library(tidyverse)
+df_all <- tidyr::pivot_longer(data.frame(x=(1:length(x))/10,studies_df),cols=2:7)
+
+colnames(df_all) <- c("x", "study", "y")
+df_all$study <- as.factor(df_all$study)
+
+p_quasibinomial<- ggplot(df_all, aes(x=x, y=y, color=study)) +
+        geom_point(alpha=0.2)  +
+        scale_color_viridis_d()+
+        # scale_color_brewer(palette = "Reds") + 
+        # #geom_smooth(method="loess", se = FALSE, size=1.5) +
+        geom_smooth(aes(group=study),method="glm", method.args=list(family="quasibinomial"), formula="y ~ log(x)",
+                       se =TRUE, size=1.5) +
+        xlab("Concentration") + 
+        ylab("% Injury / 100") + ggtitle("Quasibinomial Fit")
+
+p_quasibinomial#+scale_x_log10()
+
+p_quasibinomial +facet_wrap(~study)
+```
+```{r}
+library(drc)
+p_drc<- ggplot(df_all, aes(x=x, y=y, color=study)) +
+        geom_point(alpha=0.2)  +
+        scale_color_viridis_d()+
+        # scale_color_brewer(palette = "Reds") + 
+        # #geom_smooth(method="loess", se = FALSE, size=1.5) +
+        geom_smooth(aes(group=study),method="drm", method.args=list(fct=LL.2()), formula="y ~ x",
+                       se = FALSE, size=1.5) +
+        xlab("Concentration") + 
+        ylab("% Injury / 100") + ggtitle("DRC nonlinear normal fit")
+p_drc#+scale_x_log10()
+
+p_drc + facet_wrap(~study)
+library(gridExtra)
+# gridExtra:::grid.arrange(p1,l1)
+```
+
+```{r}
+p_drc_qb<- ggplot(df_all, aes(x=x, y=y, color=study)) +
+        geom_point(alpha=0.1)  +
+        scale_color_viridis_d()+
+        # scale_color_brewer(palette = "Reds") + 
+        # #geom_smooth(method="loess", se = FALSE, size=1.5) +
+        geom_smooth(aes(group=study),method="drm", method.args=list(fct=LL.2()), formula="y~x",
+                       se = FALSE, size=1.5) +
+                       geom_smooth(aes(group=study),method="glm", method.args=list(family="quasibinomial"), formula="y~x",
+                       se = FALSE, size=1.5,lty=3)+
+        xlab("Concentration") + 
+        ylab("% Injury / 100") 
+p_drc_qb+ facet_wrap(~study)
+```
+
+## Data coming from binomial
+
+### Design of data simulation
+- 7 treatment groups, including control
+- Cover full dose response
+- Concentration: c(0,2^(seq(0.1,4,by=1)))
+
+
+```{r}
+
+```
+
+
+## Numerical Considerations
+
+Quasi-binomial is exactly the same as binomial for the coefficient / parameter estimates but not for the standard errors. 
+
+In terms of GLM, the dispersion for non-overdispersed model like binomial and Poisson is 1. For quasi-families, it is estimated by the residual Chi-squared statistic divided by the residual degrees of freedom. 
+
+For estimation of EC50 or other ECx, 
+
+$$\log \Big( \frac{p}{1-p} \Big) = \beta_0 + \beta_1 x.$$
+
+Setting $p = \tfrac{1}{2} = 0.5 $ gives the corresponding explanatory value (here the LC50 concentration):
+
+$$ \mbox{LC}_{50} \equiv \frac{\log(\tfrac{1}{2}/\tfrac{1}{2}) - \beta_0}{\beta_1}
+= \frac{\log(1) - \beta_0}{\beta_1}
+= - \frac{\beta_0}{\beta_1}.$$
+
+There is a **{dose.p}** function in the MASS package for calculating LCx or ECx together with the standard errors which can be used for the response confidence intervals. The **vcov** function can be used to extract the covariance function and used for estimation the CI of LCx or ECx. An alternative approach is to use bootstrap confidence intervals. 
+
+
+Since the goal of the data analysis is to measure the association between a set of regression parameters and the outcome, quasibinomial models can be useful with the variance assumption being relaxed. However, it is required to estimate the uncertainty associated with that relationship. 
+
+```{r}
+## install.packages("VGAM")
+## data:
+Concentration <- as.numeric(c(0, 100, 200, 300, 400, 500, 600, 700, 800))
+Survival <- as.integer(c(20, 20, 20, 18, 13, 8, 3, 0, 0))
+Total <- as.integer(c(20, 20, 20, 20, 20, 20, 20, 20, 20))
+Data <- data.frame(Concentration, Survival, Total)
+Data$Dead <- Data$Total-Data$Survival
+Data$Proport_Surv <- (Data$Total - Data$Dead) / Data$Total
+
+mod0 <- glm(cbind(Survival, Dead) ~ Concentration, Data, family=binomial(link = "logit"))
+mod <- glm(cbind(Survival, Dead) ~ Concentration, Data, family=quasibinomial(link = "logit"))
+
+NewData1 <- expand.grid(Conc  = seq(0, 800, length = 9))
+
+P_logit <- predict(mod, newdata = NewData1, se = TRUE, type = "link")
+NewData1$P_logit <- exp(P_logit$fit) / (1 + exp(P_logit$fit))
+NewData1$SeUp <- exp(P_logit$fit + 1.96*P_logit$se.fit) / (1 + exp(P_logit$fit + 1.96*P_logit$se.fit))
+NewData1$SeLo <- exp(P_logit$fit - 1.96*P_logit$se.fit) / (1 + exp(P_logit$fit - 1.96*P_logit$se.fit))
+plot <- plot + geom_point(data = Data, aes(y = Proport_Surv, x = Concentration), shape = 1, size = 2.5)
+plot <- ggplot() + xlab("Concentration") + ylab("Proportion of surviving organisms") + theme(text = element_text(size=15)) + theme_bw()+ geom_line(data = NewData1, aes(x = Concentration, y = P_logit), colour = "black")+ geom_ribbon(data = NewData1, aes(x = Concentration, ymax = SeUp, ymin = SeLo), alpha = 0.2)+ geom_hline(yintercept = 0.5, linetype = "dashed") + annotate("point", x = 460.1353, y = 0.5, size = 3.25, colour = "blue")
+
+ec = 0.5
+library(VGAM)
+eta <- logit(ec) 
+beta <- coef(mod)[1:2] 
+ecx <- (eta - beta[1])/beta[2] 
+pd <- -cbind(1, ecx)/beta[2] 
+ff = as.matrix(vcov(mod)[1:2,1:2])
+se <- sqrt(((pd %*% ff )* pd) %*% c(1, 1))
+upper = (ecx+se*1.96)
+lower = (ecx-se*1.96)
+df1 = data.frame(ecx, lower, upper)
+
+ecx0 <- (eta - coef(mod0)[1])/coef(mod0)[2] 
+ff0 = as.matrix(vcov(mod0)[1:2,1:2])
+se0 <- sqrt(((pd %*% ff0 )* pd) %*% c(1, 1))
+upper0 = (ecx+se0*1.96)
+lower0 = (ecx-se0*1.96)
+df0 = data.frame(ecx, lower0, upper0)
+
+plot <- plot + geom_vline(xintercept = df1$ecx, linetype = "dashed")
+plot <- plot + geom_vline(xintercept = df1$lower, linetype = "dashed")
+plot <- plot + geom_vline(xintercept = df1$upper, linetype = "dashed")
+plot
+```
+
+For binomial data, the quasibinomial fit generated a narrower CI compared to binomial fit, unexpected. 
+
+```{r}
+df0
+df1
+```
+
+In fact, a limitation of these models is that they cannot yield accurate prediction intervals, the Pearson residuals cannot tell you much about how accurate the mean model is, and information criteria like the AIC or BIC cannot effectively compare these models to other types of models.
+
+```{r}
+AIC(mod0)
+# [1] 19.40066
+try(AIC(mod1))
+# > AIC(mod1)
+# Error in h(simpleError(msg, call)) :
+#   error in evaluating the argument 'object' in selecting a method for function 'AIC': object 'mod1' not found
+```
+
+
+
+
+## Generate data 
+
+```{r}
+logit_scale = seq(-6, 6, by = 0.1)
+
+plot( logit_scale,plogis(logit_scale), ylab = 'probabilities', type = 'n',main="Logistic Function")
+lines( logit_scale,plogis(logit_scale))
+
+plot( 1/(1+exp(-logit_scale)),plogis(logit_scale), ylab = 'probabilities', type = 'l',main="Linear Transformation of above")
+```
+
+```{r}
+library('MASS')
+library('stats')
+
+gen_data <- function(n=100, p=3) {
+
+  set.seed(1)  
+  weights <- stats::rgamma(n=n, shape=rep(1, n), rate=rep(1, n))
+  y <- stats::rbinom(n=n, size=1, prob=0.5)
+  theta <- stats::rnorm(n=p, mean=0, sd=1)
+  means <- colMeans(as.matrix(y) %*% theta)
+  x <- MASS::mvrnorm(n=n, means, diag(1, p, p))
+
+  return(list(x=x, y=y, weights=weights, theta=theta))  
+}
+
+fit_glm <- function(family) {
+  data <- gen_data()
+  fit <- stats::glm.fit(x = data$x,
+                        y = data$y,
+                        weights = data$weights,
+                        family = family)
+  return(fit)
+}
+
+fit1 <- fit_glm(family=stats::binomial(link = "logit"))
+fit2 <- fit_glm(family=stats::quasibinomial(link = "logit"))
+
+all(fit1$coefficients == fit2$coefficients)
+
+
+
+```
+
+
+```{r}
+data1 <- gen_data()
+```
+```{r}
+summary1 <- stats::summary.glm(fit1)
+summary2 <- stats::summary.glm(fit2)
+
+print("Equality of unscaled variance-covariance-matrix:")
+all(summary1$cov.unscaled == summary2$cov.unscaled)
+
+print("Equality of variance-covariance matrix scaled by `dispersion`:")
+all(summary1$cov.scaled == summary2$cov.scaled)
+
+print(summary1$coefficients)
+print(summary2$coefficients)
+```
+
+
+## References: Quasi Models
+- [Quasipoisson, GLMM, GEE](https://stats.stackexchange.com/questions/201903/how-to-deal-with-overdispersion-in-poisson-regression-quasi-likelihood-negativ/332250#332250)
+- [Tutorial for count data](https://online.stat.psu.edu/stat504/lesson/9/9.2-0)

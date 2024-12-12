@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zhenglei Gao">
-<meta name="dcterms.date" content="2024-12-11">
-<meta name="description" content="Test out tcpl package">
+<meta name="dcterms.date" content="2024-12-12">
+<meta name="description" content="If all 3 types can model percentage data">
 
-<title>Zhenglei Gao - The ToxCast Data Analysis Pipeline</title>
+<title>Zhenglei Gao - Binomial, Quasibinomial, DRC for proportions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,6 +106,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -159,17 +188,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">The ToxCast Data Analysis Pipeline</h1>
+<h1 class="title">Binomial, Quasibinomial, DRC for proportions</h1>
   <div class="quarto-categories">
     <div class="quarto-category">code</div>
-    <div class="quarto-category">Ecotox</div>
+    <div class="quarto-category">stats</div>
     <div class="quarto-category">R</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Test out tcpl package
+    If all 3 types can model percentage data
   </div>
 </div>
 
@@ -186,7 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 11, 2024</p>
+      <p class="date">December 12, 2024</p>
     </div>
   </div>
   
@@ -198,52 +227,178 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>The quasi-binomial isn’t necessarily a particular distribution. The only assumption is that for a generalized linear model with binomial assumption of “p” (mean of the binomial should be <span class="math inline">\(np\)</span>), the variance is <span class="math inline">\(\phi\)</span> times the variance for that binomial = np(1-p). In case of missing sample size, then it is just <span class="math inline">\(\phi p(1-p)\)</span></p>
+<p>The data is generated using the cumulative function for logistic distribution. <span class="math display">\[F(x;\mu,s) = \frac{1}{2} + \frac{1}{2} \tanh((x-\mu)/2s)\]</span></p>
+<p>where, <span class="math inline">\(\tanh(x) = \frac{\sinh(x)}{\cosh(x)} = \frac{e^x - e^{-x}}{e^x + e^{-x}\)</span>, is the hyperbolic tangent function that maps real numbers to the range between -1 and 1.</p>
+<p>Random noises are added afterwards to the logistic distribution CDF.</p>
+<p>We simulate <span class="math inline">\(n\)</span> studies over concentration <span class="math inline">\(x\)</span>, denoted, <span class="math inline">\(X_{1}, X_{2}, …, X_{n}\)</span> for <span class="math inline">\(k\)</span> study <span class="math inline">\(X=(x_{1}, x_{2}, …, x_{k})\)</span>, where <span class="math inline">\(k\)</span> is the number of different studies with different <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>.</p>
+<p>Let’s say there are <span class="math inline">\(k=6\)</span> study groups with the following parameter sets, <span class="math inline">\(\mu = \{9,2,3,5,7,5\}\)</span> and <span class="math inline">\(s=\{2,2,4,3,4,2\}\)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"USEPA/CompTox-ToxCast-tcpl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>generate_logit_cdf <span class="ot">&lt;-</span> <span class="cf">function</span>(mu, s, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">sigma_y=</span><span class="fl">0.1</span>, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">x=</span><span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">20</span>,<span class="fl">0.1</span>)) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  x_ms <span class="ot">&lt;-</span> (x<span class="sc">-</span>mu)<span class="sc">/</span>s</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  y    <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">tanh</span>(x_ms)  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  y    <span class="ot">&lt;-</span> <span class="fu">abs</span>(y <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="dv">0</span>, sigma_y))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  ix   <span class="ot">&lt;-</span> <span class="fu">which</span>(y<span class="sc">&gt;=</span><span class="fl">1.0</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">length</span>(ix)<span class="sc">&gt;=</span><span class="dv">1</span>) { </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    y[ix] <span class="ot">&lt;-</span> <span class="fl">1.0</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">424242</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>x      <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">20</span>,<span class="fl">0.025</span>) <span class="co"># 1001 study</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>mu_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">8</span>)   <span class="co"># 6 variables</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>s_vec  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Syntetic Studyiables</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>studies_df<span class="ot">&lt;-</span> <span class="fu">mapply</span>(generate_logit_cdf, </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                              mu_vec, </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                              s_vec, </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                              <span class="at">MoreArgs =</span> <span class="fu">list</span>(<span class="at">x=</span>x))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Give them names</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(studies_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Study1"</span>, <span class="st">"Study2"</span>, <span class="st">"Study3"</span>, <span class="st">"Study4"</span>, <span class="st">"Study5"</span>, <span class="st">"Study6"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(studies_df)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         Study1      Study2     Study3     Study4     Study5     Study6
+[1,] 0.04646783 0.178231019 0.07197742 0.11099645 0.06384057 0.02629486
+[2,] 0.09946289 0.081685028 0.18240798 0.06993340 0.10113648 0.04727540
+[3,] 0.07871231 0.029549890 0.08254837 0.09690864 0.08558282 0.16012873
+[4,] 0.01986314 0.060743272 0.18354161 0.17263607 0.04554137 0.03000444
+[5,] 0.04518787 0.029594108 0.02928619 0.04532478 0.02640770 0.09849672
+[6,] 0.22511967 0.007850177 0.08122381 0.13976551 0.05582895 0.04619664</code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tcpl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>tcpl (v3.2.0.9000) loaded with the following settings:
-  TCPL_DB:    NA
-  TCPL_USER:  NA
-  TCPL_HOST:  https://api-ccte.epa.gov/bioactivity
-  TCPL_DRVR:  API
-Default settings stored in tcpl config file. See ?tcplConf for more information.</code></pre>
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ lubridate 1.9.3     ✔ tibble    3.2.1
+✔ purrr     1.0.2     ✔ tidyr     1.3.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="fu">data.frame</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1001</span>,studies_df),<span class="at">cols=</span><span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df_all) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"study"</span>, <span class="st">"y"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_all<span class="sc">$</span>study <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df_all<span class="sc">$</span>study)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>p_quasibinomial<span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_all, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">color=</span>study)) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.2</span>)  <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_viridis_d</span>()<span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># scale_color_brewer(palette = "Reds") + </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># #geom_smooth(method="loess", se = FALSE, size=1.5) +</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group=</span>study),<span class="at">method=</span><span class="st">"glm"</span>, <span class="at">method.args=</span><span class="fu">list</span>(<span class="at">family=</span><span class="st">"quasibinomial"</span>), <span class="at">formula=</span><span class="st">"y~x"</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                       <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">"Concentration"</span>) <span class="sc">+</span> </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"% Injury / 100"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
 </div>
-<p>The code block runs without problems but the <strong>tcpPlot</strong> function generates a jpg or other formats of figure which is directory in the working directory. So to</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all matching spids and then subset using the aeid desired to find m4id</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mc5 <span class="ot">&lt;-</span> <span class="fu">tcplLoadData</span>(<span class="at">lvl =</span> <span class="dv">5</span>, </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fld =</span> <span class="st">"spid"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">val =</span> <span class="st">"TP0000904H05"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type =</span> <span class="st">"mc"</span>, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">add.fld =</span> <span class="cn">FALSE</span>) <span class="co"># 8 rows of data</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>m4id <span class="ot">&lt;-</span> mc5[aeid <span class="sc">==</span> <span class="dv">714</span>]<span class="sc">$</span>m4id <span class="co"># subset to 1 aeid extract m4id</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Default parameters used here: fld = "m4id", type = "mc" (type can never be "sc" when connected to API)</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlot</span>(<span class="at">val =</span> m4id, <span class="at">output =</span> <span class="st">"jpg"</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">flags =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="fig-tcpPlot" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-tcpPlot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="assets/tcplPlot_2024-12-10_1847540.jpg" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tcpPlot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: tcp plot example
-</figcaption>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p_quasibinomial</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Dose_Response_Quasibinomial_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the data pulled in the previous code chunk 'mc5'</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>m4id <span class="ot">&lt;-</span> mc5<span class="sc">$</span>m4id <span class="co"># create m4id vector length == 8</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Default parameters used here: fld = "m4id", type = "mc" (type can never be "sc" when connected to API)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlot</span>(<span class="at">val =</span> m4id[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">compare.val =</span> m4id[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>], <span class="at">output =</span> <span class="st">"pdf"</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">multi =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">flags =</span> <span class="cn">TRUE</span>, <span class="at">yuniform =</span> <span class="cn">TRUE</span>, <span class="at">fileprefix =</span> <span class="st">"API_plot_compare"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><a href="assets/API_plot_compare.pdf">API plot compare</a></p>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(drc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'drc' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: MASS
+
+Attaching package: 'MASS'
+
+The following object is masked from 'package:dplyr':
+
+    select
+
+
+'drc' has been loaded.
+
+Please cite R and 'drc' if used for a publication,
+for references type 'citation()' and 'citation('drc')'.
+
+
+Attaching package: 'drc'
+
+The following objects are masked from 'package:stats':
+
+    gaussian, getInitial</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p_drc<span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_all, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">color=</span>study)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.2</span>)  <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_viridis_d</span>()<span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># scale_color_brewer(palette = "Reds") + </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># #geom_smooth(method="loess", se = FALSE, size=1.5) +</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group=</span>study),<span class="at">method=</span><span class="st">"drm"</span>, <span class="at">method.args=</span><span class="fu">list</span>(<span class="at">fct=</span><span class="fu">LL.2</span>()), <span class="at">formula=</span><span class="st">"y~x"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">"Concentration"</span>) <span class="sc">+</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"% Injury / 100"</span>) </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>p_drc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Dose_Response_Quasibinomial_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p_quasibinomial <span class="sc">+</span><span class="fu">facet_wrap</span>(<span class="sc">~</span>study)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Dose_Response_Quasibinomial_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p_drc <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>study)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Dose_Response_Quasibinomial_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'gridExtra'
+
+The following object is masked from 'package:dplyr':
+
+    combine</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gridExtra:::grid.arrange(p1,l1)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>p_drc_qb<span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_all, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">color=</span>study)) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.1</span>)  <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_viridis_d</span>()<span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># scale_color_brewer(palette = "Reds") + </span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># #geom_smooth(method="loess", se = FALSE, size=1.5) +</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group=</span>study),<span class="at">method=</span><span class="st">"drm"</span>, <span class="at">method.args=</span><span class="fu">list</span>(<span class="at">fct=</span><span class="fu">LL.2</span>()), <span class="at">formula=</span><span class="st">"y~x"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group=</span>study),<span class="at">method=</span><span class="st">"glm"</span>, <span class="at">method.args=</span><span class="fu">list</span>(<span class="at">family=</span><span class="st">"quasibinomial"</span>), <span class="at">formula=</span><span class="st">"y~x"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>                       <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="fl">1.5</span>,<span class="at">lty=</span><span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">"Concentration"</span>) <span class="sc">+</span> </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"% Injury / 100"</span>) </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>p_drc_qb<span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>study)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Dose_Response_Quasibinomial_files/figure-html/unnamed-chunk-2-5.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 

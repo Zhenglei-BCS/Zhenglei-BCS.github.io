@@ -11,16 +11,19 @@ editor_options:
   chunk_output_type: console
 ---
 
+Install the library: 
 ```{r eval=FALSE}
 devtools::install_github("USEPA/CompTox-ToxCast-tcpl")
 ```
+
+Load the library with default settings:
 
 ```{r}
 library(tcpl)
 
 ```
 
-The code block runs without problems but the **tcpPlot** function generates a jpg or other formats of figure which is directory in the working directory. So to  
+The code block runs without problems but the **tcpPlot** function generates a jpg or other formats of figure which is stored in the working directory. To render the file correctly, the generated figures are moved to the assets folder. 
 ```{r eval = FALSE}
 # Load all matching spids and then subset using the aeid desired to find m4id
 mc5 <- tcplLoadData(lvl = 5, 
