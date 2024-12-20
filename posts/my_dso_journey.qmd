@@ -1,8 +1,8 @@
 ---
 title: "My DSO Journey"
-description: "I realized I have been working as a self contributor"
+description: "Working as a self contributor"
 author: "Zhenglei Gao"
-date: "8/09/2023"
+date: "8/08/2024"
 categories:
   - journal
 ---

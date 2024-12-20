@@ -2,7 +2,7 @@
 title: "Binomial, Quasibinomial, DRC for proportions"
 description: "If all 3 types can model percentage data"
 author: "Zhenglei Gao"
-date: "12/12/2024"
+date: "12/17/2024"
 categories:
   - code
   - stats
@@ -11,14 +11,35 @@ editor_options:
   chunk_output_type: console
 ---
 
-The quasi-binomial isn't necessarily a particular distribution. The only assumption is that for a generalized linear model with binomial assumption of "p" (mean of the binomial should be $np$), the variance is $\phi$ times the variance for that binomial = np(1-p). In case of missing sample size, then it is just  $\phi p(1-p)$ 
+```{r include=FALSE}
+knitr::opts_chunk$set(warning=FALSE,message=FALSE)
+```
 
-The data is generated using the cumulative function for logistic distribution.
+In this article, I will try to analyze percentage data as proportions, using quasibinomial and nonlinear fit to the log-logistic cumulative distribution function (CDF) curves. 
+
+Proportional data where the denominator (e.g. maximum possible number of presence for a given response type) is not known can be modeled using a Beta distribution. Binomial-logit-Normal model with observation-level random effects can also be applied to proportions to handle over-dispersion, similarly, quasibinomial models.
+
+For quasibinomial, an additional method is to add subject or individual or treatment group level random effect, that way additional noise is added to the model and can count for the spread of the data in addition to the quasi-binomial variance. However, there is no direct R functions available to calculate all the associated uncertainties, post-processing must be implemented. Therefore, the chance of that becoming a standard approach is very low.
+
+The data is generate in two ways, one is based on the logistic CDF with added noise, the other is just using binomial sampling. For the latter, the sample size information is excluded from the final dataset to mimic the percentage data characteristics. We can also generate over-dispersed binomial data following the steps described [here](https://rdrr.io/cran/fitODBOD/man/GenerateBOD.html) or [here](https://www.r-bloggers.com/2019/05/generating-and-modeling-over-dispersed-binomial-data/)
+
+We are comparing the 3 methods with different data generation scheme.
+
+- Method A: simple quasi binomial
+- Method B: drc with normal spread around logistic CDF
+- Method C: quasi-binomial with random effect  (`MASS::glmmPQL(percentages/100~ conc,random=~1|conc,family="quasibinomial",data=data)`)
+
+The conclusions are: 
+
+1. For the data generated based on logistic CDF, the standard DRC approach fit the data much better. In terms of EC50 estimation, ...
+2. For the data generated using binomial sampling, the 
+
+The data is generated using the cumulative function for logistic distribution. Note that the logistic function is just an inverse logit ($\log(p/(1-p))$) function in R. The code is modified based on [this blog post](https://www.r-bloggers.com/2016/01/s-shaped-data-smoothing-with-quasibinomial-distribution-2/). 
 $$F(x;\mu,s) = \frac{1}{2} + \frac{1}{2} \tanh((x-\mu)/2s) = \frac{1}{1+e^{-(x-\mu)/s}}$$
 
-where,  $\tanh(x) = \frac{\sinh(x)}{\cosh(x)} = \frac{e^x - e^{-x}}{e^x + e^{-x}$, is the hyperbolic tangent function that maps real numbers to the range between -1 and 1. 
+where,  $\tanh(x) = \frac{\sinh(x)}{\cosh(x)} = \frac{e^x - e^{-x}}{e^x + e^{-x}}$, is the [hyperbolic tangent function](https://en.wikipedia.org/wiki/Hyperbolic_functions) that maps real numbers to the range between -1 and 1. 
 
-Quantile of the CDF is then $\mu+s\log(\frac{p}{1-p})$
+Quantile of the CDF is then $\mu+s\log(\frac{p}{1-p})$, therefore, the EC50 should be $\mu$ or $\exp(\mu)$.
 
 Random noises are added afterwards to the logistic distribution CDF.
 
@@ -39,18 +60,20 @@ generate_logit_cdf <- function(mu, s,
   }
   return(y)
 }
+tanh(0)
 set.seed(424242)
-x      <- seq(-5,15,0.025) # 1001 observations
-mu_vec <- c(1,2,3,5,7,8)   # 6 variables
+x      <- seq(-5,15,0.025) 
+mu_vec <- c(1,2,3,5,7,8)   # 6 Studies
+idx <- sapply(mu_vec,function(mu) which(x==mu))
 s_vec  <- c(2,2,4,3,4,2)
-# Syntetic Studyiables
+# Synthetic Study ID
 studies_df<- mapply(generate_logit_cdf, 
                               mu_vec, 
                               s_vec, 
                               MoreArgs = list(x=x))
 # Give them names
 colnames(studies_df) <- c("Study1", "Study2", "Study3", "Study4", "Study5", "Study6")
-head(studies_df)  
+  
 dim(studies_df)
 ```
 
@@ -59,7 +82,7 @@ library(ggplot2)
 theme_set(theme_bw())
 library(tidyverse)
 df_all <- tidyr::pivot_longer(data.frame(x=(1:length(x))/10,studies_df),cols=2:7)
-
+true_ec50 <- ((1:length(x))/10)[idx]
 colnames(df_all) <- c("x", "study", "y")
 df_all$study <- as.factor(df_all$study)
 
@@ -91,8 +114,85 @@ p_drc<- ggplot(df_all, aes(x=x, y=y, color=study)) +
 p_drc#+scale_x_log10()
 
 p_drc + facet_wrap(~study)
-library(gridExtra)
-# gridExtra:::grid.arrange(p1,l1)
+
+```
+
+For each study, we can calculate EC50 and confidence intervals.
+
+```{r}
+getEC50 <- function(mod){
+  if(class(mod)[1]=="glm"){
+    ec50 <- MASS::dose.p(mod,p=0.5)
+    se <- attr(ec50,"SE")
+    xmin <- as.numeric(ec50 - 1.96*se)
+    xmax <- as.numeric(ec50 + 1.96*se) 
+    res <- data.frame(EC50=exp(as.numeric(ec50)),
+    lower=exp(xmin),upper=exp(xmax))
+  }else{
+    res1 <- ED(mod,50,interval="delta")
+    res <- data.frame(EC50=res1[1,"Estimate"],lower=res1[1,"Lower"],upper=res1[1,"Upper"])
+  }
+  return(res)
+}
+library(drc)
+predictCIglm <- function(mod,dat,newdata=NULL){
+ if(is.null(newdata)){
+    preddata <- with(dat, data.frame(x = seq(min(x), max(x), length = 100)))
+ }else predata <- newdata
+  preds <- predict(mod, newdata = preddata, type = "link", se.fit = TRUE)
+  critval <- 1.96 ## approx 95% CI qnorm(0.975)
+  upr <- preds$fit + (critval * preds$se.fit)
+  lwr <- preds$fit - (critval * preds$se.fit)
+  fit <- preds$fit
+  fit2 <- mod$family$linkinv(fit)
+  upr2 <- mod$family$linkinv(upr)
+  lwr2 <- mod$family$linkinv(lwr)
+  preddata$Prediction <- fit2 
+  preddata$Lower <- lwr2 
+  preddata$Upper <- upr2 
+  return(preddata)
+}
+preddrc <- function(mod,dat,newdata=NULL){
+ if(is.null(newdata)){
+    preddata <- with(dat, data.frame(x = seq(min(x), max(x), length = 100)))
+ }else predata <- newdata
+ preds <- predict(mod,newdata=preddata,interval="confidence")
+ preddata <- cbind(preddata,preds)
+ return(preddata)
+}
+modelall <- function(dat){
+  mod1 <- glm(y~log(x),data=dat,family = "quasibinomial")
+  mod2 <- drm(y~x,fct=LL.2(),data=dat)
+  ## mod3 <- MASS::glmmPQL(y ~ log(x),random=~1|x,family="quasibinomial",data=dat) 
+  ## Estimation the same as quasibinomial without random effects, uncertainty estimation wider. 
+  ## mod3 <- lme4::glmer(y ~ log(x)+ (1|x),family="binomial",data=dat) ## dose not work without sample size.
+  # mod4 <- betareg::betareg(y ~ log(x),link="logit",data=dat)
+  # y3<- predict(mod3,newdata=data.frame(x=dat$x),type="response")
+  y1 <- predictCIglm(mod1,dat=dat)
+  y1$model <- "quasibinomial"
+
+  y2 <- preddrc(mod2,dat = dat)
+  y2$model <- "drc LL.2"
+  preddata <- rbind(y1,y2)
+  #ec4 <- uniroot(function(x) predict(mod4, newdata = data.frame(x=x)) - 0.5,lower = 1, upper = 80)$root
+  ## 19.55968 beta regression does not perform better than binomial or quasi-binomial regression!
+  ec1 <- getEC50(mod1)
+  ec2 <- getEC50(mod2)
+  ec50 <- data.frame(rbind(ec1,ec2),model=c("quasibinomial","drc LL.2"))
+  return(list(ec50=ec50,predata=preddata))
+}
+```
+
+
+```{r}
+df_nested <- df_all %>% group_by(study) %>% nest()
+dfres <- df_nested %>% mutate(modres=map(data,modelall))
+ec50 <- dfres %>% mutate(ec50=modres[[1]][1]) %>% dplyr::select(-c(data,modres)) %>% unnest(cols=c(ec50)) %>% ungroup() %>% mutate(TrueEC50 = rep(true_ec50,each=2))
+knitr::kable(ec50)
+```
+
+```{r}
+predres <- dfres %>% mutate(preds=modres[[1]][2]) %>% dplyr::select(-c(data,modres)) %>% unnest(cols=c(preds)) %>% ungroup() 
 ```
 
 ```{r}
@@ -103,11 +203,48 @@ p_drc_qb<- ggplot(df_all, aes(x=x, y=y, color=study)) +
         # #geom_smooth(method="loess", se = FALSE, size=1.5) +
         geom_smooth(aes(group=study),method="drm", method.args=list(fct=LL.2()), formula="y~x",
                        se = FALSE, size=1.5) +
-                       geom_smooth(aes(group=study),method="glm", method.args=list(family="quasibinomial"), formula="y~x",
+                       geom_smooth(aes(group=study),method="glm", method.args=list(family="quasibinomial"), formula="y~log(x)",
                        se = FALSE, size=1.5,lty=3)+
         xlab("Concentration") + 
         ylab("% Injury / 100") 
-p_drc_qb+ facet_wrap(~study)
+p_drc_qb + facet_wrap(~study)
+p_drc_qb <- ggplot(df_all, aes(x=x, y=y)) +
+        geom_point(alpha=0.1)  +
+        scale_color_viridis_d()+
+        # scale_color_brewer(palette = "Reds") + 
+        # #geom_smooth(method="loess", se = FALSE, size=1.5) +
+        geom_smooth(aes(group=study),method="drm", method.args=list(fct=LL.2()), formula="y~x",
+                       se = FALSE, size=1.5,col=scales::hue_pal()(2)[1]) +
+                       geom_smooth(aes(group=study),method="glm", method.args=list(family="quasibinomial"), formula="y~log(x)",
+                       se = FALSE, size=1.5,lty=3,col=scales::hue_pal()(2)[2])+
+        xlab("Concentration") + 
+        ylab("% Injury / 100")  + facet_wrap(~study)
+ p_drc_qb + geom_hline(yintercept=0.5) + geom_ribbon(data=predres,aes(x=x,ymin=Lower,ymax=Upper,y=Prediction,fill=model),alpha=0.3)
+
+
+
+p_drc_qb_beta <- ggplot(df_all, aes(x=x, y=y, color=study)) +
+        geom_point(alpha=0.1)  +
+        scale_color_viridis_d()+geom_smooth(method="betareg", size=1.5,method.args=list(link="logit"),lty=1,formula="y~log(x)")+ #  geom_smooth(aes(group=study),method="drm", method.args=list(fct=LL.2()), formula="y~x",
+ #                      se = FALSE, size=1.5) +
+                       geom_smooth(aes(group=study),method="glm", method.args=list(family="quasibinomial"), formula="y~log(x)",
+                       se = FALSE, size=1.5,lty=3)+
+        xlab("Concentration") + 
+        ylab("% Injury / 100") 
+p_drc_qb_beta
+
+#  Failed to fit group 5.
+#  Caused by error in `x$terms`:
+# ! $ operator is invalid for atomic vectors 
+# library(MASS)
+# ggplot(df_all, aes(x=x, y=y, color=study)) +
+#   geom_point(alpha=0.1)  +
+#   scale_color_viridis_d() +geom_smooth(aes(group=study),method="glmmPQL", method.args=list(family="quasibinomial",random = ~1|x), formula="y ~ log(x)",
+#                                        se = FALSE, size=1.5,lty=1) +
+#   geom_smooth(aes(group=study),method="glm", method.args=list(family="quasibinomial"), formula="y~log(x)",
+#               se = TRUE, size=1.5,lty=3)+
+#   xlab("Concentration") + 
+#   ylab("% Injury / 100") 
 ```
 
 ## Data coming from binomial
@@ -115,21 +252,162 @@ p_drc_qb+ facet_wrap(~study)
 ### Design of data simulation
 - 7 treatment groups, including control
 - Cover full dose response
-- Concentration: c(0,2^(seq(0.1,4,by=1)))
+- Concentration: `x <- c(0,2^(seq(0.1,4,by=1)))`
+- Effect/Response: `p <- plogis(x)`
+- 
+
+```{r}
+x <- c(2^(seq(-8,7,by=2)))
+x
+px <- plogis(log(x)) ## inverse logit, I know exactly the true value should be x=1!!!!! (the 5th value)
+px
+plot(x,px,type="l", log="x")
+plogis(0)
+```
 
 
 ```{r}
+simbinomdata <- purrr::map_dfr(lapply(1:length(x),function(i,n=10,size=100){
+  pi <- px[i]
+  x1 <- rep(x[i],n)
+  yi <- rbinom(n=n,size=size,prob=pi)/size
+  return(data.frame(x=x1,y=yi))
+}),as.list)
+
+ggplot(simbinomdata,aes(x=x,y=y))+geom_point()+scale_x_log10()+geom_line(data=data.frame(x=x,y=px),aes(x=x,y=px))
+```
+
+```{r}
+simbinomdata <- simbinomdata |> mutate(size = 100, damagecount= size*y)
+
+mod0 <- glm(cbind(damagecount,size-damagecount)~log(x),data=simbinomdata,family = "binomial")
+summary(mod0)
+ec50 <- MASS::dose.p(mod0,p=0.5)
+## check against MASS does.p function
+ecx <- (VGAM::logitlink(0.5)-coef(mod0)[1])/coef(mod0)[2]
+pd <- -cbind(1, ecx)/coef(mod0)[2]
+ff = as.matrix(vcov(mod0)[1:2,1:2])
+se <- sqrt(((pd %*% ff )* pd) %*% c(1, 1))
+se
+ec50
+exp(ec50)
+ypred <- predict(mod0,newdata=data.frame(x=x),type="response",se.fit=TRUE)
+ggplot(simbinomdata,aes(x=x,y=y))+geom_point()+scale_x_log10()+geom_line(data=data.frame(x=x,y=px),aes(x=x,y=px))+geom_line(data=data.frame(x=x,y=ypred$fit),aes(x=x,y=y),col="red")+geom_ribbon(data=data.frame(x=x,ymin=ypred$fit-1.96*ypred$se.fit,ymax=ypred$fit + 1.96*ypred$se.fit,y=ypred$fit),aes(ymin=ymin,ymax=ymax),fill="red",alpha=0.1)
+
+mod1 <- glm(y~log(x),data=simbinomdata,family = "quasibinomial")
+summary(mod1)
+ec50_qb <- MASS::dose.p(mod1,p=0.5)
+ec50_qb
+ec50
+ypred1 <- predict(mod1,newdata=data.frame(x=x),type="response",se.fit=TRUE)
+p1 <- ggplot(simbinomdata,aes(x=x,y=y))+geom_point()+scale_x_log10()+geom_line(data=data.frame(x=x,y=px),aes(x=x,y=px))+geom_line(data=data.frame(x=x,y=ypred$fit),aes(x=x,y=y),col="red")+ geom_ribbon(data=data.frame(x=x,ymin=ypred1$fit-1.96*ypred1$se.fit,ymax=ypred1$fit + 1.96*ypred1$se.fit,y=ypred$fit),aes(ymin=ymin,ymax=ymax),fill="green",alpha=0.1)+geom_line(data=data.frame(x=x,ymin=ypred1$fit-1.96*ypred1$se.fit,ymax=ypred1$fit + 1.96*ypred1$se.fit,y=ypred$fit),aes(x=x,y=y),col="green")+geom_ribbon(data=data.frame(x=x,ymin=ypred$fit-1.96*ypred$se.fit,ymax=ypred$fit + 1.96*ypred$se.fit,y=ypred$fit),aes(ymin=ymin,ymax=ymax),fill="red",alpha=0.2)
+p1
+p1+scale_x_log10()+coord_cartesian(xlim=c(0.1,10))
+
+mod3 <-  drm(y ~ x,data=simbinomdata,type="continuous",fct=LL.2())
+plot(mod3,type="all",main="DRC fit")
+ypred3 <- as.data.frame(predict(mod3,newdata=data.frame(x=x),se.fit=TRUE))
+
+
+df <- rbind(data.frame(x=x,ymin=ypred$fit-1.96*ypred$se.fit,ymax=ypred$fit + 1.96*ypred$se.fit,y=ypred$fit,model="binomial"),
+data.frame(x=x,ymin=ypred$fit-1.96*ypred$se.fit,ymax=ypred$fit + 1.96*ypred$se.fit,y=ypred$fit,model="quasibinomial"),
+data.frame(x=x,ymin=ypred3$Prediction-1.96*ypred3$SE,ymax=ypred3$Prediction + 1.96*ypred3$SE,y=ypred3$Prediction,model="drc"))
+df$trt <- factor(df$x)
+p <- ggplot(data=df,aes(x=model,y=y))+geom_errorbar(aes(ymin=ymin,ymax=ymax,col=model))+facet_grid(~trt,scale="free")+geom_point()
+p+coord_flip()
+p
+
+getEC50(mod0)
+EC50 <- data.frame(upper = (ecx+se*1.96)
+,lower =  (ecx-se*1.96))
+df1 = data.frame(rbind(getEC50(mod0),
+getEC50(mod1),getEC50(mod3)),model=c("binmoial","quasibinomial","drc-LL.2"))
+
+```
+
+## Adding noise to binomial data
+
+- Instead of fixed px, each replicate in every treatment group was generated from px+random noise. 
+
+```{r}
+simQuasiBinomdata <- purrr::map_dfr(lapply(1:length(x),function(i,n=30,size=20){
+  pi <- px[i]
+  pin <- rlnorm(n=n,log(px[i]),sd=0.1)
+  pin[pin>1] <- 1
+  x1 <- rep(x[i],n)
+  yi <- rbinom(n=n,size=size,prob=pin)/size
+  return(data.frame(x=x1,y=yi))
+}),as.list)
+
+simQuasiBinomdata$size <- 20
+ggplot(simQuasiBinomdata,aes(x=x,y=y))+geom_point()+scale_x_log10()+geom_line(data=data.frame(x=x,y=px),aes(x=x,y=px))
+comp3models <- function(simdata,size=10,...){
+  simdata <- simdata |> mutate(damagecount=size*y)
+  mod0 <- glm(cbind(damagecount,size-damagecount)~log(x),data=simdata,family = "binomial")
+  x <- c(2^(seq(-8,7,by=0.5)))
+  ypred <- predict(mod0,newdata=data.frame(x=x),  type="response",se.fit=TRUE)
+  
+  mod1 <- glm(y~log(x),data=simdata,family = "quasibinomial")
+  ypred1 <- predict(mod1,newdata=data.frame(x=x),type="response",se.fit=TRUE)
+  
+  mod3 <-  drm(y ~ x,data=simdata,type="continuous",fct=LL.2())
+  ypred3 <- as.data.frame(predict(mod3,newdata=data.frame(x=x),se.fit=TRUE)) 
+  df <- rbind(data.frame(x=x,ymin=ypred$fit-1.96*ypred$se.fit,ymax=ypred$fit + 1.96*ypred$se.fit,y=ypred$fit,model="binomial"),
+  data.frame(x=x,ymin=ypred$fit-1.96*ypred$se.fit,ymax=ypred$fit + 1.96*ypred$se.fit,y=ypred$fit,model="quasibinomial"),
+  data.frame(x=x,ymin=ypred3$Prediction-1.96*ypred3$SE,ymax=ypred3$Prediction + 1.96*ypred3$SE,y=ypred3$Prediction,model="drc"))
+  df$trt <- factor(df$x)
+  df1 = data.frame(rbind(getEC50(mod0),
+  getEC50(mod1),getEC50(mod3)),model=c("binmoial","quasibinomial","drc-LL.2"))
+  df1$Prediction <- c(predict(mod0,data.frame(x=df1$EC50[1]),type="response"),predict(mod1,data.frame(x=df1$EC50[2]),type="response"),predict(mod3,data.frame(x=df1$EC50[3])))
+  return(list(pred=df,ec50=df1))
+}
+
+res <- comp3models(simQuasiBinomdata,size=20)
+
+p1 <- ggplot(simQuasiBinomdata,aes(x=x,y=y))+geom_point()+scale_x_log10()+geom_line(data=data.frame(x=x,y=px),aes(x=x,y=px))
+p2 <- p1 + geom_ribbon(data=res$pred,aes(ymin=ymin,ymax=ymax,col=model,fill=model),alpha=0.1) + geom_line(data=res$pred,aes(col=model))
+p2
+p2+scale_x_log10()+coord_cartesian(xlim=c(0.1,10))
+res$ec50
 
 ```
 
 
+! need to be checked!
+```{r}
+simfun <- function(x=2^(seq(-8,7,by=2)) ,n=10,size=10,sd=0.1){
+  px <- plogis(x)
+  simdata <- purrr::map_dfr(lapply(1:length(x),function(i,nn,size,sd){
+  pxi <- px[i]
+  pin <- rlnorm(n=nn,log(pxi),sd=sd)
+  pin[pin>1] <- 1
+  x1 <- rep(x[i],n)
+  yi <- rbinom(n=nn,size=size,prob=pin)/size
+  return(data.frame(x=x1,y=yi))
+  },nn=n,size=size,sd=sd),as.list)
+  return(simdata)
+}
+
+simdata <- simfun(x=2^(seq(-8,7,by=2)),10,10,0.1)
+res <- comp3models(simQuasiBinomdata,size=10)
+```
+
+```{r}
+library(SimEngine)
+
+```
+
+
+
 ## Numerical Considerations
 
-Quasi-binomial is exactly the same as binomial for the coefficient / parameter estimates but not for the standard errors. 
+The quasi-binomial isn't necessarily a particular distribution. The only assumption is that for a generalized linear model with binomial assumption of "p" (mean of the binomial should be $np$), the variance is $\phi$ times the variance for that binomial = np(1-p). In case of missing sample size, then it is just  $\phi p(1-p)$ 
 
-In terms of GLM, the dispersion for non-overdispersed model like binomial and Poisson is 1. For quasi-families, it is estimated by the residual Chi-squared statistic divided by the residual degrees of freedom. 
+Quasi-binomial is exactly the same as binomial for the coefficient / parameter estimates but not for the standard errors. In fact, quasi-likelihood models do a post-fitting adjustment to the standard errors of the parameters and the associated statistics; they don't change anything about the way the model is fitted. Some analysis uses observation-level random effects (OLRE) rather than quasi-likelihood to handle overdispersion at the level of individual observations. The way to adjust the coefficient standard error and to model OLRE is in [this link](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#fitting-models-with-overdispersion)
 
-For estimation of EC50 or other ECx, 
+In terms of GLM, the dispersion for non-over-dispersed model like binomial and Poisson is 1. For quasi-families, it is estimated by the residual Chi-squared statistic divided by the residual degrees of freedom. 
+
+For estimation of EC50 or other ECx, other than inverse regression methods such as [here](https://cran.r-project.org/web/packages/investr/) and [here]()
 
 $$\log \Big( \frac{p}{1-p} \Big) = \beta_0 + \beta_1 x.$$
 
@@ -168,7 +446,7 @@ plot <- ggplot() + xlab("Concentration") + ylab("Proportion of surviving organis
 
 ec = 0.5
 library(VGAM)
-eta <- logit(ec) 
+eta <- VGAM::logitlink(ec) 
 beta <- coef(mod)[1:2] 
 ecx <- (eta - beta[1])/beta[2] 
 pd <- -cbind(1, ecx)/beta[2] 
@@ -279,3 +557,4 @@ print(summary2$coefficients)
 ## References: Quasi Models
 - [Quasipoisson, GLMM, GEE](https://stats.stackexchange.com/questions/201903/how-to-deal-with-overdispersion-in-poisson-regression-quasi-likelihood-negativ/332250#332250)
 - [Tutorial for count data](https://online.stat.psu.edu/stat504/lesson/9/9.2-0)
+- [Details on prediction CI with bootstrap and inverse link function](https://stackoverflow.com/questions/14423325/confidence-intervals-for-predictions-from-logistic-regression)

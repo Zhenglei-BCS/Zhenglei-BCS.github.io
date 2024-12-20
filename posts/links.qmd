@@ -1,0 +1,20 @@
+---
+title: "References and Reading List"
+description: "Useful links"
+author: "Zhenglei Gao"
+date: "8/06/2024"
+categories:
+  - code
+  - analysis
+---
+
+```{r}
+plot(mtcars)
+```
+
+## References
+- [R for Statistical Learning](https://daviddalpiaz.github.io/r4sl/)
+
+## Nice Posts
+- [P-Values Are Tough and S-Values Can Help](https://lesslikely.com/statistics/s-values/)
+- []()

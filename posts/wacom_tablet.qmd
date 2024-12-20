@@ -11,6 +11,8 @@ categories:
 
 It is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.
 
+## A Few Tips
+
 
 
 ```{r}

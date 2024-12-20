@@ -1,0 +1,23 @@
+---
+title: "SAS"
+description: "SAS code"
+author: "Zhenglei Gao"
+date: "12/16/2024"
+categories:
+  - code
+  - analysis
+---
+
+I have once again installed SAS on my computer and renewed the license today. 
+
+Here is my test script. 
+
+```{sas}
+data calculation;
+x = 3.0+4.5;
+put 'The answer is:' x;
+run;
+```
+
+It is incredible that I still need write so many additional text for doing a simple calculation. However, SAS does have many advantages that open source languages, such as R and python, don't have. For one thing, I really enjoy reading the extensive documentation of SAS, including both methods and implementation. 
+
