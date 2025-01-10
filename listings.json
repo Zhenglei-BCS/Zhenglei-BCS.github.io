@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/Categorical_responses.html",
       "/posts/Dose_Response_Quasibinomial.html",
       "/posts/SAS.html",
       "/posts/ToxCast Data Analyis Pipeline.html",
