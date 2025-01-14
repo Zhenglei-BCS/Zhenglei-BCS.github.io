@@ -185,13 +185,15 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-coming-from-binomial" id="toc-data-coming-from-binomial" class="nav-link active" data-scroll-target="#data-coming-from-binomial">Data coming from binomial</a>
+  <li><a href="#data-generated-using-the-logistic-cdf." id="toc-data-generated-using-the-logistic-cdf." class="nav-link active" data-scroll-target="#data-generated-using-the-logistic-cdf.">Data generated using the logistic CDF.</a></li>
+  <li><a href="#data-coming-from-binomial" id="toc-data-coming-from-binomial" class="nav-link" data-scroll-target="#data-coming-from-binomial">Data coming from binomial</a>
   <ul class="collapse">
   <li><a href="#design-of-data-simulation" id="toc-design-of-data-simulation" class="nav-link" data-scroll-target="#design-of-data-simulation">Design of data simulation</a></li>
   </ul></li>
   <li><a href="#adding-noise-to-binomial-data" id="toc-adding-noise-to-binomial-data" class="nav-link" data-scroll-target="#adding-noise-to-binomial-data">Adding noise to binomial data</a></li>
   <li><a href="#numerical-considerations" id="toc-numerical-considerations" class="nav-link" data-scroll-target="#numerical-considerations">Numerical Considerations</a></li>
   <li><a href="#generate-data" id="toc-generate-data" class="nav-link" data-scroll-target="#generate-data">Generate data</a></li>
+  <li><a href="#compare-r-results-with-sas-results" id="toc-compare-r-results-with-sas-results" class="nav-link" data-scroll-target="#compare-r-results-with-sas-results">Compare R results with SAS results</a></li>
   <li><a href="#references-quasi-models" id="toc-references-quasi-models" class="nav-link" data-scroll-target="#references-quasi-models">References: Quasi Models</a></li>
   </ul>
 </nav>
@@ -240,21 +242,24 @@ window.Quarto = {
 </header>
 
 
-<p>In this article, I will try to analyze percentage data as proportions, using quasibinomial and nonlinear fit to the log-logistic cumulative distribution function (CDF) curves.</p>
+<p>In this article, I will try to analyze percentage data as proportions, using log-logistic model with quasibinomial and nonlinear fit to the log-logistic cumulative distribution function (CDF) curves.</p>
 <p>Proportional data where the denominator (e.g.&nbsp;maximum possible number of presence for a given response type) is not known can be modeled using a Beta distribution. Binomial-logit-Normal model with observation-level random effects can also be applied to proportions to handle over-dispersion, similarly, quasibinomial models.</p>
-<p>For quasibinomial, an additional method is to add subject or individual or treatment group level random effect, that way additional noise is added to the model and can count for the spread of the data in addition to the quasi-binomial variance. However, there is no direct R functions available to calculate all the associated uncertainties, post-processing must be implemented. Therefore, the chance of that becoming a standard approach is very low.</p>
-<p>The data is generate in two ways, one is based on the logistic CDF with added noise, the other is just using binomial sampling. For the latter, the sample size information is excluded from the final dataset to mimic the percentage data characteristics. We can also generate over-dispersed binomial data following the steps described <a href="https://rdrr.io/cran/fitODBOD/man/GenerateBOD.html">here</a> or <a href="https://www.r-bloggers.com/2019/05/generating-and-modeling-over-dispersed-binomial-data/">here</a></p>
+<p>For quasibinomial, an additional method is to add subject or individual or treatment group level random effect, that way additional noise is added to the model and can count for the spread of the data in addition to the quasi-binomial variance. However, there is no direct R functions available to calculate all the associated uncertainties, post-processing must be implemented manually. Therefore, the chance of that becoming a standard approach is very low.</p>
+<p>The data is generated in two ways, one is based on the logistic CDF with added noise, the other is just using binomial sampling. For the latter, the sample size information is excluded from the final dataset to mimic the percentage data characteristics. We can also generate over-dispersed binomial data following the steps described <a href="https://rdrr.io/cran/fitODBOD/man/GenerateBOD.html">here</a> or <a href="https://www.r-bloggers.com/2019/05/generating-and-modeling-over-dispersed-binomial-data/">here</a></p>
 <p>We are comparing the 3 methods with different data generation scheme.</p>
 <ul>
 <li>Method A: simple quasi binomial</li>
 <li>Method B: drc with normal spread around logistic CDF</li>
-<li>Method C: quasi-binomial with random effect (<code>MASS::glmmPQL(percentages/100~ conc,random=~1|conc,family="quasibinomial",data=data)</code>)</li>
+<li>Method B1: quasi-binomial with random effect (<code>MASS::glmmPQL(percentages/100~ conc,random=~1|conc,family="quasibinomial",data=data)</code>)</li>
+<li>Method C:</li>
 </ul>
 <p>The conclusions are:</p>
 <ol type="1">
-<li>For the data generated based on logistic CDF, the standard DRC approach fit the data much better. In terms of EC50 estimation, …</li>
-<li>For the data generated using binomial sampling, the</li>
+<li>For the data generated based on logistic CDF, the standard DRC approach fit the data much better. In terms of EC50 estimation, and the fit of the curve.</li>
+<li>For the data generated using binomial sampling, the examined approaches are similar, in terms of both EC50 estimation and the curve estimation.</li>
 </ol>
+<section id="data-generated-using-the-logistic-cdf." class="level3">
+<h3 class="anchored" data-anchor-id="data-generated-using-the-logistic-cdf.">Data generated using the logistic CDF.</h3>
 <p>The data is generated using the cumulative function for logistic distribution. Note that the logistic function is just an inverse logit (<span class="math inline">\(\log(p/(1-p))\)</span>) function in R. The code is modified based on <a href="https://www.r-bloggers.com/2016/01/s-shaped-data-smoothing-with-quasibinomial-distribution-2/">this blog post</a>. <span class="math display">\[F(x;\mu,s) = \frac{1}{2} + \frac{1}{2} \tanh((x-\mu)/2s) = \frac{1}{1+e^{-(x-\mu)/s}}\]</span></p>
 <p>where, <span class="math inline">\(\tanh(x) = \frac{\sinh(x)}{\cosh(x)} = \frac{e^x - e^{-x}}{e^x + e^{-x}}\)</span>, is the <a href="https://en.wikipedia.org/wiki/Hyperbolic_functions">hyperbolic tangent function</a> that maps real numbers to the range between -1 and 1.</p>
 <p>Quantile of the CDF is then <span class="math inline">\(\mu+s\log(\frac{p}{1-p})\)</span>, therefore, the EC50 should be <span class="math inline">\(\mu\)</span> or <span class="math inline">\(\exp(\mu)\)</span>.</p>
@@ -369,10 +374,10 @@ window.Quarto = {
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    xmin <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ec50 <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>se)</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    xmax <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ec50 <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>se) </span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    res <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">EC50=</span><span class="fu">exp</span>(<span class="fu">as.numeric</span>(ec50)),</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower=</span><span class="fu">exp</span>(xmin),<span class="at">upper=</span><span class="fu">exp</span>(xmax))</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower=</span><span class="fu">exp</span>(xmin),<span class="at">upper=</span><span class="fu">exp</span>(xmax),<span class="at">se=</span>se)</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    res1 <span class="ot">&lt;-</span> <span class="fu">ED</span>(mod,<span class="dv">50</span>,<span class="at">interval=</span><span class="st">"delta"</span>)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    res <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">EC50=</span>res1[<span class="dv">1</span>,<span class="st">"Estimate"</span>],<span class="at">lower=</span>res1[<span class="dv">1</span>,<span class="st">"Lower"</span>],<span class="at">upper=</span>res1[<span class="dv">1</span>,<span class="st">"Upper"</span>])</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    res <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">EC50=</span>res1[<span class="dv">1</span>,<span class="st">"Estimate"</span>],<span class="at">lower=</span>res1[<span class="dv">1</span>,<span class="st">"Lower"</span>],<span class="at">upper=</span>res1[<span class="dv">1</span>,<span class="st">"Upper"</span>],<span class="at">se=</span>res1[<span class="dv">1</span>,<span class="st">"Std. Error"</span>])</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>}</span>
@@ -407,36 +412,39 @@ window.Quarto = {
 <span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>modelall <span class="ot">&lt;-</span> <span class="cf">function</span>(dat,<span class="at">addbeta =</span> <span class="cn">FALSE</span>){</span>
 <span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  mod1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(y<span class="sc">~</span><span class="fu">log</span>(x),<span class="at">data=</span>dat,<span class="at">family =</span> <span class="st">"quasibinomial"</span>)</span>
 <span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>  mod2 <span class="ot">&lt;-</span> <span class="fu">drm</span>(y<span class="sc">~</span>x,<span class="at">fct=</span><span class="fu">LL.2</span>(),<span class="at">data=</span>dat)</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(addbeta) {</span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    mod3 <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">log</span>(x), <span class="at">family=</span><span class="fu">betar</span>(<span class="at">link=</span><span class="st">"logit"</span>), <span class="at">data=</span>dat)</span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>  <span class="do">## mod3 &lt;- MASS::glmmPQL(y ~ log(x),random=~1|x,family="quasibinomial",data=dat) </span></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Estimation the same as quasibinomial without random effects, uncertainty estimation wider. </span></span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  <span class="do">## mod3 &lt;- lme4::glmer(y ~ log(x)+ (1|x),family="binomial",data=dat) ## dose not work without sample size.</span></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mod4 &lt;- betareg::betareg(y ~ log(x),link="logit",data=dat)</span></span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># y3&lt;- predict(mod3,newdata=data.frame(x=dat$x),type="response")</span></span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>  y1 <span class="ot">&lt;-</span> <span class="fu">predictCIglm</span>(mod1,<span class="at">dat=</span>dat)</span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>  y1<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="st">"quasibinomial"</span></span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>  y2 <span class="ot">&lt;-</span> <span class="fu">preddrc</span>(mod2,<span class="at">dat =</span> dat)</span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>  y2<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="st">"drc LL.2"</span></span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>  preddata <span class="ot">&lt;-</span> <span class="fu">rbind</span>(y1,y2)</span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(addbeta) {</span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>    mod3 <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">log</span>(x), <span class="at">family=</span><span class="fu">betar</span>(<span class="at">link=</span><span class="st">"logit"</span>), <span class="at">data=</span>dat)</span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>    y3 <span class="ot">&lt;-</span> <span class="fu">predictCIglm</span>(mod3,<span class="at">dat=</span>dat)</span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>    y3<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="st">"beta"</span></span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>    preddata <span class="ot">&lt;-</span> <span class="fu">rbind</span>(preddata,y3)</span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>  <span class="co">#ec4 &lt;- uniroot(function(x) predict(mod4, newdata = data.frame(x=x)) - 0.5,lower = 1, upper = 80)$root</span></span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>  <span class="do">## 19.55968 beta regression does not perform better than binomial or quasi-binomial regression!</span></span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>  ec1 <span class="ot">&lt;-</span> <span class="fu">getEC50</span>(mod1)</span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>  ec2 <span class="ot">&lt;-</span> <span class="fu">getEC50</span>(mod2)</span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>  ec50 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(ec1,ec2),<span class="at">model=</span><span class="fu">c</span>(<span class="st">"quasibinomial"</span>,<span class="st">"drc LL.2"</span>))</span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">ec50=</span>ec50,<span class="at">predata=</span>preddata))</span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>modelallbeta <span class="ot">&lt;-</span> <span class="cf">function</span>(dat){</span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modelall</span>(dat,<span class="at">addbeta=</span><span class="cn">TRUE</span>)</span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>  <span class="do">## mod3 &lt;- MASS::glmmPQL(y ~ log(x),random=~1|x,family="quasibinomial",data=dat) </span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Estimation the same as quasibinomial without random effects, uncertainty estimation wider. </span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>  <span class="do">## mod3 &lt;- lme4::glmer(y ~ log(x)+ (1|x),family="binomial",data=dat) ## dose not work without sample size.</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mod4 &lt;- betareg::betareg(y ~ log(x),link="logit",data=dat)</span></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>  <span class="co"># y3&lt;- predict(mod3,newdata=data.frame(x=dat$x),type="response")</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>  y1 <span class="ot">&lt;-</span> <span class="fu">predictCIglm</span>(mod1,<span class="at">dat=</span>dat)</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  y1<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="st">"quasibinomial"</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>  y2 <span class="ot">&lt;-</span> <span class="fu">preddrc</span>(mod2,<span class="at">dat =</span> dat)</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>  y2<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="st">"drc LL.2"</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>  preddata <span class="ot">&lt;-</span> <span class="fu">rbind</span>(y1,y2)</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>  ec1 <span class="ot">&lt;-</span> <span class="fu">getEC50</span>(mod1)</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>  ec2 <span class="ot">&lt;-</span> <span class="fu">getEC50</span>(mod2)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>  ec50 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(ec1,ec2),<span class="at">model=</span><span class="fu">c</span>(<span class="st">"quasibinomial"</span>,<span class="st">"drc LL.2"</span>))</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(addbeta) {</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>    mod3 <span class="ot">&lt;-</span> <span class="fu">gam</span>(y <span class="sc">~</span> <span class="fu">log</span>(x), <span class="at">family=</span><span class="fu">betar</span>(<span class="at">link=</span><span class="st">"logit"</span>), <span class="at">data=</span>dat)</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>    y3 <span class="ot">&lt;-</span> <span class="fu">predictCIglm</span>(mod3,<span class="at">dat=</span>dat)</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>    y3<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="st">"beta"</span></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>    preddata <span class="ot">&lt;-</span> <span class="fu">rbind</span>(preddata,y3)</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>    ec3 <span class="ot">&lt;-</span> <span class="fu">getEC50</span>(mod3)</span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>    ec50 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(ec50,<span class="fu">data.frame</span>(ec3,<span class="at">model=</span><span class="fu">c</span>(<span class="st">"beta"</span>)))</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>  <span class="co">#ec4 &lt;- uniroot(function(x) predict(mod4, newdata = data.frame(x=x)) - 0.5,lower = 1, upper = 80)$root</span></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>  <span class="do">## 19.55968 beta regression does not perform better than binomial or quasi-binomial regression!</span></span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">ec50=</span>ec50,<span class="at">predata=</span>preddata))</span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>modelallbeta <span class="ot">&lt;-</span> <span class="cf">function</span>(dat){</span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modelall</span>(dat,<span class="at">addbeta=</span><span class="cn">TRUE</span>)</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_nested <span class="ot">&lt;-</span> df_all <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(study) <span class="sc">%&gt;%</span> <span class="fu">nest</span>()</span>
@@ -477,12 +485,22 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(ec50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 14%">
+<col style="width: 15%">
+<col style="width: 14%">
+<col style="width: 20%">
+<col style="width: 12%">
+</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">study</th>
 <th style="text-align: right;">EC50</th>
 <th style="text-align: right;">lower</th>
 <th style="text-align: right;">upper</th>
+<th style="text-align: right;">se</th>
 <th style="text-align: left;">model</th>
 <th style="text-align: right;">TrueEC50</th>
 </tr>
@@ -493,6 +511,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">20.93803</td>
 <td style="text-align: right;">12.727863</td>
 <td style="text-align: right;">34.44419</td>
+<td style="text-align: right;">0.2539660</td>
 <td style="text-align: left;">quasibinomial</td>
 <td style="text-align: right;">24.1</td>
 </tr>
@@ -501,6 +520,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">23.72221</td>
 <td style="text-align: right;">23.449208</td>
 <td style="text-align: right;">23.99521</td>
+<td style="text-align: right;">0.1390778</td>
 <td style="text-align: left;">drc LL.2</td>
 <td style="text-align: right;">24.1</td>
 </tr>
@@ -509,6 +529,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">24.47938</td>
 <td style="text-align: right;">4.590626</td>
 <td style="text-align: right;">130.53558</td>
+<td style="text-align: right;">0.8539871</td>
 <td style="text-align: left;">quasibinomial</td>
 <td style="text-align: right;">28.1</td>
 </tr>
@@ -517,6 +538,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">27.53930</td>
 <td style="text-align: right;">27.257594</td>
 <td style="text-align: right;">27.82100</td>
+<td style="text-align: right;">0.1435116</td>
 <td style="text-align: left;">drc LL.2</td>
 <td style="text-align: right;">28.1</td>
 </tr>
@@ -525,6 +547,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">27.64177</td>
 <td style="text-align: right;">20.206538</td>
 <td style="text-align: right;">37.81290</td>
+<td style="text-align: right;">0.1598582</td>
 <td style="text-align: left;">quasibinomial</td>
 <td style="text-align: right;">32.1</td>
 </tr>
@@ -533,6 +556,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">30.85168</td>
 <td style="text-align: right;">30.449615</td>
 <td style="text-align: right;">31.25375</td>
+<td style="text-align: right;">0.2048285</td>
 <td style="text-align: left;">drc LL.2</td>
 <td style="text-align: right;">32.1</td>
 </tr>
@@ -541,6 +565,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">35.49035</td>
 <td style="text-align: right;">16.028210</td>
 <td style="text-align: right;">78.58425</td>
+<td style="text-align: right;">0.4055666</td>
 <td style="text-align: left;">quasibinomial</td>
 <td style="text-align: right;">40.1</td>
 </tr>
@@ -549,6 +574,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">39.35892</td>
 <td style="text-align: right;">38.992866</td>
 <td style="text-align: right;">39.72498</td>
+<td style="text-align: right;">0.1864849</td>
 <td style="text-align: left;">drc LL.2</td>
 <td style="text-align: right;">40.1</td>
 </tr>
@@ -557,6 +583,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">43.08117</td>
 <td style="text-align: right;">4.914720</td>
 <td style="text-align: right;">377.63846</td>
+<td style="text-align: right;">1.1075772</td>
 <td style="text-align: left;">quasibinomial</td>
 <td style="text-align: right;">48.1</td>
 </tr>
@@ -565,6 +592,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">47.09152</td>
 <td style="text-align: right;">46.682623</td>
 <td style="text-align: right;">47.50042</td>
+<td style="text-align: right;">0.2083091</td>
 <td style="text-align: left;">drc LL.2</td>
 <td style="text-align: right;">48.1</td>
 </tr>
@@ -573,6 +601,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">47.45811</td>
 <td style="text-align: right;">1.938822</td>
 <td style="text-align: right;">1161.67056</td>
+<td style="text-align: right;">1.6315137</td>
 <td style="text-align: left;">quasibinomial</td>
 <td style="text-align: right;">52.1</td>
 </tr>
@@ -581,6 +610,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <td style="text-align: right;">51.84412</td>
 <td style="text-align: right;">51.565412</td>
 <td style="text-align: right;">52.12283</td>
+<td style="text-align: right;">0.1419849</td>
 <td style="text-align: left;">drc LL.2</td>
 <td style="text-align: right;">52.1</td>
 </tr>
@@ -722,6 +752,7 @@ e:1:50 51.84412    0.14198 51.56541 52.12283</code></pre>
 <span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   xlab("Concentration") + </span></span>
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   ylab("% Injury / 100") </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 <section id="data-coming-from-binomial" class="level2">
 <h2 class="anchored" data-anchor-id="data-coming-from-binomial">Data coming from binomial</h2>
 <section id="design-of-data-simulation" class="level3">
@@ -918,8 +949,8 @@ p = 0.5: 0.0353803 0.03774589</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getEC50</span>(mod0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      EC50     lower    upper
-1 1.036014 0.9621339 1.115566</code></pre>
+<pre><code>             EC50     lower    upper         se
+p = 0.5: 1.036014 0.9621339 1.115566 0.03774589</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>EC50 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">upper =</span> (ecx<span class="sc">+</span>se<span class="sc">*</span><span class="fl">1.96</span>)</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>,<span class="at">lower =</span>  (ecx<span class="sc">-</span>se<span class="sc">*</span><span class="fl">1.96</span>))</span>
@@ -1008,10 +1039,10 @@ e:1:50  1.02731    0.04302 0.94257 1.11206</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>ec50</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      EC50     lower    upper         model Prediction
-1 1.043983 0.9492636 1.148154      binmoial        0.5
-2 1.043983 0.9111862 1.196134 quasibinomial        0.5
-3 1.027314 0.9425659 1.112062      drc-LL.2        0.5</code></pre>
+<pre><code>              EC50     lower    upper         se         model Prediction
+p = 0.5:  1.043983 0.9492636 1.148154 0.04852665      binmoial        0.5
+p = 0.5:1 1.043983 0.9111862 1.196134 0.06941401 quasibinomial        0.5
+1         1.027314 0.9425659 1.112062 0.04301966      drc-LL.2        0.5</code></pre>
 </div>
 </div>
 <p>! need to be checked!</p>
@@ -1230,6 +1261,279 @@ e:1:50  1.02731    0.04302 0.94257 1.11206</code></pre>
 [1,] -0.3726848  0.1886017 -1.976042 0.05099072
 [2,]  0.5887384  0.2620122  2.246988 0.02690735
 [3,]  0.3161643  0.2264421  1.396226 0.16583365</code></pre>
+</div>
+</div>
+</section>
+<section id="compare-r-results-with-sas-results" class="level2">
+<h2 class="anchored" data-anchor-id="compare-r-results-with-sas-results">Compare R results with SAS results</h2>
+<p>The data was generated by Changjian using SAS Probnorm with Vx=0.25 and Vr=0.15, a=-2.5, b=1.0, ER50=12.18. Model: probit(y) = a + b*logdose + ri;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>dattab <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">textConnection</span>(<span class="st">"Obs    rep dose    yt  y0 </span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="st">1   1   2   0.02021 0</span></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="st">2   2   2   0.02491 0</span></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a><span class="st">3   3   2   0.00760 0</span></span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a><span class="st">4   5   2   0.04466 0</span></span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a><span class="st">5   6   2   0.00037 0</span></span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a><span class="st">6   8   2   0.05386 0</span></span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a><span class="st">7   9   2   0.07205 0</span></span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a><span class="st">8   10  2   0.01125 0</span></span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a><span class="st">9   1   4   0.02011 0</span></span>
+<span id="cb90-11"><a href="#cb90-11" aria-hidden="true" tabindex="-1"></a><span class="st">10  7   4   0.09058 0</span></span>
+<span id="cb90-12"><a href="#cb90-12" aria-hidden="true" tabindex="-1"></a><span class="st">11  8   4   0.06255 0</span></span>
+<span id="cb90-13"><a href="#cb90-13" aria-hidden="true" tabindex="-1"></a><span class="st">12  10  8   0.09431 0</span></span>
+<span id="cb90-14"><a href="#cb90-14" aria-hidden="true" tabindex="-1"></a><span class="st">13  4   2   0.14060 A</span></span>
+<span id="cb90-15"><a href="#cb90-15" aria-hidden="true" tabindex="-1"></a><span class="st">14  7   2   0.22223 A</span></span>
+<span id="cb90-16"><a href="#cb90-16" aria-hidden="true" tabindex="-1"></a><span class="st">15  2   4   0.20943 A</span></span>
+<span id="cb90-17"><a href="#cb90-17" aria-hidden="true" tabindex="-1"></a><span class="st">16  3   4   0.20959 A</span></span>
+<span id="cb90-18"><a href="#cb90-18" aria-hidden="true" tabindex="-1"></a><span class="st">17  4   4   0.17305 A</span></span>
+<span id="cb90-19"><a href="#cb90-19" aria-hidden="true" tabindex="-1"></a><span class="st">18  9   4   0.11405 A</span></span>
+<span id="cb90-20"><a href="#cb90-20" aria-hidden="true" tabindex="-1"></a><span class="st">19  10  4   0.17668 A</span></span>
+<span id="cb90-21"><a href="#cb90-21" aria-hidden="true" tabindex="-1"></a><span class="st">20  1   8   0.12756 A</span></span>
+<span id="cb90-22"><a href="#cb90-22" aria-hidden="true" tabindex="-1"></a><span class="st">21  6   8   0.11478 A</span></span>
+<span id="cb90-23"><a href="#cb90-23" aria-hidden="true" tabindex="-1"></a><span class="st">22  6   32  0.20602 A</span></span>
+<span id="cb90-24"><a href="#cb90-24" aria-hidden="true" tabindex="-1"></a><span class="st">23  5   4   0.26650 B</span></span>
+<span id="cb90-25"><a href="#cb90-25" aria-hidden="true" tabindex="-1"></a><span class="st">24  6   4   0.27344 B</span></span>
+<span id="cb90-26"><a href="#cb90-26" aria-hidden="true" tabindex="-1"></a><span class="st">25  3   8   0.27021 B</span></span>
+<span id="cb90-27"><a href="#cb90-27" aria-hidden="true" tabindex="-1"></a><span class="st">26  5   8   0.30662 B</span></span>
+<span id="cb90-28"><a href="#cb90-28" aria-hidden="true" tabindex="-1"></a><span class="st">27  8   8   0.29319 B</span></span>
+<span id="cb90-29"><a href="#cb90-29" aria-hidden="true" tabindex="-1"></a><span class="st">28  9   8   0.37300 B</span></span>
+<span id="cb90-30"><a href="#cb90-30" aria-hidden="true" tabindex="-1"></a><span class="st">29  6   16  0.36224 B</span></span>
+<span id="cb90-31"><a href="#cb90-31" aria-hidden="true" tabindex="-1"></a><span class="st">30  9   16  0.31316 B</span></span>
+<span id="cb90-32"><a href="#cb90-32" aria-hidden="true" tabindex="-1"></a><span class="st">31  2   8   0.55845 C</span></span>
+<span id="cb90-33"><a href="#cb90-33" aria-hidden="true" tabindex="-1"></a><span class="st">32  4   8   0.44811 C</span></span>
+<span id="cb90-34"><a href="#cb90-34" aria-hidden="true" tabindex="-1"></a><span class="st">33  3   16  0.42677 C</span></span>
+<span id="cb90-35"><a href="#cb90-35" aria-hidden="true" tabindex="-1"></a><span class="st">34  3   32  0.52315 C</span></span>
+<span id="cb90-36"><a href="#cb90-36" aria-hidden="true" tabindex="-1"></a><span class="st">35  7   8   0.67080 D</span></span>
+<span id="cb90-37"><a href="#cb90-37" aria-hidden="true" tabindex="-1"></a><span class="st">36  2   16  0.71776 D</span></span>
+<span id="cb90-38"><a href="#cb90-38" aria-hidden="true" tabindex="-1"></a><span class="st">37  4   16  0.73038 D</span></span>
+<span id="cb90-39"><a href="#cb90-39" aria-hidden="true" tabindex="-1"></a><span class="st">38  5   16  0.64232 D</span></span>
+<span id="cb90-40"><a href="#cb90-40" aria-hidden="true" tabindex="-1"></a><span class="st">39  7   16  0.68720 D</span></span>
+<span id="cb90-41"><a href="#cb90-41" aria-hidden="true" tabindex="-1"></a><span class="st">40  8   16  0.61088 D</span></span>
+<span id="cb90-42"><a href="#cb90-42" aria-hidden="true" tabindex="-1"></a><span class="st">41  5   32  0.72342 D</span></span>
+<span id="cb90-43"><a href="#cb90-43" aria-hidden="true" tabindex="-1"></a><span class="st">42  8   32  0.63594 D</span></span>
+<span id="cb90-44"><a href="#cb90-44" aria-hidden="true" tabindex="-1"></a><span class="st">43  1   16  0.77171 E</span></span>
+<span id="cb90-45"><a href="#cb90-45" aria-hidden="true" tabindex="-1"></a><span class="st">44  10  16  0.74087 E</span></span>
+<span id="cb90-46"><a href="#cb90-46" aria-hidden="true" tabindex="-1"></a><span class="st">45  2   32  0.79477 E</span></span>
+<span id="cb90-47"><a href="#cb90-47" aria-hidden="true" tabindex="-1"></a><span class="st">46  4   32  0.88546 E</span></span>
+<span id="cb90-48"><a href="#cb90-48" aria-hidden="true" tabindex="-1"></a><span class="st">47  7   32  0.78002 E</span></span>
+<span id="cb90-49"><a href="#cb90-49" aria-hidden="true" tabindex="-1"></a><span class="st">48  9   32  0.81456 E</span></span>
+<span id="cb90-50"><a href="#cb90-50" aria-hidden="true" tabindex="-1"></a><span class="st">49  10  32  0.89465 E</span></span>
+<span id="cb90-51"><a href="#cb90-51" aria-hidden="true" tabindex="-1"></a><span class="st">50  1   32  0.96129 F</span></span>
+<span id="cb90-52"><a href="#cb90-52" aria-hidden="true" tabindex="-1"></a><span class="st">51  1   64  0.96127 F</span></span>
+<span id="cb90-53"><a href="#cb90-53" aria-hidden="true" tabindex="-1"></a><span class="st">52  2   64  0.91687 F</span></span>
+<span id="cb90-54"><a href="#cb90-54" aria-hidden="true" tabindex="-1"></a><span class="st">53  3   64  0.97204 F</span></span>
+<span id="cb90-55"><a href="#cb90-55" aria-hidden="true" tabindex="-1"></a><span class="st">54  4   64  0.99268 F</span></span>
+<span id="cb90-56"><a href="#cb90-56" aria-hidden="true" tabindex="-1"></a><span class="st">55  5   64  0.98935 F</span></span>
+<span id="cb90-57"><a href="#cb90-57" aria-hidden="true" tabindex="-1"></a><span class="st">56  6   64  0.96263 F</span></span>
+<span id="cb90-58"><a href="#cb90-58" aria-hidden="true" tabindex="-1"></a><span class="st">57  7   64  0.95435 F</span></span>
+<span id="cb90-59"><a href="#cb90-59" aria-hidden="true" tabindex="-1"></a><span class="st">58  8   64  0.92081 F</span></span>
+<span id="cb90-60"><a href="#cb90-60" aria-hidden="true" tabindex="-1"></a><span class="st">59  9   64  0.91776 F</span></span>
+<span id="cb90-61"><a href="#cb90-61" aria-hidden="true" tabindex="-1"></a><span class="st">60  10  64  0.99104 F</span></span>
+<span id="cb90-62"><a href="#cb90-62" aria-hidden="true" tabindex="-1"></a><span class="st">"</span>),<span class="at">header =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>dattab <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dose) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(),<span class="at">meany=</span><span class="fu">mean</span>(yt))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+   dose     n  meany
+  &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+1     2    10 0.0598
+2     4    10 0.160 
+3     8    10 0.326 
+4    16    10 0.600 
+5    32    10 0.722 
+6    64    10 0.958 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>dattab <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(y0) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(),<span class="at">meany=</span><span class="fu">mean</span>(yt)) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.,<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">y0</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">meany</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.042</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.169</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.307</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0.489</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.677</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">E</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0.812</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0.958</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dattab,<span class="fu">aes</span>(<span class="at">x =</span> dose, <span class="at">y=</span>yt))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"glm"</span>, <span class="at">method.args=</span><span class="fu">list</span>(<span class="at">family=</span><span class="st">"quasibinomial"</span>), <span class="at">formula=</span><span class="st">"y ~ log(x)"</span>,</span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">se =</span><span class="cn">TRUE</span>, <span class="at">size=</span><span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Dose_Response_Quasibinomial_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>dattab1 <span class="ot">&lt;-</span> dattab <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x=</span>dose,<span class="at">y=</span>yt)</span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>dfres <span class="ot">&lt;-</span> <span class="fu">modelall</span>(dattab1,<span class="at">addbeta =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Estimated effective doses
+
+       Estimate Std. Error   Lower   Upper
+e:1:50  13.0659     1.0351 10.9939 15.1380</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>dfres<span class="sc">$</span>ec50 <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.,<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">EC50</th>
+<th style="text-align: right;">lower</th>
+<th style="text-align: right;">upper</th>
+<th style="text-align: right;">se</th>
+<th style="text-align: left;">model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">p = 0.5:</td>
+<td style="text-align: right;">12.916</td>
+<td style="text-align: right;">11.038</td>
+<td style="text-align: right;">15.114</td>
+<td style="text-align: right;">0.080</td>
+<td style="text-align: left;">quasibinomial</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: right;">13.066</td>
+<td style="text-align: right;">10.994</td>
+<td style="text-align: right;">15.138</td>
+<td style="text-align: right;">1.035</td>
+<td style="text-align: left;">drc LL.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">p = 0.5:1</td>
+<td style="text-align: right;">12.835</td>
+<td style="text-align: right;">11.123</td>
+<td style="text-align: right;">14.810</td>
+<td style="text-align: right;">0.073</td>
+<td style="text-align: left;">beta</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>predres <span class="ot">&lt;-</span> dfres<span class="sc">$</span>predata</span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>p_drc_qb <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dattab1, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.1</span>)  <span class="sc">+</span></span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_viridis_d</span>()<span class="sc">+</span></span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># scale_color_brewer(palette = "Reds") + </span></span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># #geom_smooth(method="loess", se = FALSE, size=1.5) +</span></span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"drm"</span>, <span class="at">method.args=</span><span class="fu">list</span>(<span class="at">fct=</span><span class="fu">LL.2</span>()), <span class="at">formula=</span><span class="st">"y~x"</span>,</span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="fl">1.5</span>,<span class="at">col=</span>scales<span class="sc">::</span><span class="fu">hue_pal</span>()(<span class="dv">2</span>)[<span class="dv">1</span>]) <span class="sc">+</span></span>
+<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"glm"</span>, <span class="at">method.args=</span><span class="fu">list</span>(<span class="at">family=</span><span class="st">"quasibinomial"</span>), <span class="at">formula=</span><span class="st">"y~log(x)"</span>,</span>
+<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>                       <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="fl">1.5</span>,<span class="at">lty=</span><span class="dv">3</span>,<span class="at">col=</span>scales<span class="sc">::</span><span class="fu">hue_pal</span>()(<span class="dv">2</span>)[<span class="dv">2</span>])<span class="sc">+</span></span>
+<span id="cb98-11"><a href="#cb98-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">"Concentration"</span>) <span class="sc">+</span> </span>
+<span id="cb98-12"><a href="#cb98-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"% Injury / 100"</span>)  </span>
+<span id="cb98-13"><a href="#cb98-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-14"><a href="#cb98-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-15"><a href="#cb98-15" aria-hidden="true" tabindex="-1"></a> p_drc_qb <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_ribbon</span>(<span class="at">data=</span>predres,<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">ymin=</span>Lower,<span class="at">ymax=</span>Upper,<span class="at">y=</span>Prediction,<span class="at">fill=</span>model),<span class="at">alpha=</span><span class="fl">0.3</span>) <span class="sc">+</span> <span class="fu">ggtitle</span>(<span class="st">"drc and quasibinomial fit with CI"</span>) <span class="do">##+ scale_x_log10()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Dose_Response_Quasibinomial_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>p_drc_qb <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dattab1, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y)) <span class="sc">+</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.1</span>)  <span class="sc">+</span></span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_viridis_d</span>()<span class="sc">+</span></span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="at">data=</span>predres,<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>Prediction,<span class="at">col=</span>model))<span class="sc">+</span></span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data=</span>predres,<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">ymin=</span>Lower,<span class="at">ymax=</span>Upper,<span class="at">y=</span>Prediction,<span class="at">fill=</span>model),<span class="at">alpha=</span><span class="fl">0.3</span>)  <span class="sc">+</span> </span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">xlab</span>(<span class="st">"Concentration"</span>) <span class="sc">+</span> </span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ylab</span>(<span class="st">"% Injury / 100"</span>)  </span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>p_drc_qb <span class="sc">+</span> <span class="fu">geom_hline</span>(<span class="at">yintercept=</span><span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Dose_Response_Quasibinomial_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Adding individual level random effect</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>modr <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">glmmPQL</span>(yt<span class="sc">~</span> <span class="fu">log</span>(dose),<span class="at">random=</span><span class="sc">~</span><span class="dv">1</span><span class="sc">|</span>Obs,<span class="at">family=</span><span class="st">"quasibinomial"</span>,<span class="at">data=</span>dattab)</span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed-effects model fit by maximum likelihood
+  Data: dattab 
+  AIC BIC logLik
+   NA  NA     NA
+
+Random effects:
+ Formula: ~1 | Obs
+        (Intercept)    Residual
+StdDev:   0.8883142 2.02464e-05
+
+Variance function:
+ Structure: fixed weights
+ Formula: ~invwt 
+Fixed effects:  yt ~ log(dose) 
+                Value  Std.Error DF   t-value p-value
+(Intercept) -4.326393 0.26598326 58 -16.26566       0
+log(dose)    1.714092 0.09853347 58  17.39603       0
+ Correlation: 
+          (Intr)
+log(dose) -0.899
+
+Standardized Within-Group Residuals:
+          Min            Q1           Med            Q3           Max 
+-1.754784e-04 -4.189350e-05  8.955260e-06  4.092003e-05  1.439488e-04 
+
+Number of Observations: 60
+Number of Groups: 60 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">uniroot</span>(<span class="cf">function</span>(x) {</span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">predict</span>(modr, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">dose=</span>x),<span class="at">level=</span><span class="dv">0</span>) <span class="sc">-</span> <span class="fl">0.5</span>)</span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  },<span class="at">lower =</span><span class="dv">10</span>, <span class="at">upper =</span> <span class="dv">25</span>)<span class="sc">$</span>root</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16.70512</code></pre>
 </div>
 </div>
 </section>
