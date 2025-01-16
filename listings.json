@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/PBK Modelling.html",
       "/posts/GEE_QB.html",
       "/posts/Categorical_responses.html",
       "/posts/Dose_Response_Quasibinomial.html",
