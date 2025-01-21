@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zhenglei Gao">
-<meta name="dcterms.date" content="2025-01-16">
-<meta name="description" content="Birds and Mammals">
+<meta name="dcterms.date" content="2024-01-03">
+<meta name="description" content="Quotes and Exceptions">
 
-<title>Zhenglei Gao - PBPK and TDTK Modelling</title>
+<title>Zhenglei Gao - OECD Test Guidelines and Statistics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -122,7 +122,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#extracting-parameters-from-httk-database" id="toc-extracting-parameters-from-httk-database" class="nav-link active" data-scroll-target="#extracting-parameters-from-httk-database">Extracting parameters from httk database</a></li>
+  <li><a href="#oecd-233" id="toc-oecd-233" class="nav-link active" data-scroll-target="#oecd-233">OECD 233</a>
+  <ul class="collapse">
+  <li><a href="#design-for-estimation-of-a-noec" id="toc-design-for-estimation-of-a-noec" class="nav-link" data-scroll-target="#design-for-estimation-of-a-noec"><em>Design for estimation of a NOEC</em></a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -131,16 +135,17 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">PBPK and TDTK Modelling</h1>
+<h1 class="title">OECD Test Guidelines and Statistics</h1>
   <div class="quarto-categories">
     <div class="quarto-category">code</div>
-    <div class="quarto-category">analysis</div>
+    <div class="quarto-category">Stats</div>
+    <div class="quarto-category">R</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Birds and Mammals
+    Quotes and Exceptions
   </div>
 </div>
 
@@ -157,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 16, 2025</p>
+      <p class="date">January 3, 2024</p>
     </div>
   </div>
   
@@ -169,23 +174,44 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>It has been a while since I last explored this topic, which I first encountered after I joined the data science group about three years ago. I would like to revisit it, and I found the papers from the colleagues at Syngenta to be very helpful.</p>
-<p>I have previously had a training on this subject using the R httk package from the US EPA, so this will also serve as a refresher.</p>
-<section id="extracting-parameters-from-httk-database" class="level2">
-<h2 class="anchored" data-anchor-id="extracting-parameters-from-httk-database">Extracting parameters from httk database</h2>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>To be continued.</p>
-</div>
-</div>
+<section id="oecd-233" class="level2">
+<h2 class="anchored" data-anchor-id="oecd-233">OECD 233</h2>
+<ul>
+<li>OECD (2010), Test No.&nbsp;233: Sediment-Water Chironomid Life-Cycle Toxicity Test Using Spiked Water or Spiked Sediment, OECD Guidelines for the Testing of Chemicals, Section 2, OECD Publishing, Paris, https://doi.org/10.1787/9789264090910-en.</li>
+</ul>
+<section id="design-for-estimation-of-a-noec" class="level3">
+<h3 class="anchored" data-anchor-id="design-for-estimation-of-a-noec"><em>Design for estimation of a NOEC</em></h3>
+<blockquote class="blockquote">
+<ol start="20" type="1">
+<li>For a NOEC approach, five test concentrations with at least eight replicates (4 for each breeding cage, A and B) should be used and the factor between concentrations should not be greater than two. The number of replicates should be sufficient to ensure adequate statistical power to detect a 20% difference from the control at the 5% level of significance (α = 0.05). For the development rate, fecundity and fertility an analysis of variance (ANOVA) is usually appropriate, followed by Dunnett’s test or Williams’ test (22- 25). For the emergence ratio and sex ratio the Cochran-Armitage, Fisher’s exact (with Bonferroni correction), or Mantel-Haentzal tests may be appropriate.</li>
+</ol>
+</blockquote>
+<blockquote class="blockquote">
+<ol start="45" type="1">
+<li>Alternatively, more robust tests (27) can be appropriate in situations where there are violations of the usual ANOVA assumptions (31).</li>
+</ol>
+</blockquote>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>OECD (2010), Test No.&nbsp;233: Sediment-Water Chironomid Life-Cycle Toxicity Test Using Spiked Water or Spiked Sediment, OECD Guidelines for the Testing of Chemicals, Section 2, OECD Publishing, Paris, https://doi.org/10.1787/9789264090910-en.</li>
+<li>OECD (2006), Current Approaches in the Statistical Analysis of Ecotoxicity Data: a Guidance to Application, OECD Series on Testing and Assessment No.&nbsp;54, 146 pp., ENV/JM/MONO(2006)18, OECD, Paris.</li>
+<li>Bruce, R.D. and D.J. Versteeg (1992), A statistical procedure for modelling continuous toxicity data, Environ. Toxicol. Chem., 11: 1485-1494.</li>
+<li>Slob, W. (2002), Dose-response modelling of continuous endpoints. Toxicol. Sci., 66: 298-312.</li>
+<li>Christensen, E.R. (1984), Dose-response functions in aquatic toxicity testing and the Weibull model, Water Res., 18: 213-221.</li>
+<li>Rao, J.N.K. and A.J. Scott (1992), A simple method for the analysis of clustered binary data. Biometrics, 48: 577-585.</li>
+<li>Dunnett, C.W. (1964), A multiple comparisons procedure for comparing several treatments with a control. J. Amer. Statis. Assoc., 50: 1096-1121.</li>
+<li>Dunnett, C.W. (1964), New tables for multiple comparisons with a control, Biometrics, 20: 482-</li>
+</ul>
+<ol start="491" type="1">
+<li></li>
+</ol>
+<ul>
+<li>Williams, D.A. (1971), A test for differences between treatment means when several dose levels are compared with a zero dose control. Biometrics, 27: 103-117.</li>
+<li>Williams, D.A. (1972), The comparison of several dose levels with a zero dose control. Biometrics, 28: 510-531.</li>
+</ul>
 
 
 </section>

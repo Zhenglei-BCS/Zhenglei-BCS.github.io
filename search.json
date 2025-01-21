@@ -42,11 +42,46 @@
     "text": "Useful Resources\n\nPowerShell: Check If Port is Open – Test TCP Connection"
   },
   {
-    "objectID": "posts/my_dso_journey.html",
-    "href": "posts/my_dso_journey.html",
-    "title": "Zhenglei Gao",
+    "objectID": "posts/OECD TG and Stats.html",
+    "href": "posts/OECD TG and Stats.html",
+    "title": "OECD Test Guidelines and Statistics",
     "section": "",
-    "text": "Warning\n\n\n\nTo be recorded."
+    "text": "OECD (2010), Test No. 233: Sediment-Water Chironomid Life-Cycle Toxicity Test Using Spiked Water or Spiked Sediment, OECD Guidelines for the Testing of Chemicals, Section 2, OECD Publishing, Paris, https://doi.org/10.1787/9789264090910-en.\n\n\n\n\n\nFor a NOEC approach, five test concentrations with at least eight replicates (4 for each breeding cage, A and B) should be used and the factor between concentrations should not be greater than two. The number of replicates should be sufficient to ensure adequate statistical power to detect a 20% difference from the control at the 5% level of significance (α = 0.05). For the development rate, fecundity and fertility an analysis of variance (ANOVA) is usually appropriate, followed by Dunnett’s test or Williams’ test (22- 25). For the emergence ratio and sex ratio the Cochran-Armitage, Fisher’s exact (with Bonferroni correction), or Mantel-Haentzal tests may be appropriate.\n\n\n\n\nAlternatively, more robust tests (27) can be appropriate in situations where there are violations of the usual ANOVA assumptions (31)."
+  },
+  {
+    "objectID": "posts/OECD TG and Stats.html#oecd-233",
+    "href": "posts/OECD TG and Stats.html#oecd-233",
+    "title": "OECD Test Guidelines and Statistics",
+    "section": "",
+    "text": "OECD (2010), Test No. 233: Sediment-Water Chironomid Life-Cycle Toxicity Test Using Spiked Water or Spiked Sediment, OECD Guidelines for the Testing of Chemicals, Section 2, OECD Publishing, Paris, https://doi.org/10.1787/9789264090910-en.\n\n\n\n\n\nFor a NOEC approach, five test concentrations with at least eight replicates (4 for each breeding cage, A and B) should be used and the factor between concentrations should not be greater than two. The number of replicates should be sufficient to ensure adequate statistical power to detect a 20% difference from the control at the 5% level of significance (α = 0.05). For the development rate, fecundity and fertility an analysis of variance (ANOVA) is usually appropriate, followed by Dunnett’s test or Williams’ test (22- 25). For the emergence ratio and sex ratio the Cochran-Armitage, Fisher’s exact (with Bonferroni correction), or Mantel-Haentzal tests may be appropriate.\n\n\n\n\nAlternatively, more robust tests (27) can be appropriate in situations where there are violations of the usual ANOVA assumptions (31)."
+  },
+  {
+    "objectID": "posts/OECD TG and Stats.html#references",
+    "href": "posts/OECD TG and Stats.html#references",
+    "title": "OECD Test Guidelines and Statistics",
+    "section": "References",
+    "text": "References\n\nOECD (2010), Test No. 233: Sediment-Water Chironomid Life-Cycle Toxicity Test Using Spiked Water or Spiked Sediment, OECD Guidelines for the Testing of Chemicals, Section 2, OECD Publishing, Paris, https://doi.org/10.1787/9789264090910-en.\nOECD (2006), Current Approaches in the Statistical Analysis of Ecotoxicity Data: a Guidance to Application, OECD Series on Testing and Assessment No. 54, 146 pp., ENV/JM/MONO(2006)18, OECD, Paris.\nBruce, R.D. and D.J. Versteeg (1992), A statistical procedure for modelling continuous toxicity data, Environ. Toxicol. Chem., 11: 1485-1494.\nSlob, W. (2002), Dose-response modelling of continuous endpoints. Toxicol. Sci., 66: 298-312.\nChristensen, E.R. (1984), Dose-response functions in aquatic toxicity testing and the Weibull model, Water Res., 18: 213-221.\nRao, J.N.K. and A.J. Scott (1992), A simple method for the analysis of clustered binary data. Biometrics, 48: 577-585.\nDunnett, C.W. (1964), A multiple comparisons procedure for comparing several treatments with a control. J. Amer. Statis. Assoc., 50: 1096-1121.\nDunnett, C.W. (1964), New tables for multiple comparisons with a control, Biometrics, 20: 482-\n\n\n\n\n\nWilliams, D.A. (1971), A test for differences between treatment means when several dose levels are compared with a zero dose control. Biometrics, 27: 103-117.\nWilliams, D.A. (1972), The comparison of several dose levels with a zero dose control. Biometrics, 28: 510-531."
+  },
+  {
+    "objectID": "posts/links.html",
+    "href": "posts/links.html",
+    "title": "References and Reading List",
+    "section": "",
+    "text": "plot(mtcars)"
+  },
+  {
+    "objectID": "posts/links.html#references",
+    "href": "posts/links.html#references",
+    "title": "References and Reading List",
+    "section": "References",
+    "text": "References\n\nR for Statistical Learning"
+  },
+  {
+    "objectID": "posts/links.html#nice-posts",
+    "href": "posts/links.html#nice-posts",
+    "title": "References and Reading List",
+    "section": "Nice Posts",
+    "text": "Nice Posts\n\nP-Values Are Tough and S-Values Can Help"
   },
   {
     "objectID": "posts/Hessian_and_likehood.html",
@@ -144,7 +179,7 @@
     "href": "blog.html",
     "title": "Thoughts and Learnings",
     "section": "",
-    "text": "PBPK and TDTK Modelling\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nBirds and Mammals\n\n\n\n\n\nJan 16, 2025\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nGEE and categorical responses\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nTry using GEE for categorical responses\n\n\n\n\n\nJan 14, 2025\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nCategorical Responses\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nTry the GLMcat package and drmOrdinal\n\n\n\n\n\nJan 10, 2025\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nBinomial, Quasibinomial, DRC for proportions\n\n\n\n\n\n\ncode\n\n\nstats\n\n\nR\n\n\n\nIf all 3 types can model percentage data\n\n\n\n\n\nDec 17, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nSAS\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nSAS code\n\n\n\n\n\nDec 16, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nThe ToxCast Data Analysis Pipeline\n\n\n\n\n\n\ncode\n\n\nEcotox\n\n\nR\n\n\n\nTest out tcpl package\n\n\n\n\n\nDec 11, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nRisk Report and Metric\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nReproduce \n\n\n\n\n\nDec 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nDeploy a Shiny App on AWS\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nReproduce \n\n\n\n\n\nDec 3, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nSet up docker locally\n\n\n\n\n\n\ndev\n\n\ndocker\n\n\nR\n\n\n\nReproduce \n\n\n\n\n\nDec 3, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHessian and Likelihood\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nA discussion on confidence intervals\n\n\n\n\n\nNov 20, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nPseudo \\(R^2\\)\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nA discussion on confidence intervals\n\n\n\n\n\nNov 20, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nCheck overdispersion\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nbinomial and poisson overdispersion checks\n\n\n\n\n\nNov 11, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nI prefer Rmd and qmd\n\n\n\n\n\n\ncode\n\n\nR_python_julia\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nMy DSO Journey\n\n\n\n\n\n\njournal\n\n\n\nWorking as a self contributor\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to deal with proxy issues\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nSome hacks working in a corporate envrionment\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to generate a risk asessment report for an R Package\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nHere is a collection of resources and my thoughts.\n\n\n\n\n\nAug 7, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nReferences and Reading List\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nUseful links\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nSome thoughts on my work\n\n\n\n\n\n\nthoughts\n\n\n\nHow to like my job\n\n\n\n\n\nJan 14, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items",
+    "text": "PBPK and TDTK Modelling\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nBirds and Mammals\n\n\n\n\n\nJan 16, 2025\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nAn Interesting Talk by Kerry Brown\n\n\n\n\n\n\njournal\n\n\n\n\n\n\n\n\n\nJan 15, 2025\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nGEE and categorical responses\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nTry using GEE for categorical responses\n\n\n\n\n\nJan 14, 2025\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nCategorical Responses\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nTry the GLMcat package and drmOrdinal\n\n\n\n\n\nJan 10, 2025\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nBinomial, Quasibinomial, DRC for proportions\n\n\n\n\n\n\ncode\n\n\nstats\n\n\nR\n\n\n\nIf all 3 types can model percentage data\n\n\n\n\n\nDec 17, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nSAS\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nSAS code\n\n\n\n\n\nDec 16, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nThe ToxCast Data Analysis Pipeline\n\n\n\n\n\n\ncode\n\n\nEcotox\n\n\nR\n\n\n\nTest out tcpl package\n\n\n\n\n\nDec 11, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nRisk Report and Metric\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nReproduce \n\n\n\n\n\nDec 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nDeploy a Shiny App on AWS\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nReproduce \n\n\n\n\n\nDec 3, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nSet up docker locally\n\n\n\n\n\n\ndev\n\n\ndocker\n\n\nR\n\n\n\nReproduce \n\n\n\n\n\nDec 3, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHessian and Likelihood\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nA discussion on confidence intervals\n\n\n\n\n\nNov 20, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nPseudo \\(R^2\\)\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nA discussion on confidence intervals\n\n\n\n\n\nNov 20, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nCheck overdispersion\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nbinomial and poisson overdispersion checks\n\n\n\n\n\nNov 11, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nI prefer Rmd and qmd\n\n\n\n\n\n\ncode\n\n\nR_python_julia\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nMy DSO Journey\n\n\n\n\n\n\njournal\n\n\n\nWorking as a self contributor\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to deal with proxy issues\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nSome hacks working in a corporate envrionment\n\n\n\n\n\nAug 8, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nHow to generate a risk asessment report for an R Package\n\n\n\n\n\n\ncode\n\n\nhowto\n\n\n\nHere is a collection of resources and my thoughts.\n\n\n\n\n\nAug 7, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nReferences and Reading List\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nUseful links\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nWACOM tablet\n\n\n\n\n\n\njournal\n\n\n\nMy WACOM tablet arrived today\n\n\n\n\n\nAug 6, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nSome thoughts on my work\n\n\n\n\n\n\nthoughts\n\n\n\nHow to like my job\n\n\n\n\n\nJan 14, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nOECD Test Guidelines and Statistics\n\n\n\n\n\n\ncode\n\n\nStats\n\n\nR\n\n\n\nQuotes and Exceptions\n\n\n\n\n\nJan 3, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items",
     "crumbs": [
       "Blog",
       "Thoughts and Learnings"
@@ -262,32 +297,32 @@
     "text": "Additional references on survey data"
   },
   {
-    "objectID": "posts/links.html",
-    "href": "posts/links.html",
-    "title": "References and Reading List",
+    "objectID": "posts/Interesting talk.html",
+    "href": "posts/Interesting talk.html",
+    "title": "An Interesting Talk by Kerry Brown",
     "section": "",
-    "text": "plot(mtcars)"
+    "text": "I saw this speech today."
   },
   {
-    "objectID": "posts/links.html#references",
-    "href": "posts/links.html#references",
-    "title": "References and Reading List",
-    "section": "References",
-    "text": "References\n\nR for Statistical Learning"
-  },
-  {
-    "objectID": "posts/links.html#nice-posts",
-    "href": "posts/links.html#nice-posts",
-    "title": "References and Reading List",
-    "section": "Nice Posts",
-    "text": "Nice Posts\n\nP-Values Are Tough and S-Values Can Help"
+    "objectID": "posts/my_dso_journey.html",
+    "href": "posts/my_dso_journey.html",
+    "title": "Zhenglei Gao",
+    "section": "",
+    "text": "Warning\n\n\n\nTo be recorded."
   },
   {
     "objectID": "posts/PBK Modelling.html",
     "href": "posts/PBK Modelling.html",
     "title": "PBPK and TDTK Modelling",
     "section": "",
-    "text": "It has been some time since I touched this topic when I first joined the data science group. I would like to do a refresher and I found the paper from Syngenta colleagues very helpful.\n\n\n\n\n\n\nNote\n\n\n\nTo be continued."
+    "text": "It has been a while since I last explored this topic, which I first encountered after I joined the data science group about three years ago. I would like to revisit it, and I found the papers from the colleagues at Syngenta to be very helpful.\nI have previously had a training on this subject using the R httk package from the US EPA, so this will also serve as a refresher."
+  },
+  {
+    "objectID": "posts/PBK Modelling.html#extracting-parameters-from-httk-database",
+    "href": "posts/PBK Modelling.html#extracting-parameters-from-httk-database",
+    "title": "PBPK and TDTK Modelling",
+    "section": "Extracting parameters from httk database",
+    "text": "Extracting parameters from httk database\n\n\n\n\n\n\nNote\n\n\n\nTo be continued."
   },
   {
     "objectID": "posts/PseudoR2.html",

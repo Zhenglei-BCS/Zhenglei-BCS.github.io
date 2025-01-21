@@ -3,6 +3,7 @@
     "listing": "/blog.html",
     "items": [
       "/posts/PBK Modelling.html",
+      "/posts/Interesting talk.html",
       "/posts/GEE_QB.html",
       "/posts/Categorical_responses.html",
       "/posts/Dose_Response_Quasibinomial.html",
@@ -20,7 +21,8 @@
       "/posts/risk_metric.html",
       "/posts/links.html",
       "/posts/wacom_tablet.html",
-      "/posts/Some thoughts on my work.html"
+      "/posts/Some thoughts on my work.html",
+      "/posts/OECD TG and Stats.html"
     ]
   }
 ]
