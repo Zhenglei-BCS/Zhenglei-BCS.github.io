@@ -8,7 +8,7 @@
 
 <meta name="author" content="Zhenglei Gao">
 <meta name="dcterms.date" content="2025-01-10">
-<meta name="description" content="Try the GLMcat package">
+<meta name="description" content="Try the GLMcat package and drmOrdinal">
 
 <title>Zhenglei Gao - Categorical Responses</title>
 <style>
@@ -197,7 +197,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Try the GLMcat package
+    Try the GLMcat package and drmOrdinal
   </div>
 </div>
 
@@ -228,7 +228,7 @@ window.Quarto = {
 
 <p>GLMcat is an R package that encompasses lots of models specified in a similar way: (ratio, cdf, design: parallel or complete).</p>
 <p>ratio can be cumulative, sequential, or adjacent for ordinal data, reference for nominal data. Logistic, normal, Cauchy, Student, Gompertz and Gumbel are the commonly used link functions or CDF. Note that Gumbel cdf is the symmetric of the Gompertz cdf.</p>
-<p>For parallel design, the effects of the covariates are assumed to be constant across the response categories, whereas for complete design, the covariates effects are different across different response categories. The linear predictios are <span class="math inline">\(\eta_j=alpha_j+x'\delta_j\)</span> and <span class="math inline">\(\eta_j=alpha_j+x'\delta\)</span> for <span class="math inline">\(j\)</span> in <span class="math inline">\((1,...,J-1)\)</span></p>
+<p>For parallel design, the effects of the covariates are assumed to be constant across the response categories, whereas for complete design, the covariates effects are different across different response categories. The linear predictios are <span class="math inline">\(\eta_j=\alpha_j+x'\delta_j\)</span> and <span class="math inline">\(\eta_j=\alpha_j+x'\delta\)</span> for <span class="math inline">\(j\)</span> in <span class="math inline">\((1,...,J-1)\)</span></p>
 <p>There are several type of models for categorical data:</p>
 <ul>
 <li>multinomial (reference, logistic complete) –&gt; devoted to nominal instead of ordinal</li>

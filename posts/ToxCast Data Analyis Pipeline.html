@@ -198,9 +198,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>Install the library:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"USEPA/CompTox-ToxCast-tcpl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Load the library with default settings:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tcpl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -212,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Default settings stored in tcpl config file. See ?tcplConf for more information.</code></pre>
 </div>
 </div>
-<p>The code block runs without problems but the <strong>tcpPlot</strong> function generates a jpg or other formats of figure which is directory in the working directory. So to</p>
+<p>The code block runs without problems but the <strong>tcpPlot</strong> function generates a jpg or other formats of figure which is stored in the working directory. To render the file correctly, the generated figures are moved to the assets folder.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all matching spids and then subset using the aeid desired to find m4id</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mc5 <span class="ot">&lt;-</span> <span class="fu">tcplLoadData</span>(<span class="at">lvl =</span> <span class="dv">5</span>, </span>

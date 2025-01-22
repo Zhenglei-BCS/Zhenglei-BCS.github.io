@@ -1078,7 +1078,7 @@ e:1:50  1.02731    0.04302 0.94257 1.11206</code></pre>
 <h2 class="anchored" data-anchor-id="numerical-considerations">Numerical Considerations</h2>
 <p>The quasi-binomial isn’t necessarily a particular distribution. The only assumption is that for a generalized linear model with binomial assumption of “p” (mean of the binomial should be <span class="math inline">\(np\)</span>), the variance is <span class="math inline">\(\phi\)</span> times the variance for that binomial = np(1-p). In case of missing sample size, then it is just <span class="math inline">\(\phi p(1-p)\)</span></p>
 <p>Quasi-binomial is exactly the same as binomial for the coefficient / parameter estimates but not for the standard errors. In fact, quasi-likelihood models do a post-fitting adjustment to the standard errors of the parameters and the associated statistics; they don’t change anything about the way the model is fitted. Some analysis uses observation-level random effects (OLRE) rather than quasi-likelihood to handle overdispersion at the level of individual observations. The way to adjust the coefficient standard error and to model OLRE is in <a href="https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#fitting-models-with-overdispersion">this link</a></p>
-<p>In terms of GLM, the dispersion for non-over-dispersed model like binomial and Poisson is 1. For quasi-families, it is estimated by the residual Chi-squared statistic divided by the residual degrees of freedom.</p>
+<p>In terms of GLM, the dispersion for non-over-dispersed model like binomial and Poisson is 1. For quasi-families, it is estimated by the residual Chi-squared statistic divided by the residual degrees of freedom. Quasi binomial takes sqrt(overdispersion) (<span class="math inline">\(\sqrt{\Phi}\)</span>) parameter to adjust standard errors accordingly. In case we have binomial data, the dispersion parameter can be calculated via <span class="math inline">\(\Phi = \chi^2/(N-k)\)</span> where <span class="math inline">\(df = N-k\)</span></p>
 <p>For estimation of EC50 or other ECx, other than inverse regression methods such as <a href="https://cran.r-project.org/web/packages/investr/">here</a> and <a href="">here</a></p>
 <p><span class="math display">\[\log \Big( \frac{p}{1-p} \Big) = \beta_0 + \beta_1 x.\]</span></p>
 <p>Setting $p = = 0.5 $ gives the corresponding explanatory value (here the LC50 concentration):</p>
@@ -1543,6 +1543,7 @@ Number of Groups: 60 </code></pre>
 <li><a href="https://stats.stackexchange.com/questions/201903/how-to-deal-with-overdispersion-in-poisson-regression-quasi-likelihood-negativ/332250#332250">Quasipoisson, GLMM, GEE</a></li>
 <li><a href="https://online.stat.psu.edu/stat504/lesson/9/9.2-0">Tutorial for count data</a></li>
 <li><a href="https://stackoverflow.com/questions/14423325/confidence-intervals-for-predictions-from-logistic-regression">Details on prediction CI with bootstrap and inverse link function</a></li>
+<li><a href="https://stackoverflow.com/questions/12953045/warning-non-integer-successes-in-a-binomial-glm-survey-packages/55284627#55284627">Quasibinomial vs.&nbsp;binomial</a></li>
 </ul>
 
 

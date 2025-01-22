@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zhenglei Gao">
-<meta name="dcterms.date" content="2024-11-20">
+<meta name="dcterms.date" content="2024-12-03">
 <meta name="description" content="Reproduce">
 
 <title>Zhenglei Gao - Deploy a Shiny App on AWS</title>
@@ -191,7 +191,8 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#create-a-new-server-in-aws" id="toc-create-a-new-server-in-aws" class="nav-link" data-scroll-target="#create-a-new-server-in-aws">1. Create a new server in AWS</a></li>
   <li><a href="#install-r-and-r-shiny-on-the-server" id="toc-install-r-and-r-shiny-on-the-server" class="nav-link" data-scroll-target="#install-r-and-r-shiny-on-the-server">2. Install R and R shiny on the server</a></li>
-  <li><a href="#deploy-the-app-on-the-server" id="toc-deploy-the-app-on-the-server" class="nav-link" data-scroll-target="#deploy-the-app-on-the-server">3. Deploy the app on the server</a></li>
+  <li><a href="#prepare-all-the-necessary-app-files." id="toc-prepare-all-the-necessary-app-files." class="nav-link" data-scroll-target="#prepare-all-the-necessary-app-files.">3. Prepare all the necessary app files.</a></li>
+  <li><a href="#deploy-the-app-on-the-server" id="toc-deploy-the-app-on-the-server" class="nav-link" data-scroll-target="#deploy-the-app-on-the-server">4. Deploy the app on the server</a></li>
   <li><a href="#optional-steps" id="toc-optional-steps" class="nav-link" data-scroll-target="#optional-steps">4. Optional steps</a></li>
   </ul></li>
   </ul>
@@ -229,7 +230,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 20, 2024</p>
+      <p class="date">December 3, 2024</p>
     </div>
   </div>
   
@@ -267,35 +268,143 @@ window.Quarto = {
 <li>I can access under windows via SSH client PuTTY, or from Ubuntu system.</li>
 </ul>
 <p>Note that pem.key is the file that was saved as the key pair.</p>
-<pre><code>ssh -i "tutorial.pem" ubuntu@ec2-52-59-238-223.eu-central-1.compute.amazonaws.com</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-i</span> <span class="st">"CDM_EC2.pem"</span>  ec2-user@10.69.31.123</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-error">
+<p>ssh: connect to host 10.69.31.123 port 22: Connection timed out</p>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Troubleshooting: 1. You may not be able to connect to this instance as ports 22 may need to be open. 2. Connect to your instance using its Private IP:</p>
+</div>
+</div>
+<p><strong><em>Connect to Your Instances Without Requiring Public Ipv4 Address Using EC2 Instance Connect Endpoint</em></strong> https://www.youtube.com/watch?v=tzXtbW4tQBg</p>
+<ol type="1">
+<li>Associate IAM role to the instance endpoint. I created an IAM role “CDMdev” and modify the IAM role on the instance under Security menu.</li>
+<li>Find the <a href="https://ip-ranges.amazonaws.com/ip-ranges.json">ip-prefix</a> for my region.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"ip_prefix"</span><span class="fu">:</span> <span class="st">"15.230.221.0/24"</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"region"</span><span class="fu">:</span> <span class="st">"us-east-1"</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"service"</span><span class="fu">:</span> <span class="st">"AMAZON"</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"network_border_group"</span><span class="fu">:</span> <span class="st">"us-east-1"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="er">,</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Create or edit a security group for the instance.(In my case it is “launch-wizard-2”).
+<ul>
+<li>Use <code>hostname -I</code> to get the IP address of the instance or under other linux systems.</li>
+<li>For the endpoint connection, open all traffic from the IP prefix above.</li>
+<li>I specified port 22 for any IP using 0.0.0/0, which might not be secure enough.</li>
+<li></li>
+</ul></li>
+</ol>
+<p>This is a perfect situation for AWS Virtual Private Cloud. Put the internal instances in private subnets, and the public-facing instances in public subnets.</p>
+<ol start="4" type="1">
+<li>Under VPC, create endpoint with relevance security group and subnet (I don’t know which is relevant).</li>
+<li></li>
+</ol>
+<p>I can connect to EC2 using Endpoint Connect after the steps above.</p>
+<p>However, I still cannot connect to it using SSH from my RSudio session terminal under same AWS account. Also I realized all the sudo commands that I am familiar with under Ubuntu does not work. I realized I have created an instance using Amazon Linux 2023.6.20250115.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[ec2-user@ip-10-69-31-123</span> ~]$ cat /etc/os-release</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">NAME</span><span class="op">=</span><span class="st">"Amazon Linux"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">VERSION</span><span class="op">=</span><span class="st">"2023"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">ID</span><span class="op">=</span><span class="st">"amzn"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">ID_LIKE</span><span class="op">=</span><span class="st">"fedora"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="va">VERSION_ID</span><span class="op">=</span><span class="st">"2023"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="va">PLATFORM_ID</span><span class="op">=</span><span class="st">"platform:al2023"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="va">PRETTY_NAME</span><span class="op">=</span><span class="st">"Amazon Linux 2023.6.20250115"</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">ANSI_COLOR</span><span class="op">=</span><span class="st">"0;33"</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="va">CPE_NAME</span><span class="op">=</span><span class="st">"cpe:2.3:o:amazon:amazon_linux:2023"</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="va">HOME_URL</span><span class="op">=</span><span class="st">"https://aws.amazon.com/linux/amazon-linux-2023/"</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="va">DOCUMENTATION_URL</span><span class="op">=</span><span class="st">"https://docs.aws.amazon.com/linux/"</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="va">SUPPORT_URL</span><span class="op">=</span><span class="st">"https://aws.amazon.com/premiumsupport/"</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="va">BUG_REPORT_URL</span><span class="op">=</span><span class="st">"https://github.com/amazonlinux/amazon-linux-2023"</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="va">VENDOR_NAME</span><span class="op">=</span><span class="st">"AWS"</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="va">VENDOR_URL</span><span class="op">=</span><span class="st">"https://aws.amazon.com/"</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="va">SUPPORT_END</span><span class="op">=</span><span class="st">"2028-03-15"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>So I start from scratch to create a new instance with Ubuntu 24.04 LTS. Anyway, after a while, I can connect using Amaon console with endpoint connect. However, SSH does not work.</p>
+<p>I can edit the security group inbound rules to allow any IPv4 or IPv6 address to connect to the instance. But this inbound rule(s) will disappear after I refresh the page. I could change the source</p>
 </section>
 <section id="install-r-and-r-shiny-on-the-server" class="level3">
 <h3 class="anchored" data-anchor-id="install-r-and-r-shiny-on-the-server">2. Install R and R shiny on the server</h3>
 <ol type="1">
-<li>Add the CRAN repo</li>
+<li>Add the CRAN repo by</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-key adv <span class="at">--keyserver</span> keyserver.ubuntu.com <span class="at">--recv-keys</span> E298A3A825C0D65DFD57CBB651716619E084DAB9</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> add-apt-repository <span class="st">'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-key adv <span class="at">--keyserver</span> keyserver.ubuntu.com <span class="at">--recv-keys</span> E298A3A825C0D65DFD57CBB651716619E084DAB9</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> add-apt-repository <span class="st">'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Or use the following commands to add the repo for R 4.0:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># update indices</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update <span class="at">-qq</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install two helper packages we need</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">--no-install-recommends</span> software-properties-common dirmngr</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add the signing key (by Michael Rutter) for these repos</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># To verify key, run gpg --show-keys /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fingerprint: E298A3A825C0D65DFD57CBB651716619E084DAB9</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-qO-</span> https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc <span class="kw">|</span> <span class="fu">sudo</span> tee <span class="at">-a</span> /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> add-apt-repository <span class="st">"deb https://cloud.r-project.org/bin/linux/ubuntu </span><span class="va">$(</span><span class="ex">lsb_release</span> <span class="at">-cs</span><span class="va">)</span><span class="st">-cran40/"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>Install R</li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install r-base r-base-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I followed the guidance from the <a href="https://rstudio.com/products/rstudio/download-server/debian-ubuntu/">RStudio</a> website.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install r-base r-base-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">--no-install-recommends</span> r-base</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="3" type="1">
 <li>Install shiny package</li>
 </ol>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> R</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> install.packages<span class="kw">(</span><span class="st">"shiny"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> R</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> install.packages<span class="kw">(</span><span class="st">"shiny"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="4" type="1">
 <li>Install shinyserver</li>
 </ol>
-<p>Modify the version as needed.</p>
-<pre class="{bash}"><code>sudo apt-get install gdebi-core
-wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
-sudo gdebi shiny-server-1.5.13.944-amd64.deb</code></pre>
+<p>Modify the version as needed. I used the guide from <a href="https://posit.co/download/shiny-server/">posit</a></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install gdebi-core</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.22.1017-amd64.deb</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> gdebi shiny-server-1.5.22.1017-amd64.deb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="prepare-all-the-necessary-app-files." class="level3">
+<h3 class="anchored" data-anchor-id="prepare-all-the-necessary-app-files.">3. Prepare all the necessary app files.</h3>
+<ul>
+<li></li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Github serves up an html page that includes the file specified along with context and operations you can perform on it. Tools like wget and curl will need github to send the raw file rather than an html wrapper. Change the blob in the link to raw to get the raw file.</p>
+</div>
+</div>
+<p>An example is:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">## note the raw replace blob in the https link.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-q</span> <span class="at">--trust-server-names</span> https://github.com/Zhenglei-BCS/Share/raw/master/cdm-1.2.0-Linux.tar.gz <span class="at">-O</span> file.tar.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When installing packages, it can happen that last package installation has interrupted abnormally, then you need to remove those lock files first, for example, in R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlink</span>(<span class="st">"/home/me/src/Rlibs/00LOCK-Rcpp"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Also for Ubuntu, some libraries (libssl-dev, libcurl4-openssl-dev, libxml2-dev,libfontconfig1-dev, libharfbuzz-dev libfribidi-dev, libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev ) are needed for the installation of some packages like “devtools”. For example, when installing “openssl” package, I got the following error:</p>
+<p>Configuration failed because openssl was not found. Try installing: * deb: libssl-dev (Debian, Ubuntu, etc) * rpm: openssl-devel (Fedora, CentOS, RHEL) * csw: libssl_dev (Solaris) * brew: openssl (Mac OSX)</p>
+<p>Configuration failed because openssl was not found. Try installing: Configuration failed because libcurl was not found. Try installing: * deb: libcurl4-openssl-dev (Debian, Ubuntu, etc) * rpm: libcurl-devel (Fedora, CentOS, RHEL)</p>
+<p>To avoid switching between R session and the bash command, I used this</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> <span class="at">-e</span> <span class="st">"install.packages('remotes')"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="deploy-the-app-on-the-server" class="level3">
-<h3 class="anchored" data-anchor-id="deploy-the-app-on-the-server">3. Deploy the app on the server</h3>
+<h3 class="anchored" data-anchor-id="deploy-the-app-on-the-server">4. Deploy the app on the server</h3>
 <p>Copied from the guide^1</p>
 <blockquote class="blockquote">
 <p>From EC2 dashborad, select your instance. In the bottom half of your screen, find the line Security groups and click on the link. In the new window, again the bottom half of the screen, click on Inbound, the 2nd tab. Notice that only the port 22 is open. Click on Edit, and the popup that opens, enter the following settings:</p>
