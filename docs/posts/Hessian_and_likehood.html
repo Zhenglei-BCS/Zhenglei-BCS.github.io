@@ -181,7 +181,13 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#other-resources" id="toc-other-resources" class="nav-link active" data-scroll-target="#other-resources">Other resources</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -228,7 +234,7 @@ window.Quarto = {
 
 
 <p>I was discussing with Johannes on how to calculate confidence intervals for a growth model, or more in general, confidence interval, credibal interval, prediction interval, tolerance interval. I need to write that up too. I have written him a formula for deriving the SEs from the Hessian matrix of the optim output or using the numDeriv::hessian function. However, our beloved myGenAssist does not agree with me. After a clarification with the assistant, we reached an agreement.</p>
-<p>Anyway, I first did a search on Hessian, likelihood, fisher information matrix and came to [this post] (https://stats.stackexchange.com/questions/381984/standard-error-from-hessian-matrix-when-likelihood-is-used-rather-than-ln-l). Below is to reproduce the results of that post.</p>
+<p>Anyway, I first did a search on Hessian, likelihood, Fisher information matrix and came across [this post] (https://stats.stackexchange.com/questions/381984/standard-error-from-hessian-matrix-when-likelihood-is-used-rather-than-ln-l). Below is to reproduce the results of that post.</p>
 <p>Denote <span class="math display">\[l(x) = \ln L(x)\]</span> and ’ for differentiation,</p>
 <p><span class="math display">\[l'(x) = \frac{L'(x)}{L(x)}\]</span></p>
 <p>and</p>
@@ -358,8 +364,18 @@ Estimated standard errors:</code></pre>
 0.4440330 0.3139792 </code></pre>
 </div>
 </div>
+<section id="other-resources" class="level3">
+<h3 class="anchored" data-anchor-id="other-resources">Other resources</h3>
+<ul>
+<li>https://biostatsr.blogspot.com/2017/05/standard-error-from-hessian-matrix-when.html</li>
+<li>https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf</li>
+<li>https://uu.diva-portal.org/smash/get/diva2:1810474/FULLTEXT01.pdf</li>
+<li>https://stats.stackexchange.com/questions/52829/why-is-a-likelihood-ratio-test-distributed-chi-squared</li>
+<li>https://books.google.fr/books?id=vmoFw0pvS1sC&amp;printsec=frontcover&amp;hl=fr&amp;source=gbs_ge_summary_r&amp;cad=0#v=onepage&amp;q&amp;f=false</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -34,31 +34,143 @@ Follow the guidance, we use EC2 service. First we do the configuration for EC2 i
 - Storage size: default is 8 GB, up to 30 GB is free.
 - Create a key pair to protect the access to the server, which is kept on my local computer.
  
-Access the server with SSH.
+Access the server with SSH under windows via SSH client PuTTY, or from Ubuntu system. Note that pem.key is the file that was saved as the key pair.
 
-- I can access under windows via SSH client PuTTY, or from Ubuntu system. 
+::: {.callout-important}
+ssh: connect to host 10.69.31.123 port 22: Connection timed out
+:::
 
-Note that pem.key is the file that was saved as the key pair.
 
+::: {.callout-warning}
+Troubleshooting:
+1. You may not be able to connect to this instance as ports 22 may need to be open. 
+2. Connect to your instance using its Private IP:
+:::
+
+I tried to *Connect to Your Instances Without Requiring Public Ipv4 Address Using EC2 Instance Connect Endpoint* following the steps in [this guide](https://www.youtube.com/watch?v=tzXtbW4tQBg).
+
+1. Associate IAM role to the instance endpoint. I created an IAM role "CDMdev" and modify the IAM role on the instance under Security menu.
+2. Find the [ip-prefix](https://ip-ranges.amazonaws.com/ip-ranges.json) for my region.
+
+```{json}
+    {
+      "ip_prefix": "15.230.221.0/24",
+      "region": "us-east-1",
+      "service": "AMAZON",
+      "network_border_group": "us-east-1"
+    },
 ```
-ssh -i "tutorial.pem" ubuntu@ec2-52-59-238-223.eu-central-1.compute.amazonaws.com
+
+3. Create or edit a security group for the instance.(In my case it is "launch-wizard-2").
+    - Use `hostname -I` to get the IP address of the instance or under other linux systems.
+    - For the endpoint connection, open all traffic from the IP prefix above.
+    - I specified port 22 for any IP using 0.0.0/0, which might not be secure enough.
+    - 
+
+This is a perfect situation for AWS Virtual Private Cloud. Put the internal instances in private subnets, and the public-facing instances in public subnets.
+
+4. Under VPC (Virtual Private Cloud), create endpoint with relevance security group and subnet (I don't know which is relevant).
+
+5. 
+
+I can connect to EC2 using Endpoint Connect after the steps above.
+
+However, I still cannot connect to it using SSH from my RStudio session terminal under same AWS account. Also I realized all the `sudo` commands that I am familiar with under Ubuntu does not work. I realized I have created an instance using Amazon Linux 2023.6.20250115. 
+
+```bash
+[ec2-user@ip-10-69-31-123 ~]$ cat /etc/os-release
+NAME="Amazon Linux"
+VERSION="2023"
+ID="amzn"
+ID_LIKE="fedora"
+VERSION_ID="2023"
+PLATFORM_ID="platform:al2023"
+PRETTY_NAME="Amazon Linux 2023.6.20250115"
+ANSI_COLOR="0;33"
+CPE_NAME="cpe:2.3:o:amazon:amazon_linux:2023"
+HOME_URL="https://aws.amazon.com/linux/amazon-linux-2023/"
+DOCUMENTATION_URL="https://docs.aws.amazon.com/linux/"
+SUPPORT_URL="https://aws.amazon.com/premiumsupport/"
+BUG_REPORT_URL="https://github.com/amazonlinux/amazon-linux-2023"
+VENDOR_NAME="AWS"
+VENDOR_URL="https://aws.amazon.com/"
+SUPPORT_END="2028-03-15"
+```  
+
+
+So I started from scratch to create a new instance with Ubuntu 24.04 LTS. Anyway, after a while, I can connect using Amazon console with endpoint connect. However, SSH does not work.
+
+I can edit the security group inbound rules to allow any or specific IPv4 or IPv6 address to connect to the instance. But this inbound rule(s) will disappear after I refresh the page. 
+
+I also tried to initiate an instance with public IPv4 address, but the same SSH issue and instance connect issue pesists. 
+
+::: {.callout-warning}
+Instance is not in public subnet
+Associated subnet subnet-00fc65bbe108b4ef5 (SC-039060251298-pp-qv5chh3ykxxz2-PrivateSubnet2)  is not a public subnet.
+To use EC2 Instance Connect, your instance must be in a public subnet. To make the subnet a public subnet, add a route in the subnet route table to an internet gateway. 
+::: 
+
+I don't know how to add a route in the subnet route table to an internet gateway. The reference is [here](https://docs.aws.amazon.com/vpc/latest/userguide/route-table-options.html#route-tables-internet-gateway)
+
+
+Using SSH, I see 
+
+::: {.callout-warning}
+You may not be able to connect to this instance as ports 22 may need to be open in order to be accessible. The current associated security groups don't have ports 22 open.
+::: 
+
+```bash
+ssh -i "CDM_EC2.pem" ubuntu@ec2-54-86-11-86.compute-1.amazonaws.com
 ```
+
+I checked the security group and the inbound rules, and I see that my original setting that port 22 is open for all SSH traffic disappeared again. Edited it, tried again, Same time out error. 
+
+::: {.callout-important}
+ssh -i "CDM_EC2.pem" ubuntu@ec2-54-86-11-86.compute-1.amazonaws.com
+ssh: connect to host ec2-54-86-11-86.compute-1.amazonaws.com port 22: Connection timed out
+:::
+
+
 
 
 ### 2. Install R and R shiny on the server
-1. Add the CRAN repo
+
+1. Add the CRAN repo by
 
 ```bash
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'
 ```
 
+Or use the following commands to add the repo for R 4.0:
+
+```bash
+# update indices
+sudo apt update -qq
+# install two helper packages we need
+sudo apt install --no-install-recommends software-properties-common dirmngr
+# add the signing key (by Michael Rutter) for these repos
+# To verify key, run gpg --show-keys /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc 
+# Fingerprint: E298A3A825C0D65DFD57CBB651716619E084DAB9
+wget -qO- https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc | sudo tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+# add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed
+sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+```
+
+
 2. Install R
+
+I followed the guidance from the [RStudio](https://rstudio.com/products/rstudio/download-server/debian-ubuntu/) website.
 
 ```bash
 sudo apt update
 sudo apt install r-base r-base-dev
 ```
+
+```bash
+sudo apt install --no-install-recommends r-base
+```
+
 3. Install shiny package
 
 ```bash
@@ -69,15 +181,55 @@ sudo R
 
 4. Install shinyserver
 
-Modify the version as needed. 
+Modify the version as needed. I used the guide from [posit](https://posit.co/download/shiny-server/)
 
-```{bash}
+```bash
 sudo apt-get install gdebi-core
-wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
-sudo gdebi shiny-server-1.5.13.944-amd64.deb
+wget https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.22.1017-amd64.deb
+sudo gdebi shiny-server-1.5.22.1017-amd64.deb
 ```
 
-### 3. Deploy the app on the server
+### 3. Prepare all the necessary app files.
+
+- 
+
+::: {.callout-tip}
+Github serves up an html page that includes the file specified along with context and operations you can perform on it. Tools like wget and curl will need github to send the raw file rather than an html wrapper. Change the blob in the link to raw to get the raw file.
+:::
+
+An example is: 
+
+```bash
+## note the raw replace blob in the https link.
+wget -q --trust-server-names https://github.com/Zhenglei-BCS/Share/raw/master/cdm-1.2.0-Linux.tar.gz -O file.tar.gz
+```
+
+
+When installing packages, it can happen that last package installation has interrupted abnormally, then you need to remove those lock files first, for example, in R: 
+
+```{r eval=FALSE}
+unlink("/home/me/src/Rlibs/00LOCK-Rcpp", recursive = TRUE)
+```
+
+Also for Ubuntu, some libraries (libssl-dev, libcurl4-openssl-dev, libxml2-dev,libfontconfig1-dev, libharfbuzz-dev libfribidi-dev, libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev ) are needed for the installation of some packages like "devtools". For example, when installing "openssl" package, I got the following error:
+
+Configuration failed because openssl was not found. Try installing:
+ * deb: libssl-dev (Debian, Ubuntu, etc)
+ * rpm: openssl-devel (Fedora, CentOS, RHEL)
+ * csw: libssl_dev (Solaris)
+ * brew: openssl (Mac OSX)
+
+Configuration failed because openssl was not found. Try installing:
+Configuration failed because libcurl was not found. Try installing:
+ * deb: libcurl4-openssl-dev (Debian, Ubuntu, etc)
+ * rpm: libcurl-devel (Fedora, CentOS, RHEL)
+ 
+To avoid switching between R session and the bash command, I used this 
+
+```bash
+R -e "install.packages('remotes')"
+```
+### 4. Deploy the app on the server
 
 Copied from the guide^1
 
@@ -96,10 +248,25 @@ EC2 dashboard $\rightarrow$ go to column IPv4 Public IP.
 
 Open the port 3838 on the firewall
 
-AWS uses port 22 by default for SSH access. All other ports are blcoked.
+AWS uses port 22 by default for SSH access. All other ports are blocked
 
 ### 4. Optional steps
 
 - get a domain name
 - install nginx, generate TLS certificates, and secure you app with HTTPS. 
 - protect the app with a password
+
+
+## Other Tips
+
+To find the public IP address from Ubuntu terminal, use the following command:
+
+```bash
+curl https://ipecho.net/plain ; echo
+```
+
+or
+
+```bash
+ wget -qO- https://ipecho.net/plain ; echo
+```

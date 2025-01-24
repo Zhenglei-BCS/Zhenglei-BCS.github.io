@@ -1,8 +1,8 @@
 {
-  "hash": "236d772424d9ac6e861d97928e573af7",
+  "hash": "3353fb93ce32f87e3a118bc3857b54ea",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"References and Reading List\"\ndescription: \"Useful links\"\nauthor: \"Zhenglei Gao\"\ndate: \"8/06/2024\"\ncategories:\n  - code\n  - analysis\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nplot(mtcars)\n```\n\n::: {.cell-output-display}\n![](links_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n\n\n## References\n- [R for Statistical Learning](https://daviddalpiaz.github.io/r4sl/)\n\n## Nice Posts\n- [P-Values Are Tough and S-Values Can Help](https://lesslikely.com/statistics/s-values/)\n- []()",
+    "markdown": "---\ntitle: \"References and Reading List\"\ndescription: \"Useful links\"\nauthor: \"Zhenglei Gao\"\ndate: \"8/06/2024\"\ncategories:\n  - code\n  - analysis\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nplot(mtcars)\n```\n\n::: {.cell-output-display}\n![](links_files/figure-html/unnamed-chunk-1-1.png){width=672}\n:::\n:::\n\n\n## References\n- [R for Statistical Learning](https://daviddalpiaz.github.io/r4sl/)\n\n## Nice Posts\n- [P-Values Are Tough and S-Values Can Help](https://lesslikely.com/statistics/s-values/)\n- []()\n\n\n## Learn Math and Science (for Children)\n\n- [Phet](https://phet.colorado.edu/)\n- [Geogebra, for children](https://www.geogebra.org/math/geometry)\n- [Simpop, up to grade 12](https://simpop.org/)\n- [Math is Fun](https://www.mathsisfun.com/)\n- [Math for Middle and High School Students](https://mathigon.org/)\n- [From Wolfram Language and Mathematica](https://www.wolframalpha.com/)\n- [Brilliant](https://brilliant.org/courses/)\n- []()\n\n",
     "supporting": [
       "links_files"
     ],

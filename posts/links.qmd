@@ -18,3 +18,16 @@ plot(mtcars)
 ## Nice Posts
 - [P-Values Are Tough and S-Values Can Help](https://lesslikely.com/statistics/s-values/)
 - []()
+
+
+## Learn Math and Science (for Children)
+
+- [Phet](https://phet.colorado.edu/)
+- [Geogebra, for children](https://www.geogebra.org/math/geometry)
+- [Simpop, up to grade 12](https://simpop.org/)
+- [Math is Fun](https://www.mathsisfun.com/)
+- [Math for Middle and High School Students](https://mathigon.org/)
+- [From Wolfram Language and Mathematica](https://www.wolframalpha.com/)
+- [Brilliant](https://brilliant.org/courses/)
+- []()
+

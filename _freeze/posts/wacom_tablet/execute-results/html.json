@@ -1,9 +1,11 @@
 {
-  "hash": "da595ae5103369e8f5c38f7bacac69c2",
+  "hash": "3bbc9195411fbcb119a5f8e78e31da58",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"WACOM tablet\"\ndescription: \"My WACOM tablet arrived today\"\nauthor: \"Zhenglei Gao\"\ndate: \"08/06/2024\"\ncategories:\n  - journal\n---\n\n\n## New Experiences\n\nIt is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\n4*5\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 20\n```\n\n\n:::\n:::\n",
-    "supporting": [],
+    "markdown": "---\ntitle: \"WACOM tablet\"\ndescription: \"My WACOM tablet arrived today\"\nauthor: \"Zhenglei Gao\"\ndate: \"08/06/2024\"\ncategories:\n  - journal\n---\n\n\n## New Experiences\n\nIt is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.\n\n## My Preferences\n\n- Disconnet and reconnect to activate it. Not a tip but I need to do it to see my pen working.\n- I always use touch off option.\n- I don't enable Windows Ink so that I don't start with ink mode when openning a word document.\n\n## Logitech K380 keyboard: \n\nI bought the pebble keyboard so that the keyboard and the tablet can fit together on my desk. However, there are no Page Up/Down/Home/End keys.\n\n- Page down and page up can be simulated via `fn + up` and `fn + down`.\n- Home button can be setup using logi options\n\n\n::: {.cell}\n\n```{.r .cell-code}\n4*5\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 20\n```\n\n\n:::\n:::\n",
+    "supporting": [
+      "wacom_tablet_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

@@ -1,10 +1,10 @@
 {
-  "hash": "3c11418201e6983265d6f21572cb34d5",
+  "hash": "2ed601b2faad16d9fd0ea230627cf185",
   "result": {
     "engine": "jupyter",
-    "markdown": "---\ntitle: \"SAS\"\ndescription: \"SAS code\"\nauthor: \"Zhenglei Gao\"\ndate: \"16/12/2024\"\ncategories:\n  - code\n  - analysis\n---\n\nI have once again installed SAS on my computer and renewed the license today. \n\nHere is my test script. \n\n\n```{sas}\ndata calculation;\nx = 3.0+4.5;\nput 'The answer is:' x;\nrun;\n```\n\n\nIt is incredible that I still need write so many additional text for doing a simple calculation. However, SAS does have many advantages that open source languages, such as R and python, don't have. For one thing, I really enjoy reading the extensive documentation of SAS, including both methods and implementation. \n\n",
+    "markdown": "---\ntitle: \"SAS\"\ndescription: \"SAS code\"\nauthor: \"Zhenglei Gao\"\ndate: \"12/16/2024\"\ncategories:\n  - code\n  - analysis\n---\n\nI have once again installed SAS on my computer and renewed the license today. \n\nHere is my test script. \n\n\n```{sas}\ndata calculation;\nx = 3.0+4.5;\nput 'The answer is:' x;\nrun;\n```\n\n\nIt is incredible that I still need write so many additional text for doing a simple calculation. However, SAS does have many advantages that open source languages, such as R and python, don't have. For one thing, I really enjoy reading the extensive documentation of SAS, including both methods and implementation. \n\n",
     "supporting": [
-      "SAS_files"
+      "SAS_files\\figure-html"
     ],
     "filters": [],
     "includes": {}

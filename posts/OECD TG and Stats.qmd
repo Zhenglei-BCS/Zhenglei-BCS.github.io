@@ -1,0 +1,56 @@
+---
+title: "OECD Test Guidelines and Statistics"
+description: "Quotes and Exceptions"
+author: "Zhenglei Gao"
+date: "01/03/2024"
+categories:
+  - code
+  - Stats
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+## OECD 233
+
+- OECD (2010), Test No. 233: Sediment-Water Chironomid Life-Cycle Toxicity Test Using Spiked Water or Spiked Sediment, OECD Guidelines for the Testing of Chemicals, Section 2, OECD Publishing, Paris, https://doi.org/10.1787/9789264090910-en.
+
+### *Design for estimation of a NOEC*
+
+> 20. For a NOEC approach, five test concentrations with at least eight replicates (4 for each breeding
+cage, A and B) should be used and the factor between concentrations should not be greater than two. The
+number of replicates should be sufficient to ensure adequate statistical power to detect a 20% difference
+from the control at the 5% level of significance (α = 0.05). For the development rate, fecundity and fertility
+an analysis of variance (ANOVA) is usually appropriate, followed by Dunnett’s test or Williams’ test (22-
+25). For the emergence ratio and sex ratio the Cochran-Armitage, Fisher’s exact (with Bonferroni
+correction), or Mantel-Haentzal tests may be appropriate.
+
+
+> 45. Alternatively, more robust tests (27) can be appropriate in situations where there are
+violations of the usual ANOVA assumptions (31).
+
+
+## References
+
+- OECD (2010), Test No. 233: Sediment-Water Chironomid Life-Cycle Toxicity Test Using Spiked Water or Spiked Sediment, OECD Guidelines for the Testing of Chemicals, Section 2, OECD Publishing, Paris, https://doi.org/10.1787/9789264090910-en.
+- OECD (2006), Current Approaches in the Statistical Analysis of Ecotoxicity Data: a Guidance
+to Application, OECD Series on Testing and Assessment No. 54, 146 pp., ENV/JM/MONO(2006)18, OECD, Paris.
+- Bruce, R.D. and D.J. Versteeg (1992), A statistical procedure for modelling continuous toxicity
+data, Environ. Toxicol. Chem., 11: 1485-1494.
+- Slob, W. (2002), Dose-response modelling of continuous endpoints. Toxicol. Sci., 66: 298-312.
+- Christensen, E.R. (1984), Dose-response functions in aquatic toxicity testing and the Weibull
+model, Water Res., 18: 213-221.
+- Rao, J.N.K. and A.J. Scott (1992), A simple method for the analysis of clustered binary data.
+Biometrics, 48: 577-585.
+- Dunnett, C.W. (1964), A multiple comparisons procedure for comparing several treatments with a
+control. J. Amer. Statis. Assoc., 50: 1096-1121.
+- Dunnett, C.W. (1964), New tables for multiple comparisons with a control, Biometrics, 20: 482-
+491.
+- Williams, D.A. (1971), A test for differences between treatment means when several dose levels
+are compared with a zero dose control. Biometrics, 27: 103-117.
+- Williams, D.A. (1972), The comparison of several dose levels with a zero dose control.
+Biometrics, 28: 510-531.
+
+

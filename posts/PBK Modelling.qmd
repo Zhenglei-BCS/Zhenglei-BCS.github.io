@@ -1,0 +1,27 @@
+---
+title: "PBPK and TDTK Modelling"
+description: "Birds and Mammals"
+author: "Zhenglei Gao"
+date: "01/16/2025"
+categories:
+  - code
+  - analysis
+editor_options: 
+  chunk_output_type: console
+---
+
+It has been a while since I last explored this topic, which I first encountered after I joined the data science group about three years ago. I would like to revisit it, and I found the papers from the colleagues at Syngenta to be very helpful.
+
+I have previously had a training on this subject using the R httk package from the US EPA, so this will also serve as a refresher.
+
+
+## Extracting parameters from httk database
+
+
+
+
+::: {.callout-note}
+To be continued.
+:::
+
+

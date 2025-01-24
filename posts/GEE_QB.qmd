@@ -1,0 +1,157 @@
+---
+title: "GEE and categorical responses"
+description: "Try using GEE for categorical responses"
+author: "Zhenglei Gao"
+date: "01/14/2025"
+categories:
+  - code
+  - analysis
+editor_options: 
+  chunk_output_type: console
+---
+
+## Use the data from previous posts
+
+
+## Multinomial or ordinal GEE
+
+Data: Rheumatoid self-assessment scores for 302 patients, measured on a five-level ordinal response scale at three follow-up times.
+
+```{r}
+library(multgee)
+data(arthritis)
+intrinsic.pars(y, arthritis, id, time) ## assess the underlying association pattern.
+fitmod <- ordLORgee(formula = y ~ factor(time) + factor(trt) + factor(baseline),
+  data = arthritis, id = id, repeated = time, LORstr = "uniform")
+summary(fitmod)
+confint(fitmod)
+library(ggstats)
+ggcoef_multinom(fitmod)
+```
+
+What is the difference between Ordinal GEE and ordinal logistic regression? 
+
+```{r}
+
+```
+
+## GEE Basics
+
+- It is a quasilikelihood approach.
+- Could include cluster/group correlation structure(e.g., repeated measurements from one subject)
+- No distributional assumption.
+- Could handle binary or categorical responses (multinomial).
+- Computationally simpler for categorical compared to maximum likelihood approach.
+- No likelihood based post hoc testing, comparison or inference.
+
+```{r}
+URL <- "http://static.lib.virginia.edu/statlab/materials/data/depression.csv"
+dat <- read.csv(URL, stringsAsFactors = TRUE)
+dat$id <- factor(dat$id)
+dat$drug <- relevel(dat$drug, ref = "standard")
+head(dat, n = 3)
+library(tidyverse)
+with(dat, tapply(depression, list(diagnose, drug, time), mean)) %>% 
+  ftable() %>% 
+  round(2)
+
+```
+
+```{r}
+##install.packages("gee")
+library(gee) # version 4.13-25
+dep_gee <- gee(depression ~ diagnose + drug*time,
+               data = dat, 
+               id = id, 
+               family = binomial,
+               corstr = "independence")
+summary(dep_gee)
+
+res <- glm(depression ~ diagnose + drug*time,
+               data = dat,
+               family = quasibinomial)
+summary(res)
+```
+
+The “Estimated Scale Parameter” is reported as 0.9854113 = the dispersion parameter = similar to what is reported (Dispersion parameter for quasibinomial family taken to be 0.9854187) when running glm() with family = quasibinomial in order to model over-dispersion.
+
+
+```{r}
+dep_gee2 <- gee(depression ~ diagnose + drug*time,
+               data = dat, 
+               id = id, 
+               family = binomial,
+               corstr = "exchangeable")
+summary(dep_gee2)
+
+
+dep_gee3 <- gee(depression ~ diagnose + drug*time,
+               data = dat, 
+               id = id, 
+               family = binomial,
+               corstr = "AR-M", Mv = 1)
+dep_gee3$working.correlation
+```
+
+
+```{r}
+library(lme4) # version 1.1-31
+dep_glmer <- glmer(depression ~ diagnose + drug*time + (1|id), 
+               data = dat, family = binomial)
+summary(dep_glmer, corr = FALSE)
+
+library(ggeffects) # version 1.2.0
+plot(ggemmeans(dep_glmer, terms = c("time", "drug"), 
+               condition = c(diagnose = "severe"))) + 
+  ggplot2::ggtitle("GLMER Effect plot")
+
+```
+
+
+```{r}
+library(emmeans) # version 1.8.4-1
+emm_out <- emmeans(dep_gee2, specs = c("time", "drug"), 
+        at = list(diagnose = "severe"), 
+        cov.keep = "time", 
+        regrid = "response") %>% 
+  as.data.frame()
+library(ggplot2) # version 3.4.1
+ggplot(emm_out) +
+  aes(x = time, y = prob, color = drug, fill = drug) +
+  geom_line() +
+  geom_ribbon(aes(ymin = asymp.LCL, ymax = asymp.UCL, 
+                  color = NULL), alpha = 0.15) +
+  scale_color_brewer(palette = "Set1") +
+  scale_fill_brewer(palette = "Set1", guide = NULL) +
+  scale_y_continuous(labels = scales::percent) +
+  theme_ggeffects() +
+  labs(title = "GEE Effect plot", y = "depression")
+```
+
+
+
+```{r}
+
+library(geepack) # version 1.3.9
+dep_gee4 <- geeglm(depression ~ diagnose + drug*time,
+                   data = dat,
+                   id = id,
+                   family = binomial,
+                   corstr = "exchangeable")
+# create effect plot
+plot(ggemmeans(dep_gee4, terms = c("time", "drug"),
+               condition = c(diagnose = "severe"))) + 
+  ggplot2::ggtitle("GEE Effect plot")
+```
+
+
+## References
+
+- [Getting started with GEE](https://library.virginia.edu/data/articles/getting-started-with-generalized-estimating-equations)
+- [geepack R package]()
+- [A note on Weights in statistics](https://notstatschat.rbind.io/2020/08/04/weights-in-statistics/)
+
+## Additional references on survey data
+
+- [survey analysis](https://ladal.edu.au/surveys.html)
+

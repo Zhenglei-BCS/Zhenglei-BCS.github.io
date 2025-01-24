@@ -7,11 +7,15 @@ categories:
   - journal
 ---
 
-::: {.callout-warning}
-To be written. 
-:::
+
 
 ```{r include=FALSE}
 knitr::opts_chunk$set(eval = FALSE,echo = TRUE)
 ```
 
+Have I learned something during this journey?
+
+
+::: {.callout-warning}
+To be written. 
+:::

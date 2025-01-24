@@ -11,9 +11,18 @@ categories:
 
 It is very hard to adjust from mouse to tablet. The pen is sensitive and keyboard and the drawing pad often show up unexpectedly.
 
-## A Few Tips
+## My Preferences
 
+- Disconnet and reconnect to activate it. Not a tip but I need to do it to see my pen working.
+- I always use touch off option.
+- I don't enable Windows Ink so that I don't start with ink mode when openning a word document.
 
+## Logitech K380 keyboard: 
+
+I bought the pebble keyboard so that the keyboard and the tablet can fit together on my desk. However, there are no Page Up/Down/Home/End keys.
+
+- Page down and page up can be simulated via `fn + up` and `fn + down`.
+- Home button can be setup using logi options
 
 ```{r}
 4*5
