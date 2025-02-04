@@ -1,0 +1,31 @@
+---
+title: "EFSA Bayesian BMD"
+description: "Notes and Issues on EFSA Bayesian BMD"
+author: "Zhenglei Gao"
+date: "2/04/2025"
+categories:
+  - code
+  - analysis
+---
+
+## Materials and Resources
+
+- https://search.r-project.org/CRAN/refmans/mc2d/html/pert.html
+- https://github.com/cecilekremer/BMABMDR
+- https://en.wikipedia.org/wiki/PERT_distribution 
+
+## Priors
+
+Look at the shape parameters of the pert distribution. The default is 4. The smaller the shape parameter, the more peaked the distribution. The larger the shape parameter, the more flat the distribution. 
+
+
+
+```{r}
+# Priors
+library(mc2d)
+curve(dpert(x,min=3,mode=5,max=10,shape=6), from = 2, to = 11, lty=3,ylab="density")
+curve(dpert(x,min=3,mode=5,max=10), from = 2, to = 11, add=TRUE)
+curve(dpert(x,min=3,mode=5,max=10,shape=2), from = 2, to = 11, add=TRUE,lty=2)
+legend(x = 8, y = .30, c("Default: 4","shape: 2","shape: 6"), lty=1:3)
+```
+

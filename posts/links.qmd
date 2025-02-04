@@ -31,3 +31,43 @@ plot(mtcars)
 - [Brilliant](https://brilliant.org/courses/)
 - []()
 
+## Quotes I like
+
+> An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem. ~ John Tukey
+
+> The best thing about being a statistician is that you get to play in everyone's backyard. ~ John Tukey
+
+> "If all the statisticians in the world were laid head to toe, they wouldn't be able to reach a conclusion" ~ George Bernard Shaw
+
+> "The plural of anecdote is not data" ~ Roger Brinner
+
+> "Statisticians, like artists, have the bad habit of falling in love with their models." ~ George E. P. Box
+
+> "Essentially, all models are wrong, but some are useful".  ~ George E. P. Box
+
+> "All Models are Right, Most are Useless" ~ Thad Tarpey 
+
+- The talk by Thad is [here](https://statmodeling.stat.columbia.edu/wp-content/uploads/2012/03/tarpey.pdf)
+- Andrew's blog about it is [here](https://statmodeling.stat.columbia.edu/2012/03/06/all-models-are-right-most-are-useless/)
+
+> "Data scientists are statisticians because being a statistician is awesome and anyone who does cool things with data is a statistician." ~ Robert Rodriguez
+
+> "Years ago a statistician might have claimed that statistics deals with the processing of data. . . to-days statistician will be more likely to say that statistics is concerned with decision making in the face of uncertainty." ~ Herman Chernoff
+
+> "The purpose of computing is insight, not numbers." ~ Richard Hamming
+
+> "The purpose of models is not to fit the data but to sharpen the questions." ~ Samuel Karlin
+
+> "There are three kinds of liars: liars, damned liars, and statisticians" ~ Mark Twain
+
+> "To consult the statistician after an experiment is finished is often merely to ask him to conduct a post mortem examination. He can perhaps say what the experiment died of." ~ Ronald Fisher
+
+> "The statistician knows that the data are not 'the truth' but only a sample of the truth. We can only hope that the sample we have chosen is representative of the population and that we have not made any errors in the sampling process." ~ John Tukey
+
+> "The business of the statistician is to catalyze the scientific learning process." ~ George E. P. Box
+
+> "The combination of some data and an aching desire for an answer does not ensure that a reasonable answer can be extracted from a given body of data." ~ John Tukey
+
+> "The greatest value of a picture is when it forces us to notice what we never expected to see." ~ John Tukey
+
+> "Say you were standing with one foot in the oven and one foot in an ice bucket. According to the percentage people, you should be perfectly comfortable." ~ Bobby Bragan

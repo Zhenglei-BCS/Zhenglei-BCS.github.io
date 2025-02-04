@@ -1,0 +1,95 @@
+---
+title: "Dose Finding Studies and Multiple Contrast Test"
+description: "Understanding MCPMod"
+author: "Zhenglei Gao"
+date: "1/06/2025"
+categories:
+  - code
+  - analysis
+---
+
+## Materials and Resouces
+
+- https://github.com/openpharma/DoseFinding/
+- [MCP-Mod FAQ](https://openpharma.r-universe.dev/articles/DoseFinding/faq.html)
+
+
+## Performing MCT
+
+```{r}
+library(DoseFinding)
+data(IBScovars)
+library(drc)
+ggplot(IBScovars, aes(x=dose, y=resp, color=gender)) +
+  geom_point(position = position_dodge(width = 0.5)) 
+## set random seed to ensure reproducible adj. p-values for multiple contrast test
+set.seed(12)
+
+## perform (model based) multiple contrast test
+## define candidate dose-response shapes
+models <- Mods(linear = NULL, emax = 0.2, quadratic = -0.17,
+               doses = c(0, 1, 2, 3, 4))
+## plot models
+plot(models)
+```
+
+
+```{r}
+## fit non-linear emax dose-response model
+fitemax <- fitMod(dose, resp, data=IBScovars, model="emax",
+                  bnds = c(0.01,5))
+## display fitted dose-effect curve
+plot(fitemax, CI=TRUE, plotData="meansCI")
+
+
+## fit non-linear emax dose-response model
+fitlogistic <- fitMod(dose, resp, data=IBScovars, model="exponential")
+## display fitted dose-effect curve
+plot(fitlogistic, CI=TRUE, plotData="meansCI")
+```
+
+
+
+```{r}
+## perform multiple contrast test
+MCTtest(dose, resp, IBScovars, models=models,
+                addCovars = ~ gender)
+```
+
+
+## Targe Dose / MED
+
+
+
+### Differences between TD and ED
+
+
+
+```{r}
+library(DoseFinding)
+library(ggplot2)
+## example for creating a "full-model" candidate set placebo response
+## and maxEff already fixed in Mods call
+doses <- c(0, 10, 25, 50, 100, 150)
+fmodels <- Mods(linear = NULL, emax = 25,
+logistic = c(50, 10.88111), exponential = 85,
+betaMod = rbind(c(0.33, 2.31), c(1.39, 1.39)),
+linInt = rbind(c(0, 1, 1, 1, 1),
+c(0, 0, 1, 1, 0.8)),
+doses=doses, placEff = 0, maxEff = 0.4,
+addArgs=list(scal=200))
+## calculate doses giving an improvement of 0.3 over placebo
+## Target doses 63
+TD(fmodels, Delta=0.3)
+## discrete version
+TD(fmodels, Delta=0.3, TDtype = "discrete", doses=doses)
+## doses giving 50% of the maximum effect
+DoseFinding::ED(fmodels, p=0.5)
+DoseFinding::ED(fmodels, p=0.5, EDtype = "discrete", doses=doses)
+plot(fmodels, plotTD = TRUE, Delta = 0.3)
+```
+## References
+
+- Hothorn, T., Bretz, F., and Westfall, P. (2008). Simultaneous Inference in General Parametric Models, Biometrical Journal, 50, 346–363
+
+- Pinheiro, J. C., Bornkamp, B., Glimm, E. and Bretz, F. (2014) Model-based dose finding under model uncertainty using general parametric models, Statistics in Medicine, 33, 1646–1661

@@ -195,6 +195,7 @@ window.Quarto = {
   <li><a href="#deploy-the-app-on-the-server" id="toc-deploy-the-app-on-the-server" class="nav-link" data-scroll-target="#deploy-the-app-on-the-server">4. Deploy the app on the server</a></li>
   <li><a href="#optional-steps" id="toc-optional-steps" class="nav-link" data-scroll-target="#optional-steps">4. Optional steps</a></li>
   </ul></li>
+  <li><a href="#special-steps" id="toc-special-steps" class="nav-link" data-scroll-target="#special-steps">Special Steps</a></li>
   <li><a href="#other-tips" id="toc-other-tips" class="nav-link" data-scroll-target="#other-tips">Other Tips</a></li>
   </ul>
 </nav>
@@ -473,6 +474,17 @@ Tip
 </ul>
 </section>
 </section>
+<section id="special-steps" class="level2">
+<h2 class="anchored" data-anchor-id="special-steps">Special Steps</h2>
+<p>The main issue I encounter in a corporate environment is that I need to use a VPN to connect to the AWS server. Everything is then tunneled and the usual steps to connect to the server do not work. Port 22 is usually blocked for external connections due to security considerations. Therefore we need a Jumpbox (called also Bastion Host) to connect to the server.We jump through is to access the internal VPC bastion hosts.</p>
+<p>Using the Bastion SSH Tunnel, I can test my deployed application before making it publicly accessible via a proxy (Akana or Ocelot).</p>
+<ol type="1">
+<li>set up Vault on my computer.</li>
+<li>get a SSH key signed by Vault before you can SSH through the central bastions.</li>
+</ol>
+<p>I am using Git BASH on Windows, and I have the following in my <code>~/.ssh/config</code> file:</p>
+<p>use <code>echo "$http_proxy"</code> to check if the proxy is set up correctly when I am in the office and have VPN activated. You must set the environment variable for each new shell/console. In bash, you can ensure that it is always set by adding it to your <code>~/.bashrc</code> or <code>~/.bash_profile</code> file. Other shells have similar mechanisms to do this.</p>
+</section>
 <section id="other-tips" class="level2">
 <h2 class="anchored" data-anchor-id="other-tips">Other Tips</h2>
 <p>To find the public IP address from Ubuntu terminal, use the following command:</p>
@@ -709,7 +721,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

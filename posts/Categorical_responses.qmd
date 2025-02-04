@@ -22,10 +22,10 @@ categories, whereas for complete design, the covariates effects are different ac
 
 There are several type of models for categorical data:
 
-- multinomial  (reference, logistic complete) --> devoted to nominal instead of ordinal
-- odds parallel logit (cumulative logistic parallel)
-- parallel hazard (sequential gompertz parallel)
-- continuation ratio logit model (sequential logistic complete)
+- multinomial  (reference, logistic, complete) --> devoted to nominal instead of ordinal
+- odds parallel logit (cumulative, logistic, parallel)
+- parallel hazard (sequential, gompertz, parallel)
+- continuation ratio logit model (sequential, logistic, complete)
 - adjacent logit model (adjacent, logistic, complete)
 
 ```{r warning=FALSE,message=FALSE}
@@ -377,7 +377,14 @@ bmdOrdinal(guthionS.LL, bmr = 0.1, backgType = "modelBased", def = "excess")
 
 ```
 
+## Ordinal Regression in General
 
+- limited information and pertaintially unequal intervals, which requires a clear understanding of its subtleties and complexities, and careful attentions when implementing regression modelling. 
+- Proportional Odds Model and Continuation Ratio Model, are standard regression models looking at ordered categories and transitions between them
+
+- Proportional Odds Model: Coefficient (slopes) remains constant across all categories. 
+- Continuation Ratio Model: Model cumulative odds ratios.
+- Adjacent Categories Model: useful when neighboring categories influence each other. 
 
 [^1] (Pinheiro & Bates, "Mixed-Effects Models in S and S-PLUS", Springer, 2000, pp. 163. )
 

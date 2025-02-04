@@ -193,6 +193,7 @@ window.Quarto = {
   <li><a href="#drm-ordinal" id="toc-drm-ordinal" class="nav-link" data-scroll-target="#drm-ordinal">DRM Ordinal</a></li>
   </ul></li>
   <li><a href="#glmcat-basics" id="toc-glmcat-basics" class="nav-link" data-scroll-target="#glmcat-basics">GLMcat Basics</a></li>
+  <li><a href="#ordinal-regression-in-general" id="toc-ordinal-regression-in-general" class="nav-link" data-scroll-target="#ordinal-regression-in-general">Ordinal Regression in General</a></li>
   </ul>
 </nav>
     </div>
@@ -244,10 +245,10 @@ window.Quarto = {
 <p>For parallel design, the effects of the covariates are assumed to be constant across the response categories, whereas for complete design, the covariates effects are different across different response categories. The linear predictios are <span class="math inline">\(\eta_j=\alpha_j+x'\delta_j\)</span> and <span class="math inline">\(\eta_j=\alpha_j+x'\delta\)</span> for <span class="math inline">\(j\)</span> in <span class="math inline">\((1,...,J-1)\)</span></p>
 <p>There are several type of models for categorical data:</p>
 <ul>
-<li>multinomial (reference, logistic complete) –&gt; devoted to nominal instead of ordinal</li>
-<li>odds parallel logit (cumulative logistic parallel)</li>
-<li>parallel hazard (sequential gompertz parallel)</li>
-<li>continuation ratio logit model (sequential logistic complete)</li>
+<li>multinomial (reference, logistic, complete) –&gt; devoted to nominal instead of ordinal</li>
+<li>odds parallel logit (cumulative, logistic, parallel)</li>
+<li>parallel hazard (sequential, gompertz, parallel)</li>
+<li>continuation ratio logit model (sequential, logistic, complete)</li>
 <li>adjacent logit model (adjacent, logistic, complete)</li>
 </ul>
 <div class="cell">
@@ -1658,6 +1659,16 @@ moribund+dead 20.50104 17.11484
 dead          20.59249 16.69573</code></pre>
 </div>
 </div>
+</section>
+<section id="ordinal-regression-in-general" class="level2">
+<h2 class="anchored" data-anchor-id="ordinal-regression-in-general">Ordinal Regression in General</h2>
+<ul>
+<li><p>limited information and pertaintially unequal intervals, which requires a clear understanding of its subtleties and complexities, and careful attentions when implementing regression modelling.</p></li>
+<li><p>Proportional Odds Model and Continuation Ratio Model, are standard regression models looking at ordered categories and transitions between them</p></li>
+<li><p>Proportional Odds Model: Coefficient (slopes) remains constant across all categories.</p></li>
+<li><p>Continuation Ratio Model: Model cumulative odds ratios.</p></li>
+<li><p>Adjacent Categories Model: useful when neighboring categories influence each other.</p></li>
+</ul>
 <p>[^1] (Pinheiro &amp; Bates, “Mixed-Effects Models in S and S-PLUS”, Springer, 2000, pp.&nbsp;163. )</p>
 
 
@@ -1889,7 +1900,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

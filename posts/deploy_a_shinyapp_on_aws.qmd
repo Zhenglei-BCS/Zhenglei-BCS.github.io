@@ -257,6 +257,21 @@ AWS uses port 22 by default for SSH access. All other ports are blocked
 - protect the app with a password
 
 
+
+## Special Steps 
+
+The main issue I encounter in a corporate environment is that I need to use a VPN to connect to the AWS server. Everything is then tunneled and the usual steps to connect to the server do not work. Port 22 is usually blocked for external connections due to security considerations. Therefore we need a Jumpbox (called also Bastion Host) to connect to the server.We jump through is to access the internal VPC bastion hosts.
+
+Using the Bastion SSH Tunnel, I can test my deployed application before making it publicly accessible via a proxy (Akana or Ocelot).
+
+1. set up Vault on my computer.
+2. get a SSH key signed by Vault before you can SSH through the central bastions.
+
+I am using Git BASH on Windows, and I have the following in my `~/.ssh/config` file:
+
+use `echo "$http_proxy"` to check if the proxy is set up correctly when I am in the office and have VPN activated. 
+You must set the environment variable for each new shell/console. In bash, you can ensure that it is always set by adding it to your `~/.bashrc` or `~/.bash_profile` file. Other shells have similar mechanisms to do this.
+
 ## Other Tips
 
 To find the public IP address from Ubuntu terminal, use the following command:

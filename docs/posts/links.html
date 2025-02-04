@@ -159,6 +159,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
   <li><a href="#nice-posts" id="toc-nice-posts" class="nav-link" data-scroll-target="#nice-posts">Nice Posts</a></li>
   <li><a href="#learn-math-and-science-for-children" id="toc-learn-math-and-science-for-children" class="nav-link" data-scroll-target="#learn-math-and-science-for-children">Learn Math and Science (for Children)</a></li>
+  <li><a href="#quotes-i-like" id="toc-quotes-i-like" class="nav-link" data-scroll-target="#quotes-i-like">Quotes I like</a></li>
   </ul>
 </nav>
     </div>
@@ -240,6 +241,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://brilliant.org/courses/">Brilliant</a></li>
 <li><a href=""></a></li>
 </ul>
+</section>
+<section id="quotes-i-like" class="level2">
+<h2 class="anchored" data-anchor-id="quotes-i-like">Quotes I like</h2>
+<blockquote class="blockquote">
+<p>An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem. ~ John Tukey</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>The best thing about being a statistician is that you get to play in everyone’s backyard. ~ John Tukey</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“If all the statisticians in the world were laid head to toe, they wouldn’t be able to reach a conclusion” ~ George Bernard Shaw</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The plural of anecdote is not data” ~ Roger Brinner</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Statisticians, like artists, have the bad habit of falling in love with their models.” ~ George E. P. Box</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Essentially, all models are wrong, but some are useful”. ~ George E. P. Box</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“All Models are Right, Most are Useless” ~ Thad Tarpey</p>
+</blockquote>
+<ul>
+<li>The talk by Thad is <a href="https://statmodeling.stat.columbia.edu/wp-content/uploads/2012/03/tarpey.pdf">here</a></li>
+<li>Andrew’s blog about it is <a href="https://statmodeling.stat.columbia.edu/2012/03/06/all-models-are-right-most-are-useless/">here</a></li>
+</ul>
+<blockquote class="blockquote">
+<p>“Data scientists are statisticians because being a statistician is awesome and anyone who does cool things with data is a statistician.” ~ Robert Rodriguez</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Years ago a statistician might have claimed that statistics deals with the processing of data. . . to-days statistician will be more likely to say that statistics is concerned with decision making in the face of uncertainty.” ~ Herman Chernoff</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The purpose of computing is insight, not numbers.” ~ Richard Hamming</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The purpose of models is not to fit the data but to sharpen the questions.” ~ Samuel Karlin</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“There are three kinds of liars: liars, damned liars, and statisticians” ~ Mark Twain</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“To consult the statistician after an experiment is finished is often merely to ask him to conduct a post mortem examination. He can perhaps say what the experiment died of.” ~ Ronald Fisher</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The statistician knows that the data are not ‘the truth’ but only a sample of the truth. We can only hope that the sample we have chosen is representative of the population and that we have not made any errors in the sampling process.” ~ John Tukey</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The business of the statistician is to catalyze the scientific learning process.” ~ George E. P. Box</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The combination of some data and an aching desire for an answer does not ensure that a reasonable answer can be extracted from a given body of data.” ~ John Tukey</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The greatest value of a picture is when it forces us to notice what we never expected to see.” ~ John Tukey</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“Say you were standing with one foot in the oven and one foot in an ice bucket. According to the percentage people, you should be perfectly comfortable.” ~ Bobby Bragan</p>
+</blockquote>
 
 
 </section>
@@ -470,7 +532,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
