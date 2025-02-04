@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zhenglei Gao">
-<meta name="dcterms.date" content="2024-08-06">
-<meta name="description" content="Useful links">
+<meta name="dcterms.date" content="2024-07-07">
+<meta name="description" content="Here is a collection of resources and my thoughts.">
 
-<title>Zhenglei Gao - References and Reading List</title>
+<title>Zhenglei Gao - Simulation based Power Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -156,10 +156,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
-  <li><a href="#nice-posts" id="toc-nice-posts" class="nav-link" data-scroll-target="#nice-posts">Nice Posts</a></li>
-  <li><a href="#learn-math-and-science-for-children" id="toc-learn-math-and-science-for-children" class="nav-link" data-scroll-target="#learn-math-and-science-for-children">Learn Math and Science (for Children)</a></li>
-  <li><a href="#quotes-i-like" id="toc-quotes-i-like" class="nav-link" data-scroll-target="#quotes-i-like">Quotes I like</a></li>
+  <li><a href="#additional-code-snippets" id="toc-additional-code-snippets" class="nav-link active" data-scroll-target="#additional-code-snippets">Additional Code Snippets</a></li>
   </ul>
 </nav>
     </div>
@@ -168,16 +165,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">References and Reading List</h1>
+<h1 class="title">Simulation based Power Analysis</h1>
   <div class="quarto-categories">
     <div class="quarto-category">code</div>
-    <div class="quarto-category">analysis</div>
+    <div class="quarto-category">howto</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Useful links
+    Here is a collection of resources and my thoughts.
   </div>
 </div>
 
@@ -194,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 6, 2024</p>
+      <p class="date">July 7, 2024</p>
     </div>
   </div>
   
@@ -206,102 +203,112 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="additional-code-snippets" class="level2">
+<h2 class="anchored" data-anchor-id="additional-code-snippets">Additional Code Snippets</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to simulate data and calculate power for Kruskal-Wallis test</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>simulate_kruskal_power <span class="ot">&lt;-</span> <span class="cf">function</span>(n_groups, n_per_group, effect_size, <span class="at">n_simulations =</span> <span class="dv">1000</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>) {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  power_results <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_simulations, {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simulate data for each group</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    groups <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span>n_groups, <span class="cf">function</span>(i) {</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">rnorm</span>(n_per_group, <span class="at">mean =</span> i <span class="sc">*</span> effect_size, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine into a data frame</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">value =</span> <span class="fu">unlist</span>(groups),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">group =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_groups, <span class="at">each =</span> n_per_group))</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Perform Kruskal-Wallis test</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    test_result <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(value <span class="sc">~</span> group, <span class="at">data =</span> data)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check if p-value is less than alpha</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    test_result<span class="sc">$</span>p.value <span class="sc">&lt;</span> alpha</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate power as the proportion of significant results</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(power_results)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to simulate data and calculate power for Wilcoxon rank-sum test</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>simulate_wilcoxon_power <span class="ot">&lt;-</span> <span class="cf">function</span>(n_per_group, effect_size, <span class="at">n_simulations =</span> <span class="dv">1000</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>) {</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  power_results <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_simulations, {</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simulate data for two groups</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    group1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_per_group, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    group2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_per_group, <span class="at">mean =</span> effect_size, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Perform Wilcoxon rank-sum test</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    test_result <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(group1, group2)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check if p-value is less than alpha</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    test_result<span class="sc">$</span>p.value <span class="sc">&lt;</span> alpha</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate power as the proportion of significant results</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(power_results)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters for simulation</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>n_groups <span class="ot">&lt;-</span> <span class="dv">3</span>          <span class="co"># Number of groups for Kruskal-Wallis</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>n_per_group <span class="ot">&lt;-</span> <span class="dv">30</span>      <span class="co"># Sample size per group</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>effect_sizes <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>)  <span class="co"># Range of effect sizes</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>n_simulations <span class="ot">&lt;-</span> <span class="dv">1000</span>  <span class="co"># Number of simulations</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate power for Kruskal-Wallis test</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>kruskal_power <span class="ot">&lt;-</span> <span class="fu">sapply</span>(effect_sizes, <span class="cf">function</span>(effect_size) {</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">simulate_kruskal_power</span>(n_groups, n_per_group, effect_size, n_simulations)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate power for Wilcoxon rank-sum test</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>wilcoxon_power <span class="ot">&lt;-</span> <span class="fu">sapply</span>(effect_sizes, <span class="cf">function</span>(effect_size) {</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">simulate_wilcoxon_power</span>(n_per_group, effect_size, n_simulations)</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine results into a data frame</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>power_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect_size =</span> effect_sizes,</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  <span class="at">kruskal_power =</span> kruskal_power,</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>  <span class="at">wilcoxon_power =</span> wilcoxon_power</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the power curves</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(power_results, <span class="fu">aes</span>(<span class="at">x =</span> effect_size)) <span class="sc">+</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> kruskal_power, <span class="at">color =</span> <span class="st">"Kruskal-Wallis"</span>)) <span class="sc">+</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> wilcoxon_power, <span class="at">color =</span> <span class="st">"Wilcoxon Rank-Sum"</span>)) <span class="sc">+</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Power Analysis of Nonparametric Tests"</span>,</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Effect Size"</span>,</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Power"</span>,</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Test"</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="links_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="simpower_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<ul>
-<li><a href="https://daviddalpiaz.github.io/r4sl/">R for Statistical Learning</a></li>
-</ul>
-</section>
-<section id="nice-posts" class="level2">
-<h2 class="anchored" data-anchor-id="nice-posts">Nice Posts</h2>
-<ul>
-<li><a href="https://lesslikely.com/statistics/s-values/">P-Values Are Tough and S-Values Can Help</a></li>
-<li><a href=""></a></li>
-</ul>
-</section>
-<section id="learn-math-and-science-for-children" class="level2">
-<h2 class="anchored" data-anchor-id="learn-math-and-science-for-children">Learn Math and Science (for Children)</h2>
-<ul>
-<li><a href="https://phet.colorado.edu/">Phet</a></li>
-<li><a href="https://www.geogebra.org/math/geometry">Geogebra, for children</a></li>
-<li><a href="https://simpop.org/">Simpop, up to grade 12</a></li>
-<li><a href="https://www.mathsisfun.com/">Math is Fun</a></li>
-<li><a href="https://mathigon.org/">Math for Middle and High School Students</a></li>
-<li><a href="https://www.wolframalpha.com/">From Wolfram Language and Mathematica</a></li>
-<li><a href="https://brilliant.org/courses/">Brilliant</a></li>
-<li><a href=""></a></li>
-</ul>
-</section>
-<section id="quotes-i-like" class="level2">
-<h2 class="anchored" data-anchor-id="quotes-i-like">Quotes I like</h2>
-<blockquote class="blockquote">
-<p>An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem. ~ John Tukey</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>The best thing about being a statistician is that you get to play in everyone’s backyard. ~ John Tukey</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“If all the statisticians in the world were laid head to toe, they wouldn’t be able to reach a conclusion” ~ George Bernard Shaw</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“The plural of anecdote is not data” ~ Roger Brinner</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“Statisticians, like artists, have the bad habit of falling in love with their models.” ~ George E. P. Box</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“Essentially, all models are wrong, but some are useful”. ~ George E. P. Box</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“All Models are Right, Most are Useless” ~ Thad Tarpey</p>
-</blockquote>
-<ul>
-<li>The talk by Thad is <a href="https://statmodeling.stat.columbia.edu/wp-content/uploads/2012/03/tarpey.pdf">here</a></li>
-<li>Andrew’s blog about it is <a href="https://statmodeling.stat.columbia.edu/2012/03/06/all-models-are-right-most-are-useless/">here</a></li>
-</ul>
-<blockquote class="blockquote">
-<p>“Data scientists are statisticians because being a statistician is awesome and anyone who does cool things with data is a statistician.” ~ Robert Rodriguez</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“Years ago a statistician might have claimed that statistics deals with the processing of data. . . to-days statistician will be more likely to say that statistics is concerned with decision making in the face of uncertainty.” ~ Herman Chernoff</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“The purpose of computing is insight, not numbers.” ~ Richard Hamming</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“The purpose of models is not to fit the data but to sharpen the questions.” ~ Samuel Karlin</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“There are three kinds of liars: liars, damned liars, and statisticians” ~ Mark Twain</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“To consult the statistician after an experiment is finished is often merely to ask him to conduct a post mortem examination. He can perhaps say what the experiment died of.” ~ Ronald Fisher</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“The statistician knows that the data are not ‘the truth’ but only a sample of the truth. We can only hope that the sample we have chosen is representative of the population and that we have not made any errors in the sampling process.” ~ John Tukey</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“The business of the statistician is to catalyze the scientific learning process.” ~ George E. P. Box</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“The combination of some data and an aching desire for an answer does not ensure that a reasonable answer can be extracted from a given body of data.” ~ John Tukey</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“The greatest value of a picture is when it forces us to notice what we never expected to see.” ~ John Tukey</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>“Say you were standing with one foot in the oven and one foot in an ice bucket. According to the percentage people, you should be perfectly comfortable.” ~ Bobby Bragan</p>
-</blockquote>
 
 
 </section>
