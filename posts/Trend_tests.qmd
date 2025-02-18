@@ -1,0 +1,35 @@
+---
+title: "Trend Tests"
+description: "A topic that has been bothering me for years"
+author: "Zhenglei Gao"
+date: "2/04/2025"
+categories:
+  - code
+  - analysis
+---
+
+## Materials and Resources
+
+## Example of Trend Tests
+
+### CA
+
+### Jonckheere-Terpstra
+
+### Tukey trend tests
+
+```{r}
+library(tukeytrend)
+```
+
+```{r}
+data(litter, package="multcomp") 
+dl <- litter 
+dl$dosen <- as.numeric(as.character(dl$dose)) 
+fitw <- lm(weight ~ dosen, data=dl) 
+ttw <- tukeytrendfit(fitw, dose="dosen", scaling=c("ari", "ord", "arilog")) 
+exa1<-summary(glht(model=ttw$mmm, linfct=ttw$mlf))
+
+exa1
+```
+

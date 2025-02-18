@@ -1,0 +1,15 @@
+{
+  "hash": "979a1bf8d9ec9389a28a8e64f6c0d0aa",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Trend Tests\"\ndescription: \"A topic that has been bothering me for years\"\nauthor: \"Zhenglei Gao\"\ndate: \"2/04/2025\"\ncategories:\n  - code\n  - analysis\n---\n\n\n## Materials and Resources\n\n## Example of Trend Tests\n\n### CA\n\n### Jonckheere-Terpstra\n\n### Tukey trend tests\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tukeytrend)\n```\n\n::: {.cell-output .cell-output-stderr}\n\n```\nWarning: package 'tukeytrend' was built under R version 4.4.2\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nLoading required package: multcomp\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nWarning: package 'multcomp' was built under R version 4.4.2\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nLoading required package: mvtnorm\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nLoading required package: survival\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nLoading required package: TH.data\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nWarning: package 'TH.data' was built under R version 4.4.2\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nLoading required package: MASS\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\n\nAttaching package: 'TH.data'\n```\n\n\n:::\n\n::: {.cell-output .cell-output-stderr}\n\n```\nThe following object is masked from 'package:MASS':\n\n    geyser\n```\n\n\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\ndata(litter, package=\"multcomp\") \ndl <- litter \ndl$dosen <- as.numeric(as.character(dl$dose)) \nfitw <- lm(weight ~ dosen, data=dl) \nttw <- tukeytrendfit(fitw, dose=\"dosen\", scaling=c(\"ari\", \"ord\", \"arilog\")) \nexa1<-summary(glht(model=ttw$mmm, linfct=ttw$mlf))\n\nexa1\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n\n\t Simultaneous Tests for General Linear Hypotheses\n\nLinear Hypotheses:\n                               Estimate Std. Error z value Pr(>|z|)\ndosenari: dosenari == 0       -0.002063   0.002522  -0.818    0.537\ndosenord: dosenord == 0       -0.773009   0.453985  -1.703    0.130\ndosenarilog: dosenarilog == 0 -0.297261   0.263454  -1.128    0.352\n(Adjusted p values reported -- single-step method)\n```\n\n\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

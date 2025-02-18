@@ -1,0 +1,15 @@
+---
+title: "Turbulence and AlphaFold 2"
+description: "AI advances science"
+author: "Zhenglei Gao"
+date: "12/16/2024"
+categories:
+  - journal
+---
+
+Attention
+
+CASP 14.
+
+- [AlphaFold Images & Videos](https://docs.google.com/document/d/1YH9tRRqxdeQygjr79XnPPn3UPmZDQyBBz_ABw8iXlBs/edit?tab=t.0)
+- 

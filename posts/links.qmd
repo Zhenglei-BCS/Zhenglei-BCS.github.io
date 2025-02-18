@@ -15,9 +15,9 @@ plot(mtcars)
 ## References
 - [R for Statistical Learning](https://daviddalpiaz.github.io/r4sl/)
 
-## Nice Posts
+## Nice Posts on Stats
 - [P-Values Are Tough and S-Values Can Help](https://lesslikely.com/statistics/s-values/)
-- []()
+- [A Comparison of R Tools for Nonlinear Least Squares Modeling](https://journal.r-project.org/articles/RJ-2023-091/)
 
 
 ## Learn Math and Science (for Children)
@@ -30,6 +30,14 @@ plot(mtcars)
 - [From Wolfram Language and Mathematica](https://www.wolframalpha.com/)
 - [Brilliant](https://brilliant.org/courses/)
 - []()
+
+## Regulatory Stats Papers I enjoy
+
+- [Benchmark dose (BMD) modeling: current practice, issues, and challenges](https://www.tandfonline.com/doi/full/10.1080/10408444.2018.1430121#abstract)
+
+## Deep dive into LLMs
+
+-Deep dive into LLMs like ChatGPT by Andrej Karpathy (TL;DR)](https://anfalmushtaq.com/articles/deep-dive-into-llms-like-chatgpt-tldr?continueFlag=cb23fbb30142663bcf107a11d44e8319)
 
 ## Quotes I like
 
@@ -71,3 +79,6 @@ plot(mtcars)
 > "The greatest value of a picture is when it forces us to notice what we never expected to see." ~ John Tukey
 
 > "Say you were standing with one foot in the oven and one foot in an ice bucket. According to the percentage people, you should be perfectly comfortable." ~ Bobby Bragan
+
+## Basic Stats Books for Beginners
+- [A Guide on Data Analysis](https://bookdown.org/mike/data_analysis/bookdown-cheat-sheet.html)

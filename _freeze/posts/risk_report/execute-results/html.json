@@ -1,9 +1,11 @@
 {
-  "hash": "f7ee73b0a185c8af6763012255a2bc7e",
+  "hash": "1cdbd165eeed7bdd71284fb7e992b859",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"Risk Report and Metric\"\ndescription: \"Reproduce \"\nauthor: \"Zhenglei Gao\"\ndate: \"12/06/2024\"\ncategories:\n  - code\n  - Stats\n  - R\neditor_options: \n  chunk_output_type: console\n---\n\n\n\n## Testing the Idea\n\n1. Install the package\n\n::: {.cell}\n\n```{.r .cell-code}\npak::pak(\"pharmaR/riskreports\")\n```\n:::\n\n\n2. Start generating a report\n\n\n::: {.cell}\n\n:::\n",
-    "supporting": [],
+    "markdown": "---\ntitle: \"Risk Report and Metric\"\ndescription: \"Reproduce \"\nauthor: \"Zhenglei Gao\"\ndate: \"12/06/2024\"\ncategories:\n  - code\n  - Stats\n  - R\neditor_options: \n  chunk_output_type: console\n---\n\n\n\n## Testing the Idea\n\n1. Install the package\n\n::: {.cell}\n\n```{.r .cell-code}\npak::pak(\"pharmaR/riskreports\")\n```\n:::\n\n\n2. Start generating a report\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(riskreports)\n```\n:::\n\n\n\n## Testing pharmapkgs\n\n\n::: {.cell}\n\n```{.r .cell-code}\nrepo <- \"C:/Projects/Rlib/pharmapkgs/repos/src/contrib/\"\npackages <- get_packages(\n      base_url = system.file(\"repos\", package = \"pharmapkgs\", mustWork = TRUE)\n    )\n\navailable.packages(repos = repo, fields = risk_fields(repo)) |>\n  tibble::as_tibble()\n```\n:::\n",
+    "supporting": [
+      "risk_report_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

@@ -22,5 +22,20 @@ pak::pak("pharmaR/riskreports")
 2. Start generating a report
 
 ```{r}
+library(riskreports)
+```
+
+
+## Testing pharmapkgs
+
+```{r eval=FALSE}
+repo <- "C:/Projects/Rlib/pharmapkgs/repos/src/contrib/"
+packages <- get_packages(
+      base_url = system.file("repos", package = "pharmapkgs", mustWork = TRUE)
+    )
+
+available.packages(repos = repo, fields = risk_fields(repo)) |>
+  tibble::as_tibble()
+
 
 ```

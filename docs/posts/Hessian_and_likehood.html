@@ -185,7 +185,10 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#other-resources" id="toc-other-resources" class="nav-link active" data-scroll-target="#other-resources">Other resources</a></li>
+  <li><a href="#relationship-between-ml-and-least-squares" id="toc-relationship-between-ml-and-least-squares" class="nav-link active" data-scroll-target="#relationship-between-ml-and-least-squares">Relationship between ML and Least squares</a>
+  <ul class="collapse">
+  <li><a href="#other-resources" id="toc-other-resources" class="nav-link" data-scroll-target="#other-resources">Other resources</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -234,6 +237,34 @@ window.Quarto = {
 
 
 <p>I was discussing with Johannes on how to calculate confidence intervals for a growth model, or more in general, confidence interval, credibal interval, prediction interval, tolerance interval. I need to write that up too. I have written him a formula for deriving the SEs from the Hessian matrix of the optim output or using the numDeriv::hessian function. However, our beloved myGenAssist does not agree with me. After a clarification with the assistant, we reached an agreement.</p>
+<p>If you are maximizing the log(likelihood), then the negative of the hessian is the “observed information” (Fisher information matrix). If you minimize a “deviance” = (-2)*log(likelihood), then half of the hessian is the observed information. The sigma is then the square root of the diagnal element of the fisher information matrix. In the unlikely event that you are maximizing the likelihood itself, you need to divide the negative of the hessian by the likelihood to get the observed information.</p>
+<p>The second derivative of the log-likelihood evaluated at the maximum likelihood estimates (MLE) is the observed Fisher information. Most optimization algorithms in R like optim return this Hesiian. If the negative log-likelihood</p>
+<section id="relationship-between-ml-and-least-squares" class="level2">
+<h2 class="anchored" data-anchor-id="relationship-between-ml-and-least-squares">Relationship between ML and Least squares</h2>
+<p>Least square is an estimate <span class="math inline">\(\hat{\mu}^\text{LS}\)</span> the value of <span class="math inline">\(\mu\)</span> that minimizes <span class="math inline">\(\sum (y_i-\mu)^2\)</span>. MLE is an estimate <span class="math inline">\(\hat{\mu}^\text{MLE}\)</span> that maximizes the likelihood function <span class="math inline">\(L(\mu) = \prod f(y_i|\mu)\)</span>, or <span class="math inline">\(\sum_i \log(f(y_i;\mu))\)</span>.</p>
+<p>Suppose <span class="math display">\[
+y = X\beta + \varepsilon, \; \varepsilon_i \overset{\mathrm{i.i.d.}}{\sim} \mathcal{N}(0, \sigma^2) \; ,
+\]</span></p>
+<p><span class="math display">\[
+\mathrm{LL}(\beta,\sigma^2) = \log p(y|\beta,\sigma^2) = - \frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} (y - X\beta)^\mathrm{T} (y - X\beta) \; ,
+\]</span></p>
+<p>Maximizing LL is equal to minimizing RSS <span class="math inline">\(\sum(y_i-X_i\beta)^2\)</span> and</p>
+<p><span class="math display">\[ \mathrm{RSS} =  - 2\sigma^2 (\cdot \mathrm{LL}(\beta,\sigma^2) + \frac{n}{2} \log(2\pi\sigma^2)) \]</span></p>
+<p>Therefore, the 1/2 hessian of the objective function of least square estimates should be used as H.</p>
+<p>let <span class="math inline">\(\r_i = f(x_i, beta) - y_i\)</span>, rss=<span class="math inline">\(r^Tr\)</span>.</p>
+<p>SE = sqrt(diag(solve(H))*ssr/(n-p)))</p>
+<p>Given <span class="math inline">\(\hat\beta\)</span>,</p>
+<p><span class="math display">\[
+\mathrm{RSS} = \sum_{i=1}^n \hat{\varepsilon}_i = \hat{\varepsilon}^\mathrm{T} \hat{\varepsilon} = (y - X\hat{\beta})^\mathrm{T} (y - X\hat{\beta}) = n \cdot \hat{\sigma}^2 \; .
+\]</span></p>
+<p>Maximum log-likelihood is:</p>
+<p><span class="math display">\[
+\mathrm{MLL} = \mathrm{LL}(\hat{\beta},\hat{\sigma}^2) = - \frac{n}{2} \log(2\pi\hat{\sigma}^2) - \frac{1}{2\hat{\sigma}^2} (y - X\hat{\beta})^\mathrm{T} (y - X\hat{\beta}) \; .
+\]</span></p>
+<p><span class="math display">\[
+\mathrm{MLL} = - \frac{n}{2} \log(\mathrm{RSS}) - \frac{n}{2} \log \left( \frac{2\pi}{n} \right) - \frac{n}{2} \; .
+\]</span></p>
+<p>SE = sqrt(diag(solve(hessian))*RSS/dof)</p>
 <p>Anyway, I first did a search on Hessian, likelihood, Fisher information matrix and came across [this post] (https://stats.stackexchange.com/questions/381984/standard-error-from-hessian-matrix-when-likelihood-is-used-rather-than-ln-l). Below is to reproduce the results of that post.</p>
 <p>Denote <span class="math display">\[l(x) = \ln L(x)\]</span> and ’ for differentiation,</p>
 <p><span class="math display">\[l'(x) = \frac{L'(x)}{L(x)}\]</span></p>
@@ -373,8 +404,20 @@ Estimated standard errors:</code></pre>
 <li>https://stats.stackexchange.com/questions/52829/why-is-a-likelihood-ratio-test-distributed-chi-squared</li>
 <li>https://books.google.fr/books?id=vmoFw0pvS1sC&amp;printsec=frontcover&amp;hl=fr&amp;source=gbs_ge_summary_r&amp;cad=0#v=onepage&amp;q&amp;f=false</li>
 </ul>
+<div class="cell" data-python.reticulate="false">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>, category<span class="op">=</span><span class="pp">RuntimeWarning</span>, message<span class="op">=</span><span class="st">"overflow encountered in square"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>        <span class="co"># warning above occurs when RSS is calculated as Hessian step can be too large</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>        H <span class="op">=</span> nd.Hessian(residual)(np.copy(result.x))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        warnings.filterwarnings(<span class="st">"default"</span>, category<span class="op">=</span><span class="pp">RuntimeWarning</span>) <span class="co"># turn warnings on again</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        C <span class="op">=</span> np.linalg.inv(<span class="dv">2</span><span class="op">*</span>H) <span class="co"># discuss further why Hessian should be multiplied by two</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>        V <span class="op">=</span> np.diag(C)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>        SE <span class="op">=</span> np.sqrt(V <span class="op">*</span> resvar)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        SE[<span class="dv">0</span>] <span class="op">=</span> SE[<span class="dv">0</span>] <span class="op">*</span> scale_factor <span class="co">#  rescale standard error for M0</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        logging.info(<span class="st">"Hessian matrix calculated succesfully."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

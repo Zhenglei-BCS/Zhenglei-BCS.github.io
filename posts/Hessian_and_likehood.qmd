@@ -11,7 +11,94 @@ categories:
 
 I was discussing with Johannes on how to calculate confidence intervals for a growth model, or more in general, confidence interval, credibal interval, prediction interval, tolerance interval. I need to write that up too. I have written him a formula for deriving the SEs from the Hessian matrix of the optim output or using the numDeriv::hessian function. However, our beloved myGenAssist does not agree with me. After a clarification with the assistant, we reached an agreement. 
 
+If you are maximizing the log(likelihood), then the negative of the hessian is the "observed information" (Fisher information matrix). If you minimize a "deviance" = (-2)*log(likelihood), then half of the hessian is the observed information. The sigma is then the square root of the diagnal element of the fisher information matrix.
+In the unlikely event that you are maximizing the likelihood itself, you need to divide the negative of the hessian by the likelihood to get the observed information.
 
+The second derivative of the log-likelihood evaluated at the maximum likelihood estimates (MLE) is the observed Fisher information. Most optimization algorithms in R like optim return this Hesiian. If the negative log-likelihood 
+
+## Relationship between ML and Least squares
+
+Least square is an estimate $\hat{\mu}^\text{LS}$ the value of $\mu$ that minimizes $\sum (y_i-\mu)^2$.
+MLE is an estimate $\hat{\mu}^\text{MLE}$ that maximizes the likelihood function $L(\mu) = \prod f(y_i|\mu)$, or  $\sum_i \log(f(y_i;\mu))$.
+
+Suppose $$ 
+y = X\beta + \varepsilon, \; \varepsilon_i \overset{\mathrm{i.i.d.}}{\sim} \mathcal{N}(0, \sigma^2) \; ,
+$$
+
+$$ 
+\mathrm{LL}(\beta,\sigma^2) = \log p(y|\beta,\sigma^2) = - \frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} (y - X\beta)^\mathrm{T} (y - X\beta) \; ,
+$$
+
+Maximizing LL is equal to minimizing RSS $\sum(y_i-X_i\beta)^2$ and 
+
+$$ \mathrm{RSS} =  - 2\sigma^2 (\cdot \mathrm{LL}(\beta,\sigma^2) + \frac{n}{2} \log(2\pi\sigma^2)) $$
+
+
+Therefore, the 1/2 hessian of the objective function of least square estimates should be used as H.
+
+let $\r_i = f(x_i, beta) - y_i$, rss=$r^Tr$. 
+
+SE = sqrt(diag(solve(H))*ssr/(n-p)))
+
+Given $\hat\beta$,
+
+$$ 
+\mathrm{RSS} = \sum_{i=1}^n \hat{\varepsilon}_i = \hat{\varepsilon}^\mathrm{T} \hat{\varepsilon} = (y - X\hat{\beta})^\mathrm{T} (y - X\hat{\beta}) = n \cdot \hat{\sigma}^2 \; .
+$$
+
+Maximum log-likelihood is: 
+
+$$ 
+\mathrm{MLL} = \mathrm{LL}(\hat{\beta},\hat{\sigma}^2) = - \frac{n}{2} \log(2\pi\hat{\sigma}^2) - \frac{1}{2\hat{\sigma}^2} (y - X\hat{\beta})^\mathrm{T} (y - X\hat{\beta}) \; .
+$$
+
+$$ 
+\mathrm{MLL} = - \frac{n}{2} \log(\mathrm{RSS}) - \frac{n}{2} \log \left( \frac{2\pi}{n} \right) - \frac{n}{2} \; .
+$$
+
+SE = sqrt(diag(solve(hessian))*RSS/dof)
+
+```{r}
+library(minpack.lm)
+
+###### example 1
+
+## values over which to simulate data 
+x <- seq(0,5,length=100)
+
+## model based on a list of parameters 
+getPred <- function(parS, xx) parS$a * exp(xx * parS$b) + parS$c 
+
+## parameter values used to simulate data
+pp <- list(a=9,b=-1, c=6) 
+
+## simulated data, with noise  
+simDNoisy <- getPred(pp,x) + rnorm(length(x),sd=.1)
+ 
+## plot data
+plot(x,simDNoisy, main="data")
+
+## residual function 
+residFun <- function(p, observed, xx) observed - getPred(p,xx)
+
+## starting values for parameters  
+parStart <- list(a=3,b=-.001, c=1)
+
+## perform fit 
+nls.out <- nls.lm(par=parStart, fn = residFun, observed = simDNoisy,
+xx = x, control = nls.lm.control(nprint=1))
+
+## plot model evaluated at final parameter estimates  
+lines(x,getPred(as.list(coef(nls.out)), x), col=2, lwd=2)
+
+## summary information on parameter estimates
+summary(nls.out) 
+
+sqrt(diag(solve(nls.out$hessian)))*sqrt(nls.out$deviance/97)
+```
+
+
+## When MLE is problematic
 Anyway, I first did a search on Hessian, likelihood, Fisher information matrix and came across [this post] (https://stats.stackexchange.com/questions/381984/standard-error-from-hessian-matrix-when-likelihood-is-used-rather-than-ln-l). Below is to reproduce the results of that post. 
 
 Denote $$l(x) = \ln L(x)$$ and ' for differentiation,
@@ -102,3 +189,16 @@ sqrt(diag(solve(-o$hessian/o$value)))
 - https://books.google.fr/books?id=vmoFw0pvS1sC&printsec=frontcover&hl=fr&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false
 
 
+```{python python.reticulate = FALSE}
+#| echo: true
+#| eval: false
+warnings.filterwarnings("ignore", category=RuntimeWarning, message="overflow encountered in square")
+        # warning above occurs when RSS is calculated as Hessian step can be too large
+        H = nd.Hessian(residual)(np.copy(result.x))
+        warnings.filterwarnings("default", category=RuntimeWarning) # turn warnings on again
+        C = np.linalg.inv(2*H) # discuss further why Hessian should be multiplied by two
+        V = np.diag(C)
+        SE = np.sqrt(V * resvar)
+        SE[0] = SE[0] * scale_factor #  rescale standard error for M0
+        logging.info("Hessian matrix calculated succesfully.")
+```
