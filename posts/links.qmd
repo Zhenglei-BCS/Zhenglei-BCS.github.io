@@ -82,3 +82,4 @@ plot(mtcars)
 
 ## Basic Stats Books for Beginners
 - [A Guide on Data Analysis](https://bookdown.org/mike/data_analysis/bookdown-cheat-sheet.html)
+- [The Book of Statistical Proofs](https://github.com/StatProofBook/StatProofBook.github.io/tree/master)

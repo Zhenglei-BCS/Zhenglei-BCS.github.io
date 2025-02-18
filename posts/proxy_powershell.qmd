@@ -34,6 +34,40 @@ or
 reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
 ```
 
+## In Git
+
+```{bash}
+# Set HTTP proxy with authentication
+git config --global http.proxy http://username:password@proxy.example.com:8080
+
+# Set HTTPS proxy with authentication
+git config --global https.proxy https://username:password@proxy.example.com:8080
+```
+
+**Verify Proxy Settings**
+
+```{bash}
+git config --global --get http.proxy
+git config --global --get https.proxy
+```
+
+**Unset proxy**
+
+```{bash}
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
+**Setting with usernames and pssds**
+
+```{bash}
+# Set HTTP proxy with authentication
+git config --global http.proxy http://username:password@proxy.example.com:8080
+
+# Set HTTPS proxy with authentication
+git config --global https.proxy https://username:password@proxy.example.com:8080
+```
+
 
 ## Useful Resources
 

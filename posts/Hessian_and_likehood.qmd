@@ -59,6 +59,7 @@ $$
 SE = sqrt(diag(solve(hessian))*RSS/dof)
 
 ```{r}
+# 
 library(minpack.lm)
 
 ###### example 1
