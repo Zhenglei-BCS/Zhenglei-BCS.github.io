@@ -11,6 +11,7 @@ editor_options:
   chunk_output_type: console
 ---
 
+Since I started working in an internal project that utilizes a validated R envrionment provided by a 3rd vendor company, I started 
 
 ## Testing the Idea
 
@@ -21,9 +22,38 @@ pak::pak("pharmaR/riskreports")
 
 2. Start generating a report
 
-```{r}
+The **riskreports** package is developed by the R validation hub repo working group.  
+
+```{r eval=FALSE}
 library(riskreports)
+options("riskreports_output_dir" = ".")
+pr <- package_report(
+  package_name = "dplyr",
+  package_version = "1.1.4",
+  params = list(
+    assessment_path = system.file("assessments/dplyr.rds", package = "riskreports")),
+  quiet = TRUE # To silence quarto output for readability
+)
 ```
+
+
+## Generate a summary report
+
+I would prefer having also a summarize report in the end for the QA to check. I don't think the QA would check every single validation report for the handreds of packages included in the image. 
+
+```{r}
+tmp_packages_file <- tempfile("packages")
+repo_packages_url <- "https://raw.githubusercontent.com/pharmaR/pharmapkgs/refs/heads/main/inst/repos/src/contrib/PACKAGES"
+download.file(repo_packages_url, tmp_packages_file)
+tmp <- read.dcf(tmp_packages_file)
+colnames(tmp)
+```
+
+```{r}
+library(dplyr)
+knitr::kable(t(head(tmp))) %>% kableExtra::kable_classic(.) 
+```
+
 
 
 ## Testing pharmapkgs

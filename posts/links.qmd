@@ -37,7 +37,8 @@ plot(mtcars)
 
 ## Deep dive into LLMs
 
--Deep dive into LLMs like ChatGPT by Andrej Karpathy (TL;DR)](https://anfalmushtaq.com/articles/deep-dive-into-llms-like-chatgpt-tldr?continueFlag=cb23fbb30142663bcf107a11d44e8319)
+- [Deep dive into LLMs like ChatGPT by Andrej Karpathy (TL;DR)](https://anfalmushtaq.com/articles/deep-dive-into-llms-like-chatgpt-tldr?continueFlag=cb23fbb30142663bcf107a11d44e8319)
+- [How To AI (Almost) Anything](mit-mi.github.io/how2ai-course/spring2025/)
 
 ## Quotes I like
 
