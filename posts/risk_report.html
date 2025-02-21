@@ -105,6 +105,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -157,6 +161,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#testing-the-idea" id="toc-testing-the-idea" class="nav-link active" data-scroll-target="#testing-the-idea">Testing the Idea</a></li>
+  <li><a href="#generate-a-summary-report" id="toc-generate-a-summary-report" class="nav-link" data-scroll-target="#generate-a-summary-report">Generate a summary report</a></li>
+  <li><a href="#testing-pharmapkgs" id="toc-testing-pharmapkgs" class="nav-link" data-scroll-target="#testing-pharmapkgs">Testing pharmapkgs</a></li>
   </ul>
 </nav>
     </div>
@@ -204,6 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>Since I started working in an internal project that utilizes a validated R envrionment provided by a 3rd vendor company, I started</p>
 <section id="testing-the-idea" class="level2">
 <h2 class="anchored" data-anchor-id="testing-the-idea">Testing the Idea</h2>
 <ol type="1">
@@ -215,6 +222,381 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol start="2" type="1">
 <li>Start generating a report</li>
 </ol>
+<p>The <strong>riskreports</strong> package is developed by the R validation hub repo working group.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(riskreports)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="st">"riskreports_output_dir"</span> <span class="ot">=</span> <span class="st">"."</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">package_report</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">package_name =</span> <span class="st">"dplyr"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">package_version =</span> <span class="st">"1.1.4"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="fu">list</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">assessment_path =</span> <span class="fu">system.file</span>(<span class="st">"assessments/dplyr.rds"</span>, <span class="at">package =</span> <span class="st">"riskreports"</span>)),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">quiet =</span> <span class="cn">TRUE</span> <span class="co"># To silence quarto output for readability</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="generate-a-summary-report" class="level2">
+<h2 class="anchored" data-anchor-id="generate-a-summary-report">Generate a summary report</h2>
+<p>I would prefer having also a summarize report in the end for the QA to check. I don’t think the QA would check every single validation report for the handreds of packages included in the image.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tmp_packages_file <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="st">"packages"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>repo_packages_url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/pharmaR/pharmapkgs/refs/heads/main/inst/repos/src/contrib/PACKAGES"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(repo_packages_url, tmp_packages_file)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">read.dcf</span>(tmp_packages_file)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tmp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Package"               "Version"               "Depends"              
+ [4] "Suggests"              "License"               "MD5sum"               
+ [7] "NeedsCompilation"      "DownloadURL"           "has_news"             
+[10] "news_current"          "exported_namespace"    "has_vignettes"        
+[13] "export_help"           "has_website"           "has_maintainer"       
+[16] "size_codebase"         "has_source_control"    "has_bug_reports_url"  
+[19] "downloads_1yr"         "reverse_dependencies"  "has_examples"         
+[22] "dependencies"          "Imports"               "bugs_status"          
+[25] "LinkingTo"             "Enhances"              "License_restricts_use"
+[28] "OS_type"               "Priority"              "Path"                 
+[31] "License_is_FOSS"       "Archs"                </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">t</span>(<span class="fu">head</span>(tmp))) <span class="sc">%&gt;%</span> kableExtra<span class="sc">::</span><span class="fu">kable_classic</span>(.) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Package</td>
+<td style="text-align: left;">A3</td>
+<td style="text-align: left;">AalenJohansen</td>
+<td style="text-align: left;">AATtools</td>
+<td style="text-align: left;">ABACUS</td>
+<td style="text-align: left;">abasequence</td>
+<td style="text-align: left;">abbreviate</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Version</td>
+<td style="text-align: left;">1.0.0</td>
+<td style="text-align: left;">1.0</td>
+<td style="text-align: left;">0.0.3</td>
+<td style="text-align: left;">1.0.0</td>
+<td style="text-align: left;">0.1.0</td>
+<td style="text-align: left;">0.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Depends</td>
+<td style="text-align: left;">R (&gt;= 2.15.0), xtable, pbapply</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">R (&gt;= 3.6.0)</td>
+<td style="text-align: left;">R (&gt;= 3.1.0)</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Suggests</td>
+<td style="text-align: left;">randomForest, e1071</td>
+<td style="text-align: left;">knitr, rmarkdown</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">rmarkdown (&gt;= 1.13), knitr (&gt;= 1.22)</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">testthat (&gt;= 3.0.0)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">License</td>
+<td style="text-align: left;">GPL (&gt;= 2)</td>
+<td style="text-align: left;">GPL (&gt;= 2)</td>
+<td style="text-align: left;">GPL-3</td>
+<td style="text-align: left;">GPL-3</td>
+<td style="text-align: left;">GPL-3</td>
+<td style="text-align: left;">GPL-3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MD5sum</td>
+<td style="text-align: left;">027ebdd8affce8f0effaecfcd5f5ade2</td>
+<td style="text-align: left;">d7eb2a6275daa6af43bf8a980398b312</td>
+<td style="text-align: left;">ea8127d953ca6a2f118ea49441772af6</td>
+<td style="text-align: left;">50c54c4da09307cb95a70aaaa54b9fbd</td>
+<td style="text-align: left;">1392d909eb0f65be94fd4160a371ae21</td>
+<td style="text-align: left;">37285eddefb6b0fce95783bf21b32999</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NeedsCompilation</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+<td style="text-align: left;">no</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DownloadURL</td>
+<td style="text-align: left;">https://github.com/cran/A3/archive/refs/tags/1.0.0.tar.gz</td>
+<td style="text-align: left;">https://github.com/cran/AalenJohansen/archive/refs/tags/1.0.tar.gz</td>
+<td style="text-align: left;">https://github.com/cran/AATtools/archive/refs/tags/0.0.3.tar.gz</td>
+<td style="text-align: left;">https://github.com/cran/ABACUS/archive/refs/tags/1.0.0.tar.gz</td>
+<td style="text-align: left;">https://github.com/cran/abasequence/archive/refs/tags/0.1.0.tar.gz</td>
+<td style="text-align: left;">https://github.com/cran/abbreviate/archive/refs/tags/0.1.tar.gz</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">has_news</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">news_current</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">exported_namespace</td>
+<td style="text-align: left;">0.777299861174691</td>
+<td style="text-align: left;">0.693596453153698</td>
+<td style="text-align: left;">0.386057808916704</td>
+<td style="text-align: left;">0.643035173277501</td>
+<td style="text-align: left;">0.666185565559974</td>
+<td style="text-align: left;">0.731058578630005</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">has_vignettes</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">export_help</td>
+<td style="text-align: left;">NaN</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">has_website</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">has_maintainer</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">size_codebase</td>
+<td style="text-align: left;">0.29126213592233</td>
+<td style="text-align: left;">0.485436893203884</td>
+<td style="text-align: left;">0.0949968334388854</td>
+<td style="text-align: left;">0.842696629213483</td>
+<td style="text-align: left;">0.700934579439252</td>
+<td style="text-align: left;">0.746268656716418</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">has_source_control</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">has_bug_reports_url</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">downloads_1yr</td>
+<td style="text-align: left;">0.100811068416289</td>
+<td style="text-align: left;">0.0360950281781554</td>
+<td style="text-align: left;">0.0371777754955325</td>
+<td style="text-align: left;">0.0274265707060883</td>
+<td style="text-align: left;">0.0283086091857226</td>
+<td style="text-align: left;">0.0685081226091708</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reverse_dependencies</td>
+<td style="text-align: left;">0.246376140522644</td>
+<td style="text-align: left;">0.246376140522644</td>
+<td style="text-align: left;">0.246376140522644</td>
+<td style="text-align: left;">0.246376140522644</td>
+<td style="text-align: left;">0.246376140522644</td>
+<td style="text-align: left;">0.246376140522644</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">has_examples</td>
+<td style="text-align: left;">0.923076923076923</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dependencies</td>
+<td style="text-align: left;">0.731058578630005</td>
+<td style="text-align: left;">0.880797077977882</td>
+<td style="text-align: left;">0.5</td>
+<td style="text-align: left;">0.731058578630005</td>
+<td style="text-align: left;">0.880797077977882</td>
+<td style="text-align: left;">0.880797077977882</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Imports</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">magrittr, dplyr, doParallel, foreach</td>
+<td style="text-align: left;">ggplot2 (&gt;= 3.1.0), shiny (&gt;= 1.3.1),</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bugs_status</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LinkingTo</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Enhances</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">License_restricts_use</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OS_type</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Priority</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Path</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">License_is_FOSS</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Archs</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+<section id="testing-pharmapkgs" class="level2">
+<h2 class="anchored" data-anchor-id="testing-pharmapkgs">Testing pharmapkgs</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>repo <span class="ot">&lt;-</span> <span class="st">"C:/Projects/Rlib/pharmapkgs/repos/src/contrib/"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">get_packages</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">base_url =</span> <span class="fu">system.file</span>(<span class="st">"repos"</span>, <span class="at">package =</span> <span class="st">"pharmapkgs"</span>, <span class="at">mustWork =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">available.packages</span>(<span class="at">repos =</span> repo, <span class="at">fields =</span> <span class="fu">risk_fields</span>(repo)) <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
