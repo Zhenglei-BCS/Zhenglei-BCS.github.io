@@ -1,0 +1,18 @@
+---
+title: "LLM with artefacts and so on"
+description: "Some random thoughts on LLM"
+author: "Zhenglei Gao"
+date: "03/06/2025"
+categories:
+  - journal
+---
+
+I started watching the youtube video by Andrej Karpathy on how he uses LLMs. It is long but very informative and fun to watch. I haven't finished it yet as I don't have a 2 hours window completely belonging to me in family life after work.  
+
+The first thing I realized is that the artefact tool is something I have never used. 
+
+Also he mentioned about how he use LLMs as a companion to read papers and books. I think it is a great idea. 
+
+My colleague has been so excited and encouraging me to use LLMs for my daily work. I have been suspicious since with the mini model I don't get satisfying results and I feel I can beat it in a little bix complex tasks. Following his recommendations I switched to one or several of the bigger and advanced models, and I was and still am impressed. It is capable of tracking long conversations and make sense out of my instructions, sometimes even think ahead of me. 
+
+My husband was watching together with an absent mind, but his reaction is we are cooked. :)

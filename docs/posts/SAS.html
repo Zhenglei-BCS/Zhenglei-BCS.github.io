@@ -170,6 +170,10 @@ x = 3.0+4.5;
 put 'The answer is:' x;
 run;</code></pre>
 <p>It is incredible that I still need write so many additional text for doing a simple calculation. However, SAS does have many advantages that open source languages, such as R and python, don’t have. For one thing, I really enjoy reading the extensive documentation of SAS, including both methods and implementation.</p>
+<p>I still remember back 10 years ago, SAS PROC GLM using residual error in all F tests even when a RANDOM statement is supplied. While PROC GLM also has a random statement, its models are estimated as though all effects are fixed. The random effects are treated in a post hoc fashion after the complete fixed effect model is fit. Standard errors for estimates and LS-means based on the fixed effects model may be significantly smaller than those based on a true random effects model. PROC MIXED instead use true random effects models.</p>
+<ul>
+<li><a href="https://www.biostat.jhsph.edu/~fdominic/teaching/bio655/software/code/sas/mixed_glm.pdf">SAS Mixed and GLM</a></li>
+</ul>
 
 
 

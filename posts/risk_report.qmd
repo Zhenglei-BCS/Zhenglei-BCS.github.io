@@ -11,7 +11,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-Since I started working in an internal project that utilizes a validated R envrionment provided by a 3rd vendor company, I started 
+Since I began working on an internal project that utilizes a validated R environment provided by a third-party vendor, I started considering the need for an open-source image or repository that is validated and can be used by both industry and regulatory authorities. In my search, I discovered that others are already working on this initiative, and I decided to join the R Validation Hub repository working group. This is voluntary work I do in my free time. However, I would appreciate if the group can be sponsored by industry association and this can be part of my job. 
 
 ## Testing the Idea
 
@@ -25,6 +25,7 @@ pak::pak("pharmaR/riskreports")
 The **riskreports** package is developed by the R validation hub repo working group.  
 
 ```{r eval=FALSE}
+packageVersion("riskreports")
 library(riskreports)
 options("riskreports_output_dir" = ".")
 pr <- package_report(
@@ -34,6 +35,7 @@ pr <- package_report(
     assessment_path = system.file("assessments/dplyr.rds", package = "riskreports")),
   quiet = TRUE # To silence quarto output for readability
 )
+
 ```
 
 

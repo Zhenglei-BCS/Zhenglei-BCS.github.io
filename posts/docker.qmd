@@ -1,6 +1,6 @@
 ---
 title: "Set up docker locally"
-description: "Reproduce "
+description: "Local setup on windows"
 author: "Zhenglei Gao"
 date: "12/03/2024"
 categories:
@@ -11,95 +11,94 @@ editor_options:
   chunk_output_type: console
 ---
 
+I have docker desktop installed on my computer.
 
-## References
+*Instruction by my colleague Sven.*
 
-- [The Ultimate Guide to Deploying a Shiny App on AWS](https://www.charlesbordet.com/en/guide-shiny-aws/#)
-- [Amazon EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/)
 
-## When I have a Linux Computer
-
-1. Remotely log on to that computer.
-2. Install R, RStudio, Shinyserver.
-3. Put the app package there.
-4. Configure the ports.
-
-## Steps I take to host the app on AWS
-
-### 1. Create a new server in AWS
-
-Follow the guidance, we use EC2 service. First we do the configuration for EC2 instance as my server.
-- AMI(Amazon Machine Image):  Ubuntu Server 18.04 LTS.
-- Instance type: t2.micro (CPU with one 1, 1 GB of RAM, basic internet connection, you can use this type for free)
-- Storage size: default is 8 GB, up to 30 GB is free.
-- Create a key pair to protect the access to the server, which is kept on my local computer.
- 
-Access the server with SSH.
-
-- I can access under windows via SSH client PuTTY, or from Ubuntu system. 
-
-Note that pem.key is the file that was saved as the key pair.
+login to image
 
 ```
-ssh -i "tutorial.pem" ubuntu@ec2-52-59-238-223.eu-central-1.compute.amazonaws.com
+Write-Output 'longlongtoken' | docker login --username AWS --password-stdin some.amazonaws.com
 ```
-
-
-### 2. Install R and R shiny on the server
-1. Add the CRAN repo
-
-```bash
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'
-```
-
-2. Install R
-
-```bash
-sudo apt update
-sudo apt install r-base r-base-dev
-```
-3. Install shiny package
-
-```bash
-sudo R
-> install.packages("shiny")
-
-```
-
-4. Install shinyserver
-
-Modify the version as needed. 
-
-```{bash}
-sudo apt-get install gdebi-core
-wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.13.944-amd64.deb
-sudo gdebi shiny-server-1.5.13.944-amd64.deb
-```
-
-### 3. Deploy the app on the server
-
-Copied from the guide^1
-
-> From EC2 dashborad, select your instance.
-> In the bottom half of your screen, find the line Security groups and click on the link.
-> In the new window, again the bottom half of the screen, click on Inbound, the 2nd tab. Notice that only the port 22 is open.
-> Click on Edit, and the popup that opens, enter the following settings:
-
-
-EC2 dashboard $\rightarrow$ go to column IPv4 Public IP.
+Pull the image to local
 
 
 ```
-3.121.42.9:3838
+docker pull some.amazonaws.com/YOUR.IMAGE.NAME
 ```
 
-Open the port 3838 on the firewall
+Start a container
 
-AWS uses port 22 by default for SSH access. All other ports are blcoked.
+```
+docker run -it -v "${PWD}:/cwd" -w /cwd some.amazonaws.com/YOUR.IMAGE.NAME /bin/bash
+```
 
-### 4. Optional steps
+Exit the container by Ctrl + D or
 
-- get a domain name
-- install nginx, generate TLS certificates, and secure you app with HTTPS. 
-- protect the app with a password
+```
+docker run --rm [..]
+```
+Inside container, check R 
+```
+which R 
+```
+
+```
+docker exec -it <container_id_or_name> /bin/bash 
+```
+
+```
+docker ps -a
+```
+
+👍
+
+Interestingly, if not starting with */bin/bash* but using the UI Exec.
+
+I get
+
+```
+sh-4.2# cd /opt/
+sh-4.2# ls
+kindlegen  mango  rh
+sh-4.2# cd mango
+sh-4.2# ls
+R
+sh-4.2# cd R
+sh-4.2# ls
+3.6.3
+sh-4.2# cd 3.6.3
+sh-4.2# which R
+which: no R in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin)
+```
+
+But with 
+
+
+```
+docker run -it -v "${PWD}:/cwd" -w /cwd some.amazonaws.com/YOUR.IMAGE.NAME /bin/bash
+```
+
+I have 
+
+```
+[root@2b2bc79643bf cwd]# which R
+alias R='R'
+        /opt/mango/R/3.6.3/bin/R
+        
+```
+
+
+
+```{r}
+structure(list(logLik = c(-14.6536101428432, -19.2437934145175, 
+-20.4606031158005, -70.7850001599267), IC = c(39.3072202856865, 
+46.4875868290349, 48.9212062316009, 147.570000319853), `Lack of fit` = c(0.611809402030314, 
+0.0684892521315901, 0.0323385305116136, 5.05927325131761e-17), 
+    `Res var` = c(0.238253193858602, 0.332639411991927, 0.368138735162509, 
+    23.2867452173117), Certainty_Protection = c("High", "High", 
+    "Medium", "Low"), Steepness = c("Medium", "Medium", "Medium", 
+    "Steep"), `No Effect p-val` = c(0, 0, 0, 1)), class = "data.frame", row.names = c("LN.4", 
+"LL.3", "W1.3", "LL2.2"))
+```

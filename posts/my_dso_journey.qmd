@@ -19,3 +19,5 @@ Have I learned something during this journey?
 ::: {.callout-warning}
 To be written. 
 :::
+
+Visionaries, Architects, Catalysts and Coaches.
