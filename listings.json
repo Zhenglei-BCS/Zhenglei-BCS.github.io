@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/LLM_and_random_thoughts.html",
       "/posts/EFSA_Bayesian_BMD.html",
       "/posts/Trend_tests.html",
       "/posts/PBK Modelling.html",
