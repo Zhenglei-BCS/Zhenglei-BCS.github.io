@@ -251,7 +251,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>Additionally, some minor issues: - many terminology unclear, especially in additional information e.g., pesticide species as random effect? - missing func.R for the fuctions to calculate lnRR used in the analysis. - Why? arcsine-square root transformation of percentage data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -264,9 +263,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Data <span class="ot">&lt;-</span><span class="fu">readRDS</span>(<span class="st">"C:/Users/gbbfx/OneDrive - Bayer/Projects/LTO/NTA_general/Data.rds"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Data,<span class="fu">aes</span>(<span class="at">x=</span>Trtmnt.s,<span class="at">y=</span>Cntrl.s))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">scale_x_log10</span>()<span class="sc">+</span><span class="fu">scale_y_log10</span>()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in scale_x_log10(): log-10 transformation introduced infinite values.</code></pre>
 </div>
@@ -284,8 +280,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Data,<span class="fu">aes</span>(<span class="at">x=</span>T.v.,<span class="at">y=</span>C.v.))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">scale_x_log10</span>()<span class="sc">+</span><span class="fu">scale_y_log10</span>()</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p<span class="sc">+</span><span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span><span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -304,8 +298,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Data, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(T.v.<span class="sc">/</span>C.v.)))<span class="sc">+</span> <span class="fu">geom_histogram</span>()</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
@@ -372,7 +364,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="specifically-on-publication-bias" class="level2">
 <h2 class="anchored" data-anchor-id="specifically-on-publication-bias">Specifically on Publication Bias</h2>
-<p>The authors addess publication bias by: - Regression test on full dataset (20,212 observations from 1,705 articles) - a regression coefficient between the effect size and the sample variance was evaluated - (value of regressiontest=-24.879, P&lt;0.001) - Trim-and-fill method (also proposed by Egger et al.)to assess result robustness ??? - (Supplementary Table 2), used together along regression tests and Rosentha’s fail-safe N - Creates a funnel plot of study effect sizes vs their standard errors - Looks for asymmetry in the funnel plot that suggests missing studies - “Trims” off asymmetric studies to get a new estimate - “Fills” in missing studies by adding mirror images of the trimmed studies - Recalculates the overall effect size including these imputed studies - Residual analysis from mixed-effects models (Egger’s Test) - regression coefficients between residuals and the sample variaces. - Rosenthal fail-safe numbers calculation to the full dataset - Found a fail-safe N score of 11,459,423 (much larger than threshold of 101,070) - This suggests results are highly stable even accounting for potential publication bias - The high fail-safe N means an extremely large number of null studies would be needed to overturn their findings</p>
+<p>The authors addess publication bias by:</p>
+<ul>
+<li>Regression test on full dataset (20,212 observations from 1,705 articles)
+<ul>
+<li>a regression coefficient between the effect size and the sample variance was evaluated</li>
+<li>(value of regressiontest=-24.879, P&lt;0.001)</li>
+</ul></li>
+<li>Trim-and-fill method (also proposed by Egger et al.)to assess result robustness ???
+<ul>
+<li>(Supplementary Table 2), used together along regression tests and Rosentha’s fail-safe N</li>
+<li>Creates a funnel plot of study effect sizes vs their standard errors</li>
+<li>Looks for asymmetry in the funnel plot that suggests missing studies</li>
+<li>“Trims” off asymmetric studies to get a new estimate</li>
+<li>“Fills” in missing studies by adding mirror images of the trimmed studies</li>
+</ul></li>
+<li>Recalculates the overall effect size including these imputed studies</li>
+<li>Residual analysis from mixed-effects models (Egger’s Test)
+<ul>
+<li>regression coefficients between residuals and the sample variaces.</li>
+</ul></li>
+<li>Rosenthal fail-safe numbers calculation to the full dataset
+<ul>
+<li>Found a fail-safe N score of 11,459,423 (much larger than threshold of 101,070)</li>
+<li>This suggests results are highly stable even accounting for potential publication bias</li>
+<li>The high fail-safe N means an extremely large number of null studies would be needed to overturn their findings</li>
+</ul></li>
+</ul>
 <section id="trim-and-fill-method" class="level3">
 <h3 class="anchored" data-anchor-id="trim-and-fill-method">Trim and fill method</h3>
 <p>The trim and fill method provides an intuitive way to detect and correct for potential publication bias in meta-analyses. Here’s why:</p>
@@ -417,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>So symmetry is good because it suggests we’re seeing the complete picture of research results, not just selected positive findings. The trim and fill method helps identify and correct for this potential bias.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(meta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(meta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'meta' was built under R version 4.4.3</code></pre>
 </div>
@@ -431,10 +449,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Loading 'meta' package (version 8.0-2).
 Type 'help(meta)' for a brief overview.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Fleiss93)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">metabin</span>(event.e, n.e, event.c, n.c, <span class="at">data =</span> Fleiss93, <span class="at">sm =</span> <span class="st">"OR"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>tf1 <span class="ot">&lt;-</span> <span class="fu">trimfill</span>(m1)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tf1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Fleiss93)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">metabin</span>(event.e, n.e, event.c, n.c, <span class="at">data =</span> Fleiss93, <span class="at">sm =</span> <span class="st">"OR"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>tf1 <span class="ot">&lt;-</span> <span class="fu">trimfill</span>(m1)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tf1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              OR           95%-CI %W(random)
 1         0.7197 [0.4890; 1.0593]        6.8
@@ -470,7 +488,7 @@ Details of meta-analysis methods:
 - Calculation of I^2 based on Q
 - Trim-and-fill method to adjust for funnel plot asymmetry (L-estimator)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -478,8 +496,8 @@ Details of meta-analysis methods:
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">pch =</span> <span class="fu">ifelse</span>(tf1<span class="sc">$</span>trimfill, <span class="dv">1</span>, <span class="dv">16</span>),</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">level =</span> <span class="fl">0.9</span>, <span class="at">comb.random =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">pch =</span> <span class="fu">ifelse</span>(tf1<span class="sc">$</span>trimfill, <span class="dv">1</span>, <span class="dv">16</span>),</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">level =</span> <span class="fl">0.9</span>, <span class="at">comb.random =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in plot.window(...): "comb.random" is not a graphical parameter</code></pre>
 </div>
@@ -505,10 +523,10 @@ not a graphical parameter</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use log odds ratios on x-axis</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">backtransf =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use log odds ratios on x-axis</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">backtransf =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -516,8 +534,8 @@ not a graphical parameter</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">pch =</span> <span class="fu">ifelse</span>(tf1<span class="sc">$</span>trimfill, <span class="dv">1</span>, <span class="dv">16</span>),</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">level =</span> <span class="fl">0.9</span>, <span class="at">comb.random =</span> <span class="cn">FALSE</span>, <span class="at">backtransf =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">pch =</span> <span class="fu">ifelse</span>(tf1<span class="sc">$</span>trimfill, <span class="dv">1</span>, <span class="dv">16</span>),</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">level =</span> <span class="fl">0.9</span>, <span class="at">comb.random =</span> <span class="cn">FALSE</span>, <span class="at">backtransf =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in plot.window(...): "comb.random" is not a graphical parameter</code></pre>
 </div>
@@ -543,7 +561,7 @@ not a graphical parameter</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trimfill</span>(m1<span class="sc">$</span>TE, m1<span class="sc">$</span>seTE, <span class="at">sm =</span> m1<span class="sc">$</span>sm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trimfill</span>(m1<span class="sc">$</span>TE, m1<span class="sc">$</span>seTE, <span class="at">sm =</span> m1<span class="sc">$</span>sm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of studies: k = 10 (with 3 added studies)
 
@@ -580,13 +598,13 @@ Details of meta-analysis methods:
 <ol type="1">
 <li>Takes residuals from meta-regression model:</li>
 </ol>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>egger_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">r =</span> <span class="fu">residuals</span>(model.null),</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">s =</span> <span class="fu">sign</span>(<span class="fu">residuals</span>(model.null))<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(model.null, <span class="at">type =</span> <span class="st">"resid"</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>egger_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">r =</span> <span class="fu">residuals</span>(model.null),</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">s =</span> <span class="fu">sign</span>(<span class="fu">residuals</span>(model.null))<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(model.null, <span class="at">type =</span> <span class="st">"resid"</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>Regresses residuals against their standard errors:</li>
 </ol>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>egg_test <span class="ot">&lt;-</span> <span class="fu">lm</span>(r<span class="sc">~</span>s, egger_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>egg_test <span class="ot">&lt;-</span> <span class="fu">lm</span>(r<span class="sc">~</span>s, egger_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The Egger’s test results in this paper (first one being: value = -24.879, p &lt; 0.001) indicate significant publication bias in the meta-analysis. Here’s what this means:</p>
 <p><strong>Test Interpretation:</strong> - The significant negative coefficient suggests small studies tend to report larger effects than expected - This could indicate selective reporting where null or negative results are less likely to be published - May reflect “file drawer” problem where non-significant results remain unpublished</p>
 </section>
