@@ -157,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#general-impression" id="toc-general-impression" class="nav-link active" data-scroll-target="#general-impression">General Impression</a></li>
-  <li><a href="#critical-weakness" id="toc-critical-weakness" class="nav-link" data-scroll-target="#critical-weakness">Critical Weakness</a></li>
+  <li><a href="#critical-points-for-me" id="toc-critical-points-for-me" class="nav-link" data-scroll-target="#critical-points-for-me">Critical Points for Me</a></li>
   <li><a href="#specifically-on-publication-bias" id="toc-specifically-on-publication-bias" class="nav-link" data-scroll-target="#specifically-on-publication-bias">Specifically on Publication Bias</a>
   <ul class="collapse">
   <li><a href="#trim-and-fill-method" id="toc-trim-and-fill-method" class="nav-link" data-scroll-target="#trim-and-fill-method">Trim and fill method</a></li>
@@ -244,76 +244,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>While this meta-analysis provides valuable broad patterns, the effect sizes should be interpreted cautiously, especially for risk assessment purposes. The most meaningful insights likely come from the subset of studies using environmentally relevant concentrations under realistic exposure conditions.</p>
 <p>As defined in the paper as modified lnRR, we don’t know what is the minimum biologically relevant effect sizes and you cannot expect a pesticide has no effects across all non-target organisms. Insecticides should kill insects when applied to a certain amount. Are there any other confounding factors for realistic exposure field studies?</p>
 </section>
-<section id="critical-weakness" class="level2">
-<h2 class="anchored" data-anchor-id="critical-weakness">Critical Weakness</h2>
+<section id="critical-points-for-me" class="level2">
+<h2 class="anchored" data-anchor-id="critical-points-for-me">Critical Points for Me</h2>
 <ul>
 <li>I would like to look at distribution of effects not just means.</li>
 <li>Sample size is too big, any mean value could be significant just due to the sheer size. any moderator categories could also be significant due to large N in the standard error calculation.</li>
 <li>No application rate associasion is very suspicious.</li>
 <li>original lnRR v.s. modified version</li>
-<li>Heterogeneity.</li>
+<li>Heterogeneity. I would also see how the assumptions behind meta-analysis is validate with such a huge heterogeneous data.</li>
 <li>I would also expect pesticides to have negative impact after all, which is why they are needed. Insecticides need to have some effect on insects, at a certain level of concentrations. Especially lab tests that are designed to estimate a full dose-response curve are included in the analysis, which will highly skew the picture.</li>
+<li>Effect size cannot be translated to something you can understand the biologcal relevance.</li>
+<li>I am not convinced by the way how they addressed the publication bias.</li>
 </ul>
 <p>Additionally, some minor issues: - many terminology unclear, especially in additional information e.g., pesticide species as random effect? - missing func.R for the fuctions to calculate lnRR used in the analysis. - Why? arcsine-square root transformation of percentage data</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in scale_x_log10(): log-10 transformation introduced infinite values.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in scale_y_log10(): log-10 transformation introduced infinite values.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 4522 rows containing missing values or values outside the scale range
-(`geom_point()`).</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 137 rows containing non-finite outside the scale range
-(`stat_smooth()`).</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 137 rows containing missing values or values outside the scale range
-(`geom_point()`).</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 137 rows containing non-finite outside the scale range
-(`stat_bin()`).</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-1-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -440,154 +402,102 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>So symmetry is good because it suggests we’re seeing the complete picture of research results, not just selected positive findings. The trim and fill method helps identify and correct for this potential bias.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(meta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'meta' was built under R version 4.4.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: metadat</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'metadat' was built under R version 4.4.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading 'meta' package (version 8.0-2).
-Type 'help(meta)' for a brief overview.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Fleiss93)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">metabin</span>(event.e, n.e, event.c, n.c, <span class="at">data =</span> Fleiss93, <span class="at">sm =</span> <span class="st">"OR"</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>tf1 <span class="ot">&lt;-</span> <span class="fu">trimfill</span>(m1)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tf1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>              OR           95%-CI %W(random)
-1         0.7197 [0.4890; 1.0593]        6.8
-2         0.6808 [0.4574; 1.0132]        6.5
-3         0.8029 [0.6065; 1.0629]       10.8
-4         0.8007 [0.4863; 1.3186]        4.5
-5         0.7981 [0.5526; 1.1529]        7.4
-6         1.1327 [0.9347; 1.3728]       16.4
-7         0.8950 [0.8294; 0.9657]       26.8
-Filled: 5 1.0466 [0.7246; 1.5118]        7.4
-Filled: 1 1.1607 [0.7886; 1.7084]        6.8
-Filled: 2 1.2271 [0.8244; 1.8263]        6.5
-
-Number of studies: k = 10 (with 3 added studies)
-Number of observations: o = 31987 (o.e = 16369, o.c = 15618)
-Number of events: e = 4775
-
-                         OR           95%-CI     z p-value
-Random effects model 0.9228 [0.8228; 1.0350] -1.37  0.1699
-
-Quantifying heterogeneity (with 95%-CIs):
- tau^2 = 0.0113 [0.0000; 0.1145]; tau = 0.1061 [0.0000; 0.3384]
- I^2 = 37.4% [0.0%; 70.1%]; H = 1.26 [1.00; 1.83]
-
-Test of heterogeneity:
-     Q d.f. p-value
- 14.37    9  0.1099
-
-Details of meta-analysis methods:
-- Inverse variance method
-- Restricted maximum-likelihood estimator for tau^2
-- Q-Profile method for confidence interval of tau^2 and tau
-- Calculation of I^2 based on Q
-- Trim-and-fill method to adjust for funnel plot asymmetry (L-estimator)</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(meta)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Fleiss93)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">metabin</span>(event.e, n.e, event.c, n.c, <span class="at">data =</span> Fleiss93, <span class="at">sm =</span> <span class="st">"OR"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>tf1 <span class="ot">&lt;-</span> <span class="fu">trimfill</span>(m1)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tf1)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               OR           95%-CI %W(random)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1         0.7197 [0.4890; 1.0593]        6.8</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         0.6808 [0.4574; 1.0132]        6.5</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         0.8029 [0.6065; 1.0629]       10.8</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         0.8007 [0.4863; 1.3186]        4.5</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         0.7981 [0.5526; 1.1529]        7.4</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         1.1327 [0.9347; 1.3728]       16.4</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7         0.8950 [0.8294; 0.9657]       26.8</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Filled: 5 1.0466 [0.7246; 1.5118]        7.4</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Filled: 1 1.1607 [0.7886; 1.7084]        6.8</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Filled: 2 1.2271 [0.8244; 1.8263]        6.5</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of studies: k = 10 (with 3 added studies)</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of observations: o = 31987 (o.e = 16369, o.c = 15618)</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of events: e = 4775</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                          OR           95%-CI     z p-value</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Random effects model 0.9228 [0.8228; 1.0350] -1.37  0.1699</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Quantifying heterogeneity (with 95%-CIs):</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tau^2 = 0.0113 [0.0000; 0.1145]; tau = 0.1061 [0.0000; 0.3384]</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  I^2 = 37.4% [0.0%; 70.1%]; H = 1.26 [1.00; 1.83]</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test of heterogeneity:</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Q d.f. p-value</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  14.37    9  0.1099</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Details of meta-analysis methods:</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Inverse variance method</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Restricted maximum-likelihood estimator for tau^2</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Q-Profile method for confidence interval of tau^2 and tau</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Calculation of I^2 based on Q</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Trim-and-fill method to adjust for funnel plot asymmetry (L-estimator)</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">pch =</span> <span class="fu">ifelse</span>(tf1<span class="sc">$</span>trimfill, <span class="dv">1</span>, <span class="dv">16</span>),</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">level =</span> <span class="fl">0.9</span>, <span class="at">comb.random =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in plot.window(...): "comb.random" is not a graphical parameter</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in plot.xy(xy, type, ...): "comb.random" is not a graphical parameter</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in axis(side = side, at = at, labels = labels, ...): "comb.random" is
-not a graphical parameter
-Warning in axis(side = side, at = at, labels = labels, ...): "comb.random" is
-not a graphical parameter</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in box(...): "comb.random" is not a graphical parameter</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in title(...): "comb.random" is not a graphical parameter</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">pch =</span> <span class="fu">ifelse</span>(tf1<span class="sc">$</span>trimfill, <span class="dv">1</span>, <span class="dv">16</span>),</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">level =</span> <span class="fl">0.9</span>, <span class="at">comb.random =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use log odds ratios on x-axis</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">backtransf =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use log odds ratios on x-axis</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">backtransf =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">pch =</span> <span class="fu">ifelse</span>(tf1<span class="sc">$</span>trimfill, <span class="dv">1</span>, <span class="dv">16</span>),</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">level =</span> <span class="fl">0.9</span>, <span class="at">comb.random =</span> <span class="cn">FALSE</span>, <span class="at">backtransf =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in plot.window(...): "comb.random" is not a graphical parameter</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in plot.xy(xy, type, ...): "comb.random" is not a graphical parameter</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in axis(side = side, at = at, labels = labels, ...): "comb.random" is
-not a graphical parameter
-Warning in axis(side = side, at = at, labels = labels, ...): "comb.random" is
-not a graphical parameter</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in box(...): "comb.random" is not a graphical parameter</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in title(...): "comb.random" is not a graphical parameter</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">pch =</span> <span class="fu">ifelse</span>(tf1<span class="sc">$</span>trimfill, <span class="dv">1</span>, <span class="dv">16</span>),</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">level =</span> <span class="fl">0.9</span>, <span class="at">comb.random =</span> <span class="cn">FALSE</span>, <span class="at">backtransf =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-2-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">trimfill</span>(m1<span class="sc">$</span>TE, m1<span class="sc">$</span>seTE, <span class="at">sm =</span> m1<span class="sc">$</span>sm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Number of studies: k = 10 (with 3 added studies)
-
-                         OR           95%-CI     z p-value
-Random effects model 0.9228 [0.8228; 1.0350] -1.37  0.1699
-
-Quantifying heterogeneity (with 95%-CIs):
- tau^2 = 0.0113 [0.0000; 0.1145]; tau = 0.1061 [0.0000; 0.3384]
- I^2 = 37.4% [0.0%; 70.1%]; H = 1.26 [1.00; 1.83]
-
-Test of heterogeneity:
-     Q d.f. p-value
- 14.37    9  0.1099
-
-Details of meta-analysis methods:
-- Inverse variance method
-- Restricted maximum-likelihood estimator for tau^2
-- Q-Profile method for confidence interval of tau^2 and tau
-- Calculation of I^2 based on Q
-- Trim-and-fill method to adjust for funnel plot asymmetry (L-estimator)</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">trimfill</span>(m1<span class="sc">$</span>TE, m1<span class="sc">$</span>seTE, <span class="at">sm =</span> m1<span class="sc">$</span>sm)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of studies: k = 10 (with 3 added studies)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                          OR           95%-CI     z p-value</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Random effects model 0.9228 [0.8228; 1.0350] -1.37  0.1699</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Quantifying heterogeneity (with 95%-CIs):</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tau^2 = 0.0113 [0.0000; 0.1145]; tau = 0.1061 [0.0000; 0.3384]</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  I^2 = 37.4% [0.0%; 70.1%]; H = 1.26 [1.00; 1.83]</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test of heterogeneity:</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Q d.f. p-value</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  14.37    9  0.1099</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Details of meta-analysis methods:</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Inverse variance method</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Restricted maximum-likelihood estimator for tau^2</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Q-Profile method for confidence interval of tau^2 and tau</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Calculation of I^2 based on Q</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Trim-and-fill method to adjust for funnel plot asymmetry (L-estimator)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that the Y-axis (Standard Error) is inverted, meaning:</p>
 <ul>
@@ -603,13 +513,13 @@ Details of meta-analysis methods:
 <ol type="1">
 <li>Takes residuals from meta-regression model:</li>
 </ol>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>egger_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">r =</span> <span class="fu">residuals</span>(model.null),</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">s =</span> <span class="fu">sign</span>(<span class="fu">residuals</span>(model.null))<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(model.null, <span class="at">type =</span> <span class="st">"resid"</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>egger_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">r =</span> <span class="fu">residuals</span>(model.null),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">s =</span> <span class="fu">sign</span>(<span class="fu">residuals</span>(model.null))<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(model.null, <span class="at">type =</span> <span class="st">"resid"</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="1">
 <li>Regresses residuals against their standard errors:</li>
 </ol>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>egg_test <span class="ot">&lt;-</span> <span class="fu">lm</span>(r<span class="sc">~</span>s, egger_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>egg_test <span class="ot">&lt;-</span> <span class="fu">lm</span>(r<span class="sc">~</span>s, egger_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The Egger’s test results in this paper (first one being: value = -24.879, p &lt; 0.001) indicate significant publication bias in the meta-analysis. Here’s what this means:</p>
 <p><strong>Test Interpretation:</strong> - The significant negative coefficient suggests small studies tend to report larger effects than expected - This could indicate selective reporting where null or negative results are less likely to be published - May reflect “file drawer” problem where non-significant results remain unpublished</p>
 </section>
@@ -702,10 +612,10 @@ Details of meta-analysis methods:
 <li>Potential Improvements:</li>
 </ol>
 <ul>
-<li>Use non-linear scaling for large n</li>
+<li>Use non-linear scaling for large n ?</li>
 <li>Incorporate effect size magnitude ?</li>
-<li>Set different thresholds based on study size ranges</li>
-<li>Use more sophisticated publication bias methods</li>
+<li>Set different thresholds based on study size ranges ?</li>
+<li>Use more sophisticated publication bias methods, there are other options in metafor package.</li>
 </ul>
 <p>I don’t think it is appropriate to use Rosenthal’s N calculation either. Suppose we have have p-values of 0.01 for 10 studies, then have p-value of 0.2 for 10 studies. I would thought half of the studies is null effects, half are significant, it means inconclusive, but according to the formula, it would be <code>((qnorm(0.8)*10+qnorm(0.99)*10)/1.645)^2-20</code> which is 351 null studies needed for nullify the meta-regression results.</p>
 <p>The seemingly counterintuitive result comes from how Rosenthal’s fail-safe N works:</p>
@@ -737,71 +647,56 @@ Details of meta-analysis methods:
 </ul>
 <p>I believe mixed results suggest inconclusiveness, the fail-safe N formula focuses specifically on how many null studies would be needed to overturn the significant findings, leading to what seems like an overly optimistic assessment of robustness. The formula gives more weight to significant results than null results. This highlights why fail-safe N should be interpreted cautiously and in conjunction with other methods.</p>
 <p>I checked the functions in metafor package they use, in the help files, it clearly says that “the method is primarily of interest for historical reasons, but the other methods described below are more closely aligned with the way meta-analyses are typically conducted in practice.” Tried different methods, the N number calculation can range from 598 (Rosenthal) to 26 for using different approaches.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the Rosenthal Approach</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span> <span class="er">&lt;</span>.<span class="dv">0001</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>   <span class="fl">0.05</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">598</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat, <span class="at">type=</span><span class="st">"Rosenberg"</span>)</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the Rosenberg Approach</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>Average Effect Size<span class="sc">:</span>         <span class="sc">-</span><span class="fl">0.4303</span></span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span>  <span class="er">&lt;</span>.<span class="dv">0001</span></span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>    <span class="fl">0.05</span></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">370</span></span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat, <span class="at">type=</span><span class="st">"General"</span>) <span class="co"># based on a random-effects model</span></span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the General Approach</span>
-<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>Average Effect Size<span class="sc">:</span>         <span class="sc">-</span><span class="fl">0.7145</span> (with file drawer<span class="sc">:</span> <span class="sc">-</span><span class="fl">0.2172</span>)</span>
-<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>Amount of Heterogeneity<span class="sc">:</span>      <span class="fl">0.3132</span> (with file drawer<span class="sc">:</span>  <span class="fl">0.4228</span>)</span>
-<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span>  <span class="er">&lt;</span>.<span class="dv">0001</span> (with file drawer<span class="sc">:</span>  <span class="fl">0.0513</span>)</span>
-<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>    <span class="fl">0.05</span></span>
-<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">26</span></span>
-<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the Rosenthal Approach</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span> <span class="er">&lt;</span>.<span class="dv">0001</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>   <span class="fl">0.05</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">598</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat, <span class="at">type=</span><span class="st">"Rosenberg"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the Rosenberg Approach</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>Average Effect Size<span class="sc">:</span>         <span class="sc">-</span><span class="fl">0.4303</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span>  <span class="er">&lt;</span>.<span class="dv">0001</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>    <span class="fl">0.05</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">370</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat, <span class="at">type=</span><span class="st">"General"</span>) <span class="co"># based on a random-effects model</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the General Approach</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>Average Effect Size<span class="sc">:</span>         <span class="sc">-</span><span class="fl">0.7145</span> (with file drawer<span class="sc">:</span> <span class="sc">-</span><span class="fl">0.2172</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>Amount of Heterogeneity<span class="sc">:</span>      <span class="fl">0.3132</span> (with file drawer<span class="sc">:</span>  <span class="fl">0.4228</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span>  <span class="er">&lt;</span>.<span class="dv">0001</span> (with file drawer<span class="sc">:</span>  <span class="fl">0.0513</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>    <span class="fl">0.05</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">26</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -1.644854</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.645</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9500151</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Therefore the Z of 1.645 is the one-sided cut off for 95% confidene level. If a Z is greater than 1.645 then it would be </span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.01</span>))<span class="sc">*</span><span class="dv">10</span><span class="sc">/</span><span class="fl">1.645</span>)<span class="sc">^</span><span class="dv">2-10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 189.9943</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">10</span> <span class="sc">+</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 60</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.01</span>))<span class="sc">*</span><span class="dv">10</span><span class="sc">/</span><span class="fl">1.645</span>)<span class="sc">^</span><span class="dv">2-10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 189.9943</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">100</span> <span class="sc">+</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 510</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">qnorm</span>(<span class="fl">0.8</span>)<span class="sc">*</span><span class="dv">5</span><span class="sc">+</span><span class="fu">qnorm</span>(<span class="fl">0.90</span>)<span class="sc">*</span><span class="dv">5</span>)<span class="sc">/</span><span class="fl">1.645</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 6.453413</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">qnorm</span>(<span class="fl">0.8</span>)<span class="sc">*</span><span class="dv">10</span><span class="sc">+</span><span class="fu">qnorm</span>(<span class="fl">0.90</span>)<span class="sc">*</span><span class="dv">10</span>)<span class="sc">/</span><span class="fl">1.645</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 12.90683</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.05</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -1.644854</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.645</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.9500151</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Therefore the Z of 1.645 is the one-sided cut off for 95% confidene level. If a Z is greater than 1.645 then it would be </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.01</span>))<span class="sc">*</span><span class="dv">10</span><span class="sc">/</span><span class="fl">1.645</span>)<span class="sc">^</span><span class="dv">2-10</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 189.9943</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">10</span> <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 60</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.01</span>))<span class="sc">*</span><span class="dv">10</span><span class="sc">/</span><span class="fl">1.645</span>)<span class="sc">^</span><span class="dv">2-10</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 189.9943</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">100</span> <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 510</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>(<span class="fu">qnorm</span>(<span class="fl">0.8</span>)<span class="sc">*</span><span class="dv">5</span><span class="sc">+</span><span class="fu">qnorm</span>(<span class="fl">0.90</span>)<span class="sc">*</span><span class="dv">5</span>)<span class="sc">/</span><span class="fl">1.645</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6.453413</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>(<span class="fu">qnorm</span>(<span class="fl">0.8</span>)<span class="sc">*</span><span class="dv">10</span><span class="sc">+</span><span class="fu">qnorm</span>(<span class="fl">0.90</span>)<span class="sc">*</span><span class="dv">10</span>)<span class="sc">/</span><span class="fl">1.645</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 12.90683</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Rosenthal’s fail-safe N calculation requires individual study p-values, but with multiple observations per study (20,212 observations from ~1,700 studies), it’s unclear how they handled this in the paper.</p>
 <p>Key concerns:</p>
