@@ -1,9 +1,8 @@
 [
   {
-    "listing": "/blog.html",
+    "listing": "/CCC.html",
     "items": [
       "/posts/Wan_paper_reading.html",
-      "/posts/LLM_and_random_thoughts.html",
       "/posts/Plant_Traits.html",
       "/posts/EFSA_Bayesian_BMD.html",
       "/posts/Trend_tests.html",
@@ -14,7 +13,6 @@
       "/posts/DoseFinding.html",
       "/posts/Dose_Response_Quasibinomial.html",
       "/posts/genAI_alphafold2.html",
-      "/posts/SAS.html",
       "/posts/ToxCast Data Analyis Pipeline.html",
       "/posts/risk_report.html",
       "/posts/simstudy.html",
@@ -23,7 +21,6 @@
       "/posts/Hessian_and_likehood.html",
       "/posts/PseudoR2.html",
       "/posts/check_overdispersion.html",
-      "/posts/why_I_dont_like_ipynb.html",
       "/posts/my_dso_journey.html",
       "/posts/proxy_powershell.html",
       "/posts/risk_metric.html",
@@ -32,6 +29,14 @@
       "/posts/simpower.html",
       "/posts/Some thoughts on my work.html",
       "/posts/OECD TG and Stats.html"
+    ]
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/blog/LLM_and_random_thoughts.html",
+      "/blog/SAS.html",
+      "/blog/why_I_dont_like_ipynb.html"
     ]
   }
 ]
