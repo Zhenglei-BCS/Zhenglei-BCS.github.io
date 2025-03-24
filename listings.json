@@ -3,6 +3,7 @@
     "listing": "/CCC.html",
     "items": [
       "/posts/Wan_paper_reading.html",
+      "/posts/simstudy.html",
       "/posts/Plant_Traits.html",
       "/posts/EFSA_Bayesian_BMD.html",
       "/posts/Trend_tests.html",
@@ -15,7 +16,6 @@
       "/posts/genAI_alphafold2.html",
       "/posts/ToxCast Data Analyis Pipeline.html",
       "/posts/risk_report.html",
-      "/posts/simstudy.html",
       "/posts/deploy_a_shinyapp_on_aws.html",
       "/posts/docker.html",
       "/posts/Hessian_and_likehood.html",
