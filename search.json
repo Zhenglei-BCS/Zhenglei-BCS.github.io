@@ -284,20 +284,14 @@
     "href": "about.html",
     "title": "About Me",
     "section": "",
-    "text": "Warning\n\n\n\nStill under construction.",
-    "crumbs": [
-      "About Me"
-    ]
+    "text": "Warning\n\n\n\nStill under construction."
   },
   {
     "objectID": "about.html#experience",
     "href": "about.html#experience",
     "title": "About Me",
     "section": "Experience",
-    "text": "Experience\nBayer AG | Environmental Statistician, Statistical Expert | 2016 - present\ntier3 solutions | Modelling Expert, Principal Statistician| 2011 - 2016\nBayer AG | Postdoc | 2010 - 2011",
-    "crumbs": [
-      "About Me"
-    ]
+    "text": "Experience\nBayer AG | Environmental Statistician, Statistical Expert | 2016 - present\ntier3 solutions | Modelling Expert, Principal Statistician| 2011 - 2016\nBayer AG | Postdoc | 2010 - 2011"
   },
   {
     "objectID": "blog/SAS.html",
@@ -311,11 +305,7 @@
     "href": "blog.html",
     "title": "Collection of Random Thoughts",
     "section": "",
-    "text": "LLM with artefacts and so on\n\n\n\n\n\n\njournal\n\n\n\nSome random thoughts on LLM\n\n\n\n\n\nMar 6, 2025\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nSAS\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nSAS code\n\n\n\n\n\nDec 16, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nI prefer Rmd and qmd\n\n\n\n\n\n\ncode\n\n\nR_python_julia\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items",
-    "crumbs": [
-      "Blog",
-      "Collection of Random Thoughts"
-    ]
+    "text": "LLM with artefacts and so on\n\n\n\n\n\n\njournal\n\n\n\nSome random thoughts on LLM\n\n\n\n\n\nMar 6, 2025\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nSAS\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\nSAS code\n\n\n\n\n\nDec 16, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\n\n\n\n\n\n\nI prefer Rmd and qmd\n\n\n\n\n\n\ncode\n\n\nR_python_julia\n\n\n\nWhy I don’t like IPython Notebooks\n\n\n\n\n\nAug 9, 2024\n\n\nZhenglei Gao\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
