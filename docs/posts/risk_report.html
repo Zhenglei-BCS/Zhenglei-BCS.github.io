@@ -140,6 +140,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../CCC.html"> 
+<span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
@@ -224,15 +228,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>The <strong>riskreports</strong> package is developed by the R validation hub repo working group.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(riskreports)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="st">"riskreports_output_dir"</span> <span class="ot">=</span> <span class="st">"."</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">package_report</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">package_name =</span> <span class="st">"dplyr"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">package_version =</span> <span class="st">"1.1.4"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="fu">list</span>(</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">assessment_path =</span> <span class="fu">system.file</span>(<span class="st">"assessments/dplyr.rds"</span>, <span class="at">package =</span> <span class="st">"riskreports"</span>)),</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">quiet =</span> <span class="cn">TRUE</span> <span class="co"># To silence quarto output for readability</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"riskreports"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(riskreports)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="st">"riskreports_output_dir"</span> <span class="ot">=</span> <span class="st">"."</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> <span class="fu">package_report</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">package_name =</span> <span class="st">"dplyr"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">package_version =</span> <span class="st">"1.1.4"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="fu">list</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">assessment_path =</span> <span class="fu">system.file</span>(<span class="st">"assessments/dplyr.rds"</span>, <span class="at">package =</span> <span class="st">"riskreports"</span>)),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">quiet =</span> <span class="cn">TRUE</span> <span class="co"># To silence quarto output for readability</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="generate-a-summary-report" class="level2">
@@ -253,9 +258,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [16] "size_codebase"         "has_source_control"    "has_bug_reports_url"  
 [19] "downloads_1yr"         "reverse_dependencies"  "has_examples"         
 [22] "dependencies"          "Imports"               "bugs_status"          
-[25] "LinkingTo"             "Enhances"              "License_restricts_use"
-[28] "OS_type"               "Priority"              "Path"                 
-[31] "License_is_FOSS"       "Archs"                </code></pre>
+[25] "LinkingTo"             "Enhances"              "assess_size_codebase" 
+[28] "License_restricts_use" "OS_type"               "Priority"             
+[31] "Path"                  "License_is_FOSS"       "Archs"                </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -525,6 +530,15 @@ Attaching package: 'dplyr'</code></pre>
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">assess_size_codebase</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">License_restricts_use</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -533,7 +547,7 @@ Attaching package: 'dplyr'</code></pre>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">OS_type</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -542,7 +556,7 @@ Attaching package: 'dplyr'</code></pre>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Priority</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -551,7 +565,7 @@ Attaching package: 'dplyr'</code></pre>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Path</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -560,7 +574,7 @@ Attaching package: 'dplyr'</code></pre>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">License_is_FOSS</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -569,7 +583,7 @@ Attaching package: 'dplyr'</code></pre>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Archs</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>

@@ -10,27 +10,11 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: CCC.qmd
+        text: "Code & Curiosity Chronicles"
       - href: blog.qmd
         text: "Blog"
 
-  sidebar:
-    - title: "About Me"
-      style: "docked"
-      contents:
-        - about.qmd
-
-
-    - title: "Memo"
-      contents:
-        - blog.qmd
-
-    - title: "Fundamentals"
-      contents:
-        - fundamentals.qmd
-
-    - title: "Reference"
-      contents:
-        - reference.qmd
 
 
 format:

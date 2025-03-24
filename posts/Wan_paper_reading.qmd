@@ -1,0 +1,398 @@
+---
+title: "Wan Paper Reading"
+description: "Understanding publication bias?"
+author: "Zhenglei Gao"
+date: "03/18/2025"
+categories:
+  - code
+  - Stats
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## General Impression
+
+A comprehensive analysis synthesizing effects across diverse organisms and responses: 
+
+- Effects across taxonomic groups:
+    - Major groups (animals, plants, microorganisms)
+    - Subgroups (e.g., vertebrates vs invertebrates)
+    - Different response variables (growth, reproduction, behavior, biomarkers)
+
+- Additional contols (subsets of data or moderators/components added to the model)
+    - Phylogenetic corrections (built in as random effect, some of the species not available in Open Tree of LIfe)
+    - Random effects for study and pesticide identity
+    - Different correlation structures
+    - Field vs laboratory conditions
+    - Realistic exposure scenarios
+
+Taxonomic groups (i.e., animals, plants and microorganisms) were treated as fixed effects alongwith the moderator variables (i.e., pesticide class, study types, climatic zone, exposure medium, pesticide type, and number of added pesticide application rates)
+
+Model comparison / selection is done by comparing base models vs. models with added moderators, testing interaction effects, using LRT between models.
+
+The authors also tries to validate the common pattern from the huge dataset across different subsets and conditions.
+
+Most important for pesticides, 
+
+> The responses of different taxonomic groups and their growth, reproduction, behaviour and biomarkers to application rates under recommended fieldapplication rates are presented in Supplementary Tables 10–14, and these responses toapplicationrates under maximum environmentally relevant concentrations are presented in SupplementaryTables 17–22. 
+
+In other cases, data used for creating dose-response curves where high effects are expected can really skew the full picture.
+
+While this meta-analysis provides valuable broad patterns, the effect sizes should be interpreted cautiously, especially for risk assessment purposes. The most meaningful insights likely come from the subset of studies using environmentally relevant concentrations under realistic exposure conditions.
+
+As defined in the paper as modified lnRR, we don't know what is the minimum biologically relevant effect sizes and you cannot expect a pesticide has no effects across all non-target organisms. Insecticides should kill insects when applied to a certain amount. Are there any other confounding factors for realistic exposure field studies? 
+
+## Critical Points for Me
+
+- I would like to look at distribution of effects not just means.
+- Sample size is too big, any mean value could be significant just due to the sheer size. any moderator categories could also be significant due to large N in the standard error calculation.
+- No application rate associasion is very suspicious. 
+- original lnRR v.s. modified version
+- Heterogeneity. I would also see how the assumptions behind meta-analysis is validate with such a huge heterogeneous data. 
+- I would also expect pesticides to have negative impact after all, which is why they are needed. Insecticides need to have some effect on insects, at a certain level of concentrations.  Especially lab tests that are designed to estimate a full dose-response curve are included in the analysis, which will highly skew the picture. 
+- Effect size cannot be translated to something you can understand the biologcal relevance. 
+- I am not convinced by the way how they addressed the publication bias. 
+
+Additionally, some minor issues: 
+- many terminology unclear, especially in additional information e.g., pesticide species as random effect? 
+- missing func.R for the fuctions to calculate lnRR used in the analysis. 
+- Why? arcsine-square root transformation of percentage data
+
+```{r echo=FALSE}
+library(tidyverse)
+Data <-readRDS("C:/Users/gbbfx/OneDrive - Bayer/Projects/LTO/NTA_general/Data.rds")
+p <- ggplot(Data,aes(x=Trtmnt.s,y=Cntrl.s))+geom_point()+scale_x_log10()+scale_y_log10()
+p
+
+
+p <- ggplot(Data,aes(x=T.v.,y=C.v.))+geom_point()+scale_x_log10()+scale_y_log10()
+p+geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +geom_smooth(method = "lm")
+
+p <- ggplot(Data, aes(x=log(T.v./C.v.)))+ geom_histogram()
+p
+```
+
+In details,  I have questions in these aspects:
+
+1. Statistical and Methodological Issues:
+- Use of (modified) log response ratios (lnRR) across vastly different types of responses
+- Significant publication bias detected but not fully addressed, the number given is from an unfair calculation, it doen't mean the true effect is not 0, but means to have this true effect, you need a lot more small effects studies to balance the bigger negative effect observations / publications. 
+- Missing variance data requiring imputation methods, and the author used the same imputation across all lnRRs? Or I understood wrongly?
+- Combining different exposure metrics and routes
+- Potential pseudoreplication in the data, the author addressed the repeated use of control by some variance structure which sees to be designed arbitrarily? 
+- The exploration of effect size heterogeneity could be more thorough, right now I don't really understand how it is addressed, except for the CV calculation.
+- Complex interactions between variables are not really explored, it seems they add and remove one-by-one. Except for the categorical summaries, it seems no other confounding variables, maybe included in the original study, included into this meta-analysis. 
+
+2. Data Integration Challenges:
+- Combining very different types of biological responses
+- Mixing lab and field studies
+- Taking absolute values for biomarker data loses directional information
+- Arbitrary standardization of doses using relative scaling
+- Variable quality of included studies
+
+3. Ecological Context Limitations:
+- Limited consideration of population/community level effects
+- Complex species interactions not fully explored (only phylogenetic trees)
+- Temporal aspects poorly addressed (as independent data points)
+- Real-world relevance of many included studies unclear
+
+4. Causality and Mechanistic Understanding:
+- Cannot establish direct causation ("True effect" definition unclear to me, relevant effect size also hard to define across so hetergenious responses from different scenario combinations). 
+- Complex interactions between factors not fully explored
+
+5. Exposure Assessment:
+- Different exposure routes and durations combined
+- May not reflect real-world exposure patterns
+- Arbitrary standardization of doses
+
+These limitations should be considered when interpreting the conclusions about pesticide effects on non-target organisms. 
+
+## Specifically on Publication Bias
+
+The authors addess publication bias by: 
+
+- Regression test on full dataset (20,212 observations from 1,705 articles)
+    - a regression coefficient between the effect size and the sample variance was evaluated
+    - (value of regressiontest=-24.879, P<0.001)
+- Trim-and-fill method (also proposed by Egger et al.)to assess result robustness ??? 
+    - (Supplementary Table 2), used together along regression tests and Rosentha's fail-safe N
+    - Creates a funnel plot of study effect sizes vs their standard errors
+    - Looks for asymmetry in the funnel plot that suggests missing studies
+    - "Trims" off asymmetric studies to get a new estimate
+    - "Fills" in missing studies by adding mirror images of the trimmed studies
+- Recalculates the overall effect size including these imputed studies
+- Residual analysis from mixed-effects models (Egger's Test)
+    - regression coefficients between residuals and the sample variaces.
+- Rosenthal fail-safe numbers calculation to the full dataset
+    - Found a fail-safe N score of 11,459,423 (much larger than threshold of 101,070)
+    - This suggests results are highly stable even accounting for potential publication bias
+    - The high fail-safe N means an extremely large number of null studies would be needed to overturn their findings
+
+### Trim and fill method
+
+The trim and fill method provides an intuitive way to detect and correct for potential publication bias in meta-analyses. Here's why:
+
+1. The Basic Principle:
+- In an unbiased literature, study results should be symmetrically distributed around the true effect size
+- Larger studies (more precise) cluster near the true effect
+- Smaller studies (less precise) spread out more evenly on both sides
+- This creates a symmetric funnel shape when plotted
+
+2. Why Symmetry Indicates No Publication Bias:
+- Symmetry suggests all results had equal chance of being published
+- Both positive and negative findings are represented
+- No systematic suppression of certain types of results
+- More likely to represent the true distribution of effects
+- Provides more reliable estimate of the true effect size
+
+3. How Asymmetry Indicates Publication Bias:
+- Usually shows up as "missing" studies on one side
+- Typically negative/null results from smaller studies are missing
+- Creates a skewed funnel plot
+- Suggests systematic exclusion of certain findings
+- Often biases results toward positive/significant effects
+
+4. The Correction Process:
+- Identifies asymmetry in the funnel plot
+- "Trims" off asymmetric studies
+- Re-estimates the center
+- "Fills" in missing studies with mirror images
+- Provides adjusted effect size estimate
+
+So symmetry is good because it suggests we're seeing the complete picture of research results, not just selected positive findings. The trim and fill method helps identify and correct for this potential bias.
+
+
+```{r}
+library(meta)
+data(Fleiss93)
+m1 <- metabin(event.e, n.e, event.c, n.c, data = Fleiss93, sm = "OR")
+tf1 <- trimfill(m1)
+summary(tf1)
+funnel(tf1)
+funnel(tf1, pch = ifelse(tf1$trimfill, 1, 16),
+       level = 0.9, comb.random = FALSE)
+#
+# Use log odds ratios on x-axis
+#
+funnel(tf1, backtransf = FALSE)
+funnel(tf1, pch = ifelse(tf1$trimfill, 1, 16),
+       level = 0.9, comb.random = FALSE, backtransf = FALSE)
+
+trimfill(m1$TE, m1$seTE, sm = m1$sm)
+
+```
+
+
+Note that the Y-axis (Standard Error) is inverted, meaning:
+
+- 0 at the top (most precise studies)
+- Increasing values going down (less precise studies)
+
+### Egger's test
+
+Regression coefficient significance of Y=standard error agains X= Effect sizes or residuals. 
+
+Slope significant means there is a publication bias. 
+
+The Egger's Test Implementation in the paper:
+
+1. Takes residuals from meta-regression model:
+```r
+egger_dt <- data.frame(
+  r = residuals(model.null),
+  s = sign(residuals(model.null))*sqrt(diag(vcov(model.null, type = "resid"))))
+```
+
+2. Regresses residuals against their standard errors:
+```r
+egg_test <- lm(r~s, egger_dt)
+```
+
+The Egger's test results in this paper (first one being: value = -24.879, p < 0.001) indicate significant publication bias in the meta-analysis. Here's what this means:
+
+**Test Interpretation:**
+- The significant negative coefficient suggests small studies tend to report larger effects than expected
+- This could indicate selective reporting where null or negative results are less likely to be published
+- May reflect "file drawer" problem where non-significant results remain unpublished
+
+### Rosenthal's fail-safe N concept and calculation:
+
+Rosenthal's fail-safe N is a statistical method used to assess the robustness of meta-analysis results against publication bias. It calculates the number of unpublished "null" studies (studies showing no effect) that would need to exist to nullify the significant findings of a meta-analysis. In fact, the enormous difference between the threshold and actual fail-safe N itself suggests the formula may need modification for large sample sizes.
+
+Key aspects of Rosenthal's fail-safe N:
+
+1. Purpose: It estimates how many "null" or "negative" studies would need to exist to nullify the significant findings of a meta-analysis
+2. Core concept: If this number is very large, it suggests the findings are robust against publication bias
+3. In this paper: They found a fail-safe N of 11,459,423, compared to a threshold of 101,070
+
+The calculation involves:
+
+1. Converting effect sizes to Z-scores
+2. Summing the Z-scores
+3. Using Rosenthal's formula:
+   N = (∑Z/1.645)² - k
+   Where:
+   - ∑Z is sum of Z-scores
+   - 1.645 is critical value for one-tailed p=0.05
+   - k is number of studies
+   - N is number of null studies needed
+
+The large number (11,459,423) indicates:
+
+- Would need over 11 million null studies to overturn findings
+- Provides very strong evidence against publication bias
+- Results are extremely robust and reliable
+- Far exceeds the conservative threshold of 101,070
+
+The large discrepancy between the calculated fail-safe N (11,459,423) and the threshold (101,070) suggests that the findings about pesticide effects on non-target organisms are highly stable and reliable, even accounting for potential unpublished negative results. This helps validate that the observed negative effects of pesticides on non-target organisms are real and not an artifact of publication bias.
+
+In more detail
+
+1. The Z-score Calculation:
+
+- Takes p-values from individual studies
+- Converts them to Z-scores (standardized normal deviates)
+- Uses one-tailed p=0.05 (Z=1.645) as critical threshold
+- Sums Z-scores to get overall effect
+
+2. The Formula N = (∑Z/1.645)² - k:
+
+- ∑Z = sum of Z-scores from observed studies
+- 1.645 = critical value for one-tailed p=0.05
+- k = number of observed studies
+- N = number of null studies needed
+
+3. Why it Works:
+
+- Adding null studies (Z=0) dilutes the overall Z-score
+- Formula calculates how many nulls needed to reach p=0.05
+- More extreme results require more null studies to nullify
+- Large N indicates robust finding
+- Small N indicates potentially fragile finding
+
+
+I don't think it is appropriate to use about Rosenthal's fail-safe N threshold formula (5n + 10). Here's why this threshold may be problematic for very large meta-analyses:
+
+1. Formula Limitations:
+- The numbers 5 and 10 are somewhat arbitrary, based on reasonable but not rigorous assumptions
+- Linear scaling with n may not be appropriate for very large meta-analyses
+- The "+10" buffer becomes negligible with large sample sizes
+- Does not account for effect size magnitude
+
+2. Issues with Large N:
+- In this study, n = 20,212 observations
+- Threshold = 5(20,212) + 10 = 101,070
+- Actual fail-safe N = 11,459,423
+- The huge difference (11,358,353) suggests the threshold may be too conservative
+
+3. Why It May Not Work Well Here:
+
+- Formula was likely designed for smaller meta-analyses (hundreds rather than thousands of studies)
+- Linear scaling may not be appropriate for very large n
+- Additionally, does not consider the strength of the observed effects
+
+4. Potential Improvements:
+
+- Use non-linear scaling for large n ?
+- Incorporate effect size magnitude ?
+- Set different thresholds based on study size ranges ?
+- Use more sophisticated publication bias methods, there are other options in metafor package. 
+
+I don't think it is appropriate to use Rosenthal's N calculation either. Suppose we have have p-values of 0.01 for 10 studies, then have p-value of 0.2 for 10 studies. I would thought half of the studies is null effects, half are significant, it means inconclusive, but according to the formula, it would be `((qnorm(0.8)*10+qnorm(0.99)*10)/1.645)^2-20` which is 351 null studies needed for nullify the meta-regression results.  
+
+The seemingly counterintuitive result comes from how Rosenthal's fail-safe N works:
+
+1. The formula gives more weight to significant results than null results:
+
+- The 10 significant studies (p=0.01) contribute large positive Z-scores (2.326 each)
+- The 10 null studies (p=0.2) still contribute positive but smaller Z-scores (0.842 each)
+- The Z-scores add rather than cancel each other out
+
+2. Key implications:
+
+- Even though half the studies show null effects, their smaller positive Z-scores still contribute to the overall effect
+- The strong significant results from half the studies drive the high fail-safe N
+- The method doesn't treat null results as evidence against an effect
+- It asks how many studies with Z=0 would be needed to nullify the significant findings
+
+3. Limitations of this approach:
+
+- May overstate robustness when evidence is mixed
+- Doesn't fully capture conflicting results
+- Better to look at effect sizes and heterogeneity
+- Should consider other methods for assessing publication bias
+
+I believe mixed results suggest inconclusiveness, the fail-safe N formula focuses specifically on how many null studies would be needed to overturn the significant findings, leading to what seems like an overly optimistic assessment of robustness. The formula gives more weight to significant results than null results. This highlights why fail-safe N should be interpreted cautiously and in conjunction with other methods.
+
+I checked the functions in metafor package they use, in the help files, it clearly says that “the method is primarily of interest for historical reasons, but the other methods described below are more closely aligned with the way meta-analyses are typically conducted in practice.” Tried different methods, the N number calculation can range from 598 (Rosenthal) to 26 for using different approaches. 
+
+
+```r
+> fsn(yi, vi, data=dat)
+
+Fail-safe N Calculation Using the Rosenthal Approach
+
+Observed Significance Level: <.0001
+Target Significance Level:   0.05
+
+Fail-safe N: 598
+
+> fsn(yi, vi, data=dat, type="Rosenberg")
+
+Fail-safe N Calculation Using the Rosenberg Approach
+
+Average Effect Size:         -0.4303
+Observed Significance Level:  <.0001
+Target Significance Level:    0.05
+
+Fail-safe N: 370
+
+> fsn(yi, vi, data=dat, type="General") # based on a random-effects model
+
+Fail-safe N Calculation Using the General Approach
+
+Average Effect Size:         -0.7145 (with file drawer: -0.2172)
+Amount of Heterogeneity:      0.3132 (with file drawer:  0.4228)
+Observed Significance Level:  <.0001 (with file drawer:  0.0513)
+Target Significance Level:    0.05
+
+Fail-safe N: 26
+
+>
+```
+
+
+
+```{r}
+qnorm(0.05)
+pnorm(1.645)
+## Therefore the Z of 1.645 is the one-sided cut off for 95% confidene level. If a Z is greater than 1.645 then it would be 
+(abs(qnorm(0.01))*10/1.645)^2-10
+5*10 + 10
+(abs(qnorm(0.01))*10/1.645)^2-10
+5*100 + 10
+
+(qnorm(0.8)*5+qnorm(0.90)*5)/1.645
+(qnorm(0.8)*10+qnorm(0.90)*10)/1.645
+```
+
+
+
+
+
+
+*random excerpt*
+
+千里茫茫若梦，双眸粲粲如星。塞上牛羊空许约，烛畔鬓云有旧盟。莽苍踏雪行。赤手屠熊搏虎，金戈荡寇鏖兵。草木残生颅铸铁，虫豸凝寒掌作冰。挥洒缚豪英。
+                                                                 ——近现代·金庸《破阵子·千里茫茫若梦》

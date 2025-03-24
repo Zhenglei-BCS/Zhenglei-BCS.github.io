@@ -1,0 +1,32 @@
+---
+title: "Simulate Dose Response Studies"
+description: "Many Approaches"
+author: "Zhenglei Gao"
+date: "03/06/2025"
+categories:
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+## Method 1: simstudy
+
+```{r}
+library(simstudy)
+set.seed(1965)
+
+def <- defData(varname="x", formula = 10, variance = 2, dist = "normal")
+def <- defData(def, varname="y", formula = "3 + 0.5 * x", variance = 1, dist = "normal")
+dd <- genData(250, def)
+
+dd <- trtAssign(dd, nTrt = 4, grpName = "grp", balanced = TRUE)
+
+dd
+```
+
+## Method 2: drcHelper
+
+## Method 3: drc
+
+
+## Method 4: DoseFinding

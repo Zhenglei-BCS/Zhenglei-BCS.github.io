@@ -1,8 +1,8 @@
 {
-  "hash": "042d30de83e723dfaf71805841c5820a",
+  "hash": "20fe2a08075f19788791faf698b83d19",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"My DSO Journey\"\ndescription: \"Working as a self contributor\"\nauthor: \"Zhenglei Gao\"\ndate: \"8/08/2024\"\ncategories:\n  - journal\n---\n\n\n\n\nHave I learned something during this journey?\n\n\n::: {.callout-warning}\nTo be written. \n:::\n",
+    "markdown": "---\ntitle: \"My DSO Journey\"\ndescription: \"Working as a self contributor\"\nauthor: \"Zhenglei Gao\"\ndate: \"8/08/2024\"\ncategories:\n  - journal\n---\n\n\n\n\nHave I learned something during this journey?\n\n\n::: {.callout-warning}\nTo be written. \n:::\n\nVisionaries, Architects, Catalysts and Coaches.",
     "supporting": [
       "my_dso_journey_files"
     ],

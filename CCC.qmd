@@ -1,0 +1,9 @@
+---
+title: "Code & Curiosity Chronicles"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  # (additional metadata excluded for brevity)
+  categories: true
+---
