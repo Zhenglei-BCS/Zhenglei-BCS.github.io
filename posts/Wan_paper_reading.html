@@ -163,6 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#trim-and-fill-method" id="toc-trim-and-fill-method" class="nav-link" data-scroll-target="#trim-and-fill-method">Trim and fill method</a></li>
   <li><a href="#eggers-test" id="toc-eggers-test" class="nav-link" data-scroll-target="#eggers-test">Egger’s test</a></li>
   <li><a href="#rosenthals-fail-safe-n-concept-and-calculation" id="toc-rosenthals-fail-safe-n-concept-and-calculation" class="nav-link" data-scroll-target="#rosenthals-fail-safe-n-concept-and-calculation">Rosenthal’s fail-safe N concept and calculation:</a></li>
+  <li><a href="#my-concerns" id="toc-my-concerns" class="nav-link" data-scroll-target="#my-concerns">My concerns</a></li>
   </ul></li>
   <li><a href="#unstructured" id="toc-unstructured" class="nav-link" data-scroll-target="#unstructured">Unstructured</a></li>
   <li><a href="#figures" id="toc-figures" class="nav-link" data-scroll-target="#figures">Figures</a></li>
@@ -235,7 +236,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Taxonomic groups (i.e., animals, plants and microorganisms) were treated as fixed effects alongwith the moderator variables (i.e., pesticide class, study types, climatic zone, exposure medium, pesticide type, and number of added pesticide application rates)</p>
 <p>Model comparison / selection is done by comparing base models vs.&nbsp;models with added moderators, testing interaction effects, using LRT between models.</p>
 <p>The authors also tries to validate the common pattern from the huge dataset across different subsets and conditions.</p>
-<p>Most important for pesticides, &gt; The responses of different taxonomic groups and their growth, reproduction, behaviour and biomarkers to application rates under recommended fieldapplication rates are presented in Supplementary Tables 10–14, and these responses toapplicationrates under maximum environmentally relevant concentrations are presented in SupplementaryTables 17–22.</p>
+<p>Most important for pesticides,</p>
+<blockquote class="blockquote">
+<p>The responses of different taxonomic groups and their growth, reproduction, behaviour and biomarkers to application rates under recommended fieldapplication rates are presented in Supplementary Tables 10–14, and these responses toapplicationrates under maximum environmentally relevant concentrations are presented in SupplementaryTables 17–22.</p>
+</blockquote>
 <p>In other cases, data used for creating dose-response curves where high effects are expected can really skew the full picture.</p>
 <p>While this meta-analysis provides valuable broad patterns, the effect sizes should be interpreted cautiously, especially for risk assessment purposes. The most meaningful insights likely come from the subset of studies using environmentally relevant concentrations under realistic exposure conditions.</p>
 <p>As defined in the paper as modified lnRR, we don’t know what is the minimum biologically relevant effect sizes and you cannot expect a pesticide has no effects across all non-target organisms. Insecticides should kill insects when applied to a certain amount. Are there any other confounding factors for realistic exposure field studies?</p>
@@ -248,6 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>No application rate associasion is very suspicious.</li>
 <li>original lnRR v.s. modified version</li>
 <li>Heterogeneity.</li>
+<li>I would also expect pesticides to have negative impact after all, which is why they are needed. Insecticides need to have some effect on insects, at a certain level of concentrations. Especially lab tests that are designed to estimate a full dose-response curve are included in the analysis, which will highly skew the picture.</li>
 </ul>
 <p>Additionally, some minor issues: - many terminology unclear, especially in additional information e.g., pesticide species as random effect? - missing func.R for the fuctions to calculate lnRR used in the analysis. - Why? arcsine-square root transformation of percentage data</p>
 <div class="cell">
@@ -313,12 +318,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>In details, critical weaknesses I saw include:</p>
+<p>In details, I have questions in these aspects:</p>
 <ol type="1">
 <li>Statistical and Methodological Issues:</li>
 </ol>
 <ul>
-<li>Use of log response ratios (lnRR) across vastly different types of responses</li>
+<li>Use of (modified) log response ratios (lnRR) across vastly different types of responses</li>
 <li>Significant publication bias detected but not fully addressed, the number given is from an unfair calculation, it doen’t mean the true effect is not 0, but means to have this true effect, you need a lot more small effects studies to balance the bigger negative effect observations / publications.</li>
 <li>Missing variance data requiring imputation methods, and the author used the same imputation across all lnRRs? Or I understood wrongly?</li>
 <li>Combining different exposure metrics and routes</li>
@@ -610,12 +615,241 @@ Details of meta-analysis methods:
 </section>
 <section id="rosenthals-fail-safe-n-concept-and-calculation" class="level3">
 <h3 class="anchored" data-anchor-id="rosenthals-fail-safe-n-concept-and-calculation">Rosenthal’s fail-safe N concept and calculation:</h3>
-<p>Rosenthal’s fail-safe N is a statistical method used to assess the robustness of meta-analysis results against publication bias. It calculates the number of unpublished “null” studies (studies showing no effect) that would need to exist to nullify the significant findings of a meta-analysis.</p>
-<p>Key aspects of Rosenthal’s fail-safe N: 1. Purpose: It estimates how many “null” or “negative” studies would need to exist to nullify the significant findings of a meta-analysis 2. Core concept: If this number is very large, it suggests the findings are robust against publication bias 3. In this paper: They found a fail-safe N of 11,459,423, compared to a threshold of 101,070</p>
-<p>The calculation involves: 1. Converting effect sizes to Z-scores 2. Summing the Z-scores 3. Using Rosenthal’s formula: N = (∑Z/1.645)² - k Where: - ∑Z is sum of Z-scores - 1.645 is critical value for one-tailed p=0.05 - k is number of studies - N is number of null studies needed</p>
-<p>The large number (11,459,423) indicates: - Would need over 11 million null studies to overturn findings - Provides very strong evidence against publication bias - Results are extremely robust and reliable - Far exceeds the conservative threshold of 101,070</p>
+<p>Rosenthal’s fail-safe N is a statistical method used to assess the robustness of meta-analysis results against publication bias. It calculates the number of unpublished “null” studies (studies showing no effect) that would need to exist to nullify the significant findings of a meta-analysis. In fact, the enormous difference between the threshold and actual fail-safe N itself suggests the formula may need modification for large sample sizes.</p>
+<p>Key aspects of Rosenthal’s fail-safe N:</p>
+<ol type="1">
+<li>Purpose: It estimates how many “null” or “negative” studies would need to exist to nullify the significant findings of a meta-analysis</li>
+<li>Core concept: If this number is very large, it suggests the findings are robust against publication bias</li>
+<li>In this paper: They found a fail-safe N of 11,459,423, compared to a threshold of 101,070</li>
+</ol>
+<p>The calculation involves:</p>
+<ol type="1">
+<li>Converting effect sizes to Z-scores</li>
+<li>Summing the Z-scores</li>
+<li>Using Rosenthal’s formula: N = (∑Z/1.645)² - k Where:
+<ul>
+<li>∑Z is sum of Z-scores</li>
+<li>1.645 is critical value for one-tailed p=0.05</li>
+<li>k is number of studies</li>
+<li>N is number of null studies needed</li>
+</ul></li>
+</ol>
+<p>The large number (11,459,423) indicates:</p>
+<ul>
+<li>Would need over 11 million null studies to overturn findings</li>
+<li>Provides very strong evidence against publication bias</li>
+<li>Results are extremely robust and reliable</li>
+<li>Far exceeds the conservative threshold of 101,070</li>
+</ul>
 <p>The large discrepancy between the calculated fail-safe N (11,459,423) and the threshold (101,070) suggests that the findings about pesticide effects on non-target organisms are highly stable and reliable, even accounting for potential unpublished negative results. This helps validate that the observed negative effects of pesticides on non-target organisms are real and not an artifact of publication bias.</p>
-<p>However, …</p>
+<p>In more detail</p>
+<ol type="1">
+<li>The Z-score Calculation:</li>
+</ol>
+<ul>
+<li>Takes p-values from individual studies</li>
+<li>Converts them to Z-scores (standardized normal deviates)</li>
+<li>Uses one-tailed p=0.05 (Z=1.645) as critical threshold</li>
+<li>Sums Z-scores to get overall effect</li>
+</ul>
+<ol start="2" type="1">
+<li>The Formula N = (∑Z/1.645)² - k:</li>
+</ol>
+<ul>
+<li>∑Z = sum of Z-scores from observed studies</li>
+<li>1.645 = critical value for one-tailed p=0.05</li>
+<li>k = number of observed studies</li>
+<li>N = number of null studies needed</li>
+</ul>
+<ol start="3" type="1">
+<li>Why it Works:</li>
+</ol>
+<ul>
+<li>Adding null studies (Z=0) dilutes the overall Z-score</li>
+<li>Formula calculates how many nulls needed to reach p=0.05</li>
+<li>More extreme results require more null studies to nullify</li>
+<li>Large N indicates robust finding</li>
+<li>Small N indicates potentially fragile finding</li>
+</ul>
+<p>I don’t think it is appropriate to use about Rosenthal’s fail-safe N threshold formula (5n + 10). Here’s why this threshold may be problematic for very large meta-analyses:</p>
+<ol type="1">
+<li>Formula Limitations:</li>
+</ol>
+<ul>
+<li>The numbers 5 and 10 are somewhat arbitrary, based on reasonable but not rigorous assumptions</li>
+<li>Linear scaling with n may not be appropriate for very large meta-analyses</li>
+<li>The “+10” buffer becomes negligible with large sample sizes</li>
+<li>Does not account for effect size magnitude</li>
+</ul>
+<ol start="2" type="1">
+<li>Issues with Large N:</li>
+</ol>
+<ul>
+<li>In this study, n = 20,212 observations</li>
+<li>Threshold = 5(20,212) + 10 = 101,070</li>
+<li>Actual fail-safe N = 11,459,423</li>
+<li>The huge difference (11,358,353) suggests the threshold may be too conservative</li>
+</ul>
+<ol start="3" type="1">
+<li>Why It May Not Work Well Here:</li>
+</ol>
+<ul>
+<li>Formula was likely designed for smaller meta-analyses (hundreds rather than thousands of studies)</li>
+<li>Linear scaling may not be appropriate for very large n</li>
+<li>Additionally, does not consider the strength of the observed effects</li>
+</ul>
+<ol start="4" type="1">
+<li>Potential Improvements:</li>
+</ol>
+<ul>
+<li>Use non-linear scaling for large n</li>
+<li>Incorporate effect size magnitude ?</li>
+<li>Set different thresholds based on study size ranges</li>
+<li>Use more sophisticated publication bias methods</li>
+</ul>
+<p>I don’t think it is appropriate to use Rosenthal’s N calculation either. Suppose we have have p-values of 0.01 for 10 studies, then have p-value of 0.2 for 10 studies. I would thought half of the studies is null effects, half are significant, it means inconclusive, but according to the formula, it would be <code>((qnorm(0.8)*10+qnorm(0.99)*10)/1.645)^2-20</code> which is 351 null studies needed for nullify the meta-regression results.</p>
+<p>The seemingly counterintuitive result comes from how Rosenthal’s fail-safe N works:</p>
+<ol type="1">
+<li>The formula gives more weight to significant results than null results:</li>
+</ol>
+<ul>
+<li>The 10 significant studies (p=0.01) contribute large positive Z-scores (2.326 each)</li>
+<li>The 10 null studies (p=0.2) still contribute positive but smaller Z-scores (0.842 each)</li>
+<li>The Z-scores add rather than cancel each other out</li>
+</ul>
+<ol start="2" type="1">
+<li>Key implications:</li>
+</ol>
+<ul>
+<li>Even though half the studies show null effects, their smaller positive Z-scores still contribute to the overall effect</li>
+<li>The strong significant results from half the studies drive the high fail-safe N</li>
+<li>The method doesn’t treat null results as evidence against an effect</li>
+<li>It asks how many studies with Z=0 would be needed to nullify the significant findings</li>
+</ul>
+<ol start="3" type="1">
+<li>Limitations of this approach:</li>
+</ol>
+<ul>
+<li>May overstate robustness when evidence is mixed</li>
+<li>Doesn’t fully capture conflicting results</li>
+<li>Better to look at effect sizes and heterogeneity</li>
+<li>Should consider other methods for assessing publication bias</li>
+</ul>
+<p>I believe mixed results suggest inconclusiveness, the fail-safe N formula focuses specifically on how many null studies would be needed to overturn the significant findings, leading to what seems like an overly optimistic assessment of robustness. The formula gives more weight to significant results than null results. This highlights why fail-safe N should be interpreted cautiously and in conjunction with other methods.</p>
+<p>I checked the functions in metafor package they use, in the help files, it clearly says that “the method is primarily of interest for historical reasons, but the other methods described below are more closely aligned with the way meta-analyses are typically conducted in practice.” Tried different methods, the N number calculation can range from 598 (Rosenthal) to 26 for using different approaches.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the Rosenthal Approach</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span> <span class="er">&lt;</span>.<span class="dv">0001</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>   <span class="fl">0.05</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">598</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat, <span class="at">type=</span><span class="st">"Rosenberg"</span>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the Rosenberg Approach</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>Average Effect Size<span class="sc">:</span>         <span class="sc">-</span><span class="fl">0.4303</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span>  <span class="er">&lt;</span>.<span class="dv">0001</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>    <span class="fl">0.05</span></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">370</span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat, <span class="at">type=</span><span class="st">"General"</span>) <span class="co"># based on a random-effects model</span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the General Approach</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>Average Effect Size<span class="sc">:</span>         <span class="sc">-</span><span class="fl">0.7145</span> (with file drawer<span class="sc">:</span> <span class="sc">-</span><span class="fl">0.2172</span>)</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>Amount of Heterogeneity<span class="sc">:</span>      <span class="fl">0.3132</span> (with file drawer<span class="sc">:</span>  <span class="fl">0.4228</span>)</span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span>  <span class="er">&lt;</span>.<span class="dv">0001</span> (with file drawer<span class="sc">:</span>  <span class="fl">0.0513</span>)</span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>    <span class="fl">0.05</span></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">26</span></span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.644854</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.645</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9500151</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Therefore the Z of 1.645 is the one-sided cut off for 95% confidene level. If a Z is greater than 1.645 then it would be </span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.01</span>))<span class="sc">*</span><span class="dv">10</span><span class="sc">/</span><span class="fl">1.645</span>)<span class="sc">^</span><span class="dv">2-10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 189.9943</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">10</span> <span class="sc">+</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 60</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.01</span>))<span class="sc">*</span><span class="dv">10</span><span class="sc">/</span><span class="fl">1.645</span>)<span class="sc">^</span><span class="dv">2-10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 189.9943</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">100</span> <span class="sc">+</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 510</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">qnorm</span>(<span class="fl">0.8</span>)<span class="sc">*</span><span class="dv">5</span><span class="sc">+</span><span class="fu">qnorm</span>(<span class="fl">0.90</span>)<span class="sc">*</span><span class="dv">5</span>)<span class="sc">/</span><span class="fl">1.645</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.453413</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">qnorm</span>(<span class="fl">0.8</span>)<span class="sc">*</span><span class="dv">10</span><span class="sc">+</span><span class="fu">qnorm</span>(<span class="fl">0.90</span>)<span class="sc">*</span><span class="dv">10</span>)<span class="sc">/</span><span class="fl">1.645</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12.90683</code></pre>
+</div>
+</div>
+<p>The Rosenthal’s fail-safe N calculation requires individual study p-values, but with multiple observations per study (20,212 observations from ~1,700 studies), it’s unclear how they handled this in the paper.</p>
+<p>Key concerns:</p>
+<ol type="1">
+<li>Multiple Observations Per Study:</li>
+</ol>
+<ul>
+<li>Same study can have multiple treatment groups</li>
+<li>Multiple response variables measured</li>
+<li>Different concentrations tested</li>
+<li>Different time points</li>
+<li>Multiple species tested</li>
+<li>Creates dependency in the data</li>
+</ul>
+<ol start="2" type="1">
+<li>P-value Handling Issues:</li>
+</ol>
+<ul>
+<li>Not explained how they dealt with multiple p-values per study</li>
+<li>Using all p-values would violate independence assumptions</li>
+<li>Need to account for within-study correlation</li>
+<li>Multiple comparison issues within studies</li>
+</ul>
+<ol start="3" type="1">
+<li>Sample Size for Threshold:</li>
+</ol>
+<ul>
+<li>They used n=20,212 (observations) in formula 5n+10</li>
+<li>Should likely have used n=1,700 (studies) instead</li>
+<li>This affects the threshold calculation significantly:
+<ul>
+<li>Current: 5(20,212) + 10 = 101,070</li>
+<li>Using studies: 5(1,700) + 10 = 8,510</li>
+</ul></li>
+</ul>
+<ol start="4" type="1">
+<li>Impact:</li>
+</ol>
+<ul>
+<li>May inflate the fail-safe N calculation</li>
+<li>Questions reliability of publication bias assessment</li>
+<li>Proper handling of within-study correlation needed</li>
+<li>More conservative approach using study-level data warranted</li>
+</ul>
+<p>This highlights the importance of clearly documenting how multiple observations per study are handled in meta-analyses for publication bias assessments.</p>
+</section>
+<section id="my-concerns" class="level3">
+<h3 class="anchored" data-anchor-id="my-concerns">My concerns</h3>
 <ol start="2" type="1">
 <li>Context Considerations:</li>
 </ol>
@@ -652,7 +886,13 @@ Details of meta-analysis methods:
 <p><strong>Response Variables:</strong> - Growth - Reproduction - Behavior (animals only) - Biomarkers (enzymatic activities, metabolism, photosynthesis)</p>
 <p><strong>Statistical Approach:</strong> - Meta-regression using log response ratios (lnRR) - Phylogenetic corrections where possible - Looking at both target and non-target effects - Comparing old vs new pesticides based on EU framework</p>
 <p><strong>Key Hypotheses:</strong> - H1: Pesticides suppress growth, reproduction, behavior - H2: Biomarkers show physiological perturbation - H3: Effects consistent across groups/conditions - H4: Effects hold under realistic exposure</p>
-<p><strong>Potential limitations already pointed out by the authors:</strong> - Not all species have available phylogenies - Lab vs field conditions may differ - Biomarker responses may be complex - Old vs new pesticide classification based only on EU framework</p>
+<p><strong>Potential limitations already pointed out by the authors:</strong></p>
+<ul>
+<li>Not all species have available phylogenies</li>
+<li>Lab vs field conditions may differ</li>
+<li>Biomarker responses may be complex</li>
+<li>Old vs new pesticide classification based only on EU framework</li>
+</ul>
 <p>There are several potential pitfalls to using log response ratios (lnRR) across such a diverse dataset. Here are the key concerns:</p>
 <ul>
 <li>Response Variable Heterogeneity:
@@ -676,7 +916,16 @@ Details of meta-analysis methods:
 </ul>
 <p>While the authors took some steps to address these issues (separate analyses by response type, special handling of biomarkers, variance imputation), alternative approaches like standardized mean differences or endpoint-specific effect sizes might have been worth considering for some analyses.</p>
 <p>Figure 2(d) is interesting, Herbicide does not negatively impact animal growth, which seems like a proof that this approach captures the right message. But how about on animal reproduction and behviour? Dose this reveal complex biological due to indirect effects through disruption of food resources, potential endocrine disruption mechanisms, general metabolic/physiological stress responses?</p>
-<p>Figure 3(d): while there appears to be no significant effect on overall animal growth (Figure 2), breaking this down by taxonomic group shows group-specific responses at different taxonomic levels. - Sample size differences: - Vertebrate studies: 389 observations from 59 studies - Invertebrate studies: 150 observations from 25 studies - The larger vertebrate dataset may provide better statistical power to detect effects, but it also introduces potential biases. Larger sample sizes can lead to more precise estimates, but if the studies are not evenly distributed across different conditions or taxa, the results may be skewed. Additionally, the diversity within the vertebrate group (e.g., different species, life stages, and habitats) could introduce heterogeneity that complicates the interpretation of the results. - Vertebrates may be more sensitive to herbicides compared to invertebrates</p>
+<p>Figure 3(d): while there appears to be no significant effect on overall animal growth (Figure 2), breaking this down by taxonomic group shows group-specific responses at different taxonomic levels.</p>
+<ul>
+<li>Sample size differences:
+<ul>
+<li>Vertebrate studies: 389 observations from 59 studies</li>
+<li>Invertebrate studies: 150 observations from 25 studies</li>
+<li>The larger vertebrate dataset may provide better statistical power to detect effects, but it also introduces potential biases. Larger sample sizes can lead to more precise estimates, but if the studies are not evenly distributed across different conditions or taxa, the results may be skewed. Additionally, the diversity within the vertebrate group (e.g., different species, life stages, and habitats) could introduce heterogeneity that complicates the interpretation of the results.</li>
+</ul></li>
+<li>Vertebrates may be more sensitive to herbicides compared to invertebrates</li>
+</ul>
 <p><strong>Sensitivity Analysis: Vertebrates vs.&nbsp;Invertebrates</strong> The analysis suggests that vertebrates may be more sensitive to herbicides compared to invertebrates. This could be due to several factors:</p>
 <ul>
 <li><strong>Physiological Differences</strong>: Vertebrates have more complex organ systems and metabolic processes that might be more susceptible to disruption by herbicides. (more complex endocrine systems)</li>
@@ -692,7 +941,14 @@ Details of meta-analysis methods:
 </blockquote>
 <p>Define unacceptably high?? Effects on animal growth, will it impact population?</p>
 <p>Data source is “OR”, how do you know is Non-target organism, not targeted ones? Like wasp, parasitoid, … ???</p>
-<p>Criteria to screen down to 1705 papers/studies - one comparison between a randomly allocated control group (without pesticide) and one or more treatment groups exposed to insecticides, fungicides, or herbicides; - similarly to reduce within study heterogeneity for field experiments, control and treatment areas were required to have comparable non-pesticide agricultural practices, e.g.&nbsp;fertilizer, irrigation, soil tillage etc. - treatment groups are needed to include single insecticide, fungicide, or herbicide active ingredient at a time, so that multiple pesticide exposure experiments were discarded - control and pesticide-treated groups were required to include the same non-target organisms for lab or field experiments - the measurements of control and pesticide-treated groups had to have been undertaken at the same spatiotemporal scale.</p>
+<p>Criteria to screen down to 1705 papers/studies</p>
+<ul>
+<li>one comparison between a randomly allocated control group (without pesticide) and one or more treatment groups exposed to insecticides, fungicides, or herbicides;</li>
+<li>similarly to reduce within study heterogeneity for field experiments, control and treatment areas were required to have comparable non-pesticide agricultural practices, e.g.&nbsp;fertilizer, irrigation, soil tillage etc.</li>
+<li>treatment groups are needed to include single insecticide, fungicide, or herbicide active ingredient at a time, so that multiple pesticide exposure experiments were discarded</li>
+<li>control and pesticide-treated groups were required to include the same non-target organisms for lab or field experiments</li>
+<li>the measurements of control and pesticide-treated groups had to have been undertaken at the same spatiotemporal scale.</li>
+</ul>
 <blockquote class="blockquote">
 <p>When studies reported mean values across multiple sampling dates or years these were included as separate data points. Where this was not the case, we focused on the latest sampling period to be presented. When the pesticide-treated group was paired with the control group, we excluded multiple comparisons within a single study and selected different comparison data.</p>
 </blockquote>
@@ -703,11 +959,47 @@ Details of meta-analysis methods:
 <h2 class="anchored" data-anchor-id="figures">Figures</h2>
 <p>Figures represent different ways of analyzing and comparing subsets of the complete dataset (20,212 effect sizes from 1,705 studies).</p>
 <p>These different analyses help build a comprehensive understanding of pesticide effects across different contexts and conditions.</p>
-<p>Figure 1: Global Distribution - Shows geographic spread of studies across the globe - Most studies concentrated in temperate regions, especially North America, Europe, and East Asia - Notable gaps in tropical regions, particularly Africa and South America</p>
-<p>Figure 2: Overall Effects by Major Groups - Consistently negative effects across most endpoints - Animals show negative responses in growth, reproduction, and behavior - Plants show reduced growth and reproduction - Microorganisms show decreased growth and reproduction - Biomarkers show perturbations (using absolute values)</p>
-<p>Figure 3: Detailed Taxonomic Breakdown - Splits major groups into subgroups: * Animals → vertebrates/invertebrates * Plants → seed/spore-producing * Microorganisms → bacteria/fungi - Shows similar patterns within subgroups - Some variation in effect magnitudes between subgroups</p>
-<p>Figures 4-8 show effects across different contexts: - Fig 4: Pesticide types (chemical synthetic vs mineral vs biogenic) - Fig 5: Lab vs field conditions (stronger effects in lab) - Fig 6: Temperate vs tropical (stronger effects in temperate) - Fig 7: Aquatic vs terrestrial exposure (similar effects) - Fig 8: Field-realistic exposure scenarios (effects persist)</p>
-<p>Key overall conclusions: 1. Widespread negative effects across taxa 2. Effects persist under realistic conditions 3. Similar patterns across different exposure routes 4. Stronger effects in controlled conditions 5. Geographic and taxonomic biases in available data</p>
+<p>Figure 1: Global Distribution</p>
+<ul>
+<li>Shows geographic spread of studies across the globe</li>
+<li>Most studies concentrated in temperate regions, especially North America, Europe, and East Asia</li>
+<li>Notable gaps in tropical regions, particularly Africa and South America</li>
+</ul>
+<p>Figure 2: Overall Effects by Major Groups</p>
+<ul>
+<li>Consistently negative effects across most endpoints</li>
+<li>Animals show negative responses in growth, reproduction, and behavior</li>
+<li>Plants show reduced growth and reproduction</li>
+<li>Microorganisms show decreased growth and reproduction</li>
+<li>Biomarkers show perturbations (using absolute values)</li>
+</ul>
+<p>Figure 3: Detailed Taxonomic Breakdown</p>
+<ul>
+<li>Splits major groups into subgroups:
+<ul>
+<li>Animals → vertebrates/invertebrates</li>
+<li>Plants → seed/spore-producing</li>
+<li>Microorganisms → bacteria/fungi</li>
+</ul></li>
+<li>Shows similar patterns within subgroups</li>
+<li>Some variation in effect magnitudes between subgroups</li>
+</ul>
+<p>Figures 4-8 show effects across different contexts:</p>
+<ul>
+<li>Fig 4: Pesticide types (chemical synthetic vs mineral vs biogenic)</li>
+<li>Fig 5: Lab vs field conditions (stronger effects in lab)</li>
+<li>Fig 6: Temperate vs tropical (stronger effects in temperate)</li>
+<li>Fig 7: Aquatic vs terrestrial exposure (similar effects)</li>
+<li>Fig 8: Field-realistic exposure scenarios (effects persist)</li>
+</ul>
+<p>Key overall conclusions:</p>
+<ol type="1">
+<li>Widespread negative effects across taxa</li>
+<li>Effects persist under realistic conditions</li>
+<li>Similar patterns across different exposure routes</li>
+<li>Stronger effects in controlled conditions</li>
+<li>Geographic and taxonomic biases in available data</li>
+</ol>
 <p><em>random excerpt</em></p>
 <p>千里茫茫若梦，双眸粲粲如星。塞上牛羊空许约，烛畔鬓云有旧盟。莽苍踏雪行。赤手屠熊搏虎，金戈荡寇鏖兵。草木残生颅铸铁，虫豸凝寒掌作冰。挥洒缚豪英。 ——近现代·金庸《破阵子·千里茫茫若梦》</p>
 
