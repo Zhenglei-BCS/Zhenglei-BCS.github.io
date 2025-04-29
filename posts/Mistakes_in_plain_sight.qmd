@@ -1,0 +1,13 @@
+---
+title: "Mistakes in plain sight"
+description: "Mixed models and power"
+author: "Zhenglei Gao"
+date: "29/04/2025"
+categories:
+  - stats
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+I 

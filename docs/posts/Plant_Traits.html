@@ -156,7 +156,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#algorithms" id="toc-algorithms" class="nav-link active" data-scroll-target="#algorithms">Algorithms</a></li>
+  <li><a href="#clara" id="toc-clara" class="nav-link" data-scroll-target="#clara">CLARA</a></li>
+  <li><a href="#using-tidymodels-or-tidy-pipeline" id="toc-using-tidymodels-or-tidy-pipeline" class="nav-link" data-scroll-target="#using-tidymodels-or-tidy-pipeline">Using tidymodels or tidy pipeline</a></li>
+  <li><a href="#agglomerative-hierarchy-clustering" id="toc-agglomerative-hierarchy-clustering" class="nav-link" data-scroll-target="#agglomerative-hierarchy-clustering">Agglomerative hierarchy clustering</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -202,6 +211,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To be written.</p>
+</div>
+</div>
+<p>I started working on a project clustering a trait database so that I can get up to 15 clusters of species groups. Hence I am refreshing on the potential algorithms I could use.</p>
+<section id="algorithms" class="level2">
+<h2 class="anchored" data-anchor-id="algorithms">Algorithms</h2>
+<p>There are different types of clustering alogrithm, including density-based, distribution-based, centroid-based, hierarchical-based.</p>
+<p>We focus on a few for the moment.</p>
+<ul>
+<li>K-means clustering (centroid-based)</li>
+<li>DBSCAN (density-based spatial clustering of applications with noise)</li>
+<li>Hierarchical Clustering
+<ul>
+<li><ul>
+<li>Agglomerative Hierarchy clustering algorithm</li>
+</ul></li>
+</ul></li>
+<li>Spectral Clustering</li>
+<li>…</li>
+</ul>
+</section>
+<section id="clara" class="level2">
+<h2 class="anchored" data-anchor-id="clara">CLARA</h2>
+<p>CLARA is used in another python ML project. Compared to k-means clustering, CLARA is an extention of k-medoids methods to deal with large data. It is achieved by iterative sampling and then clusterting.</p>
+</section>
+<section id="using-tidymodels-or-tidy-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="using-tidymodels-or-tidy-pipeline">Using tidymodels or tidy pipeline</h2>
+</section>
+<section id="agglomerative-hierarchy-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="agglomerative-hierarchy-clustering">Agglomerative hierarchy clustering</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(plantTraits)</span>
@@ -249,6 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
