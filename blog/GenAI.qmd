@@ -1,0 +1,60 @@
+---
+title: "Generative AI"
+description: "AI advances science"
+author: "Zhenglei Gao"
+date: "05/16/2025"
+categories:
+  - journal
+---
+
+I was preparing a presentation to share my GenAI experiences with my team and found out this Gartner Hype Cycle concept, describing my adoption process of GenAI quite precisely. 
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Create figure and axis
+plt.figure(figsize=(10, 6))
+
+# Define the points for the hype cycle curve
+x = np.array([0, 1, 2, 4, 6, 8, 10])
+y = np.array([0.1, 3, 4.5, 1, 3, 3.5, 3.5])
+
+# Create smooth curve through points
+x_smooth = np.linspace(0, 10, 100)
+y_smooth = np.interp(x_smooth, x, y)
+
+# Plot the curve
+plt.plot(x_smooth, y_smooth, linewidth=3, color='blue')
+
+# Add labels for each phase
+labels = [
+    (1, 2.5, "Technology\nTrigger"),
+    (2, 4.8, "Peak of Inflated\nExpectations"),
+    (4, 0.5, "Trough of\nDisillusionment"),
+    (6, 2.5, "Slope of\nEnlightenment"),
+    (9, 3.8, "Plateau of\nProductivity")
+]
+
+for x, y, label in labels:
+    plt.annotate(label, (x, y), fontsize=12, ha='center')
+
+# Add title and labels
+plt.title("The Gartner Hype Cycle for MGA Adoption", fontsize=16)
+plt.xlabel("Time →", fontsize=12)
+plt.ylabel("Expectations / Visibility", fontsize=12)
+
+# Remove ticks for cleaner look
+plt.xticks([])
+plt.yticks([])
+
+# Add grid
+plt.grid(True, linestyle='--', alpha=0.3)
+
+# Save the figure
+## plt.savefig('mga_hype_cycle.png', dpi=300, bbox_inches='tight')
+
+# Display the plot
+plt.show()
+```

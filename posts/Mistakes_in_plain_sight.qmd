@@ -10,4 +10,24 @@ editor_options:
   chunk_output_type: console
 ---
 
-I 
+I frequently make mistakes that are so simple and I will ask myself why I couldn't spot it without checking for so many times or a helpful colleague pointing it out to me. 
+
+
+An example of one recent mistake is shown below, where I used | instead of ||.  
+
+```r
+[1] "Error in if (is.null(list(...)$direction) | list(...)$direction == \"decreasing\") { : \n  argument is of length zero\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in if (is.null(list(...)$direction) | list(...)$direction == "decreasing") {    direction <- "decreasing"    comparisons <- paste(wt$dose, "- 0 >= 0")} else {    direction <- "increasing"    comparisons <- paste(wt$dose, "- 0 <= 0")}: argument is of length zero>
+```
+
+Debugging in scripts is not always easy but at least you know there is something wrong. 
+
+-TBC-
+
+
+
+
+

@@ -2,6 +2,8 @@
   {
     "listing": "/CCC.html",
     "items": [
+      "/posts/Assumptions_in_Nonparametric_Tests.html",
+      "/posts/Mistakes_in_plain_sight.html",
       "/posts/Wan_paper_reading.html",
       "/posts/simstudy.html",
       "/posts/Plant_Traits.html",
@@ -13,7 +15,6 @@
       "/posts/Categorical_responses.html",
       "/posts/DoseFinding.html",
       "/posts/Dose_Response_Quasibinomial.html",
-      "/posts/genAI_alphafold2.html",
       "/posts/ToxCast Data Analyis Pipeline.html",
       "/posts/risk_report.html",
       "/posts/deploy_a_shinyapp_on_aws.html",
@@ -34,7 +35,9 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/blog/GenAI.html",
       "/blog/LLM_and_random_thoughts.html",
+      "/blog/genAI_alphafold2.html",
       "/blog/SAS.html",
       "/blog/why_I_dont_like_ipynb.html"
     ]

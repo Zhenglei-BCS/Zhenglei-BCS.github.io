@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zhenglei Gao">
-<meta name="dcterms.date" content="2025-02-18">
-<meta name="description" content="Simple cluster analysis">
+<meta name="dcterms.date" content="2025-05-16">
+<meta name="description" content="AI advances science">
 
-<title>Zhenglei Gao - Cluster Analysis Refresher</title>
+<title>Zhenglei Gao - Generative AI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -156,34 +156,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#algorithms" id="toc-algorithms" class="nav-link active" data-scroll-target="#algorithms">Algorithms</a></li>
-  <li><a href="#clara" id="toc-clara" class="nav-link" data-scroll-target="#clara">CLARA</a></li>
-  <li><a href="#using-tidymodels-or-tidy-pipeline" id="toc-using-tidymodels-or-tidy-pipeline" class="nav-link" data-scroll-target="#using-tidymodels-or-tidy-pipeline">Using tidymodels or tidy pipeline</a></li>
-  <li><a href="#dbscan" id="toc-dbscan" class="nav-link" data-scroll-target="#dbscan">DBSCAN</a></li>
-  <li><a href="#agglomerative-hierarchy-clustering" id="toc-agglomerative-hierarchy-clustering" class="nav-link" data-scroll-target="#agglomerative-hierarchy-clustering">Agglomerative hierarchy clustering</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Cluster Analysis Refresher</h1>
+<h1 class="title">Generative AI</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">code</div>
-    <div class="quarto-category">Stats</div>
-    <div class="quarto-category">R</div>
+    <div class="quarto-category">journal</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Simple cluster analysis
+    AI advances science
   </div>
 </div>
 
@@ -200,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 18, 2025</p>
+      <p class="date">May 16, 2025</p>
     </div>
   </div>
   
@@ -212,110 +200,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>To be written.</p>
-</div>
-</div>
-<p>I started working on a project clustering a trait database so that I can get up to 15 clusters of species groups. Hence I am refreshing on the potential algorithms I could use.</p>
-<section id="algorithms" class="level2">
-<h2 class="anchored" data-anchor-id="algorithms">Algorithms</h2>
-<p>There are different types of clustering alogrithm with different distance measures, including density-based, distribution-based, centroid-based, hierarchical-based, model-based.</p>
-<ul>
-<li>The common 4 distances measures are Enclidaen, Manhattan, Correlation and Eisen.</li>
-</ul>
-<p>We focus on a few for the moment.</p>
-<ul>
-<li>Partitioning Clustering
-<ul>
-<li>K-means clustering (centroid-based)</li>
-<li>K-Medoids (PAM)</li>
-<li>CLARA</li>
-</ul></li>
-<li>DBSCAN (density-based spatial clustering of applications with noise)</li>
-<li>Hierarchical Clustering
-<ul>
-<li><ul>
-<li>Agglomerative Hierarchy clustering algorithm<br>
-</li>
-</ul></li>
-</ul></li>
-<li>Spectral Clustering</li>
-</ul>
-<p>Cluster GoF (clValid)</p>
-<ul>
-<li>Internal: the connectivity, the silhouette coefficient and the Dunn index</li>
-<li>Stability: average proportion of non-overlap, average distance, average distance between means, figure of metrit.</li>
-</ul>
-</section>
-<section id="clara" class="level2">
-<h2 class="anchored" data-anchor-id="clara">CLARA</h2>
-<p>CLARA is used in another python ML project. Compared to k-means clustering, CLARA is an extention of k-medoids methods to deal with large data. It is achieved by iterative sampling and then clusterting.</p>
-</section>
-<section id="using-tidymodels-or-tidy-pipeline" class="level2">
-<h2 class="anchored" data-anchor-id="using-tidymodels-or-tidy-pipeline">Using tidymodels or tidy pipeline</h2>
-</section>
-<section id="dbscan" class="level2">
-<h2 class="anchored" data-anchor-id="dbscan">DBSCAN</h2>
-</section>
-<section id="agglomerative-hierarchy-clustering" class="level2">
-<h2 class="anchored" data-anchor-id="agglomerative-hierarchy-clustering">Agglomerative hierarchy clustering</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cluster)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(plantTraits)</span>
+<p>I was preparing a presentation to share my GenAI experiences with my team and found out this Gartner Hype Cycle concept, describing my adoption process of GenAI quite precisely.</p>
+<div id="638a3663" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculation of a dissimilarity matrix</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dai.b <span class="ot">&lt;-</span> <span class="fu">daisy</span>(plantTraits,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">type =</span> <span class="fu">list</span>(<span class="at">ordratio =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">11</span>, <span class="at">symm =</span> <span class="dv">12</span><span class="sc">:</span><span class="dv">13</span>, <span class="at">asymm =</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">31</span>))</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Hierarchical classification</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>agn.trts <span class="ot">&lt;-</span> <span class="fu">agnes</span>(dai.b, <span class="at">method=</span><span class="st">"ward"</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(agn.trts, <span class="at">which.plots =</span> <span class="dv">2</span>, <span class="at">cex=</span> <span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create figure and axis</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the points for the hype cycle curve</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>])</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="fl">0.1</span>, <span class="dv">3</span>, <span class="fl">4.5</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="fl">3.5</span>, <span class="fl">3.5</span>])</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create smooth curve through points</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>x_smooth <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>y_smooth <span class="op">=</span> np.interp(x_smooth, x, y)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the curve</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>plt.plot(x_smooth, y_smooth, linewidth<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels for each phase</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span>, <span class="fl">2.5</span>, <span class="st">"Technology</span><span class="ch">\n</span><span class="st">Trigger"</span>),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">2</span>, <span class="fl">4.8</span>, <span class="st">"Peak of Inflated</span><span class="ch">\n</span><span class="st">Expectations"</span>),</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">4</span>, <span class="fl">0.5</span>, <span class="st">"Trough of</span><span class="ch">\n</span><span class="st">Disillusionment"</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">6</span>, <span class="fl">2.5</span>, <span class="st">"Slope of</span><span class="ch">\n</span><span class="st">Enlightenment"</span>),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">9</span>, <span class="fl">3.8</span>, <span class="st">"Plateau of</span><span class="ch">\n</span><span class="st">Productivity"</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, y, label <span class="kw">in</span> labels:</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    plt.annotate(label, (x, y), fontsize<span class="op">=</span><span class="dv">12</span>, ha<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Add title and labels</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"The Gartner Hype Cycle for MGA Adoption"</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time →"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Expectations / Visibility"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove ticks for cleaner look</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.xticks([])</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.yticks([])</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Add grid</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the figure</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">## plt.savefig('mga_hype_cycle.png', dpi=300, bbox_inches='tight')</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Plant_Traits_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(agn.trts, <span class="at">which.plots =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Plant_Traits_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cutree6 <span class="ot">&lt;-</span> <span class="fu">cutree</span>(agn.trts, <span class="at">k=</span><span class="dv">6</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cutree6</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1] 1 1 2 2 3 4 4 2 3 5 5 2 2 1 5 4 6 2 6 1 5 4 3 2 2 3 2 1 4 6 6 6 6 2 5 6 3</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [38] 5 4 3 5 2 2 6 1 6 1 1 3 4 4 3 3 3 6 2 5 2 2 2 6 5 5 4 4 6 2 6 2 6 3 6 2 2</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [75] 4 2 4 2 5 4 5 4 5 5 5 4 2 2 1 2 3 3 6 6 6 6 2 6 6 3 3 6 6 6 6 6 6 5 5 4 5</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [112] 6 6 2 6 4 6 6 2 3 4 6 6 3 6 2 3 6 1 5 2 4 2 3 3 3</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Principal Coordinate Analysis</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>cmdsdai.b <span class="ot">&lt;-</span> <span class="fu">cmdscale</span>(dai.b, <span class="at">k=</span><span class="dv">6</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cmdsdai.b[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">col =</span> cutree6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Plant_Traits_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="GenAI_files/figure-html/cell-2-output-1.png" width="784" height="508" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
