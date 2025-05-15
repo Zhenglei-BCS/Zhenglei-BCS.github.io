@@ -1,0 +1,186 @@
+---
+title: "SETAC Presentation Evaluation Criteria List"
+description: "Useful in Scientific Presentation Preparation. "
+author: "Zhenglei Gao"
+date: "28/04/2024"
+categories:
+  - stats
+  - python
+editor_options: 
+  chunk_output_type: console
+---
+Here’s a structured criteria list based on your request:
+
+### Criteria List
+
+#### Introduction (10 points)
+1. **Excellent (10 points)**: 
+   - Background was relevant.
+   - Connections to previous literature were clear.
+   - A goal and logical hypothesis were stated clearly and showed clear relevance.
+   
+2. **Good (8 points)**: 
+   - Background was relevant.
+   - Connections to previous literature were made.
+   - A goal and logical hypothesis were stated but relevance was not very clear.
+   
+3. **Satisfactory (6 points)**: 
+   - Background was relevant.
+   - Connections to previous literature were NOT made.
+   - A goal and logical hypothesis were stated but relevance not clarified.
+   
+4. **Poor (4 points)**: 
+   - No background or previous literature presented.
+   - Goal and hypothesis inappropriate.
+
+---
+
+#### Approach to Work (10 points)
+1. **Excellent (10 points)**: 
+   - Innovative and strong methods and approach.
+   - Appropriate use of controls or comparisons or references where relevant.
+   
+2. **Good (8 points)**: 
+   - Strong methods or approach.
+   - Appropriate use of controls or comparisons or references where relevant.
+   
+3. **Satisfactory (6 points)**: 
+   - Acceptable methods or approach.
+   - Slightly inadequate use of controls or comparisons or references where relevant.
+   
+4. **Poor (4 points)**: 
+   - Weak methods or approach.
+   - No discussion of controls or comparisons or references where relevant.
+
+---
+
+#### Results (10 points)
+1. **Excellent (10 points)**: 
+   - High-quality data were presented to address hypothesis or goal of project.
+   - Presentation of data was clear, thorough, and logical.
+   - Potential problems and alternative approaches identified.
+   
+2. **Good (8 points)**: 
+   - Adequate amounts of reasonable quality data were presented to address hypothesis or goal of project.
+   - Presentation of data was clear.
+   
+3. **Satisfactory (6 points)**: 
+   - Some reasonable quality data were presented to address hypothesis or goal of project.
+   
+4. **Poor (4 points)**: 
+   - Data were lacking, not fully sufficient to address hypothesis or project goal.
+   - Presentation of data was unclear.
+
+---
+
+#### Conclusions and Discussion (10 points)
+1. **Excellent (10 points)**: 
+   - Strong conclusions were developed and supported with evidence.
+   - Major points and take-home messages clearly summarised.
+   
+2. **Good (8 points)**: 
+   - Conclusions were developed and supported with evidence.
+   - Some take-home messages somewhat summarised.
+   
+3. **Satisfactory (6 points)**: 
+   - Some conclusions were given.
+   - Take-home message only partly summarised.
+   
+4. **Poor (4 points)**: 
+   - Conclusions were not supported with evidence.
+   - Major points and take-home message not mentioned.
+
+
+Here’s the continuation of the structured criteria list based on your request:
+
+### Criteria List (Continued)
+
+#### Flow (Organization and Transition between Intro, Approach, Results, and Conclusions) (10 points)
+1. **Excellent (10 points)**: 
+   - Presentation was engaging, well organized, with strong transitions, and easy to follow.
+   
+2. **Good (8 points)**: 
+   - Presentation was well organized, some transitions made, and able to follow.
+   
+3. **Satisfactory (6 points)**: 
+   - Presentation was somewhat organized, weak transitions made, and somewhat able to follow.
+   
+4. **Poor (4 points)**: 
+   - Presentation was not well organized, weak transitions, and hard to follow.
+
+---
+
+#### Scientific Objectivity (10 points)
+1. **Excellent (10 points)**: 
+   - Statements were supported by data, not opinions, and objectivity maintained.
+   
+2. **Good (8 points)**: 
+   - Statements were supported by data, but some opinions slipped in.
+   
+3. **Satisfactory (6 points)**: 
+   - Statements were somewhat supported by data, but opinions slipped in.
+   
+4. **Poor (4 points)**: 
+   - Presented opinions and objectivity was not maintained.
+
+---
+
+#### Mastery: Depth of Understanding and Knowledge of Field (10 points)
+1. **Excellent (10 points)**: 
+   - Presenter exhibited strong in-depth mastery of the field.
+   
+2. **Good (8 points)**: 
+   - Presenter exhibited good knowledge of the field.
+   
+3. **Satisfactory (6 points)**: 
+   - Presenter exhibited weak knowledge of the field.
+   
+4. **Poor (4 points)**: 
+   - Presenter exhibited superficial knowledge of the area.
+
+---
+
+#### Clarity of Language (10 points)
+1. **Excellent (10 points)**: 
+   - Presentation was very easy to understand by a diverse audience, not overly verbose or jargon-heavy, and defined all terms clearly.
+   
+2. **Good (8 points)**: 
+   - Presentation was somewhat easy to understand by a diverse audience, with some use of jargon and some undefined terms.
+   
+3. **Satisfactory (6 points)**: 
+   - Presentation was hard to understand by a diverse audience, included lots of jargon and undefined terms.
+   
+4. **Poor (4 points)**: 
+   - Presentation was very hard to understand.
+
+---
+
+#### Format (Layout and Visual Aids - Graphs and Diagrams) (10 points)
+1. **Excellent (10 points)**: 
+   - Format was innovative, very clear, and effective in conveying the message.
+   
+2. **Good (8 points)**: 
+   - Format was very clear but lacking some effectiveness in conveying the message.
+   
+3. **Satisfactory (6 points)**: 
+   - Format was only somewhat clear.
+   
+4. **Poor (4 points)**: 
+   - Format was hard to follow (e.g., too much detail).
+
+---
+
+#### Oral Delivery (10 points)
+1. **Excellent (10 points)**: 
+   - Oral delivery was highly engaging, professional, clear, and concise.
+   
+2. **Good (8 points)**: 
+   - Oral delivery was somewhat engaging, professional, and clear.
+   
+3. **Satisfactory (6 points)**: 
+   - Oral delivery was not very clear. It was too fast or slow or used unclear sentences.
+   
+4. **Poor (4 points)**: 
+   - Oral delivery was not clear at all, nor was it engaging or encouraging focus.
+
+Feel free to ask if you need any further adjustments or additional information!

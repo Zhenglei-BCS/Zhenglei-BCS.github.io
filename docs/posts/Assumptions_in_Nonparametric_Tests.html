@@ -258,7 +258,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="the-role-of-homogeneity-of-variance">The Role of Homogeneity of Variance</h2>
 <p>When we use nonparametric tests specifically to test for differences in central tendencies (medians or means), we are implicitly assuming that the distributions have the same shape and spread. Without this assumption, a significant result could indicate:</p>
 <ul>
-<li>Different central tendencies</li>
+<li>Different central tendencies or medians or means</li>
 <li>Different variances</li>
 <li>Different shapes</li>
 <li>Some combination of these differences</li>
@@ -266,7 +266,7 @@ window.Quarto = {
 </section>
 <section id="example-mann-whitney-u-test" class="level2">
 <h2 class="anchored" data-anchor-id="example-mann-whitney-u-test">Example: Mann-Whitney U Test</h2>
-<p>If we reject the null hypothesis in a Mann-Whitney U test between two groups with different variances, we cannot confidently conclude that the medians differ. The significant result might be due to the difference in spread rather than central location.</p>
+<p>If we reject the null hypothesis in a Mann-Whitney U test between two groups with different variances, we cannot confidently conclude that the medians differ. The significant result might be due to the difference in spread rather than central location. This is actually also not something I know by heart. Therefore, I conducted a small simulation study to understand that.</p>
 </section>
 <section id="implications-for-practitioners" class="level2">
 <h2 class="anchored" data-anchor-id="implications-for-practitioners">Implications for Practitioners</h2>
@@ -278,7 +278,8 @@ window.Quarto = {
 </section>
 <section id="a-simple-simulation" class="level2">
 <h2 class="anchored" data-anchor-id="a-simple-simulation">A Simple Simulation</h2>
-<div id="74a4ccf4" class="cell" data-execution_count="1">
+<p>Note that I used genAI to generate python code instead of writing R code by myself, as a way of familiarize myself more with python programming. I simply states what I want to do and mygenAssist produced something as expected with a few modifications.</p>
+<div id="fb93df68" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -416,9 +417,9 @@ Scenario 2 - Mean rank Exp(2)-2: 895.15</code></pre>
 <section id="testing-of-python-functions" class="level2">
 <h2 class="anchored" data-anchor-id="testing-of-python-functions">Testing of python functions</h2>
 <p>As I am not very familiar with the python functions, I tried to understand the parameter settings by simulating samples from the exponential distribution.</p>
-<p>The probability density function (PDF) of the exponential distribution is given by: $ f(x; ) = e^{-x}, x $ where $ $ is the rate parameter.</p>
-<p>In NumPy, the scale parameter is $ \frac{1{} $, so <span class="math inline">\(\text{scale} = \frac{1}{\lambda}\)</span>.</p>
-<div id="5be42e00" class="cell" data-execution_count="2">
+<p>The probability density function (PDF) of the exponential distribution is given by: <span class="math display">\[ f(x; \lambda) = \lambda e^{-\lambda x}, \quad x \geq 0 \]</span> ,where $ $ is the rate parameter.</p>
+<p>In NumPy, the scale parameter is actually $ $.</p>
+<div id="50305995" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -763,7 +764,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

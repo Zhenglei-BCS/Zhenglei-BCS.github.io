@@ -1,0 +1,33 @@
+{
+  "listing": "/CCC.html",
+  "items": [
+    "/posts/Assumptions_in_Nonparametric_Tests.html",
+    "/posts/Mistakes_in_plain_sight.html",
+    "/posts/Wan_paper_reading.html",
+    "/posts/simstudy.html",
+    "/posts/Plant_Traits.html",
+    "/posts/EFSA_Bayesian_BMD.html",
+    "/posts/Trend_tests.html",
+    "/posts/PBK Modelling.html",
+    "/posts/Interesting talk.html",
+    "/posts/GEE_QB.html",
+    "/posts/Categorical_responses.html",
+    "/posts/DoseFinding.html",
+    "/posts/Dose_Response_Quasibinomial.html",
+    "/posts/ToxCast Data Analyis Pipeline.html",
+    "/posts/risk_report.html",
+    "/posts/deploy_a_shinyapp_on_aws.html",
+    "/posts/docker.html",
+    "/posts/Hessian_and_likehood.html",
+    "/posts/PseudoR2.html",
+    "/posts/check_overdispersion.html",
+    "/posts/my_dso_journey.html",
+    "/posts/proxy_powershell.html",
+    "/posts/risk_metric.html",
+    "/posts/links.html",
+    "/posts/wacom_tablet.html",
+    "/posts/simpower.html",
+    "/posts/Some thoughts on my work.html",
+    "/posts/OECD TG and Stats.html"
+  ]
+}

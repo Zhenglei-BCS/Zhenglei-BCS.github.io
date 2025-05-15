@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zhenglei Gao">
+<meta name="dcterms.date" content="2025-03-18">
+<meta name="description" content="Understanding publication bias?">
+
+<title>Zhenglei Gao - Wan Paper Reading</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Zhenglei Gao</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../CCC.html"> 
+<span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#general-impression" id="toc-general-impression" class="nav-link active" data-scroll-target="#general-impression">General Impression</a></li>
+  <li><a href="#critical-points-for-me" id="toc-critical-points-for-me" class="nav-link" data-scroll-target="#critical-points-for-me">Critical Points for Me</a></li>
+  <li><a href="#specifically-on-publication-bias" id="toc-specifically-on-publication-bias" class="nav-link" data-scroll-target="#specifically-on-publication-bias">Specifically on Publication Bias</a>
+  <ul class="collapse">
+  <li><a href="#trim-and-fill-method" id="toc-trim-and-fill-method" class="nav-link" data-scroll-target="#trim-and-fill-method">Trim and fill method</a></li>
+  <li><a href="#eggers-test" id="toc-eggers-test" class="nav-link" data-scroll-target="#eggers-test">Egger’s test</a></li>
+  <li><a href="#rosenthals-fail-safe-n-concept-and-calculation" id="toc-rosenthals-fail-safe-n-concept-and-calculation" class="nav-link" data-scroll-target="#rosenthals-fail-safe-n-concept-and-calculation">Rosenthal’s fail-safe N concept and calculation:</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Wan Paper Reading</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">code</div>
+    <div class="quarto-category">Stats</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Understanding publication bias?
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhenglei Gao </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 18, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="general-impression" class="level2">
+<h2 class="anchored" data-anchor-id="general-impression">General Impression</h2>
+<p>A comprehensive analysis synthesizing effects across diverse organisms and responses:</p>
+<ul>
+<li>Effects across taxonomic groups:
+<ul>
+<li>Major groups (animals, plants, microorganisms)</li>
+<li>Subgroups (e.g., vertebrates vs invertebrates)</li>
+<li>Different response variables (growth, reproduction, behavior, biomarkers)</li>
+</ul></li>
+<li>Additional contols (subsets of data or moderators/components added to the model)
+<ul>
+<li>Phylogenetic corrections (built in as random effect, some of the species not available in Open Tree of LIfe)</li>
+<li>Random effects for study and pesticide identity</li>
+<li>Different correlation structures</li>
+<li>Field vs laboratory conditions</li>
+<li>Realistic exposure scenarios</li>
+</ul></li>
+</ul>
+<p>Taxonomic groups (i.e., animals, plants and microorganisms) were treated as fixed effects alongwith the moderator variables (i.e., pesticide class, study types, climatic zone, exposure medium, pesticide type, and number of added pesticide application rates)</p>
+<p>Model comparison / selection is done by comparing base models vs.&nbsp;models with added moderators, testing interaction effects, using LRT between models.</p>
+<p>The authors also tries to validate the common pattern from the huge dataset across different subsets and conditions.</p>
+<p>Most important for pesticides,</p>
+<blockquote class="blockquote">
+<p>The responses of different taxonomic groups and their growth, reproduction, behaviour and biomarkers to application rates under recommended fieldapplication rates are presented in Supplementary Tables 10–14, and these responses toapplicationrates under maximum environmentally relevant concentrations are presented in SupplementaryTables 17–22.</p>
+</blockquote>
+<p>In other cases, data used for creating dose-response curves where high effects are expected can really skew the full picture.</p>
+<p>While this meta-analysis provides valuable broad patterns, the effect sizes should be interpreted cautiously, especially for risk assessment purposes. The most meaningful insights likely come from the subset of studies using environmentally relevant concentrations under realistic exposure conditions.</p>
+<p>As defined in the paper as modified lnRR, we don’t know what is the minimum biologically relevant effect sizes and you cannot expect a pesticide has no effects across all non-target organisms. Insecticides should kill insects when applied to a certain amount. Are there any other confounding factors for realistic exposure field studies?</p>
+</section>
+<section id="critical-points-for-me" class="level2">
+<h2 class="anchored" data-anchor-id="critical-points-for-me">Critical Points for Me</h2>
+<ul>
+<li>I would like to look at distribution of effects not just means.</li>
+<li>Sample size is too big, any mean value could be significant just due to the sheer size. any moderator categories could also be significant due to large N in the standard error calculation.</li>
+<li>No application rate associasion is very suspicious.</li>
+<li>original lnRR v.s. modified version</li>
+<li>Heterogeneity. I would also see how the assumptions behind meta-analysis is validate with such a huge heterogeneous data.</li>
+<li>I would also expect pesticides to have negative impact after all, which is why they are needed. Insecticides need to have some effect on insects, at a certain level of concentrations. Especially lab tests that are designed to estimate a full dose-response curve are included in the analysis, which will highly skew the picture.</li>
+<li>Effect size cannot be translated to something you can understand the biologcal relevance.</li>
+<li>I am not convinced by the way how they addressed the publication bias.</li>
+</ul>
+<p>Additionally, some minor issues: - many terminology unclear, especially in additional information e.g., pesticide species as random effect? - missing func.R for the fuctions to calculate lnRR used in the analysis. - Why? arcsine-square root transformation of percentage data</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-2-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In details, I have questions in these aspects:</p>
+<ol type="1">
+<li>Statistical and Methodological Issues:</li>
+</ol>
+<ul>
+<li>Use of (modified) log response ratios (lnRR) across vastly different types of responses</li>
+<li>Significant publication bias detected but not fully addressed, the number given is from an unfair calculation, it doen’t mean the true effect is not 0, but means to have this true effect, you need a lot more small effects studies to balance the bigger negative effect observations / publications.</li>
+<li>Missing variance data requiring imputation methods, and the author used the same imputation across all lnRRs? Or I understood wrongly?</li>
+<li>Combining different exposure metrics and routes</li>
+<li>Potential pseudoreplication in the data, the author addressed the repeated use of control by some variance structure which sees to be designed arbitrarily?</li>
+<li>The exploration of effect size heterogeneity could be more thorough, right now I don’t really understand how it is addressed, except for the CV calculation.</li>
+<li>Complex interactions between variables are not really explored, it seems they add and remove one-by-one. Except for the categorical summaries, it seems no other confounding variables, maybe included in the original study, included into this meta-analysis.</li>
+</ul>
+<ol start="2" type="1">
+<li>Data Integration Challenges:</li>
+</ol>
+<ul>
+<li>Combining very different types of biological responses</li>
+<li>Mixing lab and field studies</li>
+<li>Taking absolute values for biomarker data loses directional information</li>
+<li>Arbitrary standardization of doses using relative scaling</li>
+<li>Variable quality of included studies</li>
+</ul>
+<ol start="3" type="1">
+<li>Ecological Context Limitations:</li>
+</ol>
+<ul>
+<li>Limited consideration of population/community level effects</li>
+<li>Complex species interactions not fully explored (only phylogenetic trees)</li>
+<li>Temporal aspects poorly addressed (as independent data points)</li>
+<li>Real-world relevance of many included studies unclear</li>
+</ul>
+<ol start="4" type="1">
+<li>Causality and Mechanistic Understanding:</li>
+</ol>
+<ul>
+<li>Cannot establish direct causation (“True effect” definition unclear to me, relevant effect size also hard to define across so hetergenious responses from different scenario combinations).</li>
+<li>Complex interactions between factors not fully explored</li>
+</ul>
+<ol start="5" type="1">
+<li>Exposure Assessment:</li>
+</ol>
+<ul>
+<li>Different exposure routes and durations combined</li>
+<li>May not reflect real-world exposure patterns</li>
+<li>Arbitrary standardization of doses</li>
+</ul>
+<p>These limitations should be considered when interpreting the conclusions about pesticide effects on non-target organisms.</p>
+</section>
+<section id="specifically-on-publication-bias" class="level2">
+<h2 class="anchored" data-anchor-id="specifically-on-publication-bias">Specifically on Publication Bias</h2>
+<p>The authors addess publication bias by:</p>
+<ul>
+<li>Regression test on full dataset (20,212 observations from 1,705 articles)
+<ul>
+<li>a regression coefficient between the effect size and the sample variance was evaluated</li>
+<li>(value of regressiontest=-24.879, P&lt;0.001)</li>
+</ul></li>
+<li>Trim-and-fill method (also proposed by Egger et al.)to assess result robustness ???
+<ul>
+<li>(Supplementary Table 2), used together along regression tests and Rosentha’s fail-safe N</li>
+<li>Creates a funnel plot of study effect sizes vs their standard errors</li>
+<li>Looks for asymmetry in the funnel plot that suggests missing studies</li>
+<li>“Trims” off asymmetric studies to get a new estimate</li>
+<li>“Fills” in missing studies by adding mirror images of the trimmed studies</li>
+</ul></li>
+<li>Recalculates the overall effect size including these imputed studies</li>
+<li>Residual analysis from mixed-effects models (Egger’s Test)
+<ul>
+<li>regression coefficients between residuals and the sample variaces.</li>
+</ul></li>
+<li>Rosenthal fail-safe numbers calculation to the full dataset
+<ul>
+<li>Found a fail-safe N score of 11,459,423 (much larger than threshold of 101,070)</li>
+<li>This suggests results are highly stable even accounting for potential publication bias</li>
+<li>The high fail-safe N means an extremely large number of null studies would be needed to overturn their findings</li>
+</ul></li>
+</ul>
+<section id="trim-and-fill-method" class="level3">
+<h3 class="anchored" data-anchor-id="trim-and-fill-method">Trim and fill method</h3>
+<p>The trim and fill method provides an intuitive way to detect and correct for potential publication bias in meta-analyses. Here’s why:</p>
+<ol type="1">
+<li>The Basic Principle:</li>
+</ol>
+<ul>
+<li>In an unbiased literature, study results should be symmetrically distributed around the true effect size</li>
+<li>Larger studies (more precise) cluster near the true effect</li>
+<li>Smaller studies (less precise) spread out more evenly on both sides</li>
+<li>This creates a symmetric funnel shape when plotted</li>
+</ul>
+<ol start="2" type="1">
+<li>Why Symmetry Indicates No Publication Bias:</li>
+</ol>
+<ul>
+<li>Symmetry suggests all results had equal chance of being published</li>
+<li>Both positive and negative findings are represented</li>
+<li>No systematic suppression of certain types of results</li>
+<li>More likely to represent the true distribution of effects</li>
+<li>Provides more reliable estimate of the true effect size</li>
+</ul>
+<ol start="3" type="1">
+<li>How Asymmetry Indicates Publication Bias:</li>
+</ol>
+<ul>
+<li>Usually shows up as “missing” studies on one side</li>
+<li>Typically negative/null results from smaller studies are missing</li>
+<li>Creates a skewed funnel plot</li>
+<li>Suggests systematic exclusion of certain findings</li>
+<li>Often biases results toward positive/significant effects</li>
+</ul>
+<ol start="4" type="1">
+<li>The Correction Process:</li>
+</ol>
+<ul>
+<li>Identifies asymmetry in the funnel plot</li>
+<li>“Trims” off asymmetric studies</li>
+<li>Re-estimates the center</li>
+<li>“Fills” in missing studies with mirror images</li>
+<li>Provides adjusted effect size estimate</li>
+</ul>
+<p>So symmetry is good because it suggests we’re seeing the complete picture of research results, not just selected positive findings. The trim and fill method helps identify and correct for this potential bias.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(meta)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Fleiss93)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">metabin</span>(event.e, n.e, event.c, n.c, <span class="at">data =</span> Fleiss93, <span class="at">sm =</span> <span class="st">"OR"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>tf1 <span class="ot">&lt;-</span> <span class="fu">trimfill</span>(m1)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tf1)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               OR           95%-CI %W(random)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1         0.7197 [0.4890; 1.0593]        6.8</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         0.6808 [0.4574; 1.0132]        6.5</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         0.8029 [0.6065; 1.0629]       10.8</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4         0.8007 [0.4863; 1.3186]        4.5</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         0.7981 [0.5526; 1.1529]        7.4</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         1.1327 [0.9347; 1.3728]       16.4</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7         0.8950 [0.8294; 0.9657]       26.8</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Filled: 5 1.0466 [0.7246; 1.5118]        7.4</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Filled: 1 1.1607 [0.7886; 1.7084]        6.8</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Filled: 2 1.2271 [0.8244; 1.8263]        6.5</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of studies: k = 10 (with 3 added studies)</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of observations: o = 31987 (o.e = 16369, o.c = 15618)</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of events: e = 4775</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                          OR           95%-CI     z p-value</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Random effects model 0.9228 [0.8228; 1.0350] -1.37  0.1699</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Quantifying heterogeneity (with 95%-CIs):</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tau^2 = 0.0113 [0.0000; 0.1145]; tau = 0.1061 [0.0000; 0.3384]</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  I^2 = 37.4% [0.0%; 70.1%]; H = 1.26 [1.00; 1.83]</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test of heterogeneity:</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Q d.f. p-value</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  14.37    9  0.1099</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Details of meta-analysis methods:</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Inverse variance method</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Restricted maximum-likelihood estimator for tau^2</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Q-Profile method for confidence interval of tau^2 and tau</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Calculation of I^2 based on Q</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Trim-and-fill method to adjust for funnel plot asymmetry (L-estimator)</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">pch =</span> <span class="fu">ifelse</span>(tf1<span class="sc">$</span>trimfill, <span class="dv">1</span>, <span class="dv">16</span>),</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">level =</span> <span class="fl">0.9</span>, <span class="at">comb.random =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use log odds ratios on x-axis</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">backtransf =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(tf1, <span class="at">pch =</span> <span class="fu">ifelse</span>(tf1<span class="sc">$</span>trimfill, <span class="dv">1</span>, <span class="dv">16</span>),</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">level =</span> <span class="fl">0.9</span>, <span class="at">comb.random =</span> <span class="cn">FALSE</span>, <span class="at">backtransf =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Wan_paper_reading_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">trimfill</span>(m1<span class="sc">$</span>TE, m1<span class="sc">$</span>seTE, <span class="at">sm =</span> m1<span class="sc">$</span>sm)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Number of studies: k = 10 (with 3 added studies)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                          OR           95%-CI     z p-value</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Random effects model 0.9228 [0.8228; 1.0350] -1.37  0.1699</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Quantifying heterogeneity (with 95%-CIs):</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tau^2 = 0.0113 [0.0000; 0.1145]; tau = 0.1061 [0.0000; 0.3384]</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  I^2 = 37.4% [0.0%; 70.1%]; H = 1.26 [1.00; 1.83]</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test of heterogeneity:</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Q d.f. p-value</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  14.37    9  0.1099</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Details of meta-analysis methods:</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Inverse variance method</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Restricted maximum-likelihood estimator for tau^2</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Q-Profile method for confidence interval of tau^2 and tau</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Calculation of I^2 based on Q</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - Trim-and-fill method to adjust for funnel plot asymmetry (L-estimator)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that the Y-axis (Standard Error) is inverted, meaning:</p>
+<ul>
+<li>0 at the top (most precise studies)</li>
+<li>Increasing values going down (less precise studies)</li>
+</ul>
+</section>
+<section id="eggers-test" class="level3">
+<h3 class="anchored" data-anchor-id="eggers-test">Egger’s test</h3>
+<p>Regression coefficient significance of Y=standard error agains X= Effect sizes or residuals.</p>
+<p>Slope significant means there is a publication bias.</p>
+<p>The Egger’s Test Implementation in the paper:</p>
+<ol type="1">
+<li>Takes residuals from meta-regression model:</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>egger_dt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">r =</span> <span class="fu">residuals</span>(model.null),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">s =</span> <span class="fu">sign</span>(<span class="fu">residuals</span>(model.null))<span class="sc">*</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcov</span>(model.null, <span class="at">type =</span> <span class="st">"resid"</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>Regresses residuals against their standard errors:</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>egg_test <span class="ot">&lt;-</span> <span class="fu">lm</span>(r<span class="sc">~</span>s, egger_dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The Egger’s test results in this paper (first one being: value = -24.879, p &lt; 0.001) indicate significant publication bias in the meta-analysis. Here’s what this means:</p>
+<p><strong>Test Interpretation:</strong> - The significant negative coefficient suggests small studies tend to report larger effects than expected - This could indicate selective reporting where null or negative results are less likely to be published - May reflect “file drawer” problem where non-significant results remain unpublished</p>
+</section>
+<section id="rosenthals-fail-safe-n-concept-and-calculation" class="level3">
+<h3 class="anchored" data-anchor-id="rosenthals-fail-safe-n-concept-and-calculation">Rosenthal’s fail-safe N concept and calculation:</h3>
+<p>Rosenthal’s fail-safe N is a statistical method used to assess the robustness of meta-analysis results against publication bias. It calculates the number of unpublished “null” studies (studies showing no effect) that would need to exist to nullify the significant findings of a meta-analysis. In fact, the enormous difference between the threshold and actual fail-safe N itself suggests the formula may need modification for large sample sizes.</p>
+<p>Key aspects of Rosenthal’s fail-safe N:</p>
+<ol type="1">
+<li>Purpose: It estimates how many “null” or “negative” studies would need to exist to nullify the significant findings of a meta-analysis</li>
+<li>Core concept: If this number is very large, it suggests the findings are robust against publication bias</li>
+<li>In this paper: They found a fail-safe N of 11,459,423, compared to a threshold of 101,070</li>
+</ol>
+<p>The calculation involves:</p>
+<ol type="1">
+<li>Converting effect sizes to Z-scores</li>
+<li>Summing the Z-scores</li>
+<li>Using Rosenthal’s formula: N = (∑Z/1.645)² - k Where:
+<ul>
+<li>∑Z is sum of Z-scores</li>
+<li>1.645 is critical value for one-tailed p=0.05</li>
+<li>k is number of studies</li>
+<li>N is number of null studies needed</li>
+</ul></li>
+</ol>
+<p>The large number (11,459,423) indicates:</p>
+<ul>
+<li>Would need over 11 million null studies to overturn findings</li>
+<li>Provides very strong evidence against publication bias</li>
+<li>Results are extremely robust and reliable</li>
+<li>Far exceeds the conservative threshold of 101,070</li>
+</ul>
+<p>The large discrepancy between the calculated fail-safe N (11,459,423) and the threshold (101,070) suggests that the findings about pesticide effects on non-target organisms are highly stable and reliable, even accounting for potential unpublished negative results. This helps validate that the observed negative effects of pesticides on non-target organisms are real and not an artifact of publication bias.</p>
+<p>In more detail</p>
+<ol type="1">
+<li>The Z-score Calculation:</li>
+</ol>
+<ul>
+<li>Takes p-values from individual studies</li>
+<li>Converts them to Z-scores (standardized normal deviates)</li>
+<li>Uses one-tailed p=0.05 (Z=1.645) as critical threshold</li>
+<li>Sums Z-scores to get overall effect</li>
+</ul>
+<ol start="2" type="1">
+<li>The Formula N = (∑Z/1.645)² - k:</li>
+</ol>
+<ul>
+<li>∑Z = sum of Z-scores from observed studies</li>
+<li>1.645 = critical value for one-tailed p=0.05</li>
+<li>k = number of observed studies</li>
+<li>N = number of null studies needed</li>
+</ul>
+<ol start="3" type="1">
+<li>Why it Works:</li>
+</ol>
+<ul>
+<li>Adding null studies (Z=0) dilutes the overall Z-score</li>
+<li>Formula calculates how many nulls needed to reach p=0.05</li>
+<li>More extreme results require more null studies to nullify</li>
+<li>Large N indicates robust finding</li>
+<li>Small N indicates potentially fragile finding</li>
+</ul>
+<p>I don’t think it is appropriate to use about Rosenthal’s fail-safe N threshold formula (5n + 10). Here’s why this threshold may be problematic for very large meta-analyses:</p>
+<ol type="1">
+<li>Formula Limitations:</li>
+</ol>
+<ul>
+<li>The numbers 5 and 10 are somewhat arbitrary, based on reasonable but not rigorous assumptions</li>
+<li>Linear scaling with n may not be appropriate for very large meta-analyses</li>
+<li>The “+10” buffer becomes negligible with large sample sizes</li>
+<li>Does not account for effect size magnitude</li>
+</ul>
+<ol start="2" type="1">
+<li>Issues with Large N:</li>
+</ol>
+<ul>
+<li>In this study, n = 20,212 observations</li>
+<li>Threshold = 5(20,212) + 10 = 101,070</li>
+<li>Actual fail-safe N = 11,459,423</li>
+<li>The huge difference (11,358,353) suggests the threshold may be too conservative</li>
+</ul>
+<ol start="3" type="1">
+<li>Why It May Not Work Well Here:</li>
+</ol>
+<ul>
+<li>Formula was likely designed for smaller meta-analyses (hundreds rather than thousands of studies)</li>
+<li>Linear scaling may not be appropriate for very large n</li>
+<li>Additionally, does not consider the strength of the observed effects</li>
+</ul>
+<ol start="4" type="1">
+<li>Potential Improvements:</li>
+</ol>
+<ul>
+<li>Use non-linear scaling for large n ?</li>
+<li>Incorporate effect size magnitude ?</li>
+<li>Set different thresholds based on study size ranges ?</li>
+<li>Use more sophisticated publication bias methods, there are other options in metafor package.</li>
+</ul>
+<p>I don’t think it is appropriate to use Rosenthal’s N calculation either. Suppose we have have p-values of 0.01 for 10 studies, then have p-value of 0.2 for 10 studies. I would thought half of the studies is null effects, half are significant, it means inconclusive, but according to the formula, it would be <code>((qnorm(0.8)*10+qnorm(0.99)*10)/1.645)^2-20</code> which is 351 null studies needed for nullify the meta-regression results.</p>
+<p>The seemingly counterintuitive result comes from how Rosenthal’s fail-safe N works:</p>
+<ol type="1">
+<li>The formula gives more weight to significant results than null results:</li>
+</ol>
+<ul>
+<li>The 10 significant studies (p=0.01) contribute large positive Z-scores (2.326 each)</li>
+<li>The 10 null studies (p=0.2) still contribute positive but smaller Z-scores (0.842 each)</li>
+<li>The Z-scores add rather than cancel each other out</li>
+</ul>
+<ol start="2" type="1">
+<li>Key implications:</li>
+</ol>
+<ul>
+<li>Even though half the studies show null effects, their smaller positive Z-scores still contribute to the overall effect</li>
+<li>The strong significant results from half the studies drive the high fail-safe N</li>
+<li>The method doesn’t treat null results as evidence against an effect</li>
+<li>It asks how many studies with Z=0 would be needed to nullify the significant findings</li>
+</ul>
+<ol start="3" type="1">
+<li>Limitations of this approach:</li>
+</ol>
+<ul>
+<li>May overstate robustness when evidence is mixed</li>
+<li>Doesn’t fully capture conflicting results</li>
+<li>Better to look at effect sizes and heterogeneity</li>
+<li>Should consider other methods for assessing publication bias</li>
+</ul>
+<p>I believe mixed results suggest inconclusiveness, the fail-safe N formula focuses specifically on how many null studies would be needed to overturn the significant findings, leading to what seems like an overly optimistic assessment of robustness. The formula gives more weight to significant results than null results. This highlights why fail-safe N should be interpreted cautiously and in conjunction with other methods.</p>
+<p>I checked the functions in metafor package they use, in the help files, it clearly says that “the method is primarily of interest for historical reasons, but the other methods described below are more closely aligned with the way meta-analyses are typically conducted in practice.” Tried different methods, the N number calculation can range from 598 (Rosenthal) to 26 for using different approaches.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the Rosenthal Approach</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span> <span class="er">&lt;</span>.<span class="dv">0001</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>   <span class="fl">0.05</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">598</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat, <span class="at">type=</span><span class="st">"Rosenberg"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the Rosenberg Approach</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>Average Effect Size<span class="sc">:</span>         <span class="sc">-</span><span class="fl">0.4303</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span>  <span class="er">&lt;</span>.<span class="dv">0001</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>    <span class="fl">0.05</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">370</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">fsn</span>(yi, vi, <span class="at">data=</span>dat, <span class="at">type=</span><span class="st">"General"</span>) <span class="co"># based on a random-effects model</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N Calculation Using the General Approach</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>Average Effect Size<span class="sc">:</span>         <span class="sc">-</span><span class="fl">0.7145</span> (with file drawer<span class="sc">:</span> <span class="sc">-</span><span class="fl">0.2172</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>Amount of Heterogeneity<span class="sc">:</span>      <span class="fl">0.3132</span> (with file drawer<span class="sc">:</span>  <span class="fl">0.4228</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>Observed Significance Level<span class="sc">:</span>  <span class="er">&lt;</span>.<span class="dv">0001</span> (with file drawer<span class="sc">:</span>  <span class="fl">0.0513</span>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>Target Significance Level<span class="sc">:</span>    <span class="fl">0.05</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>Fail<span class="sc">-</span>safe N<span class="sc">:</span> <span class="dv">26</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.05</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -1.644854</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.645</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.9500151</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Therefore the Z of 1.645 is the one-sided cut off for 95% confidene level. If a Z is greater than 1.645 then it would be </span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.01</span>))<span class="sc">*</span><span class="dv">10</span><span class="sc">/</span><span class="fl">1.645</span>)<span class="sc">^</span><span class="dv">2-10</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 189.9943</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">10</span> <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 60</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>(<span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.01</span>))<span class="sc">*</span><span class="dv">10</span><span class="sc">/</span><span class="fl">1.645</span>)<span class="sc">^</span><span class="dv">2-10</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 189.9943</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">100</span> <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 510</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>(<span class="fu">qnorm</span>(<span class="fl">0.8</span>)<span class="sc">*</span><span class="dv">5</span><span class="sc">+</span><span class="fu">qnorm</span>(<span class="fl">0.90</span>)<span class="sc">*</span><span class="dv">5</span>)<span class="sc">/</span><span class="fl">1.645</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6.453413</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>(<span class="fu">qnorm</span>(<span class="fl">0.8</span>)<span class="sc">*</span><span class="dv">10</span><span class="sc">+</span><span class="fu">qnorm</span>(<span class="fl">0.90</span>)<span class="sc">*</span><span class="dv">10</span>)<span class="sc">/</span><span class="fl">1.645</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 12.90683</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><em>random excerpt</em></p>
+<p>千里茫茫若梦，双眸粲粲如星。塞上牛羊空许约，烛畔鬓云有旧盟。莽苍踏雪行。赤手屠熊搏虎，金戈荡寇鏖兵。草木残生颅铸铁，虫豸凝寒掌作冰。挥洒缚豪英。 ——近现代·金庸《破阵子·千里茫茫若梦》</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

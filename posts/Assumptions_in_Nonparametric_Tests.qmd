@@ -161,9 +161,9 @@ print(f"Scenario 2 - Mean rank Exp({exp_scale}){exp_shift}: {np.mean(rank_exp1):
 
 As I am not very familiar with the python functions, I tried to understand the parameter settings by simulating samples from the exponential distribution.
 
-The probability density function (PDF) of the exponential distribution is given by: $ f(x; \lambda) = \lambda e^{-\lambda x}, \quad x \geq 0 $ where $ \lambda $ is the rate parameter.
+The probability density function (PDF) of the exponential distribution is given by: $$ f(x; \lambda) = \lambda e^{-\lambda x}, \quad x \geq 0 $$ ,where $ \lambda $ is the rate parameter.
 
-In NumPy, the scale parameter is $ \frac{1{\lambda} $, so $\text{scale} = \frac{1}{\lambda}$.
+In NumPy, the scale parameter is actually $ \frac{1}{\lambda} $. 
 
 ```{python}
 import numpy as np
