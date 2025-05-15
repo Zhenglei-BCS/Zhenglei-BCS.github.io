@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Zhenglei Gao">
+<meta name="dcterms.date" content="2026-04-04">
+<meta name="description" content="Useful in Scientific Presentation Preparation.">
 
-<title>Zhenglei Gao - Collection of Random Thoughts</title>
+<title>Zhenglei Gao - SETAC Presentation Evaluation Criteria List</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +26,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,67 +71,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -140,7 +83,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Zhenglei Gao</span>
     </a>
   </div>
@@ -151,19 +94,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./CCC.html"> 
+    <a class="nav-link" href="../CCC.html"> 
 <span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./blog.html" aria-current="page"> 
+    <a class="nav-link" href="../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -179,21 +122,49 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="R_python_julia">R_python_julia <span class="quarto-category-count">(1)</span></div><div class="category" data-category="analysis">analysis <span class="quarto-category-count">(1)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(2)</span></div><div class="category" data-category="journal">journal <span class="quarto-category-count">(3)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="stats">stats <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#criteria-list" id="toc-criteria-list" class="nav-link active" data-scroll-target="#criteria-list">Criteria List</a></li>
+  <li><a href="#criteria-list-continued" id="toc-criteria-list-continued" class="nav-link" data-scroll-target="#criteria-list-continued">Criteria List (Continued)</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Collection of Random Thoughts</h1>
-</div>
+<h1 class="title">SETAC Presentation Evaluation Criteria List</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">stats</div>
+    <div class="quarto-category">python</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Useful in Scientific Presentation Preparation.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhenglei Gao </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 4, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -203,224 +174,256 @@ window.Quarto = {
 </header>
 
 
+<p>Here’s a structured criteria list based on your request:</p>
+<section id="criteria-list" class="level3">
+<h3 class="anchored" data-anchor-id="criteria-list">Criteria List</h3>
+<section id="introduction-10-points" class="level4">
+<h4 class="anchored" data-anchor-id="introduction-10-points">Introduction (10 points)</h4>
+<ol type="1">
+<li><strong>Excellent (10 points)</strong>:
+<ul>
+<li>Background was relevant.</li>
+<li>Connections to previous literature were clear.</li>
+<li>A goal and logical hypothesis were stated clearly and showed clear relevance.</li>
+</ul></li>
+<li><strong>Good (8 points)</strong>:
+<ul>
+<li>Background was relevant.</li>
+<li>Connections to previous literature were made.</li>
+<li>A goal and logical hypothesis were stated but relevance was not very clear.</li>
+</ul></li>
+<li><strong>Satisfactory (6 points)</strong>:
+<ul>
+<li>Background was relevant.</li>
+<li>Connections to previous literature were NOT made.</li>
+<li>A goal and logical hypothesis were stated but relevance not clarified.</li>
+</ul></li>
+<li><strong>Poor (4 points)</strong>:
+<ul>
+<li>No background or previous literature presented.</li>
+<li>Goal and hypothesis inappropriate.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="approach-to-work-10-points" class="level4">
+<h4 class="anchored" data-anchor-id="approach-to-work-10-points">Approach to Work (10 points)</h4>
+<ol type="1">
+<li><strong>Excellent (10 points)</strong>:
+<ul>
+<li>Innovative and strong methods and approach.</li>
+<li>Appropriate use of controls or comparisons or references where relevant.</li>
+</ul></li>
+<li><strong>Good (8 points)</strong>:
+<ul>
+<li>Strong methods or approach.</li>
+<li>Appropriate use of controls or comparisons or references where relevant.</li>
+</ul></li>
+<li><strong>Satisfactory (6 points)</strong>:
+<ul>
+<li>Acceptable methods or approach.</li>
+<li>Slightly inadequate use of controls or comparisons or references where relevant.</li>
+</ul></li>
+<li><strong>Poor (4 points)</strong>:
+<ul>
+<li>Weak methods or approach.</li>
+<li>No discussion of controls or comparisons or references where relevant.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="results-10-points" class="level4">
+<h4 class="anchored" data-anchor-id="results-10-points">Results (10 points)</h4>
+<ol type="1">
+<li><strong>Excellent (10 points)</strong>:
+<ul>
+<li>High-quality data were presented to address hypothesis or goal of project.</li>
+<li>Presentation of data was clear, thorough, and logical.</li>
+<li>Potential problems and alternative approaches identified.</li>
+</ul></li>
+<li><strong>Good (8 points)</strong>:
+<ul>
+<li>Adequate amounts of reasonable quality data were presented to address hypothesis or goal of project.</li>
+<li>Presentation of data was clear.</li>
+</ul></li>
+<li><strong>Satisfactory (6 points)</strong>:
+<ul>
+<li>Some reasonable quality data were presented to address hypothesis or goal of project.</li>
+</ul></li>
+<li><strong>Poor (4 points)</strong>:
+<ul>
+<li>Data were lacking, not fully sufficient to address hypothesis or project goal.</li>
+<li>Presentation of data was unclear.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="conclusions-and-discussion-10-points" class="level4">
+<h4 class="anchored" data-anchor-id="conclusions-and-discussion-10-points">Conclusions and Discussion (10 points)</h4>
+<ol type="1">
+<li><strong>Excellent (10 points)</strong>:
+<ul>
+<li>Strong conclusions were developed and supported with evidence.</li>
+<li>Major points and take-home messages clearly summarised.</li>
+</ul></li>
+<li><strong>Good (8 points)</strong>:
+<ul>
+<li>Conclusions were developed and supported with evidence.</li>
+<li>Some take-home messages somewhat summarised.</li>
+</ul></li>
+<li><strong>Satisfactory (6 points)</strong>:
+<ul>
+<li>Some conclusions were given.</li>
+<li>Take-home message only partly summarised.</li>
+</ul></li>
+<li><strong>Poor (4 points)</strong>:
+<ul>
+<li>Conclusions were not supported with evidence.</li>
+<li>Major points and take-home message not mentioned.</li>
+</ul></li>
+</ol>
+<p>Here’s the continuation of the structured criteria list based on your request:</p>
+</section>
+</section>
+<section id="criteria-list-continued" class="level3">
+<h3 class="anchored" data-anchor-id="criteria-list-continued">Criteria List (Continued)</h3>
+<section id="flow-organization-and-transition-between-intro-approach-results-and-conclusions-10-points" class="level4">
+<h4 class="anchored" data-anchor-id="flow-organization-and-transition-between-intro-approach-results-and-conclusions-10-points">Flow (Organization and Transition between Intro, Approach, Results, and Conclusions) (10 points)</h4>
+<ol type="1">
+<li><strong>Excellent (10 points)</strong>:
+<ul>
+<li>Presentation was engaging, well organized, with strong transitions, and easy to follow.</li>
+</ul></li>
+<li><strong>Good (8 points)</strong>:
+<ul>
+<li>Presentation was well organized, some transitions made, and able to follow.</li>
+</ul></li>
+<li><strong>Satisfactory (6 points)</strong>:
+<ul>
+<li>Presentation was somewhat organized, weak transitions made, and somewhat able to follow.</li>
+</ul></li>
+<li><strong>Poor (4 points)</strong>:
+<ul>
+<li>Presentation was not well organized, weak transitions, and hard to follow.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="scientific-objectivity-10-points" class="level4">
+<h4 class="anchored" data-anchor-id="scientific-objectivity-10-points">Scientific Objectivity (10 points)</h4>
+<ol type="1">
+<li><strong>Excellent (10 points)</strong>:
+<ul>
+<li>Statements were supported by data, not opinions, and objectivity maintained.</li>
+</ul></li>
+<li><strong>Good (8 points)</strong>:
+<ul>
+<li>Statements were supported by data, but some opinions slipped in.</li>
+</ul></li>
+<li><strong>Satisfactory (6 points)</strong>:
+<ul>
+<li>Statements were somewhat supported by data, but opinions slipped in.</li>
+</ul></li>
+<li><strong>Poor (4 points)</strong>:
+<ul>
+<li>Presented opinions and objectivity was not maintained.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="mastery-depth-of-understanding-and-knowledge-of-field-10-points" class="level4">
+<h4 class="anchored" data-anchor-id="mastery-depth-of-understanding-and-knowledge-of-field-10-points">Mastery: Depth of Understanding and Knowledge of Field (10 points)</h4>
+<ol type="1">
+<li><strong>Excellent (10 points)</strong>:
+<ul>
+<li>Presenter exhibited strong in-depth mastery of the field.</li>
+</ul></li>
+<li><strong>Good (8 points)</strong>:
+<ul>
+<li>Presenter exhibited good knowledge of the field.</li>
+</ul></li>
+<li><strong>Satisfactory (6 points)</strong>:
+<ul>
+<li>Presenter exhibited weak knowledge of the field.</li>
+</ul></li>
+<li><strong>Poor (4 points)</strong>:
+<ul>
+<li>Presenter exhibited superficial knowledge of the area.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="clarity-of-language-10-points" class="level4">
+<h4 class="anchored" data-anchor-id="clarity-of-language-10-points">Clarity of Language (10 points)</h4>
+<ol type="1">
+<li><strong>Excellent (10 points)</strong>:
+<ul>
+<li>Presentation was very easy to understand by a diverse audience, not overly verbose or jargon-heavy, and defined all terms clearly.</li>
+</ul></li>
+<li><strong>Good (8 points)</strong>:
+<ul>
+<li>Presentation was somewhat easy to understand by a diverse audience, with some use of jargon and some undefined terms.</li>
+</ul></li>
+<li><strong>Satisfactory (6 points)</strong>:
+<ul>
+<li>Presentation was hard to understand by a diverse audience, included lots of jargon and undefined terms.</li>
+</ul></li>
+<li><strong>Poor (4 points)</strong>:
+<ul>
+<li>Presentation was very hard to understand.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="format-layout-and-visual-aids---graphs-and-diagrams-10-points" class="level4">
+<h4 class="anchored" data-anchor-id="format-layout-and-visual-aids---graphs-and-diagrams-10-points">Format (Layout and Visual Aids - Graphs and Diagrams) (10 points)</h4>
+<ol type="1">
+<li><strong>Excellent (10 points)</strong>:
+<ul>
+<li>Format was innovative, very clear, and effective in conveying the message.</li>
+</ul></li>
+<li><strong>Good (8 points)</strong>:
+<ul>
+<li>Format was very clear but lacking some effectiveness in conveying the message.</li>
+</ul></li>
+<li><strong>Satisfactory (6 points)</strong>:
+<ul>
+<li>Format was only somewhat clear.</li>
+</ul></li>
+<li><strong>Poor (4 points)</strong>:
+<ul>
+<li>Format was hard to follow (e.g., too much detail).</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+<section id="oral-delivery-10-points" class="level4">
+<h4 class="anchored" data-anchor-id="oral-delivery-10-points">Oral Delivery (10 points)</h4>
+<ol type="1">
+<li><strong>Excellent (10 points)</strong>:
+<ul>
+<li>Oral delivery was highly engaging, professional, clear, and concise.</li>
+</ul></li>
+<li><strong>Good (8 points)</strong>:
+<ul>
+<li>Oral delivery was somewhat engaging, professional, and clear.</li>
+</ul></li>
+<li><strong>Satisfactory (6 points)</strong>:
+<ul>
+<li>Oral delivery was not very clear. It was too fast or slow or used unclear sentences.</li>
+</ul></li>
+<li><strong>Poor (4 points)</strong>:
+<ul>
+<li>Oral delivery was not clear at all, nor was it engaging or encouraging focus.</li>
+</ul></li>
+</ol>
+<p>Feel free to ask if you need any further adjustments or additional information!</p>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="stats,python" data-listing-date-sort="1775253600000" data-listing-file-modified-sort="1747314533532" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1038">
-<div class="thumbnail">
-<p><a href="./blog/Presentation_Evaluation_Criteria.html" class="no-external"></a></p><a href="./blog/Presentation_Evaluation_Criteria.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./blog/Presentation_Evaluation_Criteria.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/Presentation_Evaluation_Criteria.html" class="no-external">SETAC Presentation Evaluation Criteria List</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/Presentation_Evaluation_Criteria.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('stats'); return false;">
-stats
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
-python
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/Presentation_Evaluation_Criteria.html" class="no-external">Useful in Scientific Presentation Preparation. </a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/Presentation_Evaluation_Criteria.html" class="no-external">
-<div class="listing-date">
-Apr 4, 2026
-</div>
-<div class="listing-author">
-Zhenglei Gao
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="journal" data-listing-date-sort="1747346400000" data-listing-file-modified-sort="1747072296191" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="169">
-<div class="thumbnail">
-<p><a href="./blog/GenAI.html" class="no-external"></a></p><a href="./blog/GenAI.html" class="no-external">
-<p class="card-img-top"><img src="blog\GenAI_files\figure-html\cell-2-output-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./blog/GenAI.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/GenAI.html" class="no-external">Generative AI</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/GenAI.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('journal'); return false;">
-journal
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/GenAI.html" class="no-external">AI advances science</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/GenAI.html" class="no-external">
-<div class="listing-date">
-May 16, 2025
-</div>
-<div class="listing-author">
-Zhenglei Gao
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="journal" data-listing-date-sort="1741215600000" data-listing-file-modified-sort="1741443985889" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="188">
-<div class="thumbnail">
-<p><a href="./blog/LLM_and_random_thoughts.html" class="no-external"></a></p><a href="./blog/LLM_and_random_thoughts.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./blog/LLM_and_random_thoughts.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/LLM_and_random_thoughts.html" class="no-external">LLM with artefacts and so on</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/LLM_and_random_thoughts.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('journal'); return false;">
-journal
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/LLM_and_random_thoughts.html" class="no-external">Some random thoughts on LLM</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/LLM_and_random_thoughts.html" class="no-external">
-<div class="listing-date">
-Mar 6, 2025
-</div>
-<div class="listing-author">
-Zhenglei Gao
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="journal" data-listing-date-sort="1734303600000" data-listing-file-modified-sort="1739873743897" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="2">
-<div class="thumbnail">
-<p><a href="./blog/genAI_alphafold2.html" class="no-external"></a></p><a href="./blog/genAI_alphafold2.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./blog/genAI_alphafold2.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/genAI_alphafold2.html" class="no-external">Turbulence and AlphaFold 2</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/genAI_alphafold2.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('journal'); return false;">
-journal
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/genAI_alphafold2.html" class="no-external">AI advances science</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/genAI_alphafold2.html" class="no-external">
-<div class="listing-date">
-Dec 16, 2024
-</div>
-<div class="listing-author">
-Zhenglei Gao
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="code,analysis" data-listing-date-sort="1734303600000" data-listing-file-modified-sort="1739976711498" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="175">
-<div class="thumbnail">
-<p><a href="./blog/SAS.html" class="no-external"></a></p><a href="./blog/SAS.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./blog/SAS.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/SAS.html" class="no-external">SAS</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/SAS.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('analysis'); return false;">
-analysis
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/SAS.html" class="no-external">SAS code</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/SAS.html" class="no-external">
-<div class="listing-date">
-Dec 16, 2024
-</div>
-<div class="listing-author">
-Zhenglei Gao
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="code,R_python_julia" data-listing-date-sort="1723154400000" data-listing-file-modified-sort="1723136117024" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="356">
-<div class="thumbnail">
-<p><a href="./blog/why_I_dont_like_ipynb.html" class="no-external"></a></p><a href="./blog/why_I_dont_like_ipynb.html" class="no-external">
-<p class="card-img-top"><img src="blog\assets\ipynberror.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./blog/why_I_dont_like_ipynb.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/why_I_dont_like_ipynb.html" class="no-external">I prefer Rmd and qmd</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/why_I_dont_like_ipynb.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
-code
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R_python_julia'); return false;">
-R_python_julia
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/why_I_dont_like_ipynb.html" class="no-external">Why I don’t like IPython Notebooks</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/why_I_dont_like_ipynb.html" class="no-external">
-<div class="listing-date">
-Aug 9, 2024
-</div>
-<div class="listing-author">
-Zhenglei Gao
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

@@ -279,7 +279,7 @@ window.Quarto = {
 <section id="a-simple-simulation" class="level2">
 <h2 class="anchored" data-anchor-id="a-simple-simulation">A Simple Simulation</h2>
 <p>Note that I used genAI to generate python code instead of writing R code by myself, as a way of familiarize myself more with python programming. I simply states what I want to do and mygenAssist produced something as expected with a few modifications.</p>
-<div id="bd677955" class="cell" data-execution_count="1">
+<div id="fb93df68" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -417,9 +417,9 @@ Scenario 2 - Mean rank Exp(2)-2: 895.15</code></pre>
 <section id="testing-of-python-functions" class="level2">
 <h2 class="anchored" data-anchor-id="testing-of-python-functions">Testing of python functions</h2>
 <p>As I am not very familiar with the python functions, I tried to understand the parameter settings by simulating samples from the exponential distribution.</p>
-<p>The probability density function (PDF) of the exponential distribution is given by: $ f(x; ) = e^{-x}, x $ where $ $ is the rate parameter.</p>
-<p>In NumPy, the scale parameter is $ \frac{1{} $, so <span class="math inline">\(\text{scale} = \frac{1}{\lambda}\)</span>.</p>
-<div id="c12971f8" class="cell" data-execution_count="2">
+<p>The probability density function (PDF) of the exponential distribution is given by: <span class="math display">\[ f(x; \lambda) = \lambda e^{-\lambda x}, \quad x \geq 0 \]</span> ,where $ $ is the rate parameter.</p>
+<p>In NumPy, the scale parameter is actually $ $.</p>
+<div id="50305995" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
