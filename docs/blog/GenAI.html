@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zhenglei Gao">
-<meta name="dcterms.date" content="2025-05-16">
+<meta name="dcterms.date" content="2025-05-24">
 <meta name="description" content="AI advances science">
 
 <title>Zhenglei Gao - Generative AI</title>
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 16, 2025</p>
+      <p class="date">May 24, 2025</p>
     </div>
   </div>
   
@@ -200,8 +200,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>I was preparing a presentation to share my GenAI experiences with my team and found out this Gartner Hype Cycle concept, describing my adoption process of GenAI quite precisely.</p>
-<div id="79e25740" class="cell" data-execution_count="1">
+<p>The development of generative AI is significantly impacting both my professional and personal life. Just last Saturday, my son was upstairs running on the treadmill in the evening. With summer approaching, he suddenly noticed a lot of bugs and moths accumulating on the walls and under the lights. He panicked because we had just told him the day before that he needed to keep the window closed when the light is on.</p>
+<p>In a clever move unexpected from me, he turned to ChatGPT, described the situation, and asked for advice on how to handle both the moths and our reaction as parents. He received a helpful response and decided to wait until Papa was in the shower and approached me, apologized for the situation, and asked for my help in using the vacuum cleaner to clean up all the insects.</p>
+<p>This experience made me realize that generative AI is not only transforming my work life but also having a profound influence on our personal lives. I would have googled first.</p>
+<p>I participated this microsoft AI day and a microsoft colleague also shared his experience with AI and AI agents. He described a curve that starts with high expectations, dips into disappointment, and then slowly regains hope, ultimately leading to productive use. I had almost exactly the same experience. In preparation of the slide deck, I asked our internal genAI to generate code for plotting the curve and it actually pointed me to the Gartner’s Hype Cycle concept.</p>
+<p>I have collected some tips and experiences and continue to explore its capabilities. My next exploration will be vibe coding, as Ismael has introduced it to me yesterday.</p>
+<div id="cc4bb6f3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -485,7 +489,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

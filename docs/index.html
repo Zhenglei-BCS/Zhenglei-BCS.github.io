@@ -160,7 +160,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="section" class="level3">
 <h3 data-anchor-id="section"></h3>
-<p>Welcome! This is a space where I share my thoughts, learnings, and ideas related to statistics, ecotoxicology, and more. Think of it as a dump or a jungle of information — while it may seem chaotic and unorganized, there could be hidden gems of insight and knowledge within.:) The primary goal of this site is to help myself understand and learn more effectively while keeping a log of my thought process. Although the content may not be perfectly organized, I hope part of it can serve as a valuable resource for others who have similar questions and interests in these fields. Here, you will find a collection of reflections, analyses, and discussions that I hope will inspire and assist fellow professionals and learners.</p>
+<p>Hi! This is a space where I share my thoughts, learnings, and ideas related to statistics, ecotoxicology, and more, anything that does not belong to a structured, topic-specific repository. Think of it as a dump or a jungle of information — while it may seem chaotic and unorganized, there could be hidden gems of insight and knowledge within.:) The primary goal of this site is to help myself understand and learn more effectively while keeping a log of my thought process. Although the content may not be perfectly organized, I hope part of it can serve as a valuable resource for others who have similar questions and interests in these fields. Here, you will find a collection of reflections, analyses, and discussions that I hope will inspire and assist fellow professionals and learners.</p>
 
 
 
@@ -385,7 +385,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

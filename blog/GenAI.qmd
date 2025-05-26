@@ -2,12 +2,27 @@
 title: "Generative AI"
 description: "AI advances science"
 author: "Zhenglei Gao"
-date: "05/16/2025"
+date: "05/24/2025"
 categories:
   - journal
 ---
 
-I was preparing a presentation to share my GenAI experiences with my team and found out this Gartner Hype Cycle concept, describing my adoption process of GenAI quite precisely. 
+The development of generative AI is significantly impacting both my professional and personal life. Just last Saturday, my son was upstairs running on the treadmill in the evening. With summer approaching, he suddenly noticed a lot of bugs and moths accumulating on the walls and under the lights. He panicked because we had just told him the day before that he needed to keep the window closed when the light is on.
+
+In a clever move unexpected from me, he turned to ChatGPT, described the situation, and asked for advice on how to handle both the moths and our reaction as parents. He received a helpful response and decided to wait until Papa was in the shower and approached me, apologized for the situation, and asked for my help in using the vacuum cleaner to clean up all the insects.
+
+This experience made me realize that generative AI is not only transforming my work life but also having a profound influence on our personal lives. I would have googled first. 
+
+I participated this microsoft AI day and a microsoft colleague also shared his experience with AI and AI agents. He described a curve that starts with high expectations, dips into disappointment, and then slowly regains hope, ultimately leading to productive use. I had almost exactly the same experience. In preparation of the slide deck, I asked our internal genAI to generate code for plotting the curve and it actually pointed me to the Gartner's Hype Cycle concept. 
+
+I have collected some tips and experiences and continue to explore its capabilities. My next exploration will be vibe coding, as Ismael has introduced it to me yesterday.
+
+
+
+
+
+
+
 
 
 ```{python}
