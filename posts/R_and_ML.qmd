@@ -1,14 +1,17 @@
 ---
-title: "R Pipeline operators"
-description: "magrittr and own definitions"
+title: "R and ML"
+description: "Common ML in R"
 author: "Zhenglei Gao"
-date: "12/06/2025"
+date: "06/06/2025"
 categories:
   - R
 editor_options: 
   chunk_output_type: console
 ---
 
+::: callout-warning
+To be written.
+:::
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,eval = FALSE)

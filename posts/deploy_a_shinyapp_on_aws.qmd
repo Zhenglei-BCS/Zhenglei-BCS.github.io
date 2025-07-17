@@ -5,11 +5,186 @@ author: "Zhenglei Gao"
 date: "12/03/2024"
 categories:
   - code
-  - Stats
   - R
 editor_options: 
   chunk_output_type: console
 ---
+## Update on 17-07-2025
+
+*Modified based on answers from MGA.*
+
+Setting up a Shiny app on an AWS EC2 instance using an AWS account is a great way to deploy a scalable and accessible R-based web application. Below, I’ll outline a step-by-step approach to achieve this, considering best practices for security, scalability, and cost-efficiency.
+
+### Troubleshooting
+
+In the begining, I got timeout error from SSH, this is because my AWS account miss the transit gateway to connect to company intranet. I do have private subnet and public subnet, in principle, it is possible to exposure my app to general public from the internet.
+
+### Approach 1: Simple Setup (Single EC2 Instance with Shiny Server)
+This approach is ideal for small to medium-sized apps or for testing purposes. It involves setting up a single EC2 instance with Shiny Server to host your app.
+
+#### Steps:
+1. **Launch an EC2 Instance**
+   - Log in to the AWS Management Console.
+   - Navigate to the EC2 Dashboard and click "Launch Instance."
+   - Choose an Amazon Machine Image (AMI): Select a Linux-based AMI like "Ubuntu Server 20.04 LTS" (free tier eligible if available).
+   - Instance Type: Start with a `t2.micro` (free tier) or `t3.small` for better performance, depending on your app's requirements.
+   - Configure Security Group: Allow inbound traffic on ports 22 (SSH), 80 (HTTP), and 3838 (default Shiny Server port). Restrict access to specific IP ranges if needed for security.
+   - Storage: Default storage (8-30 GB) is usually sufficient for a basic setup.
+   - Key Pair: Create or use an existing key pair to SSH into the instance.
+   - Launch the instance and note its public IP or DNS.
+
+2. **Connect to the EC2 Instance**
+   - Use SSH to connect to your instance using the key pair and public IP:
+     ```bash
+     ssh -i your-key-pair.pem ubuntu@<public-ip-address>
+     ```
+
+3. **Install R and Shiny Server**
+   - Update the package list:
+     ```bash
+     sudo apt update
+     ```
+   - Install R:
+     ```bash
+     sudo apt install r-base
+     ```
+   - Install necessary R packages for Shiny:
+     ```bash
+     sudo su - -c "R -e \"install.packages('shiny', repos='https://cran.rstudio.com/')\""
+     ```
+   - Install Shiny Server (open-source version):
+     ```bash
+     sudo apt install gdebi-core
+     wget https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.21.1012-amd64.deb
+     sudo gdebi shiny-server-1.5.21.1012-amd64.deb
+     ```
+   - Verify Shiny Server is running:
+     ```bash
+     sudo systemctl status shiny-server
+     ```
+
+4. **Deploy Your Shiny App**
+   - Copy your Shiny app files to the instance using `scp` or a tool like FileZilla:
+     ```bash
+     scp -i your-key-pair.pem app.R ubuntu@<public-ip-address>:/srv/shiny-server/
+     ```
+   - Ensure the app directory or file has the correct permissions:
+     ```bash
+     sudo chown -R shiny:shiny /srv/shiny-server/
+     ```
+   - Access your app via a browser at `http://<public-ip-address>:3838/` or the specific app path if customized.
+
+5. **Optional: Set Up a Custom Domain (Route 53)**
+   - If your company uses AWS Route 53 for DNS management, map a domain or subdomain to the EC2 instance’s public IP or Elastic IP.
+   - Request an Elastic IP from AWS and associate it with your instance to avoid IP changes on reboot.
+
+6. **Security Considerations**
+   - Restrict SSH access to specific IPs in the security group.
+   - Use HTTPS by setting up a reverse proxy with Nginx or Apache and obtaining an SSL certificate via AWS Certificate Manager or Let’s Encrypt.
+   - Regularly update the OS and software:
+     ```bash
+     sudo apt upgrade
+     ```
+
+---
+
+### Approach 2: Scalable Setup (EC2 with Auto Scaling and Load Balancer)
+This approach is suitable for production environments or apps with high traffic. It uses an Application Load Balancer (ALB) and Auto Scaling to manage multiple EC2 instances running Shiny Server.
+
+#### Steps:
+1. **Create an AMI for Shiny Server**
+   - Follow the steps in Approach 1 to set up a single EC2 instance with Shiny Server and your app.
+   - Once configured, create a custom AMI from this instance:
+     - In the EC2 Dashboard, select the instance, click "Actions" > "Image and Templates" > "Create Image."
+     - Use this AMI for launching additional instances.
+
+2. **Set Up an Auto Scaling Group**
+   - Navigate to the EC2 Dashboard > "Auto Scaling Groups."
+   - Create a new Auto Scaling Group using the custom AMI.
+   - Define launch templates with the desired instance type and configuration.
+   - Set scaling policies based on CPU usage or request count to automatically add/remove instances.
+
+3. **Configure an Application Load Balancer (ALB)**
+   - In the EC2 Dashboard, go to "Load Balancers" and create an ALB.
+   - Configure the ALB to listen on port 80 (HTTP) or 443 (HTTPS) and forward traffic to port 3838 on the target instances.
+   - Register the Auto Scaling Group as a target group for the ALB.
+   - Optionally, enable sticky sessions if your Shiny app requires session persistence.
+
+4. **Route Traffic via Route 53**
+   - Create an Alias record in Route 53 pointing to the ALB’s DNS name.
+   - Use HTTPS by integrating an SSL certificate from AWS Certificate Manager with the ALB.
+
+5. **Monitoring and Logging**
+   - Enable CloudWatch monitoring for the EC2 instances and ALB to track performance metrics.
+   - Set up CloudWatch Alarms to notify you of high CPU usage or other anomalies.
+
+6. **Security Considerations**
+   - Use IAM roles for EC2 instances instead of storing credentials manually.
+   - Place instances in a private subnet within a VPC, allowing only the ALB to access them from the public internet.
+   - Regularly patch instances using AWS Systems Manager Patch Manager.
+
+---
+
+### Approach 3: Containerized Setup (EC2 with Docker)
+If your company encourages containerization or you prefer a more portable setup, use Docker to run Shiny apps on EC2.
+
+#### Steps:
+1. **Launch an EC2 Instance**
+   - Follow the same steps as in Approach 1 to launch an Ubuntu-based EC2 instance.
+
+2. **Install Docker**
+   - Update the instance and install Docker:
+     ```bash
+     sudo apt update
+     sudo apt install docker.io
+     sudo systemctl start docker
+     sudo systemctl enable docker
+     sudo usermod -aG docker ubuntu
+     ```
+
+3. **Pull or Build a Shiny Docker Image**
+   - Use an existing Shiny Docker image from Docker Hub:
+     ```bash
+     docker pull rocker/shiny
+     ```
+   - Alternatively, create a custom `Dockerfile` for your app:
+     ```dockerfile
+     FROM rocker/shiny:latest
+     COPY . /srv/shiny-server/
+     EXPOSE 3838
+     CMD ["/usr/bin/shiny-server"]
+     ```
+   - Build and run the container:
+     ```bash
+     docker build -t my-shiny-app .
+     docker run -p 3838:3838 my-shiny-app
+     ```
+
+4. **Access the App**
+   - Access the app via `http://<public-ip-address>:3838/`.
+
+5. **Scaling and Management**
+   - Use Docker Compose or AWS ECS (Elastic Container Service) for managing multiple containers or scaling.
+   - If using ECS, deploy your Docker image to an ECS cluster with an ALB for load balancing.
+
+6. **Security Considerations**
+   - Secure Docker by restricting access to the Docker daemon.
+   - Use AWS ECR (Elastic Container Registry) to store and manage your Docker images securely.
+
+---
+
+### Additional Notes and Best Practices
+- **Cost Management**: Monitor costs using AWS Cost Explorer. Use Reserved Instances or Savings Plans for long-term deployments. Shut down unused instances during off-hours if possible.
+- **Backup and Recovery**: Regularly snapshot your EC2 instance or use AWS Backup for data protection.
+- **Company Policies**: Adhere to your company’s AWS usage policies, such as tagging resources (e.g., project name, owner) for tracking.
+- **Alternative Services**: If managing EC2 instances seems complex, consider AWS services like Elastic Beanstalk for simplified deployment or AWS Fargate with ECS for serverless container management. Additionally, RStudio’s hosted solutions like ShinyApps.io might be an option if approved by your company, though they are not on AWS directly.
+- **Networking**: If your app needs to connect to internal company resources (e.g., databases), set up the EC2 instance in a VPC with appropriate subnets and route tables.
+
+### Which Approach to Choose?
+- **Approach 1 (Simple Setup)**: Best for quick deployment, testing, or low-traffic apps. Minimal setup time but limited scalability.
+- **Approach 2 (Scalable Setup)**: Best for production apps with variable traffic. Higher setup complexity but offers reliability and scalability.
+- **Approach 3 (Containerized Setup)**: Best if your team uses Docker or plans to adopt container orchestration. Offers portability and consistency across environments.
+
 
 
 ## References

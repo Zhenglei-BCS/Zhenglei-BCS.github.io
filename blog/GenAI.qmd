@@ -5,6 +5,7 @@ author: "Zhenglei Gao"
 date: "05/24/2025"
 categories:
   - journal
+  - AI
 ---
 
 The development of generative AI is significantly impacting both my professional and personal life. Just last Saturday, my son was upstairs running on the treadmill in the evening. With summer approaching, he suddenly noticed a lot of bugs and moths accumulating on the walls and under the lights. He panicked because we had just told him the day before that he needed to keep the window closed when the light is on.

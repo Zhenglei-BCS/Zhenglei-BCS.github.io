@@ -1,27 +1,16 @@
 [
   {
-    "listing": "/blog.html",
-    "items": [
-      "/blog/Presentation_Evaluation_Criteria.html",
-      "/blog/GenAI.html",
-      "/blog/LLM_and_random_thoughts.html",
-      "/blog/genAI_alphafold2.html",
-      "/blog/SAS.html",
-      "/blog/why_I_dont_like_ipynb.html"
-    ]
-  },
-  {
     "listing": "/CCC.html",
     "items": [
-      "/posts/cluster.html",
-      "/posts/Assumptions_in_Nonparametric_Tests.html",
-      "/posts/Mistakes_in_plain_sight.html",
-      "/posts/R_and_ML.html",
       "/posts/R_pipeline_operator.html",
       "/posts/Finding_a_string_in_PowerShell.html",
       "/posts/Drift_Modeling.html",
+      "/posts/R_and_ML.html",
       "/posts/VCA.html",
+      "/posts/Assumptions_in_Nonparametric_Tests.html",
+      "/posts/Mistakes_in_plain_sight.html",
       "/posts/Wan_paper_reading.html",
+      "/posts/cluster.html",
       "/posts/simstudy.html",
       "/posts/Plant_Traits.html",
       "/posts/EFSA_Bayesian_BMD.html",
@@ -50,6 +39,18 @@
       "/posts/Quantal_CA.html",
       "/posts/Some thoughts on my work.html",
       "/posts/OECD TG and Stats.html"
+    ]
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/blog/Presentation_Evaluation_Criteria.html",
+      "/blog/GenAI.html",
+      "/blog/AI_Prompts.html",
+      "/blog/LLM_and_random_thoughts.html",
+      "/blog/genAI_alphafold2.html",
+      "/blog/SAS.html",
+      "/blog/why_I_dont_like_ipynb.html"
     ]
   }
 ]

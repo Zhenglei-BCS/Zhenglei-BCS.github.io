@@ -5,6 +5,7 @@ author: "Zhenglei Gao"
 date: "03/06/2025"
 categories:
   - journal
+  - AI
 ---
 
 I started watching the youtube video by Andrej Karpathy on how he uses LLMs. It is long but very informative and fun to watch. I haven't finished it yet as I don't have a 2 hours window completely belonging to me in family life after work.  

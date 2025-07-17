@@ -2,7 +2,7 @@
 title: "Assumptions in Nonparametric Tests"
 description: "A Cautionary Note"
 author: "Zhenglei Gao"
-date: "29/04/2025"
+date: "04/30/2025"
 categories:
   - stats
   - python
