@@ -8,9 +8,9 @@
 
 <meta name="author" content="Zhenglei Gao">
 <meta name="dcterms.date" content="2025-05-24">
-<meta name="description" content="AI advances science">
+<meta name="description" content="VCA for fixed and mixed models">
 
-<title>Zhenglei Gao - Generative AI</title>
+<title>Zhenglei Gao - Variance Component Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -156,22 +156,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-variance-components-can-sum-to-more-than-1" id="toc-why-variance-components-can-sum-to-more-than-1" class="nav-link active" data-scroll-target="#why-variance-components-can-sum-to-more-than-1">Why Variance Components Can Sum to More Than 1</a>
+  <ul class="collapse">
+  <li><a href="#mathematical-explanation" id="toc-mathematical-explanation" class="nav-link" data-scroll-target="#mathematical-explanation">1. Mathematical Explanation</a></li>
+  <li><a href="#code-example-to-demonstrate" id="toc-code-example-to-demonstrate" class="nav-link" data-scroll-target="#code-example-to-demonstrate">2. Code Example to Demonstrate</a>
+  <ul class="collapse">
+  <li><a href="#my-old-wy-of-using-vca" id="toc-my-old-wy-of-using-vca" class="nav-link" data-scroll-target="#my-old-wy-of-using-vca">My old wy of using VCA</a></li>
+  </ul></li>
+  <li><a href="#why-this-happens-in-practice" id="toc-why-this-happens-in-practice" class="nav-link" data-scroll-target="#why-this-happens-in-practice">3. Why This Happens in Practice</a></li>
+  <li><a href="#visualization-of-overlapping-variance" id="toc-visualization-of-overlapping-variance" class="nav-link" data-scroll-target="#visualization-of-overlapping-variance">4. Visualization of Overlapping Variance</a></li>
+  <li><a href="#handling-non-additivity" id="toc-handling-non-additivity" class="nav-link" data-scroll-target="#handling-non-additivity">5. Handling Non-Additivity</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Generative AI</h1>
+<h1 class="title">Variance Component Analysis</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">journal</div>
+    <div class="quarto-category">R</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    AI advances science
+    VCA for fixed and mixed models
   </div>
 </div>
 
@@ -200,68 +216,215 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>The development of generative AI is significantly impacting both my professional and personal life. Just last Saturday, my son was upstairs running on the treadmill in the evening. With summer approaching, he suddenly noticed a lot of bugs and moths accumulating on the walls and under the lights. He panicked because we had just told him the day before that he needed to keep the window closed when the light is on.</p>
-<p>In a clever move unexpected from me, he turned to ChatGPT, described the situation, and asked for advice on how to handle both the moths and our reaction as parents. He received a helpful response and decided to wait until Papa was in the shower and approached me, apologized for the situation, and asked for my help in using the vacuum cleaner to clean up all the insects.</p>
-<p>This experience made me realize that generative AI is not only transforming my work life but also having a profound influence on our personal lives. I would have googled first.</p>
-<p>I participated this microsoft AI day and a microsoft colleague also shared his experience with AI and AI agents. He described a curve that starts with high expectations, dips into disappointment, and then slowly regains hope, ultimately leading to productive use. I had almost exactly the same experience. In preparation of the slide deck, I asked our internal genAI to generate code for plotting the curve and it actually pointed me to the Gartner’s Hype Cycle concept.</p>
-<p>I have collected some tips and experiences and continue to explore its capabilities. My next exploration will be vibe coding, as Ismael has introduced it to me yesterday.</p>
-<div id="13146a8a" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create figure and axis</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the points for the hype cycle curve</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>])</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.array([<span class="fl">0.1</span>, <span class="dv">3</span>, <span class="fl">4.5</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="fl">3.5</span>, <span class="fl">3.5</span>])</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create smooth curve through points</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>x_smooth <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">100</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>y_smooth <span class="op">=</span> np.interp(x_smooth, x, y)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the curve</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>plt.plot(x_smooth, y_smooth, linewidth<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Add labels for each phase</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span>, <span class="fl">2.5</span>, <span class="st">"Technology</span><span class="ch">\n</span><span class="st">Trigger"</span>),</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">2</span>, <span class="fl">4.8</span>, <span class="st">"Peak of Inflated</span><span class="ch">\n</span><span class="st">Expectations"</span>),</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">4</span>, <span class="fl">0.5</span>, <span class="st">"Trough of</span><span class="ch">\n</span><span class="st">Disillusionment"</span>),</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">6</span>, <span class="fl">2.5</span>, <span class="st">"Slope of</span><span class="ch">\n</span><span class="st">Enlightenment"</span>),</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">9</span>, <span class="fl">3.8</span>, <span class="st">"Plateau of</span><span class="ch">\n</span><span class="st">Productivity"</span>)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x, y, label <span class="kw">in</span> labels:</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    plt.annotate(label, (x, y), fontsize<span class="op">=</span><span class="dv">12</span>, ha<span class="op">=</span><span class="st">'center'</span>)</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Add title and labels</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"The Gartner Hype Cycle for MGA Adoption"</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Time →"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Expectations / Visibility"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove ticks for cleaner look</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>plt.xticks([])</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>plt.yticks([])</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Add grid</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the figure</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">## plt.savefig('mga_hype_cycle.png', dpi=300, bbox_inches='tight')</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
+<p>I realized during the analysis that variance components of mixed models can sum to more than 1. The issue is that in mixed models, fixed effects and random effects can be correlated, which creates non-additivity in variance decomposition. So I turned to MGA and try to understand.</p>
+<section id="why-variance-components-can-sum-to-more-than-1" class="level1">
+<h1>Why Variance Components Can Sum to More Than 1</h1>
+<p>The non-additivity of variance components (why they can sum to more than 1) occurs due to several important statistical reasons:</p>
+<section id="mathematical-explanation" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-explanation">1. Mathematical Explanation</h2>
+<p>When we decompose the total variance into components, we’re essentially trying to partition:</p>
+<pre><code>Var(Y) = Var(Xβ + Zu + ε)</code></pre>
+<p>Where: - Xβ represents fixed effects - Zu represents random effects - ε represents residuals</p>
+<p>If the components were independent, we would have:</p>
+<pre><code>Var(Y) = Var(Xβ) + Var(Zu) + Var(ε)</code></pre>
+<p>However, in most real-world scenarios, <strong>fixed effects (Xβ) and random effects (Zu) are not independent</strong>. This leads to:</p>
+<pre><code>Var(Y) = Var(Xβ) + Var(Zu) + Var(ε) + 2*Cov(Xβ, Zu)</code></pre>
+<p>The covariance term is what creates the non-additivity.</p>
+</section>
+<section id="code-example-to-demonstrate" class="level2">
+<h2 class="anchored" data-anchor-id="code-example-to-demonstrate">2. Code Example to Demonstrate</h2>
+<p>Let’s create a simple example to show this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Matrix</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a demonstration</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>groups <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>group_id <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>groups, <span class="at">each =</span> n<span class="sc">/</span>groups)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create predictor with between-group differences</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">+</span> <span class="fu">rep</span>(<span class="fu">rnorm</span>(groups), <span class="at">each =</span> n<span class="sc">/</span>groups)  <span class="co"># Predictor correlated with group</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>random_effect <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(groups)[group_id]  <span class="co"># Random group effect</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x <span class="sc">+</span> random_effect <span class="sc">+</span> <span class="fu">rnorm</span>(n)  <span class="co"># Response with fixed and random effects</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>demo_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x =</span> x, <span class="at">group =</span> <span class="fu">factor</span>(group_id))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>demo_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(y <span class="sc">~</span> x <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>group), <span class="at">data =</span> demo_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="my-old-wy-of-using-vca" class="level3">
+<h3 class="anchored" data-anchor-id="my-old-wy-of-using-vca">My old wy of using VCA</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(VCA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'VCA'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:lme4':
+
+    fixef, getL, ranef</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">anovaMM</span>(y <span class="sc">~</span> x <span class="sc">*</span>(group), demo_data)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>inf <span class="ot">&lt;-</span> <span class="fu">VCAinference</span>(fit, <span class="at">VarVC=</span><span class="cn">TRUE</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(inf, <span class="at">what=</span><span class="st">"VCA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+
+Inference from Mixed Model Fit
+------------------------------
+
+&gt; VCA Result:
+-------------
+
+    [Fixed Effects]
+
+   int      x 
+1.9932 2.9997 
+
+
+    [Variance Components]
+
+  Name    DF      SS       MS     VC     %Total  SD     CV[%]   Var(VC)
+1 total   64.0299                 1.8489 100     1.3598 63.1311 0.1089 
+2 group   19      175.1819 9.2201 0.7608 41.1452 0.8722 40.4952 0.1028 
+3 x:group 19      30.1765  1.5882 0.0713 3.8566  0.267  12.3978 0.0044 
+4 error   160     162.7022 1.0169 1.0169 54.9982 1.0084 46.8186 0.0129 
+
+Mean: 2.1539 (N = 200) 
+
+Experimental Design: unbalanced  |  Method: ANOVA</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate variance components</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Total variance</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>total_var <span class="ot">&lt;-</span> <span class="fu">var</span>(demo_data<span class="sc">$</span>y)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Fixed effects variance</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>fixed_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(demo_model, <span class="at">re.form =</span> <span class="cn">NA</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>fixed_var <span class="ot">&lt;-</span> <span class="fu">var</span>(fixed_pred)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Random effects variance</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>vc <span class="ot">&lt;-</span> <span class="fu">VarCorr</span>(demo_model)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>random_var <span class="ot">&lt;-</span> <span class="fu">attr</span>(vc<span class="sc">$</span>group, <span class="st">"stddev"</span>)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Residual variance</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>residual_var <span class="ot">&lt;-</span> <span class="fu">attr</span>(vc, <span class="st">"sc"</span>)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Calculate correlation between fixed and random effects</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>random_effects <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">ranef</span>(demo_model)<span class="sc">$</span>group[,<span class="dv">1</span>][demo_data<span class="sc">$</span>group]</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>correlation <span class="ot">&lt;-</span> <span class="fu">cor</span>(fixed_pred, random_effects)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Results</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>components <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">fixed =</span> fixed_var <span class="sc">/</span> total_var,</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">random =</span> random_var <span class="sc">/</span> total_var,</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">residual =</span> residual_var <span class="sc">/</span> total_var,</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">sum =</span> (fixed_var <span class="sc">+</span> random_var <span class="sc">+</span> residual_var) <span class="sc">/</span> total_var</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Variance components as proportion of total variance:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Variance components as proportion of total variance:"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(components)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             fixed random.(Intercept)           residual    sum.(Intercept) 
+        0.90729780         0.03903374         0.05112009         0.99745163 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Correlation between fixed and random effects:"</span>, <span class="fu">round</span>(correlation, <span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Correlation between fixed and random effects: 0.014"</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="why-this-happens-in-practice" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-happens-in-practice">3. Why This Happens in Practice</h2>
+<p>Several practical reasons contribute to this phenomenon:</p>
+<ol type="1">
+<li><strong>Confounding between predictors and groups</strong>:
+<ul>
+<li>When predictors (fixed effects) are correlated with grouping variables</li>
+<li>Example: If certain active substances are used more in certain crops</li>
+</ul></li>
+<li><strong>Shared information</strong>:
+<ul>
+<li>Fixed and random effects can explain some of the same variation</li>
+<li>This creates “double-counting” in variance decomposition</li>
+</ul></li>
+<li><strong>Model specification</strong>:
+<ul>
+<li>The way we specify fixed vs.&nbsp;random effects affects their correlation</li>
+<li>Including group-level predictors can reduce this correlation</li>
+</ul></li>
+<li><strong>Estimation method</strong>:
+<ul>
+<li>REML vs ML estimation can affect variance partitioning</li>
+<li>Shrinkage in random effects estimation</li>
+</ul></li>
+</ol>
+</section>
+<section id="visualization-of-overlapping-variance" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-of-overlapping-variance">4. Visualization of Overlapping Variance</h2>
+<p>Here’s a visual representation:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a visual representation of overlapping variance</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data for Venn diagram-like visualization</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>circle_data <span class="ot">&lt;-</span> <span class="cf">function</span>(x0, y0, r, <span class="at">n =</span> <span class="dv">100</span>) {</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2</span><span class="sc">*</span>pi, <span class="at">length.out =</span> n)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">x =</span> x0 <span class="sc">+</span> r<span class="sc">*</span><span class="fu">cos</span>(theta), <span class="at">y =</span> y0 <span class="sc">+</span> r<span class="sc">*</span><span class="fu">sin</span>(theta))</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create circles</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>fixed_circle <span class="ot">&lt;-</span> <span class="fu">circle_data</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>random_circle <span class="ot">&lt;-</span> <span class="fu">circle_data</span>(<span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">2.5</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>residual_circle <span class="ot">&lt;-</span> <span class="fu">circle_data</span>(<span class="fl">0.5</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> fixed_circle, <span class="fu">aes</span>(x, y), <span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> random_circle, <span class="fu">aes</span>(x, y), <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> residual_circle, <span class="fu">aes</span>(x, y), <span class="at">fill =</span> <span class="st">"green"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">"Fixed</span><span class="sc">\n</span><span class="st">Effects"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">2.5</span>, <span class="at">y =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">label =</span> <span class="st">"Random</span><span class="sc">\n</span><span class="st">Effects"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="dv">3</span>, <span class="at">label =</span> <span class="st">"Residual</span><span class="sc">\n</span><span class="st">Variance"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">0.8</span>, <span class="at">y =</span> <span class="fl">0.3</span>, <span class="at">label =</span> <span class="st">"Overlap"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Overlapping Variance Components"</span>)</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="GenAI_files/figure-html/cell-2-output-1.png" width="784" height="508" class="figure-img"></p>
+<p><img src="VCA_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
+<section id="handling-non-additivity" class="level2">
+<h2 class="anchored" data-anchor-id="handling-non-additivity">5. Handling Non-Additivity</h2>
+<p>To handle this non-additivity, you can:</p>
+<ol type="1">
+<li><strong>Report unadjusted components</strong> with acknowledgment of overlap</li>
+<li><strong>Adjust components</strong> to sum to 100% (as in the previous code)</li>
+<li><strong>Use alternative metrics</strong> like R² marginal and conditional</li>
+<li><strong>Orthogonalize predictors</strong> to reduce correlation with grouping variables</li>
+</ol>
+<p>Would you like me to: 1. Add more detailed mathematical explanations? 2. Create a more specific example with your data? 3. Show alternative variance decomposition approaches? 4. Add code for reducing the correlation between fixed and random effects? 5. Provide guidance on interpreting overlapping variance components?</p>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
