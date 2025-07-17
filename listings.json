@@ -2,14 +2,14 @@
   {
     "listing": "/CCC.html",
     "items": [
-      "/posts/cluster.html",
-      "/posts/Assumptions_in_Nonparametric_Tests.html",
-      "/posts/Mistakes_in_plain_sight.html",
-      "/posts/R_and_ML.html",
       "/posts/R_pipeline_operator.html",
+      "/posts/cluster.html",
       "/posts/Finding_a_string_in_PowerShell.html",
       "/posts/Drift_Modeling.html",
+      "/posts/R_and_ML.html",
       "/posts/VCA.html",
+      "/posts/Assumptions_in_Nonparametric_Tests.html",
+      "/posts/Mistakes_in_plain_sight.html",
       "/posts/Wan_paper_reading.html",
       "/posts/simstudy.html",
       "/posts/Plant_Traits.html",
