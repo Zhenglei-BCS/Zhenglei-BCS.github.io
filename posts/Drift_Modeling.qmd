@@ -1,0 +1,57 @@
+---
+title: "Spray Drift Modelling"
+description: "Key Parameters"
+author: "Zhenglei Gao"
+date: "06/24/2025"
+categories:
+  - Modelling
+---
+
+*To Be Written*
+
+
+In the context of Computational Fluid Dynamics (CFD) modeling of spray drift within a canopy (such as in agricultural or forestry settings), permeability and Darcy permeability play crucial roles in representing the interaction between the airflow and the porous structure of the canopy. 
+
+### 1. **Permeability in CFD Modeling of Canopies**
+Permeability refers to the ability of a porous medium, such as a plant canopy, to allow fluids (like air) to pass through it. In CFD modeling, the canopy is often treated as a porous medium rather than explicitly modeling every leaf, branch, or stem due to computational constraints. Permeability is a key parameter in this approach as it quantifies how easily air can flow through the canopy.
+
+- **Role in Spray Drift Modeling**: 
+  - Permeability affects the resistance to airflow within the canopy. A denser canopy (lower permeability) will resist airflow more, leading to reduced wind speeds inside the canopy and altering the transport of spray droplets.
+  - It influences the deposition of spray droplets. Lower permeability may cause more droplets to be trapped or deposited on the canopy elements, reducing drift beyond the canopy.
+  - It helps simulate the filtering effect of the canopy, where smaller droplets may penetrate deeper while larger ones are intercepted.
+
+In CFD, permeability is often used as part of a porous media model to represent the canopy's resistance to flow without resolving the detailed geometry of individual plants.
+
+### 2. **Darcy Permeability**
+Darcy permeability (often denoted as $ k $ ) is a specific measure of permeability derived from Darcy's Law, which describes the flow of a fluid through a porous medium. It relates the flow rate to the pressure gradient across the medium and is a fundamental parameter in porous media flow modeling.
+
+- **Mathematical Representation**:
+  Darcy's Law can be expressed as:
+  $$ \vec{v} = -\frac{k}{\mu} \nabla P $$
+  where:
+  - $\vec{v}$  is the superficial velocity of the fluid (air in this case),
+  - $k$  is the Darcy permeability (a property of the medium, with units of length squared, e.g., m²),
+  - $\mu$  is the dynamic viscosity of the fluid,
+  - $\nabla P$  is the pressure gradient across the medium.
+
+- **Role in CFD Modeling of Spray Drift**:
+  - Darcy permeability is used to model the canopy as a porous zone in CFD simulations. It quantifies the resistance to airflow caused by the canopy structure.
+  - In spray drift modeling, it helps predict how the airflow slows down or changes direction within the canopy, which directly affects the trajectory and deposition of spray droplets.
+  - It is often incorporated into the momentum equations in CFD solvers (e.g., as a source term) to account for the drag or pressure loss due to the canopy. For instance, the drag force can be modeled using a term proportional to $1/k$ .
+
+- **Practical Implementation**:
+  - In CFD software like ANSYS Fluent or OpenFOAM, the canopy is defined as a porous zone with a specified Darcy permeability value. This value can be determined experimentally or estimated based on canopy characteristics such as leaf area density (LAD) or vegetation type.
+  - The Darcy permeability may vary spatially within the canopy to account for non-uniform density (e.g., higher near the ground and lower at the top).
+
+### 3. **Connection Between Permeability and Spray Drift**
+- **Airflow Modification**: The permeability (via Darcy permeability) determines how much the canopy slows down the incoming wind. This altered airflow field influences the transport of spray droplets, potentially reducing off-target drift by trapping droplets within the canopy.
+- **Turbulence Effects**: Permeability also affects turbulence generation and dissipation within the canopy. Turbulent eddies can enhance droplet dispersion or deposition, and Darcy permeability helps model these effects indirectly through drag and energy dissipation terms.
+- **Deposition and Penetration**: A canopy with low permeability (dense vegetation) will have a higher likelihood of droplet deposition near the canopy edge, while higher permeability allows deeper penetration of both air and droplets.
+
+### 4. **Challenges and Considerations**
+- **Determining Permeability Values**: Accurate estimation of Darcy permeability for a specific canopy is challenging and often requires field measurements or empirical correlations based on canopy structure (e.g., leaf area index, LAI).
+- **Non-Isotropic Behavior**: Canopies are often anisotropic (permeability varies with direction), which may require more complex models beyond simple Darcy permeability, such as tensor-based permeability.
+- **Coupling with Droplet Models**: In spray drift simulations, the airflow (governed by permeability) must be coupled with Lagrangian or Eulerian droplet tracking models to predict droplet trajectories and deposition accurately.
+
+### Summary
+In CFD modeling of spray drift within a canopy, permeability (specifically Darcy permeability) is a critical parameter for representing the canopy as a porous medium. It governs the resistance to airflow, influences the wind field within and around the canopy, and ultimately affects the transport, deposition, and drift of spray droplets. By incorporating Darcy permeability into the momentum equations, CFD simulations can realistically capture the interaction between air, droplets, and the canopy structure without the need to model every individual element of the vegetation.

@@ -1,0 +1,38 @@
+---
+title: "R Pipeline operators"
+description: "magrittr and own definitions"
+author: "Zhenglei Gao"
+date: "12/06/2025"
+categories:
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,eval = FALSE)
+```
+
+Examples of R ML coding
+
+## caret
+
+```{r}
+
+```
+
+## mlr3
+```{r}
+library(mlr3)
+```
+
+
+## H2O
+
+```{r}
+library(h2o)
+```
+
+
+There are other packages often recommended, such as keras, xgboost, randomForest and e1071. 

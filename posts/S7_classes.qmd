@@ -1,0 +1,15 @@
+---
+title: "S7 Classes"
+description: "Notes and Issues on EFSA Bayesian BMD"
+author: "Zhenglei Gao"
+date: "2/04/2025"
+categories:
+  - code
+  - analysis
+---
+
+During today's R Validation Hub working group meeting.
+
+-
+-
+-

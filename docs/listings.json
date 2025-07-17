@@ -13,12 +13,19 @@
   {
     "listing": "/CCC.html",
     "items": [
+      "/posts/cluster.html",
       "/posts/Assumptions_in_Nonparametric_Tests.html",
       "/posts/Mistakes_in_plain_sight.html",
+      "/posts/R_and_ML.html",
+      "/posts/R_pipeline_operator.html",
+      "/posts/Finding_a_string_in_PowerShell.html",
+      "/posts/Drift_Modeling.html",
+      "/posts/VCA.html",
       "/posts/Wan_paper_reading.html",
       "/posts/simstudy.html",
       "/posts/Plant_Traits.html",
       "/posts/EFSA_Bayesian_BMD.html",
+      "/posts/S7_classes.html",
       "/posts/Trend_tests.html",
       "/posts/PBK Modelling.html",
       "/posts/Interesting talk.html",
@@ -40,6 +47,7 @@
       "/posts/links.html",
       "/posts/wacom_tablet.html",
       "/posts/simpower.html",
+      "/posts/Quantal_CA.html",
       "/posts/Some thoughts on my work.html",
       "/posts/OECD TG and Stats.html"
     ]

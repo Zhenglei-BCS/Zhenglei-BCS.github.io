@@ -1,0 +1,196 @@
+---
+title: "Test of Independence"
+description: "Quantal data and trend tests"
+author: "Zhenglei Gao"
+date: "05/24/2024"
+categories:
+  - R
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,eval = FALSE)
+```
+## General test of independence
+
+
+```{r}
+library(coin)
+## Relationship between job satisfaction and income stratified by gender
+## Agresti (2002, p. 288, Tab. 7.8)
+jobsatisfaction
+
+## Asymptotic generalized Cochran-Mantel-Haenszel test (Agresti, p. 297)
+(ct <- cmh_test(jobsatisfaction)) # CMH = 10.2001
+
+## The standardized linear statistic
+statistic(ct, type = "standardized")
+
+## The standardized linear statistic for each block
+statistic(ct, type = "standardized", partial = TRUE)
+
+## Asymptotic generalized Cochran-Mantel-Haenszel test (Agresti, p. 297)
+## Note: 'Job.Satisfaction' as ordinal
+cmh_test(jobsatisfaction,
+         scores = list("Job.Satisfaction" = c(1, 3, 4, 5))) # L^2 = 9.0342
+
+## Asymptotic linear-by-linear association test (Agresti, p. 297)
+## Note: 'Job.Satisfaction' and 'Income' as ordinal
+(lt <- lbl_test(jobsatisfaction,
+                scores = list("Job.Satisfaction" = c(1, 3, 4, 5),
+                              "Income" = c(3, 10, 20, 35))))
+statistic(lt)^2 # M^2 = 6.1563
+
+## The standardized linear statistic
+statistic(lt, type = "standardized")
+
+## The standardized linear statistic for each block
+statistic(lt, type = "standardized", partial = TRUE)
+```
+
+
+## Revisiting Cochran-Armitage Test for Trend in Proportions
+
+```{r}
+## Change in clinical condition and degree of infiltration
+## Cochran (1954, Tab. 6)
+cochran <- matrix(
+    c(11,  7,
+      27, 15,
+      42, 16,
+      53, 13,
+      11,  1),
+    byrow = TRUE, ncol = 2,
+    dimnames = list(
+              "Change" = c("Marked", "Moderate", "Slight",
+                           "Stationary", "Worse"),
+        "Infiltration" = c("0-7", "8-15")
+    )
+)
+cochran <- as.table(cochran)
+
+## Asymptotic Pearson chi-squared test (Cochran, 1954, p. 435)
+chisq_test(cochran) # X^2 = 6.88
+
+## Asymptotic Cochran-Armitage test (Cochran, 1954, p. 436)
+## Asymptotic Linear-by-Linear Association Test
+## Note: 'Change' as ordinal
+(ct <- chisq_test(cochran,
+                  scores = list("Change" = c(3, 2, 1, 0, -1))))
+statistic(ct)^2 # X^2 = 6.66
+
+
+## Change in size of ulcer crater for two treatment groups
+## Armitage (1955, Tab. 2)
+armitage <- matrix(
+    c( 6, 4, 10, 12,
+      11, 8,  8,  5),
+    byrow = TRUE, ncol = 4,
+    dimnames = list(
+        "Treatment" = c("A", "B"),
+           "Crater" = c("Larger", "< 2/3 healed",
+                        ">= 2/3 healed", "Healed")
+    )
+)
+armitage <- as.table(armitage)
+
+## Approximative (Monte Carlo) Pearson chi-squared test (Armitage, 1955, p. 379)
+chisq_test(armitage,
+           distribution = approximate(nresample = 10000)) # chi^2 = 5.91
+
+## Approximative (Monte Carlo) Cochran-Armitage test (Armitage, 1955, p. 379)
+(ct <- chisq_test(armitage,
+                  distribution = approximate(nresample = 10000),
+                  scores = list("Crater" = c(-1.5, -0.5, 0.5, 1.5))))
+statistic(ct)^2 # chi_0^2 = 5.26
+
+
+```
+
+
+```{r}
+library(exact2x2)
+library(coin)
+
+# Example data structure
+# Group 1: Control, Group 2: Low dose, Group 3: High dose
+responses <- c(2, 5, 8)    # Number with response
+totals <- c(10, 12, 15)    # Total in each group
+scores <- c(0, 1, 2)       # Dose scores
+
+# Method 1: Using exact2x2 package
+exact_ca_test <- function(responses, totals, scores) {
+  # Create data matrix
+  successes <- responses
+  failures <- totals - responses
+  
+  # Exact Cochran-Armitage test
+  result <- cochran.armitage.test(
+    x = cbind(successes, failures),
+    scores = scores,
+    alternative = "two.sided"
+  )
+  
+  return(result)
+}
+
+result <- exact_ca_test(responses, totals, scores)
+print(result)
+```
+
+
+
+
+```{r}
+library(coin)
+
+# Create data frame
+data <- data.frame(
+  dose = rep(c(0, 1, 2), times = c(10, 12, 15)),
+  response = c(rep(c(0,1), c(8,2)), 
+               rep(c(0,1), c(7,5)), 
+               rep(c(0,1), c(7,8)))
+)
+data$dose <- factor(data$dose)
+datsum <- data %>%
+  group_by(dose) %>%
+  summarise(success = sum(response), total = n())
+datsum ## need to generate the table for evaluation
+
+# Exact linear-by-linear association test
+exact_test <- lbl_test(response ~ dose, 
+                       data = datsum, 
+                       distribution = "exact",
+                        scores = list("dose" = c(1, 2, 3))
+                              )
+print(exact_test)
+```
+```{r}
+     # Example data as a matrix
+     dose_data <- matrix(c(10, 9, 10, 7, 0, 1, 0, 3), byrow=TRUE, nrow=2,
+                         dimnames=list(resp=0:1, dose=0:3))
+     print(dose_data)
+        DescTools::CochranArmitageTest(dose_data, alternative = "one.sided")
+```
+
+
+```{r}
+library(CATTexact)
+
+d <- c(1,2,3,4)
+n <- rep(20,4)
+r <- c(1,4,3,8)
+
+catt_asy(d, n, r)
+
+catt_exact(d, n, r)
+
+
+d <- c(d,d)
+n <- c(n,n)
+r <- c(r,c(0,0,0,0))
+catt_exact(d, n, r)
+```
+
+

@@ -1,0 +1,17 @@
+{
+  "hash": "8b295b8f71d3125d893c3b1fbbde3cd0",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"R Pipeline operators\"\ndescription: \"magrittr and own definitions\"\nauthor: \"Zhenglei Gao\"\ndate: \"12/06/2025\"\ncategories:\n  - R\neditor_options: \n  chunk_output_type: console\n---\n\n\n## What I often use\n\n## `%||%`\n\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(magrittr)\n```\n:::\n\n\n## Forward-pipe operator\n\nR now has `|>`\n\n\n::: {.cell}\n\n```{.r .cell-code}\nrnorm(5000) %>%\n  abs %>% `*` (100)  %>%\n  matrix(ncol=10)  %>%\n  rowMeans %>% round %>% \n  `%%`(9) %>% hist\n```\n\n::: {.cell-output-display}\n![](R_pipeline_operator_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n\n## Tee operator (left)\n\n\n::: {.cell}\n\n```{.r .cell-code}\nrnorm(5000) %>%\n  abs %>% `*` (100)  %>%\n  matrix(ncol=10)  %>%\n  rowMeans %>% round %>% \n  `%%`(9) %T>% hist %>% sum\n```\n\n::: {.cell-output-display}\n![](R_pipeline_operator_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 2018\n```\n\n\n:::\n:::\n\n\n## Exposition pipe-operator\n\n\n::: {.cell}\n\n:::\n\n\n## Compound assignment pipe-operator\n\n",
+    "supporting": [
+      "R_pipeline_operator_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

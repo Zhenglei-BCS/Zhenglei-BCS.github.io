@@ -1,0 +1,55 @@
+---
+title: "R Pipeline operators"
+description: "magrittr and own definitions"
+author: "Zhenglei Gao"
+date: "12/06/2025"
+categories:
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+## What I often use
+
+## `%||%`
+
+```{r}
+
+```
+
+
+
+```{r}
+library(magrittr)
+```
+
+## Forward-pipe operator
+
+R now has `|>`
+
+```{r}
+rnorm(5000) %>%
+  abs %>% `*` (100)  %>%
+  matrix(ncol=10)  %>%
+  rowMeans %>% round %>% 
+  `%%`(9) %>% hist
+```
+
+## Tee operator (left)
+
+```{r}
+rnorm(5000) %>%
+  abs %>% `*` (100)  %>%
+  matrix(ncol=10)  %>%
+  rowMeans %>% round %>% 
+  `%%`(9) %T>% hist %>% sum
+```
+
+## Exposition pipe-operator
+
+```{r}
+
+```
+
+## Compound assignment pipe-operator
+

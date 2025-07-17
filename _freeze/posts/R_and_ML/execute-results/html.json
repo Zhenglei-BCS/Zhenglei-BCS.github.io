@@ -1,0 +1,15 @@
+{
+  "hash": "e86e8ce45e022d365a9adb7b51e7163d",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"R Pipeline operators\"\ndescription: \"magrittr and own definitions\"\nauthor: \"Zhenglei Gao\"\ndate: \"12/06/2025\"\ncategories:\n  - R\neditor_options: \n  chunk_output_type: console\n---\n\n\n\n\nExamples of R ML coding\n\n## caret\n\n\n::: {.cell}\n\n:::\n\n\n## mlr3\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(mlr3)\n```\n:::\n\n\n\n## H2O\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(h2o)\n```\n:::\n\n\n\nThere are other packages often recommended, such as keras, xgboost, randomForest and e1071. ",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

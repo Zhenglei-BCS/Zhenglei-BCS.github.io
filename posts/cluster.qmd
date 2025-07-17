@@ -1,0 +1,107 @@
+---
+title: "A Refresher on Clustering Analysis"
+format: html
+---
+
+
+
+# Clustering Algorithms: Pros and Cons Comparison
+
+| Algorithm | Pros | Cons | Best Use Cases |
+|-----------|------|------|----------------|
+| **K-means** | • Fast and efficient (O(n)) <br> • Easy to implement <br> • Scales well to large datasets | • Requires pre-specifying k <br> • Sensitive to outliers <br> • Limited to spherical clusters <br> • Euclidean distance only <br> • Initial centroid dependent | Datasets with well-separated, globular clusters of similar size |
+| **PAM** | • More robust to outliers than k-means <br> • Works with any distance metric <br> • Better for categorical/mixed data | • Computationally expensive (O(k(n-k)²)) <br> • Requires pre-specifying k <br> • Slower than k-means | Datasets with outliers where medoids are preferred over means |
+| **Hierarchical - Single Linkage** | • Detects elongated clusters <br> • No need to specify k beforehand <br> • Provides cluster hierarchy | • Chaining effect <br> • Poor with noise <br> • O(n²) space complexity | Detecting non-elliptical clusters, finding outliers |
+| **Hierarchical - Complete Linkage** | • Creates compact clusters <br> • Less susceptible to noise than single linkage | • Tends to break large clusters <br> • Sensitive to outliers <br> • O(n²) space complexity | When compact, evenly sized clusters are desired |
+| **Hierarchical - Average Linkage** | • Compromise between single/complete <br> • More robust than other linkages | • Computationally intensive <br> • Still O(n²) complexity | General-purpose hierarchical clustering with moderate outliers |
+| **Hierarchical - Ward's** | • Minimizes within-cluster variance <br> • Creates similar-sized clusters | • Sensitive to outliers <br> • Tends toward spherical clusters | When minimum variance clusters are important |
+| **DBSCAN** | • No need to specify number of clusters <br> • Finds arbitrary shapes <br> • Identifies outliers as noise <br> • Handles varying cluster sizes | • Sensitive to parameters (eps, minPts) <br> • Struggles with varying densities <br> • Difficulty with high dimensions | Spatial data, datasets with noise and non-globular clusters |
+
+## Critical Differences:
+
+1. **Specifying clusters:** K-means and PAM require pre-defined k; hierarchical methods and DBSCAN do not
+2. **Outlier handling:** DBSCAN explicitly identifies outliers; PAM is moderately robust; k-means is highly sensitive
+3. **Cluster shapes:** K-means/PAM find spherical clusters; hierarchical varies by linkage; DBSCAN finds arbitrary shapes
+4. **Scalability:** K-means scales best to large datasets; hierarchical methods and PAM are more computationally intensive
+5. **Distance metrics:** K-means limited to Euclidean; others can use various distance measures
+
+## Clustering Algorithm Similarities: Relationship Map
+
+### Primary Algorithm Relationships
+
+1. **K-means ↔ PAM**: Most closely related pair
+   - Both are partitioning algorithms requiring pre-specified k
+   - Both iteratively optimize cluster representatives
+   - PAM is essentially a robust variant of k-means using medoids instead of centroids
+   - Both create flat, non-hierarchical clusters of similar sizes
+
+2. **Hierarchical Variants**: Form their own family
+   - All hierarchical methods (single, complete, average, Ward's) share the same dendrogram-building approach
+   - They differ only in how inter-cluster distances are calculated
+   - All provide multi-level cluster views rather than a single partitioning
+
+3. **Ward's Linkage ↔ K-means**: Notable cross-family similarity
+   - Both minimize within-cluster variance
+   - Ward's can be viewed as a hierarchical version of the objective that k-means optimizes
+   - Both tend to create spherical, similarly-sized clusters
+
+4. **DBSCAN**: Most distinct from others
+   - Density-based rather than centroid-based or hierarchical
+   - Conceptually different approach focusing on connected dense regions
+   - Only algorithm that natively identifies noise points
+
+
+### Grouping by Core Characteristics
+
+| Characteristic | Algorithms |
+|----------------|------------|
+| **Partitioning Methods** | K-means, PAM |
+| **Hierarchical Methods** | Single, Complete, Average, Ward's linkages |
+| **Density-Based Methods** | DBSCAN |
+| **Requires Pre-specified k** | K-means, PAM |
+| **Can Handle Arbitrary Shapes** | Single linkage, DBSCAN |
+| **Variance-Minimizing** | K-means, Ward's linkage |
+| **Uses Actual Data Points as Representatives** | PAM, Hierarchical methods |
+
+The algorithms can be broadly categorized into three conceptual families (partitioning, hierarchical, and density-based), with the strongest similarities occurring within these families and certain cross-family similarities based on specific optimization objectives.
+
+
+# Optimal Cluster Number (k) Determination Methods
+
+How to determine optimal k? 
+
+## Summary Table of Criteria by Clustering Method
+
+| Clustering Method | Criteria for Optimal k | How to Choose k | Strengths | Limitations |
+|-------------------|------------------------|-----------------|-----------|-------------|
+| **K-means** | • Elbow method (WCSS)<br>• Silhouette score<br>• Gap statistic<br>• Calinski-Harabasz index<br>• Davies-Bouldin index<br>• BIC/AIC | Select k where:<br>• Elbow point occurs in WCSS plot<br>• Silhouette score maximizes<br>• Gap statistic maximizes<br>• CH index maximizes<br>• DB index minimizes | • Elbow: Simple, intuitive<br>• Silhouette: Measures both cohesion & separation<br>• Gap: Statistical foundation | • Elbow: Subjective interpretation<br>• Multiple criteria often disagree<br>• Different criteria favor different cluster characteristics |
+| **PAM** | • Silhouette width<br>• Gap statistic<br>• Calinski-Harabasz index<br>• Davies-Bouldin index<br>• PAM-specific GOF metrics | Same as k-means, but using medoid-based calculations rather than centroid-based | • More robust to outliers than k-means metrics<br>• Works with arbitrary distance metrics | • Computationally more expensive<br>• Still subjective when criteria disagree |
+| **Hierarchical** | • Dendrogram inspection<br>• Inconsistency coefficient<br>• Cophenetic correlation<br>• Height difference analysis<br>• Standard indices after cutting | • Cut dendrogram where largest vertical gap occurs<br>• Choose k where inconsistency coefficient shows significant jump<br>• Apply standard indices after cutting at different levels | • Visual validation via dendrogram<br>• Provides multi-level perspective<br>• Height differences show natural divisions | • Dendrogram interpretation is subjective<br>• Large datasets produce complex dendrograms<br>• Different linkage methods yield different results |
+| **DBSCAN** | • k-distance graph<br>• DBCV (Density-Based Clustering Validation)<br>• Silhouette on resulting clusters<br>• Stability measures | • Plot distances to kth nearest neighbor<br>• Find "elbow" for eps parameter<br>• Vary eps/minPts and evaluate resulting cluster counts | • Doesn't directly require k specification<br>• Parameter selection more intuitive for density-based approach | • Focuses on eps/minPts rather than k directly<br>• Resulting cluster count highly sensitive to parameters |
+
+## When Criteria Disagree: Recommended Approach
+
+1. **Primary Reliance (in order):**
+   - Domain knowledge and business context
+   - Silhouette score (balances cohesion and separation)
+   - Stability-based measures (consistent results across samples)
+   - Visual validation when possible
+
+2. **Ensemble Approach:**
+   - Calculate multiple indices and look for consensus
+   - Weight criteria based on clustering goals (separation vs. balance)
+   - Use majority voting among top-performing criteria
+
+3. **Method-Specific Recommendations:**
+   - **K-means:** Silhouette + Gap statistic, with visual elbow confirmation
+   - **PAM:** Average silhouette width, especially with non-Euclidean distances
+   - **Hierarchical:** Dendrogram inspection + inconsistency coefficient
+   - **DBSCAN:** k-distance plot for eps + validation on resulting clusters
+
+4. **Practical Implementation:**
+   - Run algorithms with k ranging from 2 to $\sqrt{n/2}$
+   - Plot all criteria on a standardized scale
+   - Look for agreement points or stable regions
+   - Consider the purpose of clustering in final decision
+
+Remember that the "best" k often depends on the specific goals of your clustering task - whether you need fine-grained clusters, balanced sizes, or maximum separation between groups.

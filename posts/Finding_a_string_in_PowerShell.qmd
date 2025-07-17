@@ -1,0 +1,67 @@
+---
+title: "Finding a string in PowerShell"
+description: "Notes when working on bmd"
+author: "Zhenglei Gao"
+date: "07/02/2025"
+categories:
+  - code
+---
+
+# Finding AIC.drcHetVar in PowerShell
+
+To find a specific file or function in your codebase using PowerShell, you can use several commands. Here are different approaches to find "AIC.drcHetVar" in your repository:
+
+## 1. Find in File Names
+
+```powershell
+# Find files with AIC.drcHetVar in the name
+Get-ChildItem -Path . -Recurse -File | Where-Object { $_.Name -like "*AIC.drcHetVar*" }
+```
+
+## 2. Find in File Contents
+
+```powershell
+# Search for "AIC.drcHetVar" in all files
+Get-ChildItem -Path . -Recurse -File | Select-String -Pattern "AIC\.drcHetVar"
+```
+
+## 3. Search in R Files Only
+
+```powershell
+# Search only in R files
+Get-ChildItem -Path . -Recurse -File -Include "*.R" | Select-String -Pattern "AIC\.drcHetVar"
+```
+
+## 4. Search with Context
+
+```powershell
+# Search with surrounding lines for context
+Get-ChildItem -Path . -Recurse -File -Include "*.R" | Select-String -Pattern "AIC\.drcHetVar" -Context 2,2
+```
+
+## 5. Find Function Definition
+
+```powershell
+# Look specifically for function definition
+Get-ChildItem -Path . -Recurse -File -Include "*.R" | Select-String -Pattern "AIC\.drcHetVar\s*<-\s*function|AIC\.drcHetVar\s*=\s*function"
+```
+
+## 6. Search in Documentation Files
+
+```powershell
+# Search in Rd files
+Get-ChildItem -Path . -Recurse -File -Include "*.Rd" | Select-String -Pattern "AIC\.drcHetVar"
+```
+
+## 7. Comprehensive Search
+
+```powershell
+# Search across all file types and display detailed results
+$results = Get-ChildItem -Path . -Recurse -File | Select-String -Pattern "AIC\.drcHetVar" -List
+$results | ForEach-Object {
+    Write-Host "`nFile: $($_.Path)" -ForegroundColor Green
+    Select-String -Path $_.Path -Pattern "AIC\.drcHetVar" -Context 2,2
+}
+```
+
+The results will show you where the `AIC.drcHetVar` function is defined, where it's used, and any documentation related to it. This will help you locate the file where you need to add or update the roxygen documentation for this function.
