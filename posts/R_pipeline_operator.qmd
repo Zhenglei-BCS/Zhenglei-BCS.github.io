@@ -19,8 +19,17 @@ To be written.
 
 ### `%||%`
 
-```{r}
+Quoted from R base control Help documentation: 
+> The null coalescing operator `%||%` is a simple 1-line function: x %||% y is an idiomatic way to call
 
+    if (is.null(x)) y else x
+                             # or equivalently, of course,
+    if(!is.null(x)) x else y 
+Inspired by Ruby, it was first proposed by Hadley Wickham.
+
+```{r}
+res <- {}
+res %||% "alternative result"
 ```
 
 
@@ -31,7 +40,7 @@ library(magrittr)
 
 ## Forward-pipe operator
 
-R now has `|>`
+R now has `|>` in base. 
 
 ```{r}
 rnorm(5000) %>%
@@ -41,7 +50,7 @@ rnorm(5000) %>%
   `%%`(9) %>% hist
 ```
 
-## Tee operator (left)
+## Tee operator (left) `%T>%`
 
 ```{r}
 rnorm(5000) %>%
