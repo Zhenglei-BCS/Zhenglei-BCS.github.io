@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zhenglei Gao">
-<meta name="dcterms.date" content="2024-12-03">
-<meta name="description" content="Local setup on windows">
+<meta name="dcterms.date" content="2025-08-10">
+<meta name="description" content="under corporate environment">
 
-<title>Zhenglei Gao - Set up docker locally</title>
+<title>Zhenglei Gao - Make WSL Work</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -156,24 +122,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-issue" id="toc-the-issue" class="nav-link active" data-scroll-target="#the-issue">The Issue</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Set up docker locally</h1>
+<h1 class="title">Make WSL Work</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">dev</div>
-    <div class="quarto-category">docker</div>
-    <div class="quarto-category">R</div>
+    <div class="quarto-category">code</div>
+    <div class="quarto-category">analysis</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Local setup on windows
+    under corporate environment
   </div>
 </div>
 
@@ -190,7 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 3, 2024</p>
+      <p class="date">August 10, 2025</p>
     </div>
   </div>
   
@@ -202,85 +173,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>I have docker desktop installed on my computer.</p>
-<p><em>Instruction by my colleague Sven.</em></p>
-<p>login to image</p>
-<pre><code>Write-Output 'longlongtoken' | docker login --username AWS --password-stdin some.amazonaws.com</code></pre>
-<p>Pull the image to local</p>
-<pre><code>docker pull some.amazonaws.com/YOUR.IMAGE.NAME</code></pre>
-<p>Start a container</p>
-<pre><code>docker run -it -v "${PWD}:/cwd" -w /cwd some.amazonaws.com/YOUR.IMAGE.NAME /bin/bash</code></pre>
-<p>Exit the container by Ctrl + D or</p>
-<pre><code>docker run --rm [..]</code></pre>
-<p>Inside container, check R</p>
-<pre><code>which R </code></pre>
-<pre><code>docker exec -it &lt;container_id_or_name&gt; /bin/bash </code></pre>
-<pre><code>docker ps -a</code></pre>
-<p>👍</p>
-<p>Interestingly, if not starting with <em>/bin/bash</em> but using the UI Exec.</p>
-<p>I get</p>
-<pre><code>sh-4.2# cd /opt/
-sh-4.2# ls
-kindlegen  mango  rh
-sh-4.2# cd mango
-sh-4.2# ls
-R
-sh-4.2# cd R
-sh-4.2# ls
-3.6.3
-sh-4.2# cd 3.6.3
-sh-4.2# which R
-which: no R in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin)</code></pre>
-<p>But with</p>
-<pre><code>docker run -it -v "${PWD}:/cwd" -w /cwd some.amazonaws.com/YOUR.IMAGE.NAME /bin/bash</code></pre>
-<p>I have</p>
-<pre><code>[root@2b2bc79643bf cwd]# which R
-alias R='R'
-        /opt/mango/R/3.6.3/bin/R
-        </code></pre>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">logLik =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">14.6536101428432</span>, <span class="sc">-</span><span class="fl">19.2437934145175</span>, </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">20.4606031158005</span>, <span class="sc">-</span><span class="fl">70.7850001599267</span>), <span class="at">IC =</span> <span class="fu">c</span>(<span class="fl">39.3072202856865</span>, </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fl">46.4875868290349</span>, <span class="fl">48.9212062316009</span>, <span class="fl">147.570000319853</span>), <span class="st">`</span><span class="at">Lack of fit</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.611809402030314</span>, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fl">0.0684892521315901</span>, <span class="fl">0.0323385305116136</span>, <span class="fl">5.05927325131761e-17</span>), </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Res var</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.238253193858602</span>, <span class="fl">0.332639411991927</span>, <span class="fl">0.368138735162509</span>, </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fl">23.2867452173117</span>), <span class="at">Certainty_Protection =</span> <span class="fu">c</span>(<span class="st">"High"</span>, <span class="st">"High"</span>, </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Medium"</span>, <span class="st">"Low"</span>), <span class="at">Steepness =</span> <span class="fu">c</span>(<span class="st">"Medium"</span>, <span class="st">"Medium"</span>, <span class="st">"Medium"</span>, </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Steep"</span>), <span class="st">`</span><span class="at">No Effect p-val</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)), <span class="at">class =</span> <span class="st">"data.frame"</span>, <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"LN.4"</span>, </span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">"LL.3"</span>, <span class="st">"W1.3"</span>, <span class="st">"LL2.2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         logLik        IC  Lack of fit    Res var Certainty_Protection
-LN.4  -14.65361  39.30722 6.118094e-01  0.2382532                 High
-LL.3  -19.24379  46.48759 6.848925e-02  0.3326394                 High
-W1.3  -20.46060  48.92121 3.233853e-02  0.3681387               Medium
-LL2.2 -70.78500 147.57000 5.059273e-17 23.2867452                  Low
-      Steepness No Effect p-val
-LN.4     Medium               0
-LL.3     Medium               0
-W1.3     Medium               0
-LL2.2     Steep               1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model_metrics <span class="ot">&lt;-</span> <span class="fu">structure</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">logLik =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">15.4549616077905</span>, <span class="sc">-</span><span class="fl">19.3508771472202</span>, </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">20.5541010938859</span>, <span class="sc">-</span><span class="fl">70.7979296115594</span>), </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">IC =</span> <span class="fu">c</span>(<span class="fl">40.9099232155809</span>, <span class="fl">46.7017542944403</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a> <span class="fl">49.1082021877719</span>, <span class="fl">147.595859223119</span>), </span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Lack of fit</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.58935372035215</span>, <span class="fl">0.0995020306142076</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.0480097157918722</span>, <span class="fl">8.3983906347998e-17</span>), </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Res var</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.254706839983221</span>, </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.33562105157495</span>, <span class="fl">0.371018290904357</span>, </span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="fl">23.3118491428803</span>), </span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Certainty_Protection =</span> <span class="fu">c</span>(<span class="st">"High"</span>, <span class="st">"High"</span>, </span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Medium"</span>, <span class="st">"Low"</span>), </span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Steepness =</span> <span class="fu">c</span>(<span class="st">"Medium"</span>, <span class="st">"Medium"</span>, <span class="st">"Medium"</span>, </span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Steep"</span>), </span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">No Effect p-val</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)), </span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">class =</span> <span class="st">"data.frame"</span>, </span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"LN.4"</span>, <span class="st">"LL.3"</span>, <span class="st">"W1.3"</span>, <span class="st">"LL2.2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="the-issue" class="level2">
+<h2 class="anchored" data-anchor-id="the-issue">The Issue</h2>
+<p>I really have lots of trouble to get the ideal setup of my working computer. WSL is one example.</p>
+<pre><code>cat /etc/resolv.conf
+sudo vi /etc/resolv.conf</code></pre>
+<p>I replaced the nameserver line to <code>nameserver 8.8.8.8</code> according to Sven’s instruction. Then curl google.com works.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

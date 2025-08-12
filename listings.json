@@ -3,6 +3,10 @@
     "listing": "/CCC.html",
     "items": [
       "/posts/R_pipeline_operator.html",
+      "/posts/WSL and proxz.html",
+      "/posts/WSL.html",
+      "/posts/gitignore.html",
+      "/posts/VS_Code.html",
       "/posts/Finding_a_string_in_PowerShell.html",
       "/posts/Drift_Modeling.html",
       "/posts/R_and_ML.html",
@@ -17,7 +21,6 @@
       "/posts/S7_classes.html",
       "/posts/Trend_tests.html",
       "/posts/PBK Modelling.html",
-      "/posts/Interesting talk.html",
       "/posts/GEE_QB.html",
       "/posts/Categorical_responses.html",
       "/posts/DoseFinding.html",
@@ -29,15 +32,12 @@
       "/posts/Hessian_and_likehood.html",
       "/posts/PseudoR2.html",
       "/posts/check_overdispersion.html",
-      "/posts/my_dso_journey.html",
       "/posts/proxy_powershell.html",
       "/posts/risk_metric.html",
       "/posts/API_Credentials.html",
       "/posts/links.html",
-      "/posts/wacom_tablet.html",
       "/posts/simpower.html",
       "/posts/Quantal_CA.html",
-      "/posts/Some thoughts on my work.html",
       "/posts/OECD TG and Stats.html"
     ]
   },
@@ -48,9 +48,13 @@
       "/blog/AI_Prompts.html",
       "/blog/Presentation_Evaluation_Criteria.html",
       "/blog/LLM_and_random_thoughts.html",
+      "/blog/Interesting talk.html",
       "/blog/genAI_alphafold2.html",
       "/blog/SAS.html",
-      "/blog/why_I_dont_like_ipynb.html"
+      "/blog/why_I_dont_like_ipynb.html",
+      "/blog/my_dso_journey.html",
+      "/blog/wacom_tablet.html",
+      "/blog/Some thoughts on my work.html"
     ]
   }
 ]

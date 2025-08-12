@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -364,7 +364,7 @@ F        0  0  0  0  1 10</code></pre>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dattab_new <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(y0) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(),<span class="at">meany=</span><span class="fu">mean</span>(yt),<span class="at">meanyy2=</span><span class="fu">mean</span>(yy2)) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.,<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">y0</th>
@@ -424,7 +424,7 @@ F        0  0  0  0  1 10</code></pre>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dattab_new <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(dose) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(),<span class="at">meany=</span><span class="fu">mean</span>(yt),<span class="at">meanyy=</span><span class="fu">mean</span>(yy)) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.,<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: right;">dose</th>
@@ -492,7 +492,7 @@ F        0  0  0  0  1 10</code></pre>
 </div>
 </div>
 </div>
-<table class="table">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">y0</th>
@@ -691,7 +691,7 @@ log(dose) 31.98141 13.23462 90.41212</code></pre>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>phat <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.,<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: right;">0</th>
@@ -828,7 +828,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>phat <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.,<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: right;">A</th>
@@ -945,7 +945,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>phat <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.,<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: right;">0</th>
@@ -1213,7 +1213,7 @@ p = 0.5: 12.617 10.77038 14.78023 0.08073738</code></pre>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>dattab_new <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(y0) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(),<span class="at">meany=</span><span class="fu">mean</span>(yt),<span class="at">meanyy2=</span><span class="fu">mean</span>(yy2),<span class="at">meanEst=</span><span class="fu">mean</span>(pred)) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.,<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">y0</th>
@@ -1335,7 +1335,7 @@ p = 0.5: 12.61695 10.56476 15.06777 0.09057011</code></pre>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>dattab_new <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(y0) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(),<span class="at">meany=</span><span class="fu">mean</span>(yt),<span class="at">meanyy2=</span><span class="fu">mean</span>(yy2),<span class="at">meanEst=</span><span class="fu">mean</span>(pred),<span class="at">meanEstR=</span><span class="fu">mean</span>(predr)) <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>(.,<span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">y0</th>

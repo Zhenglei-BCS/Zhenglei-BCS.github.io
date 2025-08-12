@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zhenglei Gao">
-<meta name="dcterms.date" content="2024-12-03">
+<meta name="dcterms.date" content="2025-08-12">
 <meta name="description" content="Local setup on windows">
 
-<title>Zhenglei Gao - Set up docker locally</title>
+<title>Zhenglei Gao - WSL</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -163,11 +163,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Set up docker locally</h1>
+<h1 class="title">WSL</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">dev</div>
-    <div class="quarto-category">docker</div>
-    <div class="quarto-category">R</div>
+    <div class="quarto-category">windows</div>
+    <div class="quarto-category">wsl</div>
   </div>
   </div>
 
@@ -190,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 3, 2024</p>
+      <p class="date">August 12, 2025</p>
     </div>
   </div>
   
@@ -202,83 +201,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>I have docker desktop installed on my computer.</p>
-<p><em>Instruction by my colleague Sven.</em></p>
-<p>login to image</p>
-<pre><code>Write-Output 'longlongtoken' | docker login --username AWS --password-stdin some.amazonaws.com</code></pre>
-<p>Pull the image to local</p>
-<pre><code>docker pull some.amazonaws.com/YOUR.IMAGE.NAME</code></pre>
-<p>Start a container</p>
-<pre><code>docker run -it -v "${PWD}:/cwd" -w /cwd some.amazonaws.com/YOUR.IMAGE.NAME /bin/bash</code></pre>
-<p>Exit the container by Ctrl + D or</p>
-<pre><code>docker run --rm [..]</code></pre>
-<p>Inside container, check R</p>
-<pre><code>which R </code></pre>
-<pre><code>docker exec -it &lt;container_id_or_name&gt; /bin/bash </code></pre>
-<pre><code>docker ps -a</code></pre>
-<p>👍</p>
-<p>Interestingly, if not starting with <em>/bin/bash</em> but using the UI Exec.</p>
-<p>I get</p>
-<pre><code>sh-4.2# cd /opt/
-sh-4.2# ls
-kindlegen  mango  rh
-sh-4.2# cd mango
-sh-4.2# ls
-R
-sh-4.2# cd R
-sh-4.2# ls
-3.6.3
-sh-4.2# cd 3.6.3
-sh-4.2# which R
-which: no R in (/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin)</code></pre>
-<p>But with</p>
-<pre><code>docker run -it -v "${PWD}:/cwd" -w /cwd some.amazonaws.com/YOUR.IMAGE.NAME /bin/bash</code></pre>
-<p>I have</p>
-<pre><code>[root@2b2bc79643bf cwd]# which R
-alias R='R'
-        /opt/mango/R/3.6.3/bin/R
-        </code></pre>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">logLik =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">14.6536101428432</span>, <span class="sc">-</span><span class="fl">19.2437934145175</span>, </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">20.4606031158005</span>, <span class="sc">-</span><span class="fl">70.7850001599267</span>), <span class="at">IC =</span> <span class="fu">c</span>(<span class="fl">39.3072202856865</span>, </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fl">46.4875868290349</span>, <span class="fl">48.9212062316009</span>, <span class="fl">147.570000319853</span>), <span class="st">`</span><span class="at">Lack of fit</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.611809402030314</span>, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fl">0.0684892521315901</span>, <span class="fl">0.0323385305116136</span>, <span class="fl">5.05927325131761e-17</span>), </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Res var</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.238253193858602</span>, <span class="fl">0.332639411991927</span>, <span class="fl">0.368138735162509</span>, </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fl">23.2867452173117</span>), <span class="at">Certainty_Protection =</span> <span class="fu">c</span>(<span class="st">"High"</span>, <span class="st">"High"</span>, </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Medium"</span>, <span class="st">"Low"</span>), <span class="at">Steepness =</span> <span class="fu">c</span>(<span class="st">"Medium"</span>, <span class="st">"Medium"</span>, <span class="st">"Medium"</span>, </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Steep"</span>), <span class="st">`</span><span class="at">No Effect p-val</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)), <span class="at">class =</span> <span class="st">"data.frame"</span>, <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"LN.4"</span>, </span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">"LL.3"</span>, <span class="st">"W1.3"</span>, <span class="st">"LL2.2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         logLik        IC  Lack of fit    Res var Certainty_Protection
-LN.4  -14.65361  39.30722 6.118094e-01  0.2382532                 High
-LL.3  -19.24379  46.48759 6.848925e-02  0.3326394                 High
-W1.3  -20.46060  48.92121 3.233853e-02  0.3681387               Medium
-LL2.2 -70.78500 147.57000 5.059273e-17 23.2867452                  Low
-      Steepness No Effect p-val
-LN.4     Medium               0
-LL.3     Medium               0
-W1.3     Medium               0
-LL2.2     Steep               1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model_metrics <span class="ot">&lt;-</span> <span class="fu">structure</span>(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">logLik =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">15.4549616077905</span>, <span class="sc">-</span><span class="fl">19.3508771472202</span>, </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">20.5541010938859</span>, <span class="sc">-</span><span class="fl">70.7979296115594</span>), </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">IC =</span> <span class="fu">c</span>(<span class="fl">40.9099232155809</span>, <span class="fl">46.7017542944403</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a> <span class="fl">49.1082021877719</span>, <span class="fl">147.595859223119</span>), </span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">Lack of fit</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.58935372035215</span>, <span class="fl">0.0995020306142076</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.0480097157918722</span>, <span class="fl">8.3983906347998e-17</span>), </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Res var</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.254706839983221</span>, </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="fl">0.33562105157495</span>, <span class="fl">0.371018290904357</span>, </span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="fl">23.3118491428803</span>), </span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Certainty_Protection =</span> <span class="fu">c</span>(<span class="st">"High"</span>, <span class="st">"High"</span>, </span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Medium"</span>, <span class="st">"Low"</span>), </span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Steepness =</span> <span class="fu">c</span>(<span class="st">"Medium"</span>, <span class="st">"Medium"</span>, <span class="st">"Medium"</span>, </span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Steep"</span>), </span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">No Effect p-val</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)), </span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">class =</span> <span class="st">"data.frame"</span>, </span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"LN.4"</span>, <span class="st">"LL.3"</span>, <span class="st">"W1.3"</span>, <span class="st">"LL2.2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>In a corporate setting, proxy information is very hard to deal with. I’ve encountered a strange error.</p>
+<p>After running the command below within WSL and obtained the correct result, it was identified that the proxy setting was not picked up by WSL</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">--proxy</span> http://xx.xxx.xxx.100:8080 http://google.com</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>So in the Home folder, there is a configuration file for WSL. Mine is located at <code>C:\Users\myuserid\.wslconfig</code> I need to change the autoProxy from false to true.</p>
+<pre><code>[wsl2]
+autoProxy=true</code></pre>
+<p>Now, <code>curl google.com</code> or <code>curl testproxy.info</code> works fine.</p>
+<p>However, when I ran <code>sudo apt update</code> or install, I still got errors. Somehow in the apt configurations, it is using the .10 instead of .100. I was instructed by our IT colleague that to set the proxy in the apt request like below.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get <span class="at">-o</span> Acquire::http::proxy=<span class="st">"http://xx.xxx.xxx.100:8080"</span> update</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">-o</span> Acquire::http::proxy=<span class="st">"http://xx.xxx.xxx.100:8080"</span> libssl-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This solved my problem. It is always hard to find the right colleague to solve the issue. I have filed the issue a while ago, was contacted by several colleagues but today it worked like a charm. The colleague was quick to identify the problem, also quick to find a solution that works for me. Thanks to him, I can go to my vacation peacefully with one resolved issue.</p>
 
 
 

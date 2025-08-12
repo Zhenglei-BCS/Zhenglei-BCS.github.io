@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -165,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><code>%||%</code></a></li>
   </ul></li>
   <li><a href="#forward-pipe-operator" id="toc-forward-pipe-operator" class="nav-link" data-scroll-target="#forward-pipe-operator">Forward-pipe operator</a></li>
-  <li><a href="#tee-operator-left" id="toc-tee-operator-left" class="nav-link" data-scroll-target="#tee-operator-left">Tee operator (left)</a></li>
+  <li><a href="#tee-operator-left-t" id="toc-tee-operator-left-t" class="nav-link" data-scroll-target="#tee-operator-left-t">Tee operator (left) <code>%T&gt;%</code></a></li>
   <li><a href="#exposition-pipe-operator" id="toc-exposition-pipe-operator" class="nav-link" data-scroll-target="#exposition-pipe-operator">Exposition pipe-operator</a></li>
   <li><a href="#compound-assignment-pipe-operator" id="toc-compound-assignment-pipe-operator" class="nav-link" data-scroll-target="#compound-assignment-pipe-operator">Compound assignment pipe-operator</a></li>
   </ul>
@@ -230,20 +230,32 @@ Warning
 <h2 class="anchored" data-anchor-id="what-i-often-use">What I often use</h2>
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section"><code>%||%</code></h3>
+<p>Quoted from R base control Help documentation: &gt; The null coalescing operator <code>%||%</code> is a simple 1-line function: x %||% y is an idiomatic way to call</p>
+<pre><code>if (is.null(x)) y else x
+                         # or equivalently, of course,
+if(!is.null(x)) x else y </code></pre>
+<p>Inspired by Ruby, it was first proposed by Hadley Wickham.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> {}</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>res <span class="sc">%||%</span> <span class="st">"alternative result"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "alternative result"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="forward-pipe-operator" class="level2">
 <h2 class="anchored" data-anchor-id="forward-pipe-operator">Forward-pipe operator</h2>
-<p>R now has <code>|&gt;</code></p>
+<p>R now has <code>|&gt;</code> in base.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  abs <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">*</span><span class="st">`</span> (<span class="dv">100</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="at">ncol=</span><span class="dv">10</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  rowMeans <span class="sc">%&gt;%</span> round <span class="sc">%&gt;%</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">%%</span><span class="st">`</span>(<span class="dv">9</span>) <span class="sc">%&gt;%</span> hist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  abs <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">*</span><span class="st">`</span> (<span class="dv">100</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="at">ncol=</span><span class="dv">10</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  rowMeans <span class="sc">%&gt;%</span> round <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">%%</span><span class="st">`</span>(<span class="dv">9</span>) <span class="sc">%&gt;%</span> hist</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -253,14 +265,14 @@ Warning
 </div>
 </div>
 </section>
-<section id="tee-operator-left" class="level2">
-<h2 class="anchored" data-anchor-id="tee-operator-left">Tee operator (left)</h2>
+<section id="tee-operator-left-t" class="level2">
+<h2 class="anchored" data-anchor-id="tee-operator-left-t">Tee operator (left) <code>%T&gt;%</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  abs <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">*</span><span class="st">`</span> (<span class="dv">100</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="at">ncol=</span><span class="dv">10</span>)  <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  rowMeans <span class="sc">%&gt;%</span> round <span class="sc">%&gt;%</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">%%</span><span class="st">`</span>(<span class="dv">9</span>) <span class="sc">%T&gt;%</span> hist <span class="sc">%&gt;%</span> sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">5000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  abs <span class="sc">%&gt;%</span> <span class="st">`</span><span class="at">*</span><span class="st">`</span> (<span class="dv">100</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">matrix</span>(<span class="at">ncol=</span><span class="dv">10</span>)  <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  rowMeans <span class="sc">%&gt;%</span> round <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">%%</span><span class="st">`</span>(<span class="dv">9</span>) <span class="sc">%T&gt;%</span> hist <span class="sc">%&gt;%</span> sum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -269,7 +281,7 @@ Warning
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2071</code></pre>
+<pre><code>[1] 2038</code></pre>
 </div>
 </div>
 </section>

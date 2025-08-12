@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -208,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"try-error"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">"condition"</span>)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>simpleError <span class="cf">in</span> <span class="cf">if</span> (<span class="fu">is.null</span>(<span class="fu">list</span>(...)<span class="sc">$</span>direction) <span class="sc">|</span> <span class="fu">list</span>(...)<span class="sc">$</span>direction <span class="sc">==</span> <span class="st">"decreasing"</span>) {    direction <span class="ot">&lt;-</span> <span class="st">"decreasing"</span>    comparisons <span class="ot">&lt;-</span> <span class="fu">paste</span>(wt<span class="sc">$</span>dose, <span class="st">"- 0 &gt;= 0"</span>)} <span class="cf">else</span> {    direction <span class="ot">&lt;-</span> <span class="st">"increasing"</span>    comparisons <span class="ot">&lt;-</span> <span class="fu">paste</span>(wt<span class="sc">$</span>dose, <span class="st">"- 0 &lt;= 0"</span>)}<span class="sc">:</span> argument is of length zero<span class="sc">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Debugging in scripts is not always easy but at least you know there is something wrong.</p>
+<p>Another example is when coding shiny app modules, the name of the name space should be consistent between UI and Server components. I often got irresponsive parts where I spend long time to find out why and lots of the time it turned out to be a typo somewhere. Debugging in scripts is not always easy but at least you know there is something wrong. Error messages, even cryptic ones, alert you to the problem. In interactive applications like Shiny, the issues can be more insidious - parts simply don’t work with no error message to guide you. These “silent failures” are often the most time-consuming to track down.</p>
 <p>-TBC-</p>
 
 
