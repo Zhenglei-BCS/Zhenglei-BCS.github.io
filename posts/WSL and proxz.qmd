@@ -1,0 +1,37 @@
+---
+title: "WSL"
+description: "Local setup on windows"
+author: "Zhenglei Gao"
+date: "08/12/2025"
+categories:
+  - windows
+  - wsl
+editor_options: 
+  chunk_output_type: console
+---
+
+In a corporate setting, proxy information is very hard to deal with. I've encountered a strange error. 
+
+After running the command below within WSL and obtained the correct result, it was identified that the proxy setting was not picked up by  WSL
+
+```bash
+curl --proxy http://xx.xxx.xxx.100:8080 http://google.com
+```
+
+So in the Home folder, there is a configuration file for WSL. Mine is located at `C:\Users\myuserid\.wslconfig` I need to change the autoProxy from false to true. 
+
+```
+[wsl2]
+autoProxy=true
+```
+
+Now, `curl google.com` or `curl testproxy.info` works fine.
+
+However, when I ran `sudo apt update` or install, I still got errors. Somehow in the apt configurations, it is using the .10 instead of .100. I was instructed by our IT colleague that to set the proxy in the apt request like below. 
+
+```bash
+sudo apt-get -o Acquire::http::proxy="http://xx.xxx.xxx.100:8080" update
+sudo apt install -o Acquire::http::proxy="http://xx.xxx.xxx.100:8080" libssl-dev
+```
+
+This solved my problem. It is always hard to find the right colleague to solve the issue. I have filed the issue a while ago, was contacted by several colleagues but today it worked like a charm. The colleague was quick to identify the problem, also quick to find a solution that works for me. Thanks to him, I can go to my vacation peacefully with one resolved issue. 

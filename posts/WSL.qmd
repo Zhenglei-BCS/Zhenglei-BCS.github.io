@@ -1,0 +1,26 @@
+---
+title: "Make WSL Work"
+description: "under corporate environment"
+author: "Zhenglei Gao"
+date: "08/10/2025"
+categories:
+  - code
+  - analysis
+editor_options: 
+  chunk_output_type: console
+format:
+  html:
+    code-fold: true
+---
+
+## The Issue
+
+I really have lots of trouble to get the ideal setup of my working computer. WSL is one example.
+
+
+```
+cat /etc/resolv.conf
+sudo vi /etc/resolv.conf
+```
+I replaced the nameserver line to `nameserver 8.8.8.8` according to Sven's instruction. Then curl google.com works.
+

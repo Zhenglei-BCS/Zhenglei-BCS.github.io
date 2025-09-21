@@ -1,0 +1,43 @@
+---
+title: "Set up Windows Subversion System"
+description: "And other tricks under windows"
+author: "Zhenglei Gao"
+date: "09/11/2025"
+categories:
+  - code
+  - R
+editor_options: 
+  chunk_output_type: console
+---
+
+
+## Under WSL 
+
+
+```bash
+sudo apt-get -o Acquire::http::proxy="http://xx.xxx.xxx.xxx:8080" update
+sudo apt install -o Acquire::http::proxy="http://xx.xxx.xxx.xxx:8080" libssl-dev
+## sudo wget https://quarto.org/download/latest/quarto-linux-amd64.deb 
+```
+
+
+Under windows: 
+
+```{cmd}
+runas /user:Administrator "C:\Path\To\Your\Folder\yourfile.exe"
+yourfile.exe
+## or
+C:\Path\To\Your\Folder\yourfile.exe
+```
+
+
+
+```{powershell}
+Start-Process -FilePath "C:\Path\To\Your\Folder\yourfile.exe" -Verb RunAs
+.\yourfile.exe
+## or
+& "C:\Path\To\Your\Folder\yourfile.exe"
+```
+
+For PowerShell, the `&` operator is used to invoke commands or executables with paths containing spaces.
+

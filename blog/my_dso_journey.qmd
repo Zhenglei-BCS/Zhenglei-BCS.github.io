@@ -1,0 +1,23 @@
+---
+title: "My DSO Journey"
+description: "Working as a self contributor"
+author: "Zhenglei Gao"
+date: "8/08/2024"
+categories:
+  - journal
+---
+
+
+
+```{r include=FALSE}
+knitr::opts_chunk$set(eval = FALSE,echo = TRUE)
+```
+
+Have I learned something during this journey?
+
+
+::: {.callout-warning}
+To be written. 
+:::
+
+Visionaries, Architects, Catalysts and Coaches.

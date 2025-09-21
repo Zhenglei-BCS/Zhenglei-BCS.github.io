@@ -1,0 +1,12 @@
+{
+  "hash": "d2e219a8baf526d931c610fc1cf7fe0a",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Set up Windows Subversion System\"\ndescription: \"And other tricks under windows\"\nauthor: \"Zhenglei Gao\"\ndate: \"09/11/2025\"\ncategories:\n  - code\n  - R\neditor_options: \n  chunk_output_type: console\n---\n\n\n## Under WSL \n\n\n```bash\nsudo apt-get -o Acquire::http::proxy=\"http://xx.xxx.xxx.xxx:8080\" update\nsudo apt install -o Acquire::http::proxy=\"http://xx.xxx.xxx.xxx:8080\" libssl-dev\n## sudo wget https://quarto.org/download/latest/quarto-linux-amd64.deb \n```\n\n\nUnder windows: \n\n```{cmd}\nrunas /user:Administrator \"C:\\Path\\To\\Your\\Folder\\yourfile.exe\"\nyourfile.exe\n## or\nC:\\Path\\To\\Your\\Folder\\yourfile.exe\n```\n\n\n\n```{powershell}\nStart-Process -FilePath \"C:\\Path\\To\\Your\\Folder\\yourfile.exe\" -Verb RunAs\n.\\yourfile.exe\n## or\n& \"C:\\Path\\To\\Your\\Folder\\yourfile.exe\"\n```\n\nFor PowerShell, the `&` operator is used to invoke commands or executables with paths containing spaces.\n\n",
+    "supporting": [
+      "Set_up_SVL_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

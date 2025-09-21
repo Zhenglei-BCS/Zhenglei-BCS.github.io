@@ -1,0 +1,238 @@
+---
+title: "Debugging Missing Pkgdown Articles"
+description: "A GitHub Actions Troubleshooting Guide"
+author: "Zhenglei Gao"
+date: "09/18/2025"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    theme: cosmo
+categories: [R, pkgdown, GitHub Actions, troubleshooting]
+---
+
+After a debugging session, I ask Claude Sonnet 4 to draft me a blog post in Quarto markdown format about how to find and troubleshoot the pkgdown/GitHub Actions issue I just experienced. I want that the blog plot covers:
+
+1. The problem I encountered
+2. The debugging process
+3. The root cause
+4. The solution
+5. Prevention tips
+
+Below is the outcome.
+
+## The Problem
+
+You've added new articles to your R package documentation, they render perfectly locally, but mysteriously disappear when deployed via GitHub Actions. The articles build successfully in CI, but result in 404 errors on your pkgdown website. Sound familiar?
+
+This exact scenario recently happened while working on the `drcHelper` R package, and the solution wasn't immediately obvious.
+
+## Initial Symptoms
+
+- ✅ Articles render locally with `pkgdown::build_site()`
+- ✅ GitHub Actions workflow completes successfully
+- ✅ Build logs show articles being processed and written
+- ❌ Articles return 404 errors on the live website
+- ❌ Articles don't appear in navigation menus
+
+## The Debugging Process
+
+### Step 1: Verify Local Rendering
+
+First, always confirm the articles work locally:
+
+```{r}
+#| eval: false
+
+# Test individual article rendering
+rmarkdown::render("vignettes/articles/my_article.Rmd")
+
+# Test full site build
+pkgdown::build_site()
+
+# Check for external dependencies
+rmarkdown::find_external_resources("vignettes/articles/my_article.Rmd")
+```
+
+### Step 2: Examine GitHub Actions Logs
+
+Look for these key indicators in your workflow logs:
+
+```bash
+# Successful article processing should show:
+Reading vignettes/articles/my_article.Rmd
+Writing `articles/my_article.html`
+
+# Failed processing might show:
+Error in vignettes/articles/my_article.Rmd: 
+[specific error message]
+```
+
+### Step 3: Check Direct URL Access
+
+Test if articles exist by accessing them directly:
+
+```
+https://your-username.github.io/your-package/articles/my_article.html
+```
+
+If this returns 404, the files aren't being deployed correctly.
+
+### Step 4: Inspect Build Output Path
+
+This is where the real issue was hiding! Look carefully at your build logs:
+
+```bash
+── Building pkgdown site for package drcHelper ─────────────────
+Reading from: /home/runner/work/drcHelper/drcHelper
+Writing to: /home/runner/work/drcHelper/drcHelper/docs/dev  # 👈 Notice "dev"!
+```
+
+## The Root Cause: Development Mode Path Mismatch
+
+The issue was a subtle path mismatch caused by pkgdown's development mode settings:
+
+### How Pkgdown Development Mode Works
+
+Pkgdown has different deployment modes controlled by the `development` section in `_pkgdown.yml`:
+
+```yaml
+development:
+  mode: auto        # 👈 This was the culprit!
+  version_label: default
+```
+
+When `mode: auto`, pkgdown determines the deployment path based on your package version:
+- **Development versions** (e.g., 1.0.0.9000) → builds to `docs/dev/`
+- **Release versions** (e.g., 1.0.0) → builds to `docs/`
+
+### The Navigation URL Problem
+
+Meanwhile, the navigation URLs in `_pkgdown.yml` were hardcoded without the `/dev` prefix:
+
+```yaml
+validation:
+  text: Validation
+  menu:
+  - text: ED Calculation Consistency
+    href: articles/val_ED_plus.html  # Missing "dev/" prefix!
+  - text: TSK and Probit Model
+    href: articles/TSK-and-Probit-Models.html  # Missing "dev/" prefix!
+```
+
+## The Solutions
+
+### Option 1: Fix Development Mode (Recommended)
+
+Change your development mode to ensure consistent paths:
+
+```yaml
+development:
+  mode: release     # Changed from 'auto' to 'release'
+  version_label: default
+```
+
+This builds everything to `docs/` and makes your existing navigation URLs work correctly.
+
+### Option 2: Update Navigation URLs
+
+Alternatively, update all navigation URLs to include the dev path:
+
+```yaml
+validation:
+  text: Validation
+  menu:
+  - text: ED Calculation Consistency
+    href: dev/articles/val_ED_plus.html  # Add dev/ prefix
+  - text: TSK and Probit Model
+    href: dev/articles/TSK-and-Probit-Models.html  # Add dev/ prefix
+```
+
+## Verification Steps
+
+After implementing the fix:
+
+1. **Commit and push** your `_pkgdown.yml` changes
+2. **Wait for GitHub Actions** to complete
+3. **Test article URLs** directly in browser
+4. **Check navigation menus** work correctly
+5. **Clear browser cache** if needed
+
+## Prevention Tips
+
+### 1. Understand Your Package Version
+
+Check your package version in `DESCRIPTION`:
+
+```r
+# Development version (triggers dev mode)
+Version: 1.0.0.9000
+
+# Release version (triggers release mode)  
+Version: 1.0.0
+```
+
+### 2. Be Explicit with Development Mode
+
+Instead of `mode: auto`, explicitly set your preferred mode:
+
+```yaml
+development:
+  mode: release    # or 'devel' if you want dev/ paths
+  version_label: default
+```
+
+### 3. Test Navigation URLs Locally
+
+Build your site locally and verify all navigation links work:
+
+```{r}
+#| eval: false
+
+# Build site locally
+pkgdown::build_site()
+
+# Check all links in _site/index.html work
+browseURL("docs/index.html")
+```
+
+### 4. Monitor GitHub Actions Logs
+
+Always check the "Writing to:" path in your build logs to ensure it matches your navigation expectations.
+
+## Debugging Checklist
+
+When articles go missing, work through this checklist:
+
+- [ ] Articles render locally
+- [ ] GitHub Actions completes successfully  
+- [ ] Articles appear in build logs as "Writing articles/..."
+- [ ] Direct URL access works (check both with/without `dev/`)
+- [ ] Navigation URLs match build output path
+- [ ] Development mode setting is appropriate
+- [ ] Browser cache cleared
+
+## Key Takeaways
+
+1. **Path consistency matters**: Navigation URLs must match the actual build output paths
+2. **Development mode is powerful but subtle**: `mode: auto` can cause unexpected path changes
+3. **GitHub Actions success ≠ deployment success**: Always verify the final result
+4. **Read the logs carefully**: The build output path is explicitly logged
+5. **Test directly**: Don't rely solely on navigation menus for testing
+
+## Conclusion
+
+This type of issue highlights why understanding the tools you use is crucial. Pkgdown's development mode is a powerful feature for maintaining separate dev and release documentation, but it can cause subtle issues when not properly configured.
+
+The lesson? When debugging complex deployment issues:
+1. Start with the fundamentals (does it work locally?)
+2. Examine the logs systematically 
+3. Test assumptions directly
+4. Understand the tools' behavior in different modes
+
+Have you encountered similar deployment mysteries? The debugging process is often more valuable than the fix itself! 
+
+---
+
+*This post was inspired by a real debugging session while working on the [drcHelper](https://github.com/Bayer-Group/drcHelper) R package.*

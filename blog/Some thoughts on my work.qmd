@@ -1,0 +1,51 @@
+---
+title: "Some thoughts on my work"
+description: "How to like my job"
+author: "Zhenglei Gao"
+date: "01/14/2024"
+categories:
+  - thoughts
+editor_options: 
+  chunk_output_type: console
+---
+
+I put this article into 2024 so that it won't be displayed in the front, even though it is written in the beginning of 2025.
+
+As I reflect on the start of 2025, I've been considering what I truly enjoy about my work. Why do I work? What do I hope to accomplish in my career?
+
+Ultimately, my goal is to be a trustworthy, reliable, and authoritative figure in my area of expertise. I also aspire to be a kind and happy person, both in the workplace and beyond.
+
+Last evening, my daughter asked me to change her bedsheets, and I told her I would do it over the weekend. However, my son took the initiative to go upstairs and change the bedsheets for both himself and his sister. My husband then asked where Jiahan inherited such a nice personality. My daughter replied not from him, which means naturally that it is from me. I realized that this is the kind of person I am and I want to be.
+
+What do I gain from work? A sense of achievement when I solve a problem, when I helpe a colleague, when I finish a project and see a product in use.  I also have the opportunity to connect with others in similar fields, gather valuable experiences, acquire new knowledge, and develop both technical and non-technical skills within and beyond my area of expertise. 
+
+Even after all these years, I still feel like I often approach work with a student’s mindset. However, I know I’ve learned a lot already. For example, sometimes it’s important to express ideas in different ways or tones to achieve the solutions I’m seeking. I have also learned to accept when things don't go as I would like. Most importantly, I appreciate having a salary that brings me satisfaction.
+
+Do I struggle at work? I do. 
+
+- It’s difficult for me to say no. 
+- I’m juggling too many little responsibilities and I want to keep up with most of them.
+- There's never enough time to delve into the topics that I am genuinely interested in.
+- I am part of a group where everyone is focused on different tasks or areas, making the connections very weak.
+- It’s challenging to maintain a strategic mindset when it feels like my opinion won’t ultimately matter.
+- I find it hard to present my technical contributions in a way that demonstrates great business impact.
+- I prefer contributing individually and don’t enjoy management roles.
+
+What am I good at?
+- I have a open mind and a willingness to learn and adapt.
+- I enjoy trial and error and I enjoy getting my hand dirty.
+- I possess techinical and scientific expertise and have developed a reputation as the go-to person.
+- I am happy or even excited when I need to learn something new or from scratch.
+- what else?
+
+What should I improve?
+- Communication
+- Networking
+
+
+
+::: {.callout-note}
+To be continued.
+:::
+
+
