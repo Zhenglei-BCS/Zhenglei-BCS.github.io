@@ -4,11 +4,17 @@ description: "Reproduce "
 author: "Zhenglei Gao"
 date: "12/03/2024"
 categories:
-  - code
-  - R
+  - AWS
 editor_options: 
   chunk_output_type: console
 ---
+
+## Notes
+
+Deploying a Shiny application on AWS provides a scalable and professional way to share your R-based interactive applications with users. While creating the Shiny app itself might be straightforward for R developers, properly configuring AWS infrastructure components like Virtual Private Cloud (VPC), security groups, Application Load Balancers (ALB), and networking settings can be challenging, especially in corporate environments. Navigating corporate AWS infrastructure with VPNs and security restrictions is very very difficult.
+
+This post documents my journey deploying a Shiny app on AWS, covering both the technical setup and troubleshooting steps I encountered along the way. I'll discuss several deployment approaches - from simple single-instance setups to more sophisticated containerized solutions with auto-scaling. 
+
 ## Update on 17-07-2025
 
 *Modified based on answers from MGA.*

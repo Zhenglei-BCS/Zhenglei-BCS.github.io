@@ -135,8 +135,8 @@ library(gridExtra)
 
 # Create data for Venn diagram-like visualization
 circle_data <- function(x0, y0, r, n = 100) {
-  theta <- seq(0, 2*pi, length.out = n)
-  data.frame(x = x0 + r*cos(theta), y = y0 + r*sin(theta))
+    theta <- seq(0, 2 * pi, length.out = n)
+    data.frame(x = x0 + r * cos(theta), y = y0 + r * sin(theta))
 }
 
 # Create circles
@@ -146,15 +146,15 @@ residual_circle <- circle_data(0.5, 2, 2)
 
 # Plot
 p <- ggplot() +
-  geom_polygon(data = fixed_circle, aes(x, y), fill = "red", alpha = 0.3) +
-  geom_polygon(data = random_circle, aes(x, y), fill = "blue", alpha = 0.3) +
-  geom_polygon(data = residual_circle, aes(x, y), fill = "green", alpha = 0.3) +
-  annotate("text", x = -1, y = 0, label = "Fixed\nEffects", size = 5) +
-  annotate("text", x = 2.5, y = -0.5, label = "Random\nEffects", size = 5) +
-  annotate("text", x = 0.5, y = 3, label = "Residual\nVariance", size = 5) +
-  annotate("text", x = 0.8, y = 0.3, label = "Overlap", size = 4) +
-  theme_void() +
-  labs(title = "Overlapping Variance Components")
+    geom_polygon(data = fixed_circle, aes(x, y), fill = "red", alpha = 0.3) +
+    geom_polygon(data = random_circle, aes(x, y), fill = "blue", alpha = 0.3) +
+    geom_polygon(data = residual_circle, aes(x, y), fill = "green", alpha = 0.3) +
+    annotate("text", x = -1, y = 0, label = "Fixed\nEffects", size = 5) +
+    annotate("text", x = 2.5, y = -0.5, label = "Random\nEffects", size = 5) +
+    annotate("text", x = 0.5, y = 3, label = "Residual\nVariance", size = 5) +
+    annotate("text", x = 0.8, y = 0.3, label = "Overlap", size = 4) +
+    theme_void() +
+    labs(title = "Overlapping Variance Components")
 
 print(p)
 ```

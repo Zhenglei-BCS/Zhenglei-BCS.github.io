@@ -2,7 +2,7 @@
 title: "R Pipeline operators"
 description: "magrittr and own definitions"
 author: "Zhenglei Gao"
-date: "12/06/2025"
+date: "06/12/2025"
 categories:
   - R
 editor_options: 

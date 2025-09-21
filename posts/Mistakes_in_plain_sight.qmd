@@ -23,7 +23,9 @@ attr(,"condition")
 <simpleError in if (is.null(list(...)$direction) | list(...)$direction == "decreasing") {    direction <- "decreasing"    comparisons <- paste(wt$dose, "- 0 >= 0")} else {    direction <- "increasing"    comparisons <- paste(wt$dose, "- 0 <= 0")}: argument is of length zero>
 ```
 
-Debugging in scripts is not always easy but at least you know there is something wrong. 
+Another example is when coding shiny app modules, the name of the name space should be consistent between UI and Server components. I often got irresponsive parts where I spend long time to find out why and lots of the time it turned out to be a typo somewhere. 
+Debugging in scripts is not always easy but at least you know there is something wrong. Error messages, even cryptic ones, alert you to the problem. In interactive applications like Shiny, the issues can be more insidious - parts simply don't work with no error message to guide you. These "silent failures" are often the most time-consuming to track down.
+
 
 -TBC-
 
