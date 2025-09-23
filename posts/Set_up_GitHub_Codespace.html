@@ -329,7 +329,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#basics-for-r" id="toc-basics-for-r" class="nav-link active" data-scroll-target="#basics-for-r">Basics for R</a></li>
+  <li><a href="#easiest-way" id="toc-easiest-way" class="nav-link active" data-scroll-target="#easiest-way">Easiest Way</a></li>
+  <li><a href="#prompts-instruct-the-github-agent" id="toc-prompts-instruct-the-github-agent" class="nav-link" data-scroll-target="#prompts-instruct-the-github-agent">Prompts instruct the GitHub Agent</a></li>
+  <li><a href="#basics-for-r" id="toc-basics-for-r" class="nav-link" data-scroll-target="#basics-for-r">Basics for R</a></li>
+  <li><a href="#install-r-4.5-or-higher" id="toc-install-r-4.5-or-higher" class="nav-link" data-scroll-target="#install-r-4.5-or-higher">Install R 4.5 or higher</a></li>
   <li><a href="#get-around-cran-checks" id="toc-get-around-cran-checks" class="nav-link" data-scroll-target="#get-around-cran-checks">Get around CRAN checks</a></li>
   <li><a href="#github-pages-publishing-workflow" id="toc-github-pages-publishing-workflow" class="nav-link" data-scroll-target="#github-pages-publishing-workflow">Github pages publishing workflow</a></li>
   </ul>
@@ -379,58 +382,129 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="easiest-way" class="level2">
+<h2 class="anchored" data-anchor-id="easiest-way">Easiest Way</h2>
+<p>The easiest way to set up a GitHub Codespace with your preferred configuration is to use a <code>.devcontainer</code> configuration. This approach lets you define your development environment as code:</p>
+<ol type="1">
+<li>Create a <code>.devcontainer</code> folder in your repository</li>
+<li>Add a <code>devcontainer.json</code> file with your configuration</li>
+</ol>
+<p>For example, the <a href="https://github.com/eddelbuettel/r2u">eddelbuettel/r2u repository</a> provides a ready-to-use configuration when launching a Codespace from the repository. You can find detailed instructions in their <a href="https://eddelbuettel.github.io/r2u/vignettes/Codespaces/">Codespaces documentation</a>.</p>
+</section>
+<section id="prompts-instruct-the-github-agent" class="level2">
+<h2 class="anchored" data-anchor-id="prompts-instruct-the-github-agent">Prompts instruct the GitHub Agent</h2>
+<pre><code>- When there are syntax errors that cannot be easily fixed, the issue seems if often incomplete or fragmented code. Write clean versions instead, also, try to delete the version non-clean afterwards with the confirmation from me. 
+- </code></pre>
+<hr>
+<p>Here’s a sample configuration for R and Quarto manually set by my self:</p>
+</section>
 <section id="basics-for-r" class="level2">
 <h2 class="anchored" data-anchor-id="basics-for-r">Basics for R</h2>
 <ul>
 <li>Install R and Quarto</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get install <span class="at">-y</span> r-base</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://quarto.org/download/latest/quarto-linux-amd64.deb</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> ./quarto-linux-amd64.deb</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> quarto-linux-amd64.deb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get install <span class="at">-y</span> r-base</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://quarto.org/download/latest/quarto-linux-amd64.deb</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> ./quarto-linux-amd64.deb</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> quarto-linux-amd64.deb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Install Pandoc</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get install <span class="at">-y</span> pandoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <ul>
 <li>Install Extension: REditorSupport
 <ul>
-<li>install the requred packages: <code>sudo Rscript -e "install.packages('languageserver', repos='https://cloud.r-project.org/')"</code> <code>sudo Rscript -e "install.packages('httpgd', repos='https://cloud.r-project.org/')"</code> <code>sudo Rscript -e "install.packages('devtools', repos='https://cloud.r-project.org/')"</code></li>
+<li>install the requred packages: <code>sudo Rscript -e "install.packages('languageserver', repos='https://cloud.r-project.org/')"</code> <code>sudo Rscript -e "install.packages('httpgd', repos='https://cloud.r-project.org/')"</code></li>
 </ul></li>
 <li>Install often used R packages</li>
 </ul>
 <p>Note for certain packages, some additional system packages are required. From example, for PMCMRplus package, libmpfr need to be installed.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libmpfr-dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libmpfr-dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>sudo Rscript -e "install.packages('devtools', repos='https://cloud.r-project.org/')"</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example: dependencies for drcHelper</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Rmpfr"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"drc"</span>, <span class="st">"multcomp"</span>, <span class="st">"PMCMRplus"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyselect"</span>, <span class="st">"lme4"</span>, <span class="st">"bmd"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>, <span class="st">"scales"</span>, <span class="st">"metafor"</span>, <span class="st">"rstatix"</span>, <span class="st">"DescTools"</span>, <span class="st">"isotone"</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>) <span class="co"># if not already installed</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/bmd@a3bd9c6113e35d43e0990614469dabb10cd409bd"</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/drc"</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/drcData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example: dependencies for drcHelper</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Rmpfr"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>   <span class="st">"multcomp"</span>, <span class="st">"PMCMRplus"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyselect"</span>, <span class="st">"lme4"</span>, <span class="st">"bmd"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>, <span class="st">"scales"</span>, <span class="st">"metafor"</span>, <span class="st">"rstatix"</span>, <span class="st">"DescTools"</span>, <span class="st">"isotone"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>) <span class="co"># if not already installed</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/bmd@a3bd9c6113e35d43e0990614469dabb10cd409bd"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/drc"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/drcData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>To clean up lock files and install a package: <code>rm -f /home/codespace/R/x86_64-pc-linux-gnu-library/4.3/00LOCK-ragg &amp;&amp; Rscript -e "install.packages('ragg', repos='https://cloud.r-project.org/')"</code></p>
 <p>For rendering the pkgdown website, additional packages are neede</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GLMcat"</span>, <span class="st">"kableExtra"</span>, <span class="st">"emmeans"</span>, <span class="st">"outliers"</span>, <span class="st">"drda"</span>, <span class="st">"pander"</span>, <span class="st">"ggnewscale"</span>, <span class="st">"patchwork"</span>, <span class="st">"ggprism"</span>, <span class="st">"plyr"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GLMcat"</span>, <span class="st">"kableExtra"</span>, <span class="st">"emmeans"</span>, <span class="st">"outliers"</span>, <span class="st">"drda"</span>, <span class="st">"pander"</span>, <span class="st">"ggnewscale"</span>, <span class="st">"patchwork"</span>, <span class="st">"ggprism"</span>, <span class="st">"plyr"</span>,<span class="st">"MCPMpd"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Install radian</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Ubuntu 23.04 or above, my current code space is 4.24</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lsb_release</span> <span class="at">-a</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install pipx</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> ensurepath</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install released version</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install radian</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or the dev version</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install git+https://github.com/randy3k/radian</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># to run radian</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">radian</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Ubuntu 23.04 or above, my current code space is 4.24</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lsb_release</span> <span class="at">-a</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install pipx</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> ensurepath</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install released version</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install radian</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or the dev version</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">pipx</span> install git+https://github.com/randy3k/radian</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># to run radian</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">radian</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>To find out the path of radian: <code>which radian</code>.</p>
+<p>To associate R code execution in VS Code with radian instead of the default R terminal, follow these steps:</p>
+<ol type="1">
+<li>Install the VS Code R extension (if not already installed).</li>
+<li>Set radian as the R terminal in VS Code settings:</li>
+</ol>
+<ul>
+<li>Open VS Code settings (Ctrl+,).</li>
+<li>Search for r.rterm.linux.</li>
+<li>Set its value to the path of radian</li>
+</ul>
+</section>
+<section id="install-r-4.5-or-higher" class="level2">
+<h2 class="anchored" data-anchor-id="install-r-4.5-or-higher">Install R 4.5 or higher</h2>
+<p>Here are step-by-step instructions to upgrade R to version 4.5 or higher on Ubuntu 24.04:</p>
+<p>Remove the old R version (optional):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt remove <span class="at">--purge</span> r-base r-base-core r-recommended r-base-dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Install required dependencies:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">-y</span> <span class="at">--no-install-recommends</span> software-properties-common dirmngr gnupg apt-transport-https ca-certificates</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Add the CRAN GPG key:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-key adv <span class="at">--keyserver</span> keyserver.ubuntu.com <span class="at">--recv-keys</span> <span class="st">'E298A3A825C0D65DFD57CBB651716619E084DAB9'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Add the CRAN repository for R (for Ubuntu 24.04 “Noble”):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"deb https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/"</span> <span class="kw">|</span> <span class="fu">sudo</span> tee /etc/apt/sources.list.d/cran.list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Update package list:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Install the latest R version:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">-y</span> r-base</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Verify the R version:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> <span class="at">--version</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This should install R 4.5.x or newer.</p>
 </section>
 <section id="get-around-cran-checks" class="level2">
 <h2 class="anchored" data-anchor-id="get-around-cran-checks">Get around CRAN checks</h2>
