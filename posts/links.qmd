@@ -39,6 +39,18 @@ plot(mtcars)
 
 - [Deep dive into LLMs like ChatGPT by Andrej Karpathy (TL;DR)](https://anfalmushtaq.com/articles/deep-dive-into-llms-like-chatgpt-tldr?continueFlag=cb23fbb30142663bcf107a11d44e8319)
 - [How To AI (Almost) Anything](mit-mi.github.io/how2ai-course/spring2025/)
+- [Codex vs. Claude Code](https://blog.promptlayer.com/how-openai-codex-works-behind-the-scenes-and-how-it-compares-to-claude-code/)
+
+## AI Tools
+
+- [Cluade Code](https://leewendao.otterstack.cn/writings/blog/claude-code-usage-guide)
+- [Cursor to Claude Code](https://www.builder.io/blog/claude-code)
+
+## AI Instructions / Readings
+
+- [AI Prompting 101](https://docs.lovable.dev/prompting/prompting-one)
+- [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+
 
 ## Quotes I like
 

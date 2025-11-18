@@ -10,25 +10,66 @@ editor_options:
   chunk_output_type: console
 ---
 
+## Easiest Way
+
+The easiest way to set up a GitHub Codespace with your preferred configuration is to use a `.devcontainer` configuration. This approach lets you define your development environment as code:
+
+1. Create a `.devcontainer` folder in your repository
+2. Add a `devcontainer.json` file with your configuration
+
+For example, the [eddelbuettel/r2u repository](https://github.com/eddelbuettel/r2u) provides a ready-to-use configuration when launching a Codespace from the repository. You can find detailed instructions in their [Codespaces documentation](https://eddelbuettel.github.io/r2u/vignettes/Codespaces/).
+
+
+--- 
+
+Here's a sample configuration for R and Quarto manually set by my self:
+
+
 ## Basics for R
 
 - Install R and Quarto
 
 ```bash
 sudo apt-get update && sudo apt-get install -y r-base
+```
+```{bash}
+#| eval: false
 wget https://quarto.org/download/latest/quarto-linux-amd64.deb
 sudo apt-get install -y ./quarto-linux-amd64.deb
 rm quarto-linux-amd64.deb
 ```
 
+- Install Pandoc
+
+```{bash}
+#| eval: false
+sudo apt-get update && sudo apt-get install -y pandoc
+```
+
+
 - Install Extension: REditorSupport
     - install the requred packages: `sudo Rscript -e "install.packages('languageserver', repos='https://cloud.r-project.org/')"`
     `sudo Rscript -e "install.packages('httpgd', repos='https://cloud.r-project.org/')"`
-    `sudo Rscript -e "install.packages('devtools', repos='https://cloud.r-project.org/')"`
-
+   
 
 - Install often used R packages
 
+**Before installing the devtools R package on a fresh Ubuntu system, you must:**
+
+Install system libraries required by devtools and its dependencies:
+- libharfbuzz-dev
+- libfribidi-dev
+- libfreetype-dev
+- libpng-dev
+- libtiff-dev
+- libwebp-dev
+- libjbig-dev
+- libdeflate-dev
+- liblerc-dev
+- libsharpyuv-dev
+
+Use sudo when installing R packages to avoid permission issues.
+These steps ensure all necessary C/C++ libraries are available for compiling devtools and its dependencies
 
 Note for certain packages, some additional system packages are required. From example, for PMCMRplus package, libmpfr need to be installed.
 
@@ -37,13 +78,15 @@ sudo apt update
 sudo apt install libmpfr-dev
 ```
 
+ `sudo Rscript -e "install.packages('devtools', repos='https://cloud.r-project.org/')"`
 
-```{r}
+
+```{r eval=FALSE}
 #| eval: false
 ## Example: dependencies for drcHelper
 install.packages("Rmpfr")
 install.packages(c(
-  "drc", "multcomp", "PMCMRplus", "dplyr", "tidyselect", "lme4", "bmd",
+   "multcomp", "PMCMRplus", "dplyr", "tidyselect", "lme4", "bmd",
   "ggplot2", "scales", "metafor", "rstatix", "DescTools", "isotone"
 ))
 install.packages("remotes") # if not already installed
@@ -53,18 +96,28 @@ remotes::install_github("DoseResponse/drc")
 remotes::install_github("DoseResponse/drcData")
 ```
 
+To clean up lock files and install a package: `rm -f /home/codespace/R/x86_64-pc-linux-gnu-library/4.3/00LOCK-ragg && Rscript -e "install.packages('ragg', repos='https://cloud.r-project.org/')"`
+
 For rendering the pkgdown website, additional packages are neede
 
 ```{r}
 #| eval: false
 
 install.packages(c(
-  "GLMcat", "kableExtra", "emmeans", "outliers", "drda", "pander", "ggnewscale", "patchwork", "ggprism", "plyr"
+  "GLMcat", "kableExtra", "emmeans", "outliers", "drda", "pander", "ggnewscale", "patchwork", "ggprism", "plyr","MCPMpd"
 ))
 ```
 
+## Setting Local R library
 
-- Install radian
+```{r eval=FALSE}
+dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE, showWarnings = FALSE)
+.libPaths(Sys.getenv("R_LIBS_USER"))
+devtools::install()
+```
+
+
+## Install radian
 
 ```bash
 ## Ubuntu 23.04 or above, my current code space is 4.24
@@ -83,7 +136,82 @@ pipx install git+https://github.com/randy3k/radian
 radian
 ```
 
+To find out the path of radian: `which radian`.
+
+To associate R code execution in VS Code with radian instead of the default R terminal, follow these steps:
+
+1. Install the VS Code R extension (if not already installed).
+2. Set radian as the R terminal in VS Code settings:
+  - Open VS Code settings (Ctrl+,).
+  - Search for r.rterm.linux.
+  - Set its value to the path of radian
+
+
+## Install R 4.5 or higher
+
+Here are step-by-step instructions to upgrade R to version 4.5 or higher on Ubuntu 24.04:
+
+Remove the old R version (optional):
+
+```{bash}
+#| eval: false
+sudo apt remove --purge r-base r-base-core r-recommended r-base-dev
+```
+
+Install required dependencies:
+
+
+```{bash}
+#| eval: false
+sudo apt update
+sudo apt install -y --no-install-recommends software-properties-common dirmngr gnupg apt-transport-https ca-certificates
+```
+
+Add the CRAN GPG key:
+
+```{bash}
+#| eval: false
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 'E298A3A825C0D65DFD57CBB651716619E084DAB9'
+```
+
+
+Add the CRAN repository for R (for Ubuntu 24.04 "Noble"):
+
+```{bash}
+#| eval: false
+echo "deb https://cloud.r-project.org/bin/linux/ubuntu noble-cran40/" | sudo tee /etc/apt/sources.list.d/cran.list
+```
+
+Update package list:
+
+```{bash}
+#| eval: false
+sudo apt update
+```
+
+Install the latest R version:
+
+```{bash}
+#| eval: false
+sudo apt install -y r-base
+```
+
+Verify the R version:
+```{bash}
+#| eval: false
+R --version
+```
+
+This should install R 4.5.x or newer. 
 
 ## Get around CRAN checks
 
 ## Github pages publishing workflow
+
+
+## Prompts instruct the GitHub Agent
+
+```
+- When there are syntax errors that cannot be easily fixed, the issue seems often incomplete or fragmented code. Write clean versions instead, also, try to delete the version non-clean afterwards with the confirmation from me. 
+- 
+```

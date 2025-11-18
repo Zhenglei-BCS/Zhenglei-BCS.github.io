@@ -18,6 +18,8 @@
   {
     "listing": "/CCC.html",
     "items": [
+      "/posts/Overdispersion_Hampel.html",
+      "/posts/Prep_GLMM_Intro.html",
       "/posts/pkgdown_GitHub_workflow.html",
       "/posts/Set_up_GitHub_Codespace.html",
       "/posts/Set_up_SVL.html",

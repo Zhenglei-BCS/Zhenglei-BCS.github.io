@@ -1,0 +1,19 @@
+---
+title: "My AI Reading List"
+description: "Interesting and Useful Articles"
+author: "Zhenglei Gao"
+date: "11/18/2025"
+categories:
+  - genAI
+---
+
+## Read
+
+- [How I Use Every Claude Code Feature](https://blog.sshh.io/p/how-i-use-every-claude-code-feature)
+- [(Claude)Skills explained: How Skills compares to prompts, Projects, MCP, and subagents](https://www.claude.com/blog/skills-explained)
+
+## To Read
+
+## What I Want to Understand
+
+- [ ] How dose GitHub Copilot compared to Claude Projects in terms background knowledge and contexts. 
