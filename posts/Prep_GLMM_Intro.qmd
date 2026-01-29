@@ -629,7 +629,11 @@ suppressPackageStartupMessages({
   library(brglm2)    # bias-reduced logistic + separation detection
   library(broom)
 })
-
+data("quantal_dat_nested")
+quantal_dat_nested <- drcHelper::quantal_dat_nested 
+second_arcsin_data <- quantal_dat_nested$data[[2]] %>% mutate(arcsin_prop = asin(sqrt(immob)),Treatment = factor(Treatment, levels = c("Control", sort(as.numeric(unique(Treatment[Treatment != "Control"])))))
+)
+dat <- second_arcsin_data 
 # 1) Show the pattern that causes separation
 by_trt <- dat %>%
   group_by(Treatment) %>%

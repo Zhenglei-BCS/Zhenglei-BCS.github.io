@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zhenglei Gao">
+<meta name="dcterms.date" content="2024-12-03">
+<meta name="description" content="Reproduce">
+
+<title>Deploy a Shiny App on AWS – Zhenglei Gao</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f7ac19f99b1bffdb182407b6a99bda4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-afa1767ab894c633a6efdfa517d42c1b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f7ac19f99b1bffdb182407b6a99bda4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Zhenglei Gao</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../CCC.html"> 
+<span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#notes" id="toc-notes" class="nav-link active" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#update-on-17-07-2025" id="toc-update-on-17-07-2025" class="nav-link" data-scroll-target="#update-on-17-07-2025">Update on 17-07-2025</a>
+  <ul class="collapse">
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a></li>
+  <li><a href="#approach-1-simple-setup-single-ec2-instance-with-shiny-server" id="toc-approach-1-simple-setup-single-ec2-instance-with-shiny-server" class="nav-link" data-scroll-target="#approach-1-simple-setup-single-ec2-instance-with-shiny-server">Approach 1: Simple Setup (Single EC2 Instance with Shiny Server)</a></li>
+  <li><a href="#approach-2-scalable-setup-ec2-with-auto-scaling-and-load-balancer" id="toc-approach-2-scalable-setup-ec2-with-auto-scaling-and-load-balancer" class="nav-link" data-scroll-target="#approach-2-scalable-setup-ec2-with-auto-scaling-and-load-balancer">Approach 2: Scalable Setup (EC2 with Auto Scaling and Load Balancer)</a></li>
+  <li><a href="#approach-3-containerized-setup-ec2-with-docker" id="toc-approach-3-containerized-setup-ec2-with-docker" class="nav-link" data-scroll-target="#approach-3-containerized-setup-ec2-with-docker">Approach 3: Containerized Setup (EC2 with Docker)</a></li>
+  <li><a href="#additional-notes-and-best-practices" id="toc-additional-notes-and-best-practices" class="nav-link" data-scroll-target="#additional-notes-and-best-practices">Additional Notes and Best Practices</a></li>
+  <li><a href="#which-approach-to-choose" id="toc-which-approach-to-choose" class="nav-link" data-scroll-target="#which-approach-to-choose">Which Approach to Choose?</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#when-i-have-a-linux-computer" id="toc-when-i-have-a-linux-computer" class="nav-link" data-scroll-target="#when-i-have-a-linux-computer">When I have a Linux Computer</a></li>
+  <li><a href="#steps-i-take-to-host-the-app-on-aws" id="toc-steps-i-take-to-host-the-app-on-aws" class="nav-link" data-scroll-target="#steps-i-take-to-host-the-app-on-aws">Steps I take to host the app on AWS</a>
+  <ul class="collapse">
+  <li><a href="#create-a-new-server-in-aws" id="toc-create-a-new-server-in-aws" class="nav-link" data-scroll-target="#create-a-new-server-in-aws">1. Create a new server in AWS</a></li>
+  <li><a href="#install-r-and-r-shiny-on-the-server" id="toc-install-r-and-r-shiny-on-the-server" class="nav-link" data-scroll-target="#install-r-and-r-shiny-on-the-server">2. Install R and R shiny on the server</a></li>
+  <li><a href="#prepare-all-the-necessary-app-files." id="toc-prepare-all-the-necessary-app-files." class="nav-link" data-scroll-target="#prepare-all-the-necessary-app-files.">3. Prepare all the necessary app files.</a></li>
+  <li><a href="#deploy-the-app-on-the-server" id="toc-deploy-the-app-on-the-server" class="nav-link" data-scroll-target="#deploy-the-app-on-the-server">4. Deploy the app on the server</a></li>
+  <li><a href="#optional-steps" id="toc-optional-steps" class="nav-link" data-scroll-target="#optional-steps">4. Optional steps</a></li>
+  </ul></li>
+  <li><a href="#special-steps" id="toc-special-steps" class="nav-link" data-scroll-target="#special-steps">Special Steps</a></li>
+  <li><a href="#other-tips" id="toc-other-tips" class="nav-link" data-scroll-target="#other-tips">Other Tips</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Deploy a Shiny App on AWS</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">AWS</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Reproduce
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhenglei Gao </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 3, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<p>Deploying a Shiny application on AWS provides a scalable and professional way to share your R-based interactive applications with users. While creating the Shiny app itself might be straightforward for R developers, properly configuring AWS infrastructure components like Virtual Private Cloud (VPC), security groups, Application Load Balancers (ALB), and networking settings can be challenging, especially in corporate environments. Navigating corporate AWS infrastructure with VPNs and security restrictions is very very difficult.</p>
+<p>This post documents my journey deploying a Shiny app on AWS, covering both the technical setup and troubleshooting steps I encountered along the way. I’ll discuss several deployment approaches - from simple single-instance setups to more sophisticated containerized solutions with auto-scaling.</p>
+</section>
+<section id="update-on-17-07-2025" class="level2">
+<h2 class="anchored" data-anchor-id="update-on-17-07-2025">Update on 17-07-2025</h2>
+<p><em>Modified based on answers from MGA.</em></p>
+<p>Setting up a Shiny app on an AWS EC2 instance using an AWS account is a great way to deploy a scalable and accessible R-based web application. Below, I’ll outline a step-by-step approach to achieve this, considering best practices for security, scalability, and cost-efficiency.</p>
+<section id="troubleshooting" class="level3">
+<h3 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h3>
+<p>In the begining, I got timeout error from SSH, this is because my AWS account miss the transit gateway to connect to company intranet. I do have private subnet and public subnet, in principle, it is possible to exposure my app to general public from the internet.</p>
+</section>
+<section id="approach-1-simple-setup-single-ec2-instance-with-shiny-server" class="level3">
+<h3 class="anchored" data-anchor-id="approach-1-simple-setup-single-ec2-instance-with-shiny-server">Approach 1: Simple Setup (Single EC2 Instance with Shiny Server)</h3>
+<p>This approach is ideal for small to medium-sized apps or for testing purposes. It involves setting up a single EC2 instance with Shiny Server to host your app.</p>
+<section id="steps" class="level4">
+<h4 class="anchored" data-anchor-id="steps">Steps:</h4>
+<ol type="1">
+<li><strong>Launch an EC2 Instance</strong>
+<ul>
+<li>Log in to the AWS Management Console.</li>
+<li>Navigate to the EC2 Dashboard and click “Launch Instance.”</li>
+<li>Choose an Amazon Machine Image (AMI): Select a Linux-based AMI like “Ubuntu Server 20.04 LTS” (free tier eligible if available).</li>
+<li>Instance Type: Start with a <code>t2.micro</code> (free tier) or <code>t3.small</code> for better performance, depending on your app’s requirements.</li>
+<li>Configure Security Group: Allow inbound traffic on ports 22 (SSH), 80 (HTTP), and 3838 (default Shiny Server port). Restrict access to specific IP ranges if needed for security.</li>
+<li>Storage: Default storage (8-30 GB) is usually sufficient for a basic setup.</li>
+<li>Key Pair: Create or use an existing key pair to SSH into the instance.</li>
+<li>Launch the instance and note its public IP or DNS.</li>
+</ul></li>
+<li><strong>Connect to the EC2 Instance</strong>
+<ul>
+<li><p>Use SSH to connect to your instance using the key pair and public IP:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-i</span> your-key-pair.pem ubuntu@<span class="op">&lt;</span>public-ip-address<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul></li>
+<li><strong>Install R and Shiny Server</strong>
+<ul>
+<li><p>Update the package list:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Install R:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install r-base</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Install necessary R packages for Shiny:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> su <span class="at">-</span> <span class="at">-c</span> <span class="st">"R -e </span><span class="dt">\"</span><span class="st">install.packages('shiny', repos='https://cran.rstudio.com/')</span><span class="dt">\"</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Install Shiny Server (open-source version):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install gdebi-core</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.21.1012-amd64.deb</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> gdebi shiny-server-1.5.21.1012-amd64.deb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Verify Shiny Server is running:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl status shiny-server</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul></li>
+<li><strong>Deploy Your Shiny App</strong>
+<ul>
+<li><p>Copy your Shiny app files to the instance using <code>scp</code> or a tool like FileZilla:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scp</span> <span class="at">-i</span> your-key-pair.pem app.R ubuntu@<span class="op">&lt;</span>public-ip-address<span class="op">&gt;</span>:/srv/shiny-server/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Ensure the app directory or file has the correct permissions:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> chown <span class="at">-R</span> shiny:shiny /srv/shiny-server/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Access your app via a browser at <code>http://&lt;public-ip-address&gt;:3838/</code> or the specific app path if customized.</p></li>
+</ul></li>
+<li><strong>Optional: Set Up a Custom Domain (Route 53)</strong>
+<ul>
+<li>If your company uses AWS Route 53 for DNS management, map a domain or subdomain to the EC2 instance’s public IP or Elastic IP.</li>
+<li>Request an Elastic IP from AWS and associate it with your instance to avoid IP changes on reboot.</li>
+</ul></li>
+<li><strong>Security Considerations</strong>
+<ul>
+<li><p>Restrict SSH access to specific IPs in the security group.</p></li>
+<li><p>Use HTTPS by setting up a reverse proxy with Nginx or Apache and obtaining an SSL certificate via AWS Certificate Manager or Let’s Encrypt.</p></li>
+<li><p>Regularly update the OS and software:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt upgrade</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="approach-2-scalable-setup-ec2-with-auto-scaling-and-load-balancer" class="level3">
+<h3 class="anchored" data-anchor-id="approach-2-scalable-setup-ec2-with-auto-scaling-and-load-balancer">Approach 2: Scalable Setup (EC2 with Auto Scaling and Load Balancer)</h3>
+<p>This approach is suitable for production environments or apps with high traffic. It uses an Application Load Balancer (ALB) and Auto Scaling to manage multiple EC2 instances running Shiny Server.</p>
+<section id="steps-1" class="level4">
+<h4 class="anchored" data-anchor-id="steps-1">Steps:</h4>
+<ol type="1">
+<li><strong>Create an AMI for Shiny Server</strong>
+<ul>
+<li>Follow the steps in Approach 1 to set up a single EC2 instance with Shiny Server and your app.</li>
+<li>Once configured, create a custom AMI from this instance:
+<ul>
+<li>In the EC2 Dashboard, select the instance, click “Actions” &gt; “Image and Templates” &gt; “Create Image.”</li>
+<li>Use this AMI for launching additional instances.</li>
+</ul></li>
+</ul></li>
+<li><strong>Set Up an Auto Scaling Group</strong>
+<ul>
+<li>Navigate to the EC2 Dashboard &gt; “Auto Scaling Groups.”</li>
+<li>Create a new Auto Scaling Group using the custom AMI.</li>
+<li>Define launch templates with the desired instance type and configuration.</li>
+<li>Set scaling policies based on CPU usage or request count to automatically add/remove instances.</li>
+</ul></li>
+<li><strong>Configure an Application Load Balancer (ALB)</strong>
+<ul>
+<li>In the EC2 Dashboard, go to “Load Balancers” and create an ALB.</li>
+<li>Configure the ALB to listen on port 80 (HTTP) or 443 (HTTPS) and forward traffic to port 3838 on the target instances.</li>
+<li>Register the Auto Scaling Group as a target group for the ALB.</li>
+<li>Optionally, enable sticky sessions if your Shiny app requires session persistence.</li>
+</ul></li>
+<li><strong>Route Traffic via Route 53</strong>
+<ul>
+<li>Create an Alias record in Route 53 pointing to the ALB’s DNS name.</li>
+<li>Use HTTPS by integrating an SSL certificate from AWS Certificate Manager with the ALB.</li>
+</ul></li>
+<li><strong>Monitoring and Logging</strong>
+<ul>
+<li>Enable CloudWatch monitoring for the EC2 instances and ALB to track performance metrics.</li>
+<li>Set up CloudWatch Alarms to notify you of high CPU usage or other anomalies.</li>
+</ul></li>
+<li><strong>Security Considerations</strong>
+<ul>
+<li>Use IAM roles for EC2 instances instead of storing credentials manually.</li>
+<li>Place instances in a private subnet within a VPC, allowing only the ALB to access them from the public internet.</li>
+<li>Regularly patch instances using AWS Systems Manager Patch Manager.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="approach-3-containerized-setup-ec2-with-docker" class="level3">
+<h3 class="anchored" data-anchor-id="approach-3-containerized-setup-ec2-with-docker">Approach 3: Containerized Setup (EC2 with Docker)</h3>
+<p>If your company encourages containerization or you prefer a more portable setup, use Docker to run Shiny apps on EC2.</p>
+<section id="steps-2" class="level4">
+<h4 class="anchored" data-anchor-id="steps-2">Steps:</h4>
+<ol type="1">
+<li><strong>Launch an EC2 Instance</strong>
+<ul>
+<li>Follow the same steps as in Approach 1 to launch an Ubuntu-based EC2 instance.</li>
+</ul></li>
+<li><strong>Install Docker</strong>
+<ul>
+<li><p>Update the instance and install Docker:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install docker.io</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl start docker</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> systemctl enable docker</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> usermod <span class="at">-aG</span> docker ubuntu</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul></li>
+<li><strong>Pull or Build a Shiny Docker Image</strong>
+<ul>
+<li><p>Use an existing Shiny Docker image from Docker Hub:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull rocker/shiny</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Alternatively, create a custom <code>Dockerfile</code> for your app:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> rocker/shiny:latest</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . /srv/shiny-server/</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">EXPOSE</span> 3838</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="kw">CMD</span> [<span class="st">"/usr/bin/shiny-server"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Build and run the container:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> my-shiny-app .</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 3838:3838 my-shiny-app</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+</ul></li>
+<li><strong>Access the App</strong>
+<ul>
+<li>Access the app via <code>http://&lt;public-ip-address&gt;:3838/</code>.</li>
+</ul></li>
+<li><strong>Scaling and Management</strong>
+<ul>
+<li>Use Docker Compose or AWS ECS (Elastic Container Service) for managing multiple containers or scaling.</li>
+<li>If using ECS, deploy your Docker image to an ECS cluster with an ALB for load balancing.</li>
+</ul></li>
+<li><strong>Security Considerations</strong>
+<ul>
+<li>Secure Docker by restricting access to the Docker daemon.</li>
+<li>Use AWS ECR (Elastic Container Registry) to store and manage your Docker images securely.</li>
+</ul></li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="additional-notes-and-best-practices" class="level3">
+<h3 class="anchored" data-anchor-id="additional-notes-and-best-practices">Additional Notes and Best Practices</h3>
+<ul>
+<li><strong>Cost Management</strong>: Monitor costs using AWS Cost Explorer. Use Reserved Instances or Savings Plans for long-term deployments. Shut down unused instances during off-hours if possible.</li>
+<li><strong>Backup and Recovery</strong>: Regularly snapshot your EC2 instance or use AWS Backup for data protection.</li>
+<li><strong>Company Policies</strong>: Adhere to your company’s AWS usage policies, such as tagging resources (e.g., project name, owner) for tracking.</li>
+<li><strong>Alternative Services</strong>: If managing EC2 instances seems complex, consider AWS services like Elastic Beanstalk for simplified deployment or AWS Fargate with ECS for serverless container management. Additionally, RStudio’s hosted solutions like ShinyApps.io might be an option if approved by your company, though they are not on AWS directly.</li>
+<li><strong>Networking</strong>: If your app needs to connect to internal company resources (e.g., databases), set up the EC2 instance in a VPC with appropriate subnets and route tables.</li>
+</ul>
+</section>
+<section id="which-approach-to-choose" class="level3">
+<h3 class="anchored" data-anchor-id="which-approach-to-choose">Which Approach to Choose?</h3>
+<ul>
+<li><strong>Approach 1 (Simple Setup)</strong>: Best for quick deployment, testing, or low-traffic apps. Minimal setup time but limited scalability.</li>
+<li><strong>Approach 2 (Scalable Setup)</strong>: Best for production apps with variable traffic. Higher setup complexity but offers reliability and scalability.</li>
+<li><strong>Approach 3 (Containerized Setup)</strong>: Best if your team uses Docker or plans to adopt container orchestration. Offers portability and consistency across environments.</li>
+</ul>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><a href="https://www.charlesbordet.com/en/guide-shiny-aws/#">The Ultimate Guide to Deploying a Shiny App on AWS</a></li>
+<li><a href="https://aws.amazon.com/ec2/instance-types/">Amazon EC2 Instance Types</a></li>
+</ul>
+</section>
+<section id="when-i-have-a-linux-computer" class="level2">
+<h2 class="anchored" data-anchor-id="when-i-have-a-linux-computer">When I have a Linux Computer</h2>
+<ol type="1">
+<li>Remotely log on to that computer.</li>
+<li>Install R, RStudio, Shinyserver.</li>
+<li>Put the app package there.</li>
+<li>Configure the ports.</li>
+</ol>
+</section>
+<section id="steps-i-take-to-host-the-app-on-aws" class="level2">
+<h2 class="anchored" data-anchor-id="steps-i-take-to-host-the-app-on-aws">Steps I take to host the app on AWS</h2>
+<section id="create-a-new-server-in-aws" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-new-server-in-aws">1. Create a new server in AWS</h3>
+<p>Follow the guidance, we use EC2 service. First we do the configuration for EC2 instance as my server. - AMI(Amazon Machine Image): Ubuntu Server 18.04 LTS. - Instance type: t2.micro (CPU with one 1, 1 GB of RAM, basic internet connection, you can use this type for free) - Storage size: default is 8 GB, up to 30 GB is free. - Create a key pair to protect the access to the server, which is kept on my local computer.</p>
+<p>Access the server with SSH under windows via SSH client PuTTY, or from Ubuntu system. Note that pem.key is the file that was saved as the key pair.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ssh: connect to host 10.69.31.123 port 22: Connection timed out</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Troubleshooting: 1. You may not be able to connect to this instance as ports 22 may need to be open. 2. Connect to your instance using its Private IP:</p>
+</div>
+</div>
+<p>I tried to <em>Connect to Your Instances Without Requiring Public Ipv4 Address Using EC2 Instance Connect Endpoint</em> following the steps in <a href="https://www.youtube.com/watch?v=tzXtbW4tQBg">this guide</a>.</p>
+<ol type="1">
+<li>Associate IAM role to the instance endpoint. I created an IAM role “CDMdev” and modify the IAM role on the instance under Security menu.</li>
+<li>Find the <a href="https://ip-ranges.amazonaws.com/ip-ranges.json">ip-prefix</a> for my region.</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"ip_prefix"</span><span class="fu">:</span> <span class="st">"15.230.221.0/24"</span><span class="fu">,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"region"</span><span class="fu">:</span> <span class="st">"us-east-1"</span><span class="fu">,</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"service"</span><span class="fu">:</span> <span class="st">"AMAZON"</span><span class="fu">,</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"network_border_group"</span><span class="fu">:</span> <span class="st">"us-east-1"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="er">,</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="3" type="1">
+<li>Create or edit a security group for the instance.(In my case it is “launch-wizard-2”).
+<ul>
+<li>Use <code>hostname -I</code> to get the IP address of the instance or under other linux systems.</li>
+<li>For the endpoint connection, open all traffic from the IP prefix above.</li>
+<li>I specified port 22 for any IP using 0.0.0/0, which might not be secure enough.</li>
+<li></li>
+</ul></li>
+</ol>
+<p>This is a perfect situation for AWS Virtual Private Cloud. Put the internal instances in private subnets, and the public-facing instances in public subnets.</p>
+<ol start="4" type="1">
+<li><p>Under VPC (Virtual Private Cloud), create endpoint with relevance security group and subnet (I don’t know which is relevant).</p></li>
+<li></li>
+</ol>
+<p>I can connect to EC2 using Endpoint Connect after the steps above.</p>
+<p>However, I still cannot connect to it using SSH from my RStudio session terminal under same AWS account. Also I realized all the <code>sudo</code> commands that I am familiar with under Ubuntu does not work. I realized I have created an instance using Amazon Linux 2023.6.20250115.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[ec2-user@ip-10-69-31-123</span> ~]$ cat /etc/os-release</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="va">NAME</span><span class="op">=</span><span class="st">"Amazon Linux"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="va">VERSION</span><span class="op">=</span><span class="st">"2023"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="va">ID</span><span class="op">=</span><span class="st">"amzn"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="va">ID_LIKE</span><span class="op">=</span><span class="st">"fedora"</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="va">VERSION_ID</span><span class="op">=</span><span class="st">"2023"</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="va">PLATFORM_ID</span><span class="op">=</span><span class="st">"platform:al2023"</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="va">PRETTY_NAME</span><span class="op">=</span><span class="st">"Amazon Linux 2023.6.20250115"</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="va">ANSI_COLOR</span><span class="op">=</span><span class="st">"0;33"</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="va">CPE_NAME</span><span class="op">=</span><span class="st">"cpe:2.3:o:amazon:amazon_linux:2023"</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="va">HOME_URL</span><span class="op">=</span><span class="st">"https://aws.amazon.com/linux/amazon-linux-2023/"</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="va">DOCUMENTATION_URL</span><span class="op">=</span><span class="st">"https://docs.aws.amazon.com/linux/"</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="va">SUPPORT_URL</span><span class="op">=</span><span class="st">"https://aws.amazon.com/premiumsupport/"</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="va">BUG_REPORT_URL</span><span class="op">=</span><span class="st">"https://github.com/amazonlinux/amazon-linux-2023"</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="va">VENDOR_NAME</span><span class="op">=</span><span class="st">"AWS"</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="va">VENDOR_URL</span><span class="op">=</span><span class="st">"https://aws.amazon.com/"</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="va">SUPPORT_END</span><span class="op">=</span><span class="st">"2028-03-15"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>So I started from scratch to create a new instance with Ubuntu 24.04 LTS. Anyway, after a while, I can connect using Amazon console with endpoint connect. However, SSH does not work.</p>
+<p>I can edit the security group inbound rules to allow any or specific IPv4 or IPv6 address to connect to the instance. But this inbound rule(s) will disappear after I refresh the page.</p>
+<p>I also tried to initiate an instance with public IPv4 address, but the same SSH issue and instance connect issue pesists.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Instance is not in public subnet Associated subnet subnet-00fc65bbe108b4ef5 (SC-039060251298-pp-qv5chh3ykxxz2-PrivateSubnet2) is not a public subnet. To use EC2 Instance Connect, your instance must be in a public subnet. To make the subnet a public subnet, add a route in the subnet route table to an internet gateway.</p>
+</div>
+</div>
+<p>I don’t know how to add a route in the subnet route table to an internet gateway. The reference is <a href="https://docs.aws.amazon.com/vpc/latest/userguide/route-table-options.html#route-tables-internet-gateway">here</a></p>
+<p>Using SSH, I see</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You may not be able to connect to this instance as ports 22 may need to be open in order to be accessible. The current associated security groups don’t have ports 22 open.</p>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-i</span> <span class="st">"CDM_EC2.pem"</span> ubuntu@ec2-54-86-11-86.compute-1.amazonaws.com</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>I checked the security group and the inbound rules, and I see that my original setting that port 22 is open for all SSH traffic disappeared again. Edited it, tried again, Same time out error.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ssh -i “CDM_EC2.pem” ubuntu@ec2-54-86-11-86.compute-1.amazonaws.com ssh: connect to host ec2-54-86-11-86.compute-1.amazonaws.com port 22: Connection timed out</p>
+</div>
+</div>
+</section>
+<section id="install-r-and-r-shiny-on-the-server" class="level3">
+<h3 class="anchored" data-anchor-id="install-r-and-r-shiny-on-the-server">2. Install R and R shiny on the server</h3>
+<ol type="1">
+<li>Add the CRAN repo by</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-key adv <span class="at">--keyserver</span> keyserver.ubuntu.com <span class="at">--recv-keys</span> E298A3A825C0D65DFD57CBB651716619E084DAB9</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> add-apt-repository <span class="st">'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Or use the following commands to add the repo for R 4.0:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># update indices</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update <span class="at">-qq</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install two helper packages we need</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">--no-install-recommends</span> software-properties-common dirmngr</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add the signing key (by Michael Rutter) for these repos</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># To verify key, run gpg --show-keys /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc </span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fingerprint: E298A3A825C0D65DFD57CBB651716619E084DAB9</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-qO-</span> https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc <span class="kw">|</span> <span class="fu">sudo</span> tee <span class="at">-a</span> /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># add the R 4.0 repo from CRAN -- adjust 'focal' to 'groovy' or 'bionic' as needed</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> add-apt-repository <span class="st">"deb https://cloud.r-project.org/bin/linux/ubuntu </span><span class="va">$(</span><span class="ex">lsb_release</span> <span class="at">-cs</span><span class="va">)</span><span class="st">-cran40/"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="1">
+<li>Install R</li>
+</ol>
+<p>I followed the guidance from the <a href="https://rstudio.com/products/rstudio/download-server/debian-ubuntu/">RStudio</a> website.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install r-base r-base-dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">--no-install-recommends</span> r-base</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="3" type="1">
+<li>Install shiny package</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> R</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> install.packages<span class="kw">(</span><span class="st">"shiny"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="4" type="1">
+<li>Install shinyserver</li>
+</ol>
+<p>Modify the version as needed. I used the guide from <a href="https://posit.co/download/shiny-server/">posit</a></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install gdebi-core</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://download3.rstudio.org/ubuntu-18.04/x86_64/shiny-server-1.5.22.1017-amd64.deb</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> gdebi shiny-server-1.5.22.1017-amd64.deb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="prepare-all-the-necessary-app-files." class="level3">
+<h3 class="anchored" data-anchor-id="prepare-all-the-necessary-app-files.">3. Prepare all the necessary app files.</h3>
+<ul>
+<li></li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Github serves up an html page that includes the file specified along with context and operations you can perform on it. Tools like wget and curl will need github to send the raw file rather than an html wrapper. Change the blob in the link to raw to get the raw file.</p>
+</div>
+</div>
+<p>An example is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">## note the raw replace blob in the https link.</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-q</span> <span class="at">--trust-server-names</span> https://github.com/Zhenglei-BCS/Share/raw/master/cdm-1.2.0-Linux.tar.gz <span class="at">-O</span> file.tar.gz</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When installing packages, it can happen that last package installation has interrupted abnormally, then you need to remove those lock files first, for example, in R:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlink</span>(<span class="st">"/home/me/src/Rlibs/00LOCK-Rcpp"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Also for Ubuntu, some libraries (libssl-dev, libcurl4-openssl-dev, libxml2-dev,libfontconfig1-dev, libharfbuzz-dev libfribidi-dev, libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev ) are needed for the installation of some packages like “devtools”. For example, when installing “openssl” package, I got the following error:</p>
+<p>Configuration failed because openssl was not found. Try installing: * deb: libssl-dev (Debian, Ubuntu, etc) * rpm: openssl-devel (Fedora, CentOS, RHEL) * csw: libssl_dev (Solaris) * brew: openssl (Mac OSX)</p>
+<p>Configuration failed because openssl was not found. Try installing: Configuration failed because libcurl was not found. Try installing: * deb: libcurl4-openssl-dev (Debian, Ubuntu, etc) * rpm: libcurl-devel (Fedora, CentOS, RHEL)</p>
+<p>To avoid switching between R session and the bash command, I used this</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> <span class="at">-e</span> <span class="st">"install.packages('remotes')"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="deploy-the-app-on-the-server" class="level3">
+<h3 class="anchored" data-anchor-id="deploy-the-app-on-the-server">4. Deploy the app on the server</h3>
+<p>Copied from the guide^1</p>
+<blockquote class="blockquote">
+<p>From EC2 dashborad, select your instance. In the bottom half of your screen, find the line Security groups and click on the link. In the new window, again the bottom half of the screen, click on Inbound, the 2nd tab. Notice that only the port 22 is open. Click on Edit, and the popup that opens, enter the following settings:</p>
+</blockquote>
+<p>EC2 dashboard <span class="math inline">\(\rightarrow\)</span> go to column IPv4 Public IP.</p>
+<pre><code>3.121.42.9:3838</code></pre>
+<p>Open the port 3838 on the firewall</p>
+<p>AWS uses port 22 by default for SSH access. All other ports are blocked</p>
+</section>
+<section id="optional-steps" class="level3">
+<h3 class="anchored" data-anchor-id="optional-steps">4. Optional steps</h3>
+<ul>
+<li>get a domain name</li>
+<li>install nginx, generate TLS certificates, and secure you app with HTTPS.</li>
+<li>protect the app with a password</li>
+</ul>
+</section>
+</section>
+<section id="special-steps" class="level2">
+<h2 class="anchored" data-anchor-id="special-steps">Special Steps</h2>
+<p>The main issue I encounter in a corporate environment is that I need to use a VPN to connect to the AWS server. Everything is then tunneled and the usual steps to connect to the server do not work. Port 22 is usually blocked for external connections due to security considerations. Therefore we need a Jumpbox (called also Bastion Host) to connect to the server.We jump through is to access the internal VPC bastion hosts.</p>
+<p>Using the Bastion SSH Tunnel, I can test my deployed application before making it publicly accessible via a proxy (Akana or Ocelot).</p>
+<ol type="1">
+<li>set up Vault on my computer.</li>
+<li>get a SSH key signed by Vault before you can SSH through the central bastions.</li>
+</ol>
+<p>I am using Git BASH on Windows, and I have the following in my <code>~/.ssh/config</code> file:</p>
+<p>use <code>echo "$http_proxy"</code> to check if the proxy is set up correctly when I am in the office and have VPN activated. You must set the environment variable for each new shell/console. In bash, you can ensure that it is always set by adding it to your <code>~/.bashrc</code> or <code>~/.bash_profile</code> file. Other shells have similar mechanisms to do this.</p>
+</section>
+<section id="other-tips" class="level2">
+<h2 class="anchored" data-anchor-id="other-tips">Other Tips</h2>
+<p>To find the public IP address from Ubuntu terminal, use the following command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> https://ipecho.net/plain <span class="kw">;</span> <span class="bu">echo</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>or</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">wget</span> <span class="at">-qO-</span> https://ipecho.net/plain <span class="kw">;</span> <span class="bu">echo</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
