@@ -304,6 +304,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../track-glp-validation.html">
+ <span class="dropdown-text">GLP and Validation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../track-stat-methods.html">
+ <span class="dropdown-text">Statistical Methods</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../track-r-sas-workflows.html">
+ <span class="dropdown-text">R/SAS and Workflow Notes</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../CCC.html"> 
 <span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
@@ -330,11 +349,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#easiest-way" id="toc-easiest-way" class="nav-link active" data-scroll-target="#easiest-way">Easiest Way</a></li>
-  <li><a href="#prompts-instruct-the-github-agent" id="toc-prompts-instruct-the-github-agent" class="nav-link" data-scroll-target="#prompts-instruct-the-github-agent">Prompts instruct the GitHub Agent</a></li>
   <li><a href="#basics-for-r" id="toc-basics-for-r" class="nav-link" data-scroll-target="#basics-for-r">Basics for R</a></li>
+  <li><a href="#setting-local-r-library" id="toc-setting-local-r-library" class="nav-link" data-scroll-target="#setting-local-r-library">Setting Local R library</a></li>
+  <li><a href="#install-radian" id="toc-install-radian" class="nav-link" data-scroll-target="#install-radian">Install radian</a></li>
   <li><a href="#install-r-4.5-or-higher" id="toc-install-r-4.5-or-higher" class="nav-link" data-scroll-target="#install-r-4.5-or-higher">Install R 4.5 or higher</a></li>
   <li><a href="#get-around-cran-checks" id="toc-get-around-cran-checks" class="nav-link" data-scroll-target="#get-around-cran-checks">Get around CRAN checks</a></li>
   <li><a href="#github-pages-publishing-workflow" id="toc-github-pages-publishing-workflow" class="nav-link" data-scroll-target="#github-pages-publishing-workflow">Github pages publishing workflow</a></li>
+  <li><a href="#prompts-instruct-the-github-agent" id="toc-prompts-instruct-the-github-agent" class="nav-link" data-scroll-target="#prompts-instruct-the-github-agent">Prompts instruct the GitHub Agent</a></li>
   </ul>
 </nav>
     </div>
@@ -390,11 +411,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Add a <code>devcontainer.json</code> file with your configuration</li>
 </ol>
 <p>For example, the <a href="https://github.com/eddelbuettel/r2u">eddelbuettel/r2u repository</a> provides a ready-to-use configuration when launching a Codespace from the repository. You can find detailed instructions in their <a href="https://eddelbuettel.github.io/r2u/vignettes/Codespaces/">Codespaces documentation</a>.</p>
-</section>
-<section id="prompts-instruct-the-github-agent" class="level2">
-<h2 class="anchored" data-anchor-id="prompts-instruct-the-github-agent">Prompts instruct the GitHub Agent</h2>
-<pre><code>- When there are syntax errors that cannot be easily fixed, the issue seems if often incomplete or fragmented code. Write clean versions instead, also, try to delete the version non-clean afterwards with the confirmation from me. 
-- </code></pre>
 <hr>
 <p>Here’s a sample configuration for R and Quarto manually set by my self:</p>
 </section>
@@ -403,17 +419,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Install R and Quarto</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get install <span class="at">-y</span> r-base</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get install <span class="at">-y</span> r-base</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://quarto.org/download/latest/quarto-linux-amd64.deb</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> ./quarto-linux-amd64.deb</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> quarto-linux-amd64.deb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://quarto.org/download/latest/quarto-linux-amd64.deb</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install <span class="at">-y</span> ./quarto-linux-amd64.deb</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> quarto-linux-amd64.deb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Install Pandoc</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get install <span class="at">-y</span> pandoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get install <span class="at">-y</span> pandoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Install Extension: REditorSupport
@@ -422,33 +438,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>Install often used R packages</li>
 </ul>
+<p><strong>Before installing the devtools R package on a fresh Ubuntu system, you must:</strong></p>
+<p>Install system libraries required by devtools and its dependencies: - libharfbuzz-dev - libfribidi-dev - libfreetype-dev - libpng-dev - libtiff-dev - libwebp-dev - libjbig-dev - libdeflate-dev - liblerc-dev - libsharpyuv-dev</p>
+<p>Use sudo when installing R packages to avoid permission issues. These steps ensure all necessary C/C++ libraries are available for compiling devtools and its dependencies</p>
 <p>Note for certain packages, some additional system packages are required. From example, for PMCMRplus package, libmpfr need to be installed.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libmpfr-dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install libmpfr-dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>sudo Rscript -e "install.packages('devtools', repos='https://cloud.r-project.org/')"</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example: dependencies for drcHelper</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Rmpfr"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>   <span class="st">"multcomp"</span>, <span class="st">"PMCMRplus"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyselect"</span>, <span class="st">"lme4"</span>, <span class="st">"bmd"</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>, <span class="st">"scales"</span>, <span class="st">"metafor"</span>, <span class="st">"rstatix"</span>, <span class="st">"DescTools"</span>, <span class="st">"isotone"</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>) <span class="co"># if not already installed</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/bmd@a3bd9c6113e35d43e0990614469dabb10cd409bd"</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/drc"</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/drcData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Example: dependencies for drcHelper</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"Rmpfr"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>   <span class="st">"multcomp"</span>, <span class="st">"PMCMRplus"</span>, <span class="st">"dplyr"</span>, <span class="st">"tidyselect"</span>, <span class="st">"lme4"</span>, <span class="st">"bmd"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggplot2"</span>, <span class="st">"scales"</span>, <span class="st">"metafor"</span>, <span class="st">"rstatix"</span>, <span class="st">"DescTools"</span>, <span class="st">"isotone"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>) <span class="co"># if not already installed</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/bmd@a3bd9c6113e35d43e0990614469dabb10cd409bd"</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/drc"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"DoseResponse/drcData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>To clean up lock files and install a package: <code>rm -f /home/codespace/R/x86_64-pc-linux-gnu-library/4.3/00LOCK-ragg &amp;&amp; Rscript -e "install.packages('ragg', repos='https://cloud.r-project.org/')"</code></p>
 <p>For rendering the pkgdown website, additional packages are neede</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GLMcat"</span>, <span class="st">"kableExtra"</span>, <span class="st">"emmeans"</span>, <span class="st">"outliers"</span>, <span class="st">"drda"</span>, <span class="st">"pander"</span>, <span class="st">"ggnewscale"</span>, <span class="st">"patchwork"</span>, <span class="st">"ggprism"</span>, <span class="st">"plyr"</span>,<span class="st">"MCPMpd"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GLMcat"</span>, <span class="st">"kableExtra"</span>, <span class="st">"emmeans"</span>, <span class="st">"outliers"</span>, <span class="st">"drda"</span>, <span class="st">"pander"</span>, <span class="st">"ggnewscale"</span>, <span class="st">"patchwork"</span>, <span class="st">"ggprism"</span>, <span class="st">"plyr"</span>,<span class="st">"MCPMpd"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<ul>
-<li>Install radian</li>
-</ul>
+</section>
+<section id="setting-local-r-library" class="level2">
+<h2 class="anchored" data-anchor-id="setting-local-r-library">Setting Local R library</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="fu">Sys.getenv</span>(<span class="st">"R_LIBS_USER"</span>), <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">.libPaths</span>(<span class="fu">Sys.getenv</span>(<span class="st">"R_LIBS_USER"</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="install-radian" class="level2">
+<h2 class="anchored" data-anchor-id="install-radian">Install radian</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Ubuntu 23.04 or above, my current code space is 4.24</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">lsb_release</span> <span class="at">-a</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
@@ -511,6 +538,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="github-pages-publishing-workflow" class="level2">
 <h2 class="anchored" data-anchor-id="github-pages-publishing-workflow">Github pages publishing workflow</h2>
+</section>
+<section id="prompts-instruct-the-github-agent" class="level2">
+<h2 class="anchored" data-anchor-id="prompts-instruct-the-github-agent">Prompts instruct the GitHub Agent</h2>
+<pre><code>- When there are syntax errors that cannot be easily fixed, the issue seems often incomplete or fragmented code. Write clean versions instead, also, try to delete the version non-clean afterwards with the confirmation from me. 
+- </code></pre>
 
 
 </section>
@@ -602,7 +634,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

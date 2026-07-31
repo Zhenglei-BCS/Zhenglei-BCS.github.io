@@ -304,6 +304,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../track-glp-validation.html">
+ <span class="dropdown-text">GLP and Validation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../track-stat-methods.html">
+ <span class="dropdown-text">Statistical Methods</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../track-r-sas-workflows.html">
+ <span class="dropdown-text">R/SAS and Workflow Notes</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../CCC.html"> 
 <span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
@@ -380,26 +399,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tcpl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>tcpl (v3.2.0.9000) loaded with the following settings:
+<pre><code>Warning: package 'tcpl' was built under R version 4.5.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>tcpl (v3.3.1) loaded with the following settings:
   TCPL_DB:    NA
   TCPL_USER:  NA
-  TCPL_HOST:  https://api-ccte.epa.gov/bioactivity
+  TCPL_HOST:  https://comptox.epa.gov/ctx-api/bioactivity
   TCPL_DRVR:  API
 Default settings stored in tcpl config file. See ?tcplConf for more information.</code></pre>
 </div>
 </div>
 <p>The code block runs without problems but the <strong>tcpPlot</strong> function generates a jpg or other formats of figure which is stored in the working directory. To render the file correctly, the generated figures are moved to the assets folder.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all matching spids and then subset using the aeid desired to find m4id</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mc5 <span class="ot">&lt;-</span> <span class="fu">tcplLoadData</span>(<span class="at">lvl =</span> <span class="dv">5</span>, </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fld =</span> <span class="st">"spid"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">val =</span> <span class="st">"TP0000904H05"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type =</span> <span class="st">"mc"</span>, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">add.fld =</span> <span class="cn">FALSE</span>) <span class="co"># 8 rows of data</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>m4id <span class="ot">&lt;-</span> mc5[aeid <span class="sc">==</span> <span class="dv">714</span>]<span class="sc">$</span>m4id <span class="co"># subset to 1 aeid extract m4id</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Default parameters used here: fld = "m4id", type = "mc" (type can never be "sc" when connected to API)</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlot</span>(<span class="at">val =</span> m4id, <span class="at">output =</span> <span class="st">"jpg"</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">flags =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load all matching spids and then subset using the aeid desired to find m4id</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mc5 <span class="ot">&lt;-</span> <span class="fu">tcplLoadData</span>(<span class="at">lvl =</span> <span class="dv">5</span>, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fld =</span> <span class="st">"spid"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">val =</span> <span class="st">"TP0000904H05"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type =</span> <span class="st">"mc"</span>, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">add.fld =</span> <span class="cn">FALSE</span>) <span class="co"># 8 rows of data</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>m4id <span class="ot">&lt;-</span> mc5[aeid <span class="sc">==</span> <span class="dv">714</span>]<span class="sc">$</span>m4id <span class="co"># subset to 1 aeid extract m4id</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Default parameters used here: fld = "m4id", type = "mc" (type can never be "sc" when connected to API)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlot</span>(<span class="at">val =</span> m4id, <span class="at">output =</span> <span class="st">"jpg"</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">flags =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="fig-tcpPlot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -412,12 +434,12 @@ Figure&nbsp;1: tcp plot example
 </figure>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the data pulled in the previous code chunk 'mc5'</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>m4id <span class="ot">&lt;-</span> mc5<span class="sc">$</span>m4id <span class="co"># create m4id vector length == 8</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Default parameters used here: fld = "m4id", type = "mc" (type can never be "sc" when connected to API)</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlot</span>(<span class="at">val =</span> m4id[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">compare.val =</span> m4id[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>], <span class="at">output =</span> <span class="st">"pdf"</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">multi =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">flags =</span> <span class="cn">TRUE</span>, <span class="at">yuniform =</span> <span class="cn">TRUE</span>, <span class="at">fileprefix =</span> <span class="st">"API_plot_compare"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the data pulled in the previous code chunk 'mc5'</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>m4id <span class="ot">&lt;-</span> mc5<span class="sc">$</span>m4id <span class="co"># create m4id vector length == 8</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Default parameters used here: fld = "m4id", type = "mc" (type can never be "sc" when connected to API)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tcplPlot</span>(<span class="at">val =</span> m4id[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">compare.val =</span> m4id[<span class="dv">5</span><span class="sc">:</span><span class="dv">8</span>], <span class="at">output =</span> <span class="st">"pdf"</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>, <span class="at">multi =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">flags =</span> <span class="cn">TRUE</span>, <span class="at">yuniform =</span> <span class="cn">TRUE</span>, <span class="at">fileprefix =</span> <span class="st">"API_plot_compare"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><a href="assets/API_plot_compare.pdf">API plot compare</a></p>
 
@@ -510,7 +532,7 @@ Figure&nbsp;1: tcp plot example
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

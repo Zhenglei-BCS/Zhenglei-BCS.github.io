@@ -265,6 +265,25 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link active" href="./about.html" aria-current="page"> 
 <span class="menu-text">About Me</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="./track-glp-validation.html">
+ <span class="dropdown-text">GLP and Validation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./track-stat-methods.html">
+ <span class="dropdown-text">Statistical Methods</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./track-r-sas-workflows.html">
+ <span class="dropdown-text">R/SAS and Workflow Notes</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./CCC.html"> 
 <span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
@@ -293,19 +312,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Still under construction.</p>
-</div>
-</div>
 <div class="quarto-about-trestles">
   <div class="about-entity">
 <header id="title-block-header" class="quarto-title-block default">
@@ -329,9 +335,9 @@ Warning
   </div>
   <div class="about-contents"><div id="hero-heading">
 <ul>
-<li>Work as a statistician.</li>
-<li>Love data and data interpretation and enjoy challenges in this area.</li>
-<li>Do coding but not a programmer.</li>
+<li>Work as a statistician with focus on applied analysis and interpretation.</li>
+<li>Interested in GLP-oriented method validation and practical decision-making.</li>
+<li>Use R and SAS extensively, with occasional workflow automation and tooling.</li>
 </ul>
 <section id="experience" class="level2">
 <h2 data-anchor-id="experience">Experience</h2>
@@ -342,9 +348,21 @@ Warning
 </div></div>
 </div>
 
-<section id="this-content-appears-below-the-formatted-about-page-content." class="level3">
-<h3 data-anchor-id="this-content-appears-below-the-formatted-about-page-content.">This content appears below the formatted about page content.</h3>
-<p>Not sure what I should put here. - Love food and cooking.</p>
+<section id="focus-areas" class="level2">
+<h2 data-anchor-id="focus-areas">Focus Areas</h2>
+<ul>
+<li>Applied statistics and data science in regulated contexts</li>
+<li>GLP method alignment, validation, and reproducible workflows</li>
+<li>Practical R/SAS implementation for real project questions</li>
+</ul>
+</section>
+<section id="collaboration" class="level2">
+<h2 data-anchor-id="collaboration">Collaboration</h2>
+<p>I enjoy cross-functional work between statistics, domain science, and computational implementation.</p>
+</section>
+<section id="outside-work" class="level2">
+<h2 data-anchor-id="outside-work">Outside Work</h2>
+<p>I enjoy food and cooking.</p>
 
 
 
@@ -430,7 +448,7 @@ Warning
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

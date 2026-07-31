@@ -1,0 +1,152 @@
+---
+title: "My GLP Journey: Small Details, Big Impact"
+description: "How one Levene test detail taught me to bridge legacy SAS and R under GLP"
+author: "Zhenglei Gao"
+date: "07/31/2026"
+categories:
+  - GLP
+  - stats
+  - SAS
+  - R
+editor_options:
+  chunk_output_type: console
+---
+
+In a GLP setting, reproducibility is not just a good practice. It is a requirement.
+
+That said, reproducibility is different from data integrity, which is a broader topic on its own.
+
+Over time, I learned that many technical disagreements are not only or not really about statistical principles. They are more about implementation details hidden in software defaults. Under GLP, those details matter because report outputs must be traceable and consistent with validated legacy workflows.
+
+One example that stayed with me is the Levene test.
+
+## The practical problem
+
+Some legacy reports were generated in SAS, and we needed to reproduce the same results in R during method transfer and modernization work.
+
+At first glance, this sounds straightforward: run a Levene test in R and compare.
+
+In practice, the numbers did not match.
+
+## Why the results differed
+
+The difference came from the transformation used before the one-way ANOVA step in Levene-type procedures:
+
+- A common R implementation uses absolute deviations, such as $|y - \bar{y}_g|$.
+- The SAS workflow we had to match used squared deviations, $(y - \bar{y}_g)^2$.
+
+That single detail changes the scale and can change test statistics and p-values.
+
+## The required alignment for GLP comparability
+
+To match the legacy SAS output, we had to replace:
+
+```r
+abs(y - means[group])
+```
+
+with:
+
+```r
+(y - means[group])^2
+```
+
+In our context, this was not an optional preference. It was required for consistency with the validated reporting lineage.
+
+## Minimal reproducible pattern in R
+
+The snippet below shows the exact idea in a compact form.
+
+```r
+# y: numeric response
+# group: factor indicating groups
+means <- tapply(y, group, mean, na.rm = TRUE)
+
+# Default-style variant often seen in R workflows
+z_abs <- abs(y - means[group])
+
+# SAS-aligned variant used for legacy comparability
+z_sq <- (y - means[group])^2
+
+# Then fit one-way models on transformed responses
+fit_abs <- lm(z_abs ~ group)
+fit_sq  <- lm(z_sq ~ group)
+
+anova(fit_abs)
+anova(fit_sq)
+```
+
+## What this taught me about GLP work
+
+1. "Same test name" does not guarantee same implementation.
+2. Cross-platform validation should document computational definitions, not only statistical intent.
+3. Legacy compatibility can be a compliance requirement, not a coding style choice.
+
+For me, this was a turning point: GLP rigor is often built on small, explicit decisions. Capturing those decisions clearly is part of good science and good software.
+
+## Another example: Cochran-Armitage trend test
+
+The same lesson appears again with the Cochran-Armitage trend test.
+
+People may say "we ran a trend test," but that can still refer to different calculations.
+
+Key implementation choices include:
+
+1. Exact vs asymptotic (normal approximation) inference.
+2. The score vector used for dose groups.
+3. Whether overdispersion (extra-binomial variance) is addressed, for example with a Rao-Scott type correction.
+
+### 1) Exact vs asymptotic test
+
+For sparse data or small sample sizes, exact and asymptotic versions can give meaningfully different p-values. In regulated reporting, it is important to pre-specify which one is used and keep it consistent across platforms.
+
+### 2) Score definition can drive the result
+
+The Cochran-Armitage statistic depends directly on assigned scores $s_g$ for groups.
+
+- If you use raw dose levels, you test trend against that numeric spacing.
+- If you use $\log(\text{dose})$, you emphasize relative dose spacing.
+- If you use ranks $(1, 2, 3, \dots)$, you ignore dose magnitude and keep only ordering.
+
+These choices can all be defensible in different contexts, but they are not interchangeable. A change in $s_g$ can materially shift the test statistic and p-value.
+
+### 3) Rao-Scott style correction under extra-binomial variance
+
+When there is extra-binomial variance, uncorrected tests can be anti-conservative. A Rao-Scott style adjustment changes the variance basis of the test and can substantially change inference.
+
+From a GLP perspective, this is another case where "same test name" is not enough. The analysis specification should explicitly record:
+
+1. Exact or asymptotic method.
+2. The exact score vector definition.
+3. Whether and how overdispersion correction is applied.
+
+## When legacy is not statistically appropriate
+
+Another part of my GLP journey is more difficult: sometimes the historical method is reproducible, but not fully statistically appropriate for the current question.
+
+In those situations, I cannot simply "follow convention." I need to make a defensible deviation, align with stakeholders, and still preserve traceability.
+
+The approach that worked for me is a structured decision path:
+
+1. Reproduce the legacy result first, so everyone starts from a shared baseline.
+2. Diagnose the statistical issue explicitly (for example, inflated type I error, mismatch with data structure, or sensitivity to arbitrary scoring).
+3. Propose an alternative method tied to the scientific question, not personal preference.
+4. Run side-by-side comparisons: legacy vs proposed method, including impact on conclusions.
+5. Document the rationale in plain language for non-statistical colleagues and in technical detail for auditors.
+
+I found that alignment is easier when the message is structured around continuity, not disruption. The goal is not to replace familiar methods overnight. The goal is to make decisions that are both auditable and scientifically defensible.
+
+
+### GLP mindset for justified deviation
+
+For me, this is the core principle:
+
+Reproducibility is necessary, but scientific validity is also necessary.
+
+Good GLP practice is not blind adherence to precedent. It is transparent, evidence-based method control where every deviation is justified, documented, and reviewable.
+
+## Takeaway
+
+If you are modernizing legacy analyses, compare algorithms line by line before comparing outputs.
+
+In GLP environments, one expression-level difference like $|y - \bar{y}_g|$ vs. $(y - \bar{y}_g)^2$ can become the difference between "close enough" and "auditable equivalence."

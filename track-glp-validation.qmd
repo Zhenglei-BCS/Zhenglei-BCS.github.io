@@ -1,0 +1,13 @@
+---
+title: "GLP and Validation"
+listing:
+  contents:
+    - posts/GLP_journey_levene_sas_r.qmd
+    - posts/OECD TG and Stats.qmd
+    - posts/Trend_tests.qmd
+  sort: "date desc"
+  type: default
+  categories: true
+---
+
+Notes related to GLP thinking, method alignment, and validation-oriented decisions.

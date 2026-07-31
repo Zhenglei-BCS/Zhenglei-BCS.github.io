@@ -10,6 +10,14 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - text: Tracks
+        menu:
+          - href: track-glp-validation.qmd
+            text: GLP and Validation
+          - href: track-stat-methods.qmd
+            text: Statistical Methods
+          - href: track-r-sas-workflows.qmd
+            text: R/SAS and Workflow Notes
       - href: CCC.qmd
         text: "Code & Curiosity Chronicles"
       - href: blog.qmd

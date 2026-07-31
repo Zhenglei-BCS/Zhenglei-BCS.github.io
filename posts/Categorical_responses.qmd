@@ -28,8 +28,18 @@ There are several type of models for categorical data:
 - continuation ratio logit model (sequential, logistic, complete)
 - adjacent logit model (adjacent, logistic, complete)
 
-```{r warning=FALSE,message=FALSE}
-library(tidyverse)
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(ggplot2)
+})
 ```
 
 

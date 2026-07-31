@@ -16,10 +16,24 @@ categories:
 
 ## Performing MCT
 
-```{r}
-library(DoseFinding)
+```{r include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+
+suppressPackageStartupMessages({
+  library(DoseFinding)
+  library(drc)
+  library(ggplot2)
+})
+
 data(IBScovars)
-library(drc)
+```
+
+```{r}
 ggplot(IBScovars, aes(x=dose, y=resp, color=gender)) +
   geom_point(position = position_dodge(width = 0.5)) 
 ## set random seed to ensure reproducible adj. p-values for multiple contrast test

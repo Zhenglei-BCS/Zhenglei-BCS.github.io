@@ -15,15 +15,11 @@ about:
       href: mailto:zhenglei.gao@bayer.com
 ---
 
-::: callout-warning
-Still under construction.
-:::
-
 ::: {#hero-heading}
 
-- Work as a statistician.
-- Love data and data interpretation and enjoy challenges in this area.
-- Do coding but not a programmer.
+- Work as a statistician with focus on applied analysis and interpretation.
+- Interested in GLP-oriented method validation and practical decision-making.
+- Use R and SAS extensively, with occasional workflow automation and tooling.
 
 
 
@@ -36,7 +32,16 @@ tier3 solutions \| Modelling Expert, Principal Statistician\| 2011 - 2016
 Bayer AG \| Postdoc  \| 2010 - 2011
 :::
 
-### This content appears below the formatted about page content.
+## Focus Areas
 
-Not sure what I should put here. 
-- Love food and cooking.
+- Applied statistics and data science in regulated contexts
+- GLP method alignment, validation, and reproducible workflows
+- Practical R/SAS implementation for real project questions
+
+## Collaboration
+
+I enjoy cross-functional work between statistics, domain science, and computational implementation.
+
+## Outside Work
+
+I enjoy food and cooking.

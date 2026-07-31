@@ -1,0 +1,23 @@
+---
+title: "R/SAS and Workflow Notes"
+listing:
+  contents:
+    - posts/API_Credentials.qmd
+    - posts/Finding_a_string_in_PowerShell.qmd
+    - posts/gitignore.qmd
+    - posts/pkgdown_GitHub_workflow.qmd
+    - posts/proxy_powershell.qmd
+    - posts/R_and_ML.qmd
+    - posts/R_pipeline_operator.qmd
+    - posts/S7_classes.qmd
+    - posts/Set_up_GitHub_Codespace.qmd
+    - posts/Set_up_SVL.qmd
+    - posts/VS_Code.qmd
+    - posts/WSL and proxz.qmd
+    - posts/WSL.qmd
+  sort: "date desc"
+  type: default
+  categories: true
+---
+
+Practical implementation notes for R/SAS work, coding, and tooling workflows.

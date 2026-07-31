@@ -304,6 +304,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../track-glp-validation.html">
+ <span class="dropdown-text">GLP and Validation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../track-stat-methods.html">
+ <span class="dropdown-text">Statistical Methods</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../track-r-sas-workflows.html">
+ <span class="dropdown-text">R/SAS and Workflow Notes</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../CCC.html"> 
 <span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
@@ -672,7 +691,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

@@ -1,1 +1,49 @@
-/* css styles */
+/* Low-key professional readability tuning */
+
+:root {
+	--site-text-max: 760px;
+	--site-link: #1f5b8f;
+	--site-link-hover: #17466d;
+}
+
+main.content {
+	max-width: var(--site-text-max);
+}
+
+body {
+	line-height: 1.65;
+}
+
+p,
+li {
+	line-height: 1.7;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: 0.01em;
+}
+
+h2 {
+	margin-top: 2rem;
+}
+
+a {
+	color: var(--site-link);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.12em;
+}
+
+a:hover,
+a:focus {
+	color: var(--site-link-hover);
+}
+
+.quarto-listing .listing-title {
+	font-weight: 600;
+}
+
+.quarto-listing .listing-description {
+	opacity: 0.9;
+}

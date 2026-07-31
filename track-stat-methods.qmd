@@ -1,0 +1,22 @@
+---
+title: "Statistical Methods"
+listing:
+  contents:
+    - posts/Assumptions_in_Nonparametric_Tests.qmd
+    - posts/check_overdispersion.qmd
+    - posts/cluster.qmd
+    - posts/Dose_Response_Quasibinomial.qmd
+    - posts/GEE_QB.qmd
+    - posts/Hessian_and_likehood.qmd
+    - posts/Mistakes_in_plain_sight.qmd
+    - posts/Overdispersion_Hampel.qmd
+    - posts/Prep_GLMM_Intro.qmd
+    - posts/PseudoR2.qmd
+    - posts/Quantal_CA.qmd
+    - posts/Wan_paper_reading.qmd
+  sort: "date desc"
+  type: default
+  categories: true
+---
+
+Method-focused posts, model discussions, and statistical notes.

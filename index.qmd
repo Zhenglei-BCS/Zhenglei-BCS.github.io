@@ -17,20 +17,19 @@ about:
 
 
 ::: {#hero-heading}
-
-
-
-![Profile Image](path/to/your/image.jpg)
-
-I am a statistician currently working at Bayer CropScience.
-
-I love data analysis and interpretation. 
-
-I enjoy being multi-disciplined and I love to collaborate.  
+I am a statistician at Bayer CropScience, working on applied statistics, data science, GLP validation, and practical R/SAS workflows. I enjoy data interpretation, multidisciplinary problem-solving, and collaboration, especially when complex questions become clearer through teamwork.
 
 
 :::
 
 ### 
 
-Hi! This is a space where I share my thoughts, learnings, and ideas related to statistics, ecotoxicology, and more, anything that does not belong to a structured, topic-specific repository. Think of it as a dump or a jungle of information — while it may seem chaotic and unorganized, there could be hidden gems of insight and knowledge within.:) The primary goal of this site is to help myself understand and learn more effectively while keeping a log of my thought process. Although the content may not be perfectly organized, I hope part of it can serve as a valuable resource for others who have similar questions and interests in these fields. Here, you will find a collection of reflections, analyses, and discussions that I hope will inspire and assist fellow professionals and learners.
+Hi! This is a space where I share my thoughts, learnings, and ideas related to statistics, ecotoxicology, and more, anything that does not belong to a structured, topic-specific repository. Think of it as a dump or a jungle of information - while it may seem chaotic and unorganized, there could be hidden gems of insight and knowledge within. :) The primary goal of this site is to help myself understand and learn more effectively while keeping a log of my thought process. Although the content may not be perfectly organized, I hope part of it can serve as a valuable resource for others who have similar questions and interests in these fields. Here, you will find a collection of reflections, analyses, and discussions that I hope will inspire and assist fellow professionals and learners.
+
+I do not publish on a strict schedule. Sometimes I jot down a thought and publish a placeholder that I never come back to, but when an idea matures, I share it here.
+
+## Explore by Track
+
+- [GLP and Validation](track-glp-validation.qmd)
+- [Statistical Methods](track-stat-methods.qmd)
+- [R/SAS and Workflow Notes](track-r-sas-workflows.qmd)

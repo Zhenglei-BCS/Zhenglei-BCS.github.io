@@ -333,6 +333,25 @@ window.Quarto = {
     <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../track-glp-validation.html">
+ <span class="dropdown-text">GLP and Validation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../track-stat-methods.html">
+ <span class="dropdown-text">Statistical Methods</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../track-r-sas-workflows.html">
+ <span class="dropdown-text">R/SAS and Workflow Notes</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../CCC.html"> 
 <span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
@@ -449,7 +468,7 @@ window.Quarto = {
 <section id="a-simple-simulation" class="level2">
 <h2 class="anchored" data-anchor-id="a-simple-simulation">A Simple Simulation</h2>
 <p>Note that I used genAI to generate python code instead of writing R code by myself, as a way of familiarize myself more with python programming. I simply states what I want to do and mygenAssist produced something as expected with a few modifications.</p>
-<div id="faa94e60" class="cell" data-execution_count="1">
+<div id="a3b56985" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -567,13 +586,7 @@ Scenario 1 (Two Normals with Different Variances):
 
 Scenario 2 (Normal vs. Shifted Exponential):
   Mann-Whitney U Test - U: 605348.0, p-value: 0.000000, Significant: True
-  Welch's t-test - t: 1.0286, p-value: 0.303827, Significant: False
-
-=== Rank Analysis ===
-Scenario 1 - Mean rank Normal(0,1): 975.05
-Scenario 1 - Mean rank Normal(0,3): 1025.95
-Scenario 2 - Mean rank Normal(0,1): 1105.85
-Scenario 2 - Mean rank Exp(2)-2: 895.15</code></pre>
+  Welch's t-test - t: 1.0286, p-value: 0.303827, Significant: False</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -582,6 +595,14 @@ Scenario 2 - Mean rank Exp(2)-2: 895.15</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== Rank Analysis ===
+Scenario 1 - Mean rank Normal(0,1): 975.05
+Scenario 1 - Mean rank Normal(0,3): 1025.95
+Scenario 2 - Mean rank Normal(0,1): 1105.85
+Scenario 2 - Mean rank Exp(2)-2: 895.15</code></pre>
+</div>
 </div>
 </section>
 <section id="testing-of-python-functions" class="level2">
@@ -589,88 +610,88 @@ Scenario 2 - Mean rank Exp(2)-2: 895.15</code></pre>
 <p>As I am not very familiar with the python functions, I tried to understand the parameter settings by simulating samples from the exponential distribution.</p>
 <p>The probability density function (PDF) of the exponential distribution is given by: <span class="math display">\[ f(x; \lambda) = \lambda e^{-\lambda x}, \quad x \geq 0 \]</span> ,where $ $ is the rate parameter.</p>
 <p>In NumPy, the scale parameter is actually $ $.</p>
-<div id="7ab420e4" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Set random seed for reproducibility</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>scale <span class="op">=</span> <span class="dv">2</span>  <span class="co"># Scale parameter for exponential distribution (can be changed)</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>shift <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>  <span class="co"># Shift amount</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100000</span>  <span class="co"># Sample size</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate samples</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>exp_sample <span class="op">=</span> np.random.exponential(scale, n)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>shifted_sample <span class="op">=</span> exp_sample <span class="op">+</span> shift  <span class="co"># Shift the distribution</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate empirical statistics</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>exp_mean <span class="op">=</span> np.mean(exp_sample)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>exp_median <span class="op">=</span> np.median(exp_sample)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>shifted_mean <span class="op">=</span> np.mean(shifted_sample)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>shifted_median <span class="op">=</span> np.median(shifted_sample)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate theoretical values</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>theoretical_exp_mean <span class="op">=</span> scale  <span class="co"># Mean of Exp(scale) is scale</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>theoretical_exp_median <span class="op">=</span> scale <span class="op">*</span> math.log(<span class="dv">2</span>)  <span class="co"># Median of Exp(scale) is scale*ln(2)</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>theoretical_shifted_mean <span class="op">=</span> theoretical_exp_mean <span class="op">+</span> shift  <span class="co"># Mean after shifting</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>theoretical_shifted_median <span class="op">=</span> theoretical_exp_median <span class="op">+</span> shift  <span class="co"># Median after shifting</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"=== Original Exponential Distribution (scale=</span><span class="sc">{</span>scale<span class="sc">}</span><span class="ss">) ==="</span>)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Theoretical Mean: </span><span class="sc">{</span>theoretical_exp_mean<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empirical Mean: </span><span class="sc">{</span>exp_mean<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Theoretical Median: </span><span class="sc">{</span>theoretical_exp_median<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empirical Median: </span><span class="sc">{</span>exp_median<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">=== Shifted Exponential Distribution (scale=</span><span class="sc">{</span>scale<span class="sc">}</span><span class="ss">, shift=</span><span class="sc">{</span>shift<span class="sc">}</span><span class="ss">) ==="</span>)</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Theoretical Mean: </span><span class="sc">{</span>theoretical_shifted_mean<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empirical Mean: </span><span class="sc">{</span>shifted_mean<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Theoretical Median: </span><span class="sc">{</span>theoretical_shifted_median<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empirical Median: </span><span class="sc">{</span>shifted_median<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize both distributions</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Original exponential distribution</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>sns.histplot(exp_sample, kde<span class="op">=</span><span class="va">True</span>, stat<span class="op">=</span><span class="st">"density"</span>)</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>exp_mean, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, label<span class="op">=</span><span class="ss">f'Mean: </span><span class="sc">{</span>exp_mean<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>exp_median, color<span class="op">=</span><span class="st">'g'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Median: </span><span class="sc">{</span>exp_median<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>theoretical_exp_median, color<span class="op">=</span><span class="st">'b'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, label<span class="op">=</span><span class="ss">f'Theoretical Median: </span><span class="sc">{</span>theoretical_exp_median<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Exponential Distribution (scale=</span><span class="sc">{</span>scale<span class="sc">}</span><span class="ss">)'</span>)</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">2</span>, <span class="bu">max</span>(<span class="dv">10</span>, scale<span class="op">*</span><span class="dv">5</span>))</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Shifted exponential distribution</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>sns.histplot(shifted_sample, kde<span class="op">=</span><span class="va">True</span>, stat<span class="op">=</span><span class="st">"density"</span>)</span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>shifted_mean, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, label<span class="op">=</span><span class="ss">f'Mean: </span><span class="sc">{</span>shifted_mean<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>shifted_median, color<span class="op">=</span><span class="st">'g'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Median: </span><span class="sc">{</span>shifted_median<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>theoretical_shifted_median, color<span class="op">=</span><span class="st">'b'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, label<span class="op">=</span><span class="ss">f'Theoretical Median: </span><span class="sc">{</span>theoretical_shifted_median<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Shifted Exponential Distribution (scale=</span><span class="sc">{</span>scale<span class="sc">}</span><span class="ss">, shift=</span><span class="sc">{</span>shift<span class="sc">}</span><span class="ss">)'</span>)</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">2</span>, <span class="bu">max</span>(<span class="dv">10</span>, scale<span class="op">*</span><span class="dv">5</span>))</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's also verify with a different approach using percentile</span></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Verification using percentile function ==="</span>)</span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"50th percentile (median) of original: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(exp_sample, <span class="dv">50</span>)<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"50th percentile (median) of shifted: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(shifted_sample, <span class="dv">50</span>)<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrate relationship between scale and median</span></span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>scales <span class="op">=</span> [<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>]</span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Relationship between scale and median ==="</span>)</span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Scale</span><span class="ch">\t</span><span class="st">Theoretical Median</span><span class="ch">\t</span><span class="st">Empirical Median"</span>)</span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> scales:</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>    sample <span class="op">=</span> np.random.exponential(s, n)</span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>    theo_median <span class="op">=</span> s <span class="op">*</span> math.log(<span class="dv">2</span>)</span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>    emp_median <span class="op">=</span> np.median(sample)</span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>s<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>theo_median<span class="sc">:.6f}</span><span class="ch">\t\t</span><span class="sc">{</span>emp_median<span class="sc">:.6f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b6c6d950" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Set random seed for reproducibility</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>scale <span class="op">=</span> <span class="dv">2</span>  <span class="co"># Scale parameter for exponential distribution (can be changed)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>shift <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>  <span class="co"># Shift amount</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100000</span>  <span class="co"># Sample size</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate samples</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>exp_sample <span class="op">=</span> np.random.exponential(scale, n)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>shifted_sample <span class="op">=</span> exp_sample <span class="op">+</span> shift  <span class="co"># Shift the distribution</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate empirical statistics</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>exp_mean <span class="op">=</span> np.mean(exp_sample)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>exp_median <span class="op">=</span> np.median(exp_sample)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>shifted_mean <span class="op">=</span> np.mean(shifted_sample)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>shifted_median <span class="op">=</span> np.median(shifted_sample)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate theoretical values</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>theoretical_exp_mean <span class="op">=</span> scale  <span class="co"># Mean of Exp(scale) is scale</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>theoretical_exp_median <span class="op">=</span> scale <span class="op">*</span> math.log(<span class="dv">2</span>)  <span class="co"># Median of Exp(scale) is scale*ln(2)</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>theoretical_shifted_mean <span class="op">=</span> theoretical_exp_mean <span class="op">+</span> shift  <span class="co"># Mean after shifting</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>theoretical_shifted_median <span class="op">=</span> theoretical_exp_median <span class="op">+</span> shift  <span class="co"># Median after shifting</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Print results</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"=== Original Exponential Distribution (scale=</span><span class="sc">{</span>scale<span class="sc">}</span><span class="ss">) ==="</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Theoretical Mean: </span><span class="sc">{</span>theoretical_exp_mean<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empirical Mean: </span><span class="sc">{</span>exp_mean<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Theoretical Median: </span><span class="sc">{</span>theoretical_exp_median<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empirical Median: </span><span class="sc">{</span>exp_median<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">=== Shifted Exponential Distribution (scale=</span><span class="sc">{</span>scale<span class="sc">}</span><span class="ss">, shift=</span><span class="sc">{</span>shift<span class="sc">}</span><span class="ss">) ==="</span>)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Theoretical Mean: </span><span class="sc">{</span>theoretical_shifted_mean<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empirical Mean: </span><span class="sc">{</span>shifted_mean<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Theoretical Median: </span><span class="sc">{</span>theoretical_shifted_median<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Empirical Median: </span><span class="sc">{</span>shifted_median<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize both distributions</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Original exponential distribution</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>sns.histplot(exp_sample, kde<span class="op">=</span><span class="va">True</span>, stat<span class="op">=</span><span class="st">"density"</span>)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>exp_mean, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, label<span class="op">=</span><span class="ss">f'Mean: </span><span class="sc">{</span>exp_mean<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>exp_median, color<span class="op">=</span><span class="st">'g'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Median: </span><span class="sc">{</span>exp_median<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>theoretical_exp_median, color<span class="op">=</span><span class="st">'b'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, label<span class="op">=</span><span class="ss">f'Theoretical Median: </span><span class="sc">{</span>theoretical_exp_median<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Exponential Distribution (scale=</span><span class="sc">{</span>scale<span class="sc">}</span><span class="ss">)'</span>)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">2</span>, <span class="bu">max</span>(<span class="dv">10</span>, scale<span class="op">*</span><span class="dv">5</span>))</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Shifted exponential distribution</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>sns.histplot(shifted_sample, kde<span class="op">=</span><span class="va">True</span>, stat<span class="op">=</span><span class="st">"density"</span>)</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>shifted_mean, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, label<span class="op">=</span><span class="ss">f'Mean: </span><span class="sc">{</span>shifted_mean<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>shifted_median, color<span class="op">=</span><span class="st">'g'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'Median: </span><span class="sc">{</span>shifted_median<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span>theoretical_shifted_median, color<span class="op">=</span><span class="st">'b'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, label<span class="op">=</span><span class="ss">f'Theoretical Median: </span><span class="sc">{</span>theoretical_shifted_median<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Shifted Exponential Distribution (scale=</span><span class="sc">{</span>scale<span class="sc">}</span><span class="ss">, shift=</span><span class="sc">{</span>shift<span class="sc">}</span><span class="ss">)'</span>)</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">2</span>, <span class="bu">max</span>(<span class="dv">10</span>, scale<span class="op">*</span><span class="dv">5</span>))</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's also verify with a different approach using percentile</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Verification using percentile function ==="</span>)</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"50th percentile (median) of original: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(exp_sample, <span class="dv">50</span>)<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"50th percentile (median) of shifted: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(shifted_sample, <span class="dv">50</span>)<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrate relationship between scale and median</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>scales <span class="op">=</span> [<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>]</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Relationship between scale and median ==="</span>)</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Scale</span><span class="ch">\t</span><span class="st">Theoretical Median</span><span class="ch">\t</span><span class="st">Empirical Median"</span>)</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> s <span class="kw">in</span> scales:</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>    sample <span class="op">=</span> np.random.exponential(s, n)</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>    theo_median <span class="op">=</span> s <span class="op">*</span> math.log(<span class="dv">2</span>)</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>    emp_median <span class="op">=</span> np.median(sample)</span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>s<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>theo_median<span class="sc">:.6f}</span><span class="ch">\t\t</span><span class="sc">{</span>emp_median<span class="sc">:.6f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>=== Original Exponential Distribution (scale=2) ===
 Theoretical Mean: 2
@@ -682,8 +703,17 @@ Empirical Median: 1.388815
 Theoretical Mean: 1
 Empirical Mean: 0.991940
 Theoretical Median: 0.386294
-Empirical Median: 0.388815
-
+Empirical Median: 0.388815</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Assumptions_in_Nonparametric_Tests_files/figure-html/cell-3-output-2.png" width="1142" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
 === Verification using percentile function ===
 50th percentile (median) of original: 1.388815
 50th percentile (median) of shifted: 0.388815
@@ -695,13 +725,6 @@ Scale   Theoretical Median  Empirical Median
 2   1.386294        1.378151
 3   2.079442        2.098406
 5   3.465736        3.446745</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Assumptions_in_Nonparametric_Tests_files/figure-html/cell-3-output-2.png" width="1142" height="566" class="figure-img"></p>
-</figure>
-</div>
 </div>
 </div>
 
@@ -795,7 +818,7 @@ Scale   Theoretical Median  Empirical Median
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

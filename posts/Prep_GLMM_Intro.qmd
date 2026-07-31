@@ -464,21 +464,21 @@ print(p)
 ```
 
 
-What to expect
-- RM-ANOVA uses only subjects with complete time series and assumes sphericity and homoscedasticity. With AR(1) correlation, heteroscedasticity, and missing data, its p-values can be biased (often too liberal for within-subject effects).
-- LMM (lmer) accounts for random intercepts and slopes; LME (nlme) additionally models AR(1) and time-varying residual SD. Their p-values typically differ from RM-ANOVA under these violations.
-- You should see different p-values across methods, especially for Time and Treatment × Time.
+What I usually see in practice
+- RM-ANOVA keeps only subjects with complete time series and assumes sphericity and homoscedasticity. With AR(1) correlation, heteroscedasticity, and missing data, p-values can be biased (often too liberal for within-subject effects).
+- LMM (`lmer`) handles random intercepts/slopes, and LME (`nlme`) can additionally model AR(1) and time-varying residual SD. In this setting, their p-values often differ from RM-ANOVA.
+- In this simulation, the biggest differences are usually for `Time` and `Treatment × Time`.
 
 
 
 # Cons of GLMM
 
-Below is a minimal, self-contained R script that simulates a “small number of fields” case (n_fields = 4 with field-level treatment assignment), then compares treatment-effect p-values via:
+I use the script below when I want to demonstrate a common pitfall: very few independent clusters, but many observations inside each cluster. It simulates a “small number of fields” case (`n_fields = 4` with field-level treatment assignment), then compares treatment-effect p-values via:
 - Satterthwaite (lmerTest, REML, Type III)
 - Likelihood-ratio test (LRT; ML, nested model comparison)
 - Parametric bootstrap (PB; pbkrtest)
 
-This setup often yields noticeably different p-values because the true replication for the treatment effect is at the field level (2 vs 2), while the LRT can look overly optimistic when many within-field observations are present.
+This setup often gives noticeably different p-values because the true replication for treatment is at the field level (2 vs 2), while the LRT can look too optimistic when there are many within-field observations.
 
 
 ```{r}
@@ -551,22 +551,26 @@ ggplot(dat, aes(x = field, y = y, color = treatment)) +
        y = "Response", x = "Field") + theme_bw(base_size=18)
 
 # 3) Fit LMMs
-# Satterthwaite/KR generally use REML; LRT uses ML
-m_full_REML <- lmer(y ~ treatment + (1 | field), data = dat, REML = TRUE)
-m_null_REML <- lmer(y ~ 1 + (1 | field), data = dat, REML = TRUE)
+# Keep lmerTest and lme4 fits separate:
+# - lmerTest objects for Satterthwaite inference
+# - lme4 objects for LRT/PB to avoid class-conversion issues in pbkrtest
+m_full_REML_lt <- lmerTest::lmer(y ~ treatment + (1 | field), data = dat, REML = TRUE)
 
-m_full_ML <- lmer(y ~ treatment + (1 | field), data = dat, REML = FALSE)
-m_null_ML <- lmer(y ~ 1 + (1 | field), data = dat, REML = FALSE)
+m_full_REML_l4 <- lme4::lmer(y ~ treatment + (1 | field), data = dat, REML = TRUE)
+m_null_REML_l4 <- lme4::lmer(y ~ 1 + (1 | field), data = dat, REML = TRUE)
+
+m_full_ML_l4 <- lme4::lmer(y ~ treatment + (1 | field), data = dat, REML = FALSE)
+m_null_ML_l4 <- lme4::lmer(y ~ 1 + (1 | field), data = dat, REML = FALSE)
 
 # 4) Satterthwaite p-value (fixed effect of treatment)
 # Use Type III with sum-to-zero contrasts for clarity (optional)
 options(contrasts = c("contr.sum","contr.poly"))
-anova_satt <- anova(m_full_REML, type = 3)
+anova_satt <- anova(m_full_REML_lt, type = 3)
 p_satt <- anova_satt["treatment", "Pr(>F)"]
 df_satt <- anova_satt["treatment", "DenDF"]
 
 # 5) LRT p-value (ML fit; full vs null)
-lrt <- anova(m_null_ML, m_full_ML, test = "Chisq")
+lrt <- anova(m_null_ML_l4, m_full_ML_l4, test = "Chisq")
 p_lrt <- lrt$`Pr(>Chisq)`[2]
 chi <- lrt$Chisq[2]
 df_lrt <- lrt$Df[2]
@@ -574,16 +578,28 @@ df_lrt <- lrt$Df[2]
 # 6) Parametric bootstrap p-value (pbkrtest)
 # This resamples under the null and compares the full-null statistic; increase nsim for stability.
 set.seed(2026)
-pb <- PBmodcomp(m_full_REML, m_null_REML, nsim = 1000, seed = 2026)
-# PBmodcomp returns different tests; we take the "PBtest" line
-p_pb <- pb$test["PBtest", "p.value"]
+pb <- tryCatch(
+  PBmodcomp(m_full_REML_l4, m_null_REML_l4, nsim = 1000, seed = 2026),
+  error = function(e) e
+)
+
+if (inherits(pb, "error")) {
+  warning(sprintf("PBmodcomp failed: %s", conditionMessage(pb)))
+  p_pb <- NA_real_
+  pb_nsim <- 1000
+} else {
+  # PBmodcomp returns different tests; we take the "PBtest" line
+  p_pb <- pb$test["PBtest", "p.value"]
+  pb_nsim <- attr(pb, "nsim")
+  if (is.null(pb_nsim)) pb_nsim <- 1000
+}
 
 # 7) Collect results
 outcome <- data.frame(
   Method = c("Satterthwaite (REML, Type III)", "LRT (ML, full vs null)", "Parametric bootstrap (PB)"),
   Statistic = c(paste0("DenDF≈", round(df_satt, 2)),
                 paste0("ChiSq=", round(chi, 2), ", df=", df_lrt),
-                paste0("nsim=", attr(pb, "nsim"))),
+                paste0("nsim=", pb_nsim)),
   `p-value` = signif(c(p_satt, p_lrt, p_pb), 4),
   check.names = FALSE
 )
@@ -596,15 +612,17 @@ field_means <- dat %>%
 print(field_means)
 ```
 
+> **Version note (R 4.5.1 tested):** Keep `lme4`, `lmerTest`, and `pbkrtest` reasonably up to date and from a consistent library. In this example, Satterthwaite inference uses `lmerTest` fits, while parametric bootstrap (`PBmodcomp`) uses pure `lme4` fits. This avoids class-conversion edge cases (for example, `as_lmerModLmerTest` failures) during bootstrap refits.
 
-**Notes on why big differences can often be seen here**
+
+**Why these methods disagree in this example**
 
 - Treatment is assigned at the field level (2 control vs 2 treated), so the effective replication for the treatment effect is the number of fields, not the number of within-field measurements.
 - Satterthwaite (and Kenward–Roger) base the denominator df on cluster-level information; with 4 fields, DenDF is tiny (often around 2), yielding larger p-values.
 - The ML LRT can look much more optimistic because it leverages the large number of within-field observations in the likelihood. In small-cluster settings, that can understate uncertainty about a cluster-level treatment effect.
 - Parametric bootstrap (PB) tends to align more with small-sample cluster-level uncertainty, often closer to Satterthwaite/KR than to the LRT, especially with very few clusters.
 
-If the differences are not large on a particular run, tweak the simulation to accentuate the effect:
+If the methods look too similar in one run, I usually tweak the simulation to make the contrast clearer:
 
 - Increase within-field replication (n_sessions, n_reps_per_session) and reduce residual SD (sd_resid) to make LRT smaller.
 - Increase between-field SD (sd_field) so cluster differences dominate, keeping Satterthwaite/PB more conservative.
@@ -614,9 +632,9 @@ If the differences are not large on a particular run, tweak the simulation to ac
 ## Separation Problem
 
 
-I have a dataset to demonstrate (quasi-)complete separation. In the 48 h data, Control, 5, 10, and 20 mg/L have zero immobility in every replicate, while 80 mg/L has high immobility and 40 mg/L has some. A logistic GLM with Treatment as a factor will hit separation: some treatment levels have all 0s, others have mostly 1s. You’ll typically see “fitted probabilities 0 or 1 occurred,” huge SEs, and unstable p-values.
+I like this dataset because it shows (quasi-)complete separation very clearly. In the 48 h data, Control, 5, 10, and 20 mg/L have zero immobility in every replicate, while 80 mg/L has high immobility and 40 mg/L has some. If I fit a logistic GLM with `Treatment` as a factor, separation shows up quickly: some treatment levels are all 0s, others are mostly 1s. Typical symptoms are “fitted probabilities 0 or 1 occurred,” huge SEs, and unstable p-values.
 
-Here’s a concise workflow to show it, then fix it with bias-reduced logistic regression.
+My usual workflow is: show the separation first, then refit with bias-reduced logistic regression.
 
 R code
 
