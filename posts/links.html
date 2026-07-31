@@ -334,6 +334,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#learn-math-and-science-for-children" id="toc-learn-math-and-science-for-children" class="nav-link" data-scroll-target="#learn-math-and-science-for-children">Learn Math and Science (for Children)</a></li>
   <li><a href="#regulatory-stats-papers-i-enjoy" id="toc-regulatory-stats-papers-i-enjoy" class="nav-link" data-scroll-target="#regulatory-stats-papers-i-enjoy">Regulatory Stats Papers I enjoy</a></li>
   <li><a href="#deep-dive-into-llms" id="toc-deep-dive-into-llms" class="nav-link" data-scroll-target="#deep-dive-into-llms">Deep dive into LLMs</a></li>
+  <li><a href="#ai-tools" id="toc-ai-tools" class="nav-link" data-scroll-target="#ai-tools">AI Tools</a></li>
+  <li><a href="#ai-instructions-readings" id="toc-ai-instructions-readings" class="nav-link" data-scroll-target="#ai-instructions-readings">AI Instructions / Readings</a></li>
   <li><a href="#quotes-i-like" id="toc-quotes-i-like" class="nav-link" data-scroll-target="#quotes-i-like">Quotes I like</a></li>
   <li><a href="#basic-stats-books-for-beginners" id="toc-basic-stats-books-for-beginners" class="nav-link" data-scroll-target="#basic-stats-books-for-beginners">Basic Stats Books for Beginners</a></li>
   </ul>
@@ -430,6 +432,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><a href="https://anfalmushtaq.com/articles/deep-dive-into-llms-like-chatgpt-tldr?continueFlag=cb23fbb30142663bcf107a11d44e8319">Deep dive into LLMs like ChatGPT by Andrej Karpathy (TL;DR)</a></li>
 <li><a href="mit-mi.github.io/how2ai-course/spring2025/">How To AI (Almost) Anything</a></li>
+<li><a href="https://blog.promptlayer.com/how-openai-codex-works-behind-the-scenes-and-how-it-compares-to-claude-code/">Codex vs.&nbsp;Claude Code</a></li>
+</ul>
+</section>
+<section id="ai-tools" class="level2">
+<h2 class="anchored" data-anchor-id="ai-tools">AI Tools</h2>
+<ul>
+<li><a href="https://leewendao.otterstack.cn/writings/blog/claude-code-usage-guide">Cluade Code</a></li>
+<li><a href="https://www.builder.io/blog/claude-code">Cursor to Claude Code</a></li>
+</ul>
+</section>
+<section id="ai-instructions-readings" class="level2">
+<h2 class="anchored" data-anchor-id="ai-instructions-readings">AI Instructions / Readings</h2>
+<ul>
+<li><a href="https://docs.lovable.dev/prompting/prompting-one">AI Prompting 101</a></li>
+<li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Effective context engineering for AI agents</a></li>
 </ul>
 </section>
 <section id="quotes-i-like" class="level2">
@@ -590,7 +607,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Zhenglei Gao">
-<meta name="dcterms.date" content="2024-08-07">
-<meta name="description" content="Here is a collection of resources and my thoughts.">
+<meta name="dcterms.date" content="2025-11-18">
+<meta name="description" content="Interesting and Useful Articles">
 
-<title>How to generate a risk asessment report for an R Package – Zhenglei Gao</title>
+<title>My AI Reading List – Zhenglei Gao</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -289,8 +289,16 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#read" id="toc-read" class="nav-link active" data-scroll-target="#read">Read</a></li>
+  <li><a href="#to-read" id="toc-to-read" class="nav-link" data-scroll-target="#to-read">To Read</a></li>
+  <li><a href="#what-i-want-to-understand" id="toc-what-i-want-to-understand" class="nav-link" data-scroll-target="#what-i-want-to-understand">What I Want to Understand</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -298,16 +306,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">How to generate a risk asessment report for an R Package</h1>
+<h1 class="title">My AI Reading List</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">code</div>
-    <div class="quarto-category">howto</div>
+    <div class="quarto-category">genAI</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Here is a collection of resources and my thoughts.
+    Interesting and Useful Articles
   </div>
 </div>
 
@@ -324,7 +331,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 7, 2024</p>
+      <p class="date">November 18, 2025</p>
     </div>
   </div>
   
@@ -336,24 +343,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>I have learned a great deal from my involvement in the R Validation Hub. <code>riskassessment</code> and <code>riskmetric</code> are the two packages needed to generate a risk assessment report for a “standard” R package.</p>
-<p>The validation philosophy proposed in <a href="https://www.pharmar.org/white-paper/">this white paper</a> is a valuable resource to understand the general concerns and has helped shape my own thoughts on the validation strategy of a self-developed R-package or a tool.</p>
-<p>One aspect that has consistently puzzled me is the tendency to consider software from third-party vendors as trustworthy, despite my experience as a statistician uncovering errors or bugs in such software. Conversely, in-house developed tools are subjected to much greater scrutiny. This discrepancy in perceptions between the QAs, project managers, and subject matter experts has highlighted the need for clear communication and a shared commitment to bridge the gap.</p>
-<p>I find it challenging to cultivate a robust ecosystem for leveraging open-source tools such as R for GxP purpose analyses. I believe rigorous validation of both open-source tools and commercial tools for GxP purposes is necessary, irrespective of their origin. It is my hope that through my advocacy efforts, I can contribute to the establishment of a more inclusive and reliable ecosystem for statistical analyses in regulated environments within my area of expertise.</p>
+<section id="read" class="level2">
+<h2 class="anchored" data-anchor-id="read">Read</h2>
 <ul>
-<li>An excerpt from that white paper.</li>
+<li><a href="https://blog.sshh.io/p/how-i-use-every-claude-code-feature">How I Use Every Claude Code Feature</a></li>
+<li><a href="https://www.claude.com/blog/skills-explained">(Claude)Skills explained: How Skills compares to prompts, Projects, MCP, and subagents</a></li>
 </ul>
-<blockquote class="blockquote">
-<p>6.5. Vendor Assessments and Trusted Resources</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>For proprietary software it is common to perform vendor assessments / audits to explore the internal validation practices of the vendor. If a company is satisfied with the internal validation practices of the vendor, they may designate the vendor a ’trusted’ status. The impact of this might be that any software produced by that vendor is deemed to be low risk.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>For open source software such audits are not logistically feasible. However, based on information available in the open source domain, it may still be possible to perform a virtual audit of a vendor and their practices. For example, R Foundation and R Core team, have published information about their practices in R: Regulatory Compliance and Validation Issues. A Guidance Document for the Use of R in Regulated Clinical Trial Environments. It is the opinion of the R Validation Hub that this is sufficient to allocate the R Foundation a trusted status. This would render the collection of Base R and Recommended packages low risk as a result.</p>
-</blockquote>
+</section>
+<section id="to-read" class="level2">
+<h2 class="anchored" data-anchor-id="to-read">To Read</h2>
+</section>
+<section id="what-i-want-to-understand" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-want-to-understand">What I Want to Understand</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">How dose GitHub Copilot compared to Claude Projects in terms background knowledge and contexts.</label></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -442,7 +449,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
