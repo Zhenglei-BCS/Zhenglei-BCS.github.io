@@ -265,6 +265,25 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="./track-glp-validation.html">
+ <span class="dropdown-text">GLP and Validation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./track-stat-methods.html">
+ <span class="dropdown-text">Statistical Methods</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./track-r-sas-workflows.html">
+ <span class="dropdown-text">R/SAS and Workflow Notes</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="./CCC.html"> 
 <span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
@@ -315,21 +334,22 @@ ul.task-list li input[type="checkbox"] {
 </div>
   </div>
   <div class="about-contents"><div id="hero-heading">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="path/to/your/image.jpg" class="img-fluid figure-img"></p>
-<figcaption>Profile Image</figcaption>
-</figure>
-</div>
-<p>I am a statistician currently working at Bayer CropScience.</p>
-<p>I love data analysis and interpretation.</p>
-<p>I enjoy being multi-disciplined and I love to collaborate.</p>
+<p>I am a statistician at Bayer CropScience, working on applied statistics, data science, GLP validation, and practical R/SAS workflows. I enjoy data interpretation, multidisciplinary problem-solving, and collaboration, especially when complex questions become clearer through teamwork.</p>
 </div></div>
 </div>
 
 <section id="section" class="level3">
 <h3 data-anchor-id="section"></h3>
-<p>Hi! This is a space where I share my thoughts, learnings, and ideas related to statistics, ecotoxicology, and more, anything that does not belong to a structured, topic-specific repository. Think of it as a dump or a jungle of information — while it may seem chaotic and unorganized, there could be hidden gems of insight and knowledge within.:) The primary goal of this site is to help myself understand and learn more effectively while keeping a log of my thought process. Although the content may not be perfectly organized, I hope part of it can serve as a valuable resource for others who have similar questions and interests in these fields. Here, you will find a collection of reflections, analyses, and discussions that I hope will inspire and assist fellow professionals and learners.</p>
+<p>Hi! This is a space where I share my thoughts, learnings, and ideas related to statistics, ecotoxicology, and more, anything that does not belong to a structured, topic-specific repository. Think of it as a dump or a jungle of information - while it may seem chaotic and unorganized, there could be hidden gems of insight and knowledge within. :) The primary goal of this site is to help myself understand and learn more effectively while keeping a log of my thought process. Although the content may not be perfectly organized, I hope part of it can serve as a valuable resource for others who have similar questions and interests in these fields. Here, you will find a collection of reflections, analyses, and discussions that I hope will inspire and assist fellow professionals and learners.</p>
+<p>I do not publish on a strict schedule. Sometimes I jot down a thought and publish a placeholder that I never come back to, but when an idea matures, I share it here.</p>
+</section>
+<section id="explore-by-track" class="level2">
+<h2 data-anchor-id="explore-by-track">Explore by Track</h2>
+<ul>
+<li><a href="./track-glp-validation.html">GLP and Validation</a></li>
+<li><a href="./track-stat-methods.html">Statistical Methods</a></li>
+<li><a href="./track-r-sas-workflows.html">R/SAS and Workflow Notes</a></li>
+</ul>
 
 
 
@@ -415,7 +435,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

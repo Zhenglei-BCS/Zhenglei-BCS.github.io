@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Zhenglei Gao">
+<meta name="dcterms.date" content="2025-07-30">
+<meta name="description" content="VS Code vs.&nbsp;RStudio">
+
+<title>VS Code Preferences – Zhenglei Gao</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f7ac19f99b1bffdb182407b6a99bda4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-afa1767ab894c633a6efdfa517d42c1b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-f7ac19f99b1bffdb182407b6a99bda4a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Zhenglei Gao</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tracks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tracks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tracks">    
+        <li>
+    <a class="dropdown-item" href="../track-glp-validation.html">
+ <span class="dropdown-text">GLP and Validation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../track-stat-methods.html">
+ <span class="dropdown-text">Statistical Methods</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../track-r-sas-workflows.html">
+ <span class="dropdown-text">R/SAS and Workflow Notes</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../CCC.html"> 
+<span class="menu-text">Code &amp; Curiosity Chronicles</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#vs-code-keyboard-shortcuts" id="toc-vs-code-keyboard-shortcuts" class="nav-link active" data-scroll-target="#vs-code-keyboard-shortcuts">VS Code Keyboard Shortcuts</a>
+  <ul class="collapse">
+  <li><a href="#roxgen" id="toc-roxgen" class="nav-link" data-scroll-target="#roxgen">roxgen</a></li>
+  <li><a href="#formatting" id="toc-formatting" class="nav-link" data-scroll-target="#formatting">Formatting</a></li>
+  </ul></li>
+  <li><a href="#some-of-my-settings" id="toc-some-of-my-settings" class="nav-link" data-scroll-target="#some-of-my-settings">Some of My Settings</a></li>
+  <li><a href="#comparison-of-editing-r-rmd-qmd-in-vs-code-and-rstudio" id="toc-comparison-of-editing-r-rmd-qmd-in-vs-code-and-rstudio" class="nav-link" data-scroll-target="#comparison-of-editing-r-rmd-qmd-in-vs-code-and-rstudio">Comparison of Editing R, Rmd, Qmd in VS Code and RStudio</a></li>
+  <li><a href="#generated-by-grok" id="toc-generated-by-grok" class="nav-link" data-scroll-target="#generated-by-grok">&gt; Generated by Grok</a>
+  <ul class="collapse">
+  <li><a href="#overview-of-r-rmd-and-qmd-editing" id="toc-overview-of-r-rmd-and-qmd-editing" class="nav-link" data-scroll-target="#overview-of-r-rmd-and-qmd-editing"><strong>1. Overview of R, Rmd, and Qmd Editing</strong></a></li>
+  <li><a href="#capabilities-comparison" id="toc-capabilities-comparison" class="nav-link" data-scroll-target="#capabilities-comparison"><strong>2. Capabilities Comparison</strong></a></li>
+  <li><a href="#keyboard-shortcuts-comparison" id="toc-keyboard-shortcuts-comparison" class="nav-link" data-scroll-target="#keyboard-shortcuts-comparison"><strong>3. Keyboard Shortcuts Comparison</strong></a></li>
+  <li><a href="#key-differences-and-recommendations" id="toc-key-differences-and-recommendations" class="nav-link" data-scroll-target="#key-differences-and-recommendations"><strong>4. Key Differences and Recommendations</strong></a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><strong>5. Conclusion</strong></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">VS Code Preferences</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">settings</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    VS Code vs.&nbsp;RStudio
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Zhenglei Gao </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 30, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="vs-code-keyboard-shortcuts" class="level2">
+<h2 class="anchored" data-anchor-id="vs-code-keyboard-shortcuts">VS Code Keyboard Shortcuts</h2>
+<ul>
+<li>Commenting code lines or block</li>
+</ul>
+<blockquote class="blockquote">
+<p>Try Ctrl+# first, as that’s the most common solution for German keyboards. If that doesn’t work, the Ctrl+K Ctrl+C (Ctrl+K Ctrl+U for uncommenting)combination should definitely work!</p>
+</blockquote>
+<section id="roxgen" class="level3">
+<h3 class="anchored" data-anchor-id="roxgen">roxgen</h3>
+<p>The keyboard shortcut for adding roxygen function comments in VS Code with the R extension is:</p>
+<blockquote class="blockquote">
+<p>Ctrl+Shift+Alt+R - Insert roxygen skeleton</p>
+</blockquote>
+<p>If that does not work, it is also possible to use a snippet:</p>
+<pre><code>{
+  "r.snippets": {
+    "roxygen": {
+      "prefix": "rox",
+      "body": [
+        "#' ${1:Title}",
+        "#'",
+        "#' @param ${2:param} ${3:description}",
+        "#'",
+        "#' @return ${4:return description}",
+        "#' @export",
+        "#'",
+        "#' @examples",
+        "#' ${5:example}",
+        "$0"
+      ],
+      "description": "Roxygen documentation template"
+    }
+  }
+}</code></pre>
+<p>After you’ve successfully added the roxygen snippet to your r.json file. Now here’s how to use it:</p>
+<p>How to use your new snippet: 1. Open your R file (utils-vcop.R) 2. Position your cursor above the function where you want to add documentation 3. Type rox (the prefix you defined) 4. Press Tab - this will expand the snippet 5. Fill in the placeholders: - ${1:Title} - Replace with your function title - ${2:param} - Replace with parameter name - ${3:Description} - Replace with parameter description - ${4:Return description} - Describe what the function returns - ${5:example_code} - Add example usage 6. Press Tab to move between placeholders 7. Press Esc when done</p>
+<p>That’s it! Your custom roxygen snippet is now ready to use. Just type rox + Tab whenever you need to document an R function.</p>
+</section>
+<section id="formatting" class="level3">
+<h3 class="anchored" data-anchor-id="formatting">Formatting</h3>
+<p>In VS Code, the keyboard shortcut to auto-indent/format code (equivalent to RStudio’s Ctrl+A + I) is:</p>
+<ul>
+<li>For the entire document: Shift+Alt+F - Format entire document</li>
+<li>For selected code only: Ctrl+K Ctrl+F - Format selection</li>
+</ul>
+<p>Alternative shortcuts:</p>
+<ul>
+<li>Ctrl+Shift+I - Format selection (may work depending on your keybindings)</li>
+<li>Right-click → “Format Document” or “Format Selection”</li>
+</ul>
+</section>
+</section>
+<section id="some-of-my-settings" class="level2">
+<h2 class="anchored" data-anchor-id="some-of-my-settings">Some of My Settings</h2>
+<pre><code></code></pre>
+</section>
+<section id="comparison-of-editing-r-rmd-qmd-in-vs-code-and-rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-of-editing-r-rmd-qmd-in-vs-code-and-rstudio">Comparison of Editing R, Rmd, Qmd in VS Code and RStudio</h2>
+<p>Below is a comparison of editing R, Rmd (R Markdown), and Qmd (Quarto Markdown) files in Visual Studio Code (VS Code) and RStudio, focusing on their capabilities and keyboard shortcuts. Both IDEs are popular for R programming and markdown-based workflows, but they cater to slightly different needs and user preferences.</p>
+</section>
+<section id="generated-by-grok" class="level2">
+<h2 class="anchored" data-anchor-id="generated-by-grok">&gt; Generated by Grok</h2>
+<section id="overview-of-r-rmd-and-qmd-editing" class="level3">
+<h3 class="anchored" data-anchor-id="overview-of-r-rmd-and-qmd-editing"><strong>1. Overview of R, Rmd, and Qmd Editing</strong></h3>
+<ul>
+<li><strong>R Files</strong>: Plain R scripts (<code>.R</code>) contain R code for data analysis, scripting, or package development.</li>
+<li><strong>Rmd Files</strong>: R Markdown files (<code>.Rmd</code>) combine R code chunks with markdown text, enabling reproducible documents like reports, presentations, or articles.</li>
+<li><strong>Qmd Files</strong>: Quarto Markdown files (<code>.Qmd</code>) are an evolution of Rmd, developed by Posit, supporting multiple languages and enhanced features for publishing documents, presentations, and websites. Quarto is designed to be a more flexible, next-generation version of R Markdown.<a href="https://quarto.org/docs/get-started/hello/rstudio.html"></a><a href="https://quarto.org/docs/computations/r.html"></a></li>
+</ul>
+<p>Both VS Code and RStudio support editing these file types, but their approaches differ in terms of interface, customization, and integration.</p>
+<hr>
+</section>
+<section id="capabilities-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="capabilities-comparison"><strong>2. Capabilities Comparison</strong></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 41%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Feature</strong></th>
+<th><strong>VS Code</strong></th>
+<th><strong>RStudio</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>R Script Editing</strong></td>
+<td>- Requires the R Extension for VS Code (<code>REditorSupport/vscode-R</code>).<br>- Offers syntax highlighting, code completion, and hover documentation.<br>- Integrated terminal for running R scripts.<br>- Data viewer for data frames and matrices, plot viewer (via <code>httpgd</code>), and workspace viewer for global variables.<br>- Supports RStudio add-ins and remote development (SSH, Containers, WSL).</td>
+<td>- Native support for R, optimized for R workflows.<br>- Environment pane to view global variables.<br>- Built-in plot viewer and data viewer.<br>- Seamless integration with R console for interactive execution.<br>- Code diagnostics and completion tailored for R.</td>
+</tr>
+<tr class="even">
+<td><strong>Rmd Editing</strong></td>
+<td>- Supported via the R Markdown extension (<code>R Markdown All in One</code>).<br>- Syntax highlighting and chunk execution with <code>Ctrl+Shift+Enter</code> (run source) or <code>Ctrl+Enter</code> (run selection).<br>- Preview available, but less polished than RStudio; may require <code>pandoc</code> installation.<br>- Limited notebook-style interface; running code chunks can feel clunky and may produce errors not seen in RStudio.<br>- No default Rmd templates; users can create snippets for code chunks (<code>Ctrl+Alt+I</code>).</td>
+<td>- Native support with a robust visual editor (WYSIWYM) and source editor.<br>- Seamless knitting with <code>Ctrl+Shift+K</code> to render HTML, PDF, or Word.<br>- Built-in templates for Rmd files.<br>- Visual mode supports markdown formatting, citations, and code execution with inline output.<br>- Reliable chunk execution with <code>Ctrl+Alt+C</code> (run chunk) or <code>Ctrl+Enter</code> (run line/selection).</td>
+</tr>
+<tr class="odd">
+<td><strong>Qmd Editing</strong></td>
+<td>- Supported via the Quarto extension, bundled with Positron (a VS Code-based IDE by Posit).<br>- Code completion, chunk execution, and side-by-side preview.<br>- Preview command via Command Palette or <code>Ctrl+Shift+K</code>.<br>- Less mature than RStudio’s Qmd support; may require additional setup (e.g., <code>pandoc</code>).<br>- No native visual editor; relies on source editing with markdown shortcuts.</td>
+<td>- Native support with a visual editor (WYSIWYM) for Pandoc markdown, including tables, citations, and equations.<br>- Toggle between source and visual modes with <code>Ctrl+Shift+F4</code>.<br>- Inline code execution with <code>Shift+Cmd+Enter</code> or toolbar buttons.<br>- Robust rendering to multiple formats (HTML, PDF, Word) with <code>Ctrl+Shift+K</code>.<br>- Better integration with Quarto’s ecosystem (e.g., QuartoPub).</td>
+</tr>
+<tr class="even">
+<td><strong>Visual Editing</strong></td>
+<td>- No native WYSIWYM visual editor for Rmd/Qmd; relies on source editing.<br>- Preview available but not as tightly integrated as RStudio’s visual mode.<br>- Markdown extensions (e.g., <code>markdown-preview-enhanced</code>) can enhance preview but lack R-specific features.</td>
+<td>- Advanced visual editor for Rmd and Qmd, supporting Pandoc markdown, citations, cross-references, and LaTeX.<br>- Real-time spell-checking and outline navigation.<br>- Preserves editing state when switching between source and visual modes.</td>
+</tr>
+<tr class="odd">
+<td><strong>Code Execution</strong></td>
+<td>- Execute code with <code>Ctrl+Enter</code> (selection) or <code>Ctrl+Shift+Enter</code> (source).<br>- Output displayed in terminal or inline (with extensions).<br>- Less seamless for notebooks; may encounter errors with complex Rmd/Qmd files.</td>
+<td>- Execute code chunks with <code>Ctrl+Alt+C</code>, lines with <code>Ctrl+Enter</code>.<br>- Inline output in visual mode or console output in source mode.<br>- More reliable for Rmd/Qmd chunk execution.</td>
+</tr>
+<tr class="even">
+<td><strong>Rendering Output</strong></td>
+<td>- Render Rmd/Qmd with <code>Ctrl+Shift+K</code> or via command palette.<br>- Supports HTML, PDF, etc., but requires <code>pandoc</code> and sometimes manual setup.<br>- Less streamlined than RStudio; errors may occur with complex documents.</td>
+<td>- One-click rendering with <code>Ctrl+Shift+K</code> (Knit/Render button).<br>- Supports multiple formats (HTML, PDF, Word, presentations) with minimal setup.<br>- Automatic preview in Viewer pane.</td>
+</tr>
+<tr class="odd">
+<td><strong>Customization</strong></td>
+<td>- Highly customizable with extensions and keybindings.<br>- Users can define snippets (e.g., for Rmd code chunks) in <code>keybindings.json</code>.<br>- Supports multiple languages (Python, SQL) and tools (Git, Docker).</td>
+<td>- Limited editor customization (e.g., line height, themes).<br>- Tailored for R and markdown workflows, with less flexibility for other languages.<br>- Customizable keybindings via Tools &gt; Modify Keyboard Shortcuts.</td>
+</tr>
+<tr class="even">
+<td><strong>Integration with Tools</strong></td>
+<td>- Strong Git integration, LiveShare for collaboration, and support for other languages.<br>- Requires extensions for R-specific tools (e.g., package management, help pages).</td>
+<td>- Native integration with R packages, CRAN, and Posit tools (e.g., Shiny, QuartoPub).<br>- Built-in support for citations (Zotero, PubMed) and RStudio add-ins.</td>
+</tr>
+<tr class="odd">
+<td><strong>Performance</strong></td>
+<td>- Lightweight and fast for general editing.<br>- Slower for Rmd/Qmd rendering and notebook-style workflows due to reliance on extensions.</td>
+<td>- Optimized for R and markdown, with faster rendering and execution.<br>- Can feel heavier for non-R tasks.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Summary of Capabilities</strong>: - <strong>VS Code</strong>: A general-purpose, lightweight IDE that excels in customization, multi-language support, and integration with tools like Git. However, its Rmd and Qmd support is less polished, requiring extensions and manual setup. Notebook-style workflows (especially for Rmd) are clunky, and visual editing is absent.<a href="https://towardsdatascience.com/vscode-vs-rstudio-worth-the-switch-7a4415fc3275/"></a><a href="https://medium.com/%40rafburzy/how-to-prepare-visual-studio-code-for-r-31d6b6c7a385"></a> - <strong>RStudio</strong>: Tailored for R, Rmd, and Qmd workflows, with a superior visual editor, seamless rendering, and robust support for Quarto. It’s less flexible for non-R tasks and editor customization but provides a more cohesive experience for data scientists and statisticians.<a href="https://rstudio.github.io/visual-markdown-editing/"></a><a href="https://quarto.org/docs/get-started/hello/rstudio.html"></a></p>
+<hr>
+</section>
+<section id="keyboard-shortcuts-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="keyboard-shortcuts-comparison"><strong>3. Keyboard Shortcuts Comparison</strong></h3>
+<p>Both IDEs support customizable keyboard shortcuts, but RStudio has more R-specific defaults, while VS Code relies on user configuration to mimic RStudio’s behavior.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Action</strong></th>
+<th><strong>VS Code Shortcut</strong></th>
+<th><strong>RStudio Shortcut</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Run Current Line/Selection</strong></td>
+<td><code>Ctrl+Enter</code> (requires R extension)</td>
+<td><code>Ctrl+Enter</code> (or <code>Ctrl+R</code> in some setups)</td>
+</tr>
+<tr class="even">
+<td><strong>Run Entire Script/Source</strong></td>
+<td><code>Ctrl+Shift+Enter</code></td>
+<td><code>Ctrl+Shift+S</code> (source) or <code>Ctrl+Shift+Enter</code> (source with echo)</td>
+</tr>
+<tr class="odd">
+<td><strong>Insert R Code Chunk</strong></td>
+<td><code>Ctrl+Alt+I</code> (user-defined snippet)</td>
+<td><code>Ctrl+Alt+I</code> (or <code>Cmd+Option+I</code> on Mac)</td>
+</tr>
+<tr class="even">
+<td><strong>Render/Knit Document</strong></td>
+<td><code>Ctrl+Shift+K</code> (requires Quarto/R Markdown extension)</td>
+<td><code>Ctrl+Shift+K</code> (or <code>Cmd+Shift+K</code> on Mac)</td>
+</tr>
+<tr class="odd">
+<td><strong>Run Current Rmd/Qmd Chunk</strong></td>
+<td><code>Ctrl+Shift+Enter</code> (less reliable)</td>
+<td><code>Ctrl+Alt+C</code> (or <code>Cmd+Option+C</code> on Mac)</td>
+</tr>
+<tr class="even">
+<td><strong>Toggle Source/Visual Mode</strong></td>
+<td>Not applicable (no visual mode)</td>
+<td><code>Ctrl+Shift+F4</code> (or <code>Cmd+Shift+F4</code> on Mac)</td>
+</tr>
+<tr class="odd">
+<td><strong>Bold Text (Visual Mode)</strong></td>
+<td><code>Ctrl+B</code> (with markdown extensions)</td>
+<td><code>Ctrl+B</code> (or <code>Cmd+B</code> on Mac)</td>
+</tr>
+<tr class="even">
+<td><strong>Italic Text (Visual Mode)</strong></td>
+<td><code>Ctrl+I</code> (with markdown extensions)</td>
+<td><code>Ctrl+I</code> (or <code>Cmd+I</code> on Mac)</td>
+</tr>
+<tr class="odd">
+<td><strong>Insert Link</strong></td>
+<td><code>Ctrl+K</code> (with markdown extensions)</td>
+<td><code>Ctrl+K</code> (or <code>Cmd+K</code> on Mac)</td>
+</tr>
+<tr class="even">
+<td><strong>Insert Heading (Level 2)</strong></td>
+<td><code>Alt+Ctrl+2</code> (with Quarto extension)</td>
+<td><code>Alt+Cmd+2</code> (Mac) or <code>Alt+Ctrl+2</code> (Windows)</td>
+</tr>
+<tr class="odd">
+<td><strong>Insert Pipe Operator</strong></td>
+<td><code>Ctrl+Shift+M</code> (user-defined)</td>
+<td><code>Ctrl+Shift+M</code> (or <code>Cmd+Shift+M</code> on Mac)</td>
+</tr>
+<tr class="even">
+<td><strong>Insert Assignment Operator</strong></td>
+<td><code>Alt+-</code> (user-defined)</td>
+<td><code>Alt+-</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Insert Anything (Visual Mode)</strong></td>
+<td><code>Ctrl+/</code> (with Quarto extension)</td>
+<td><code>Cmd+/</code> or <code>Ctrl+/</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes on Shortcuts</strong>: - <strong>VS Code</strong>: Defaults are limited for R/Rmd/Qmd; users must configure shortcuts (e.g., via <code>keybindings.json</code>) to replicate RStudio’s behavior. The R and Quarto extensions allow mimicking RStudio shortcuts like <code>Ctrl+Alt+I</code> for code chunks.<a href="https://www.schmidtynotes.com/blog/r/2021-09-28-vscode-rmd-code-chunk-snippet/"></a><a href="https://statnmap.com/2021-10-09-how-not-to-be-lost-with-vscode-when-coming-from-rstudio/"></a><a href="https://jbinternational.co.uk/article/view/3586"></a> - <strong>RStudio</strong>: Offers a comprehensive set of R-specific shortcuts out of the box, especially for Rmd and Qmd editing. The visual editor supports both traditional shortcuts (e.g., <code>Ctrl+B</code>) and markdown shortcuts (e.g., <code>**bold**</code>). Shortcuts are customizable via the Tools menu.<a href="https://github.com/rstudio/visual-markdown-editing/blob/master/shortcuts.qmd"></a><a href="https://docs.posit.co/ide/user/ide/reference/shortcuts.html"></a><a href="https://github.com/rstudio/rstudio/blob/main/docs/user/rstudio/ide/guide/documents/visual-editor.qmd"></a> - <strong>Issues</strong>: In RStudio, some shortcuts (e.g., <code>Ctrl+Enter</code> for chunk execution) may fail sporadically in Rmd/Qmd files, especially in visual mode without YAML headers. This can often be resolved by modifying shortcuts or restarting RStudio.<a href="https://github.com/rstudio/rstudio/issues/11169"></a></p>
+<hr>
+</section>
+<section id="key-differences-and-recommendations" class="level3">
+<h3 class="anchored" data-anchor-id="key-differences-and-recommendations"><strong>4. Key Differences and Recommendations</strong></h3>
+<ul>
+<li><strong>VS Code</strong>:
+<ul>
+<li><strong>Pros</strong>:
+<ul>
+<li>Lightweight and highly customizable.</li>
+<li>Ideal for multi-language projects (e.g., R, Python, SQL) or developers using Git, Docker, or SSH.</li>
+<li>Faster code completion and better documentation lookup (via hover).<a href="https://towardsdatascience.com/vscode-vs-rstudio-worth-the-switch-7a4415fc3275/"></a></li>
+</ul></li>
+<li><strong>Cons</strong>:
+<ul>
+<li>Requires extensions (R, Quarto, R Markdown) and <code>pandoc</code> for full functionality, which adds setup complexity.<a href="https://medium.com/%40rafburzy/how-to-prepare-visual-studio-code-for-r-31d6b6c7a385"></a></li>
+<li>Weak notebook support for Rmd/Qmd; chunk execution and rendering are less reliable.<a href="https://towardsdatascience.com/vscode-vs-rstudio-worth-the-switch-7a4415fc3275/"></a></li>
+<li>No native visual editor, making it less intuitive for markdown-heavy workflows.</li>
+</ul></li>
+<li><strong>Best For</strong>: Users who need a flexible, multi-language IDE and are comfortable configuring extensions and keybindings.</li>
+</ul></li>
+<li><strong>RStudio</strong>:
+<ul>
+<li><strong>Pros</strong>:
+<ul>
+<li>Tailored for R, Rmd, and Qmd, with a polished visual editor and seamless rendering.</li>
+<li>Native support for Quarto, with better integration for publishing (e.g., QuartoPub).<a href="https://quarto.org/docs/get-started/hello/rstudio.html"></a></li>
+<li>Robust chunk execution and inline output in visual mode.</li>
+<li>Comprehensive documentation and community support for R-specific tasks.</li>
+</ul></li>
+<li><strong>Cons</strong>:
+<ul>
+<li>Less flexible for non-R languages or advanced customization (e.g., editor appearance).</li>
+<li>Heavier resource usage compared to VS Code.</li>
+</ul></li>
+<li><strong>Best For</strong>: Data scientists, statisticians, or users focused on R-based reproducible documents and Quarto workflows.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion"><strong>5. Conclusion</strong></h3>
+<ul>
+<li><strong>For R Scripts</strong>: Both IDEs are capable, but RStudio’s native R integration (e.g., environment pane, plot viewer) makes it more intuitive for R-focused workflows. VS Code is a strong alternative for users who prefer a lightweight editor or work across multiple languages.<a href="https://github.com/REditorSupport/vscode-R"></a></li>
+<li><strong>For Rmd/Qmd Files</strong>: RStudio is the clear winner due to its visual editor, reliable chunk execution, and seamless rendering. VS Code’s Rmd/Qmd support is functional but less polished, with clunky notebook workflows and setup overhead.<a href="https://rstudio.github.io/visual-markdown-editing/"></a><a href="https://towardsdatascience.com/vscode-vs-rstudio-worth-the-switch-7a4415fc3275/"></a></li>
+<li><strong>Keyboard Shortcuts</strong>: RStudio provides a richer set of R-specific shortcuts by default, while VS Code requires user configuration to match. Both support customization, but RStudio’s shortcuts are more tailored to Rmd/Qmd tasks.<a href="https://github.com/rstudio/rstudio/blob/main/docs/user/rstudio/ide/guide/documents/visual-editor.qmd"></a><a href="https://statnmap.com/2021-10-09-how-not-to-be-lost-with-vscode-when-coming-from-rstudio/"></a></li>
+</ul>
+<p><strong>Recommendation</strong>: - Choose <strong>RStudio</strong> if your primary focus is R, Rmd, or Qmd for data analysis, reporting, or Quarto-based publishing. - Choose <strong>VS Code</strong> if you work in a multi-language environment, need advanced customization, or prefer a lightweight editor and are willing to invest time in setup.</p>
+<p>If you have specific needs (e.g., particular R packages, output formats, or collaboration tools), let me know, and I can provide a more tailored comparison!</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/Zhenglei-BCS\.github\.io\/zhenglei\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
