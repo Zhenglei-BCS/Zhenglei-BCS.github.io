@@ -394,7 +394,7 @@ window.Quarto = {
 <h1 class="title">Hessian and Likelihood</h1>
   <div class="quarto-categories">
     <div class="quarto-category">code</div>
-    <div class="quarto-category">stats</div>
+    <div class="quarto-category">Stats</div>
     <div class="quarto-category">R</div>
   </div>
   </div>
@@ -490,15 +490,15 @@ y = X\beta + \varepsilon, \; \varepsilon_i \overset{\mathrm{i.i.d.}}{\sim} \math
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>nls.out <span class="ot">&lt;-</span> <span class="fu">nls.lm</span>(<span class="at">par=</span>parStart, <span class="at">fn =</span> residFun, <span class="at">observed =</span> simDNoisy,</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="at">xx =</span> x, <span class="at">control =</span> <span class="fu">nls.lm.control</span>(<span class="at">nprint=</span><span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>It.    0, RSS =    1984.09, Par. =          3     -0.001          1
-It.    1, RSS =    329.107, Par. =    5.25377   -0.14859    3.23885
-It.    2, RSS =    102.565, Par. =    6.69586   -0.30644    4.28022
-It.    3, RSS =    51.8632, Par. =    7.48767  -0.422655    4.70234
-It.    4, RSS =    31.6096, Par. =    7.64855  -0.709298    6.11174
-It.    5, RSS =    2.91919, Par. =      8.693   -1.00386    6.19999
-It.    6, RSS =   0.939608, Par. =    8.98637   -0.99619    6.01072
-It.    7, RSS =   0.939573, Par. =    8.98648  -0.996465    6.01065
-It.    8, RSS =   0.939573, Par. =    8.98648  -0.996465    6.01065</code></pre>
+<pre><code>It.    0, RSS =    1966.32, Par. =          3     -0.001          1
+It.    1, RSS =    326.569, Par. =    5.24866   -0.14941    3.23375
+It.    2, RSS =     102.63, Par. =    6.67917  -0.306344    4.26714
+It.    3, RSS =    51.6697, Par. =    7.47134  -0.423666    4.69429
+It.    4, RSS =    31.6576, Par. =    7.63174  -0.712574    6.10751
+It.    5, RSS =    2.73918, Par. =    8.68782   -1.00559    6.17883
+It.    6, RSS =   0.874899, Par. =    8.96977   -0.99485    5.99104
+It.    7, RSS =   0.874823, Par. =    8.97012  -0.995313    5.99102
+It.    8, RSS =   0.874823, Par. =    8.97012   -0.99531    5.99101</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## plot model evaluated at final parameter estimates  </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(x,<span class="fu">getPred</span>(<span class="fu">as.list</span>(<span class="fu">coef</span>(nls.out)), x), <span class="at">col=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -514,21 +514,21 @@ It.    8, RSS =   0.939573, Par. =    8.98648  -0.996465    6.01065</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Parameters:
-  Estimate Std. Error t value Pr(&gt;|t|)    
-a  8.98648    0.04225  212.69   &lt;2e-16 ***
-b -0.99647    0.01028  -96.94   &lt;2e-16 ***
-c  6.01065    0.01917  313.60   &lt;2e-16 ***
+   Estimate Std. Error t value Pr(&gt;|t|)    
+a  8.970120   0.040751   220.1   &lt;2e-16 ***
+b -0.995310   0.009928  -100.3   &lt;2e-16 ***
+c  5.991014   0.018515   323.6   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.09842 on 97 degrees of freedom
+Residual standard error: 0.09497 on 97 degrees of freedom
 Number of iterations to termination: 8 
 Reason for termination: Relative error in the sum of squares is at most `ftol'. </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">solve</span>(nls.out<span class="sc">$</span>hessian)))<span class="sc">*</span><span class="fu">sqrt</span>(nls.out<span class="sc">$</span>deviance<span class="sc">/</span><span class="dv">97</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         a          b          c 
-0.04225228 0.01027975 0.01916643 </code></pre>
+0.04075074 0.00992809 0.01851471 </code></pre>
 </div>
 </div>
 </section>

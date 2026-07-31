@@ -403,7 +403,7 @@ window.Quarto = {
 <h1 class="title">Pseudo <span class="math inline">\(R^2\)</span></h1>
   <div class="quarto-categories">
     <div class="quarto-category">code</div>
-    <div class="quarto-category">stats</div>
+    <div class="quarto-category">Stats</div>
     <div class="quarto-category">R</div>
   </div>
   </div>
@@ -459,18 +459,18 @@ lm(formula = y ~ x)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--2.67204 -0.60060 -0.03906  0.73440  2.20601 
+-2.24714 -0.77480  0.08244  0.69897  2.38724 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.13243    0.09729   1.361    0.177    
-x            3.11199    0.09199  33.830   &lt;2e-16 ***
+(Intercept)  0.11835    0.09735   1.216    0.227    
+x            3.06765    0.09494  32.311   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.9707 on 98 degrees of freedom
-Multiple R-squared:  0.9211,    Adjusted R-squared:  0.9203 
-F-statistic:  1144 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 0.9733 on 98 degrees of freedom
+Multiple R-squared:  0.9142,    Adjusted R-squared:  0.9133 
+F-statistic:  1044 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y<span class="sc">~</span>y1)) <span class="do">## R2 = 1 ## Is this a good fit, no. It is a biased fit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -484,18 +484,18 @@ lm(formula = y ~ y1)
 
 Residuals:
        Min         1Q     Median         3Q        Max 
--1.396e-15 -1.325e-16  1.295e-16  2.895e-16  2.384e-15 
+-1.031e-15 -2.931e-16 -2.038e-16 -6.440e-17  1.502e-14 
 
 Coefficients:
              Estimate Std. Error   t value Pr(&gt;|t|)    
-(Intercept) 1.000e-01  5.285e-17 1.892e+15   &lt;2e-16 ***
-y1          1.000e+00  1.542e-17 6.483e+16   &lt;2e-16 ***
+(Intercept) 1.000e-01  1.551e-16 6.449e+14   &lt;2e-16 ***
+y1          1.000e+00  4.714e-17 2.121e+16   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.277e-16 on 98 degrees of freedom
+Residual standard error: 1.551e-15 on 98 degrees of freedom
 Multiple R-squared:      1, Adjusted R-squared:      1 
-F-statistic: 4.203e+33 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+F-statistic: 4.499e+32 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y<span class="sc">~</span>y2)) <span class="do">## R2 = 1 ## Is this a good fit, no. It is a biased fit</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -505,18 +505,18 @@ lm(formula = y ~ y2)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--2.73182 -0.69621  0.05089  0.80957  1.88938 
+-2.91375 -0.50145 -0.07867  0.65792  2.09424 
 
 Coefficients:
              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 915.24436   27.31027   33.51   &lt;2e-16 ***
-y2            0.91540    0.02731   33.52   &lt;2e-16 ***
+(Intercept) 904.45278   28.34347   31.91   &lt;2e-16 ***
+y2            0.90442    0.02834   31.91   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.979 on 98 degrees of freedom
-Multiple R-squared:  0.9198,    Adjusted R-squared:  0.9189 
-F-statistic:  1123 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 0.9845 on 98 degrees of freedom
+Multiple R-squared:  0.9122,    Adjusted R-squared:  0.9113 
+F-statistic:  1018 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y,y1,<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1000</span>,<span class="dv">10</span>))</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(y,y2,<span class="at">col=</span><span class="st">"red"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -542,18 +542,18 @@ lm(formula = y ~ x)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--12.1494  -2.4050   0.4002   2.5950  10.8820 
+-12.5254  -3.5522   0.5132   2.8126  12.2145 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.92059    0.93731   0.982    0.328    
-x            2.98494    0.01611 185.241   &lt;2e-16 ***
+(Intercept) -0.34329    0.96305  -0.356    0.722    
+x            2.99526    0.01656 180.913   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 4.651 on 98 degrees of freedom
-Multiple R-squared:  0.9972,    Adjusted R-squared:  0.9971 
-F-statistic: 3.431e+04 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 4.779 on 98 degrees of freedom
+Multiple R-squared:  0.997, Adjusted R-squared:  0.997 
+F-statistic: 3.273e+04 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> y<span class="sc">*</span><span class="fl">0.9</span><span class="sc">+</span><span class="fu">rnorm</span>(<span class="fu">length</span>(x),<span class="dv">0</span>,<span class="fl">0.11</span>) <span class="do">## systematic error!</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span>
@@ -581,18 +581,18 @@ lm(formula = y ~ y1)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--0.26310 -0.06672 -0.00767  0.06816  0.36190 
+-0.32434 -0.07712 -0.02100  0.07438  0.27096 
 
 Coefficients:
-             Estimate Std. Error  t value Pr(&gt;|t|)    
-(Intercept) 0.0011550  0.0228677    0.051     0.96    
-y1          1.1109784  0.0001456 7630.278   &lt;2e-16 ***
+              Estimate Std. Error  t value Pr(&gt;|t|)    
+(Intercept) -0.0295034  0.0227717   -1.296    0.198    
+y1           1.1114046  0.0001454 7641.934   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.1131 on 98 degrees of freedom
+Residual standard error: 0.1133 on 98 degrees of freedom
 Multiple R-squared:      1, Adjusted R-squared:      1 
-F-statistic: 5.822e+07 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+F-statistic: 5.84e+07 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -602,18 +602,18 @@ lm(formula = y ~ x)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--12.1494  -2.4050   0.4002   2.5950  10.8820 
+-12.5254  -3.5522   0.5132   2.8126  12.2145 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.92059    0.93731   0.982    0.328    
-x            2.98494    0.01611 185.241   &lt;2e-16 ***
+(Intercept) -0.34329    0.96305  -0.356    0.722    
+x            2.99526    0.01656 180.913   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 4.651 on 98 degrees of freedom
-Multiple R-squared:  0.9972,    Adjusted R-squared:  0.9971 
-F-statistic: 3.431e+04 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 4.779 on 98 degrees of freedom
+Multiple R-squared:  0.997, Adjusted R-squared:  0.997 
+F-statistic: 3.273e+04 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ypred <span class="ot">&lt;-</span> <span class="fu">predict</span>(<span class="fu">lm</span>(y<span class="sc">~</span>x))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y<span class="sc">~</span>ypred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -624,18 +624,18 @@ lm(formula = y ~ ypred)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--12.1494  -2.4050   0.4002   2.5950  10.8820 
+-12.5254  -3.5522   0.5132   2.8126  12.2145 
 
 Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 4.547e-14  9.416e-01     0.0        1    
-ypred       1.000e+00  5.398e-03   185.2   &lt;2e-16 ***
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -2.274e-14  9.614e-01     0.0        1    
+ypred        1.000e+00  5.528e-03   180.9   &lt;2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 4.651 on 98 degrees of freedom
-Multiple R-squared:  0.9972,    Adjusted R-squared:  0.9971 
-F-statistic: 3.431e+04 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 4.779 on 98 degrees of freedom
+Multiple R-squared:  0.997, Adjusted R-squared:  0.997 
+F-statistic: 3.273e+04 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </section>

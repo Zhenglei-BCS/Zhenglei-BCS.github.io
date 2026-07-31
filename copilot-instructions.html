@@ -310,13 +310,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#copilot-collaboration-guide" id="toc-copilot-collaboration-guide" class="nav-link active" data-scroll-target="#copilot-collaboration-guide">Copilot Collaboration Guide</a>
+  <li><a href="#copilot-collaboration-notes" id="toc-copilot-collaboration-notes" class="nav-link active" data-scroll-target="#copilot-collaboration-notes">Copilot Collaboration Notes</a>
   <ul class="collapse">
-  <li><a href="#working-style" id="toc-working-style" class="nav-link" data-scroll-target="#working-style">Working style</a></li>
-  <li><a href="#new-post-workflow" id="toc-new-post-workflow" class="nav-link" data-scroll-target="#new-post-workflow">New post workflow</a></li>
-  <li><a href="#pre-publish-workflow" id="toc-pre-publish-workflow" class="nav-link" data-scroll-target="#pre-publish-workflow">Pre-publish workflow</a></li>
-  <li><a href="#publish-workflow" id="toc-publish-workflow" class="nav-link" data-scroll-target="#publish-workflow">Publish workflow</a></li>
-  <li><a href="#writing-preferences" id="toc-writing-preferences" class="nav-link" data-scroll-target="#writing-preferences">Writing preferences</a></li>
+  <li><a href="#writing-workflow" id="toc-writing-workflow" class="nav-link" data-scroll-target="#writing-workflow">Writing Workflow</a></li>
+  <li><a href="#commands" id="toc-commands" class="nav-link" data-scroll-target="#commands">Commands</a></li>
+  <li><a href="#commit-hygiene" id="toc-commit-hygiene" class="nav-link" data-scroll-target="#commit-hygiene">Commit Hygiene</a></li>
+  <li><a href="#review-checklist" id="toc-review-checklist" class="nav-link" data-scroll-target="#review-checklist">Review Checklist</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -328,66 +327,49 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="copilot-collaboration-guide" class="level1">
-<h1>Copilot Collaboration Guide</h1>
-<p>This repository is a Quarto-based personal site.</p>
-<section id="working-style" class="level2">
-<h2 class="anchored" data-anchor-id="working-style">Working style</h2>
-<ul>
-<li>Collaborate in small, reviewable steps.</li>
-<li>When editing prose, preserve my personal tone and avoid generic AI phrasing.</li>
-<li>Prefer concise, practical writing over tutorial-like language.</li>
-<li>Keep category labels lowercase (for example: <code>stats</code>, <code>code</code>, <code>r</code>, <code>glp</code>).</li>
-</ul>
-</section>
-<section id="new-post-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="new-post-workflow">New post workflow</h2>
+<section id="copilot-collaboration-notes" class="level1">
+<h1>Copilot Collaboration Notes</h1>
+<p>Purpose: Keep content and publishing workflows consistent when using Copilot in this repo.</p>
+<section id="writing-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="writing-workflow">Writing Workflow</h2>
 <ol type="1">
-<li>Draft in <code>posts/&lt;name&gt;.qmd</code>.</li>
-<li>Add frontmatter with consistent lowercase categories.</li>
-<li>If plots are used, add explicit package imports in setup chunks (for example <code>library(ggplot2)</code>).</li>
-<li>Render only the target post first:
+<li>Draft new content in <code>posts/*.qmd</code> (or <code>blog/*.qmd</code> for blog entries).</li>
+<li>Render only the file you are editing while drafting.</li>
+<li>Keep edits focused; avoid bulk changes to generated output unless intentionally doing a full site refresh.</li>
+</ol>
+</section>
+<section id="commands" class="level2">
+<h2 class="anchored" data-anchor-id="commands">Commands</h2>
+<ul>
+<li>Render one post:
 <ul>
 <li><code>quarto render posts/&lt;name&gt;.qmd</code></li>
 </ul></li>
-<li>Check output in <code>docs/posts/&lt;name&gt;.html</code>.</li>
-</ol>
-</section>
-<section id="pre-publish-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="pre-publish-workflow">Pre-publish workflow</h2>
-<p>Run one command before commit/publish:</p>
+<li>Run pre-publish checks:
 <ul>
 <li><code>powershell -ExecutionPolicy Bypass -File scripts/pre-publish.ps1</code></li>
-</ul>
-<p>Optional full site render before checks:</p>
+</ul></li>
+<li>Publish to GitHub Pages (<code>gh-pages</code>):
 <ul>
-<li><code>powershell -ExecutionPolicy Bypass -File scripts/pre-publish.ps1 -Render</code></li>
-</ul>
-<p>The script checks:</p>
-<ul>
-<li>category case conflicts,</li>
-<li>missing generated HTML for posts,</li>
-<li>missing local asset references in rendered post HTML.</li>
+<li><code>powershell -ExecutionPolicy Bypass -File scripts/publish-site.ps1</code></li>
+</ul></li>
 </ul>
 </section>
-<section id="publish-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="publish-workflow">Publish workflow</h2>
-<ol type="1">
-<li>Run pre-publish checks.</li>
-<li>Commit site changes.</li>
-<li>Push to <code>main</code>.</li>
-</ol>
-<p>If remote URL warning appears, use:</p>
+<section id="commit-hygiene" class="level2">
+<h2 class="anchored" data-anchor-id="commit-hygiene">Commit Hygiene</h2>
 <ul>
-<li><code>git remote set-url origin https://github.com/Zhenglei-BCS/Zhenglei-BCS.github.io.git</code></li>
+<li>Prefer source-first commits (<code>*.qmd</code>, <code>_quarto.yml</code>, <code>styles.css</code>, helper scripts).</li>
+<li>If generated files change broadly, keep that in a separate commit.</li>
+<li>Before publish, run <code>git status --short</code> and confirm only intended files are modified.</li>
 </ul>
 </section>
-<section id="writing-preferences" class="level2">
-<h2 class="anchored" data-anchor-id="writing-preferences">Writing preferences</h2>
+<section id="review-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="review-checklist">Review Checklist</h2>
 <ul>
-<li>Use first-person perspective where appropriate.</li>
-<li>Prefer clear statements over over-explaining.</li>
-<li>Keep statistical nuance, but avoid sounding like an assistant response.</li>
+<li>Category names use consistent casing.</li>
+<li>New local images/files referenced by posts exist.</li>
+<li>Track links and category pages render correctly.</li>
+<li>Category cloud renders on intended pages.</li>
 </ul>
 
 
