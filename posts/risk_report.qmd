@@ -5,7 +5,7 @@ author: "Zhenglei Gao"
 date: "12/06/2024"
 categories:
   - code
-  - Stats
+  - stats
   - R
 editor_options: 
   chunk_output_type: console
@@ -71,3 +71,4 @@ available.packages(repos = repo, fields = risk_fields(repo)) |>
 
 
 ```
+

@@ -5,7 +5,7 @@ author: "Zhenglei Gao"
 date: "11/20/2024"
 categories:
   - code
-  - Stats
+  - stats
   - R
 ---
 
@@ -203,3 +203,4 @@ warnings.filterwarnings("ignore", category=RuntimeWarning, message="overflow enc
         SE[0] = SE[0] * scale_factor #  rescale standard error for M0
         logging.info("Hessian matrix calculated succesfully.")
 ```
+

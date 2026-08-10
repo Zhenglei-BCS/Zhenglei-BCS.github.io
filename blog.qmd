@@ -1,5 +1,7 @@
 ---
 title: "Collection of Random Thoughts"
+include-after-body:
+  - category-cloud-include.html
 listing:
   contents: blog
   sort: "date desc"

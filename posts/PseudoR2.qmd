@@ -5,7 +5,7 @@ author: "Zhenglei Gao"
 date: "11/20/2024"
 categories:
   - code
-  - Stats
+  - stats
   - R
 editor_options: 
   chunk_output_type: console
@@ -254,3 +254,4 @@ t(broom::glance(m2))
 ```
 
 - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0183250
+

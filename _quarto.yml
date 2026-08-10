@@ -1,6 +1,12 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
+    - "blog/*.qmd"
+    - "posts/*.qmd"
+  resources:
+    - category-cloud.js
 
 website:
   title: "Zhenglei Gao"

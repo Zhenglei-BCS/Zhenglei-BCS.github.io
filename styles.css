@@ -47,3 +47,45 @@ a:focus {
 .quarto-listing .listing-description {
 	opacity: 0.9;
 }
+
+/* Right margin category cloud */
+.category-cloud-box {
+	margin-top: 1rem;
+	padding-top: 0.35rem;
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.category-cloud-title {
+	margin: 0.35rem 0 0.5rem;
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+
+.category-cloud {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem 0.45rem;
+	align-items: baseline;
+}
+
+.category-chip {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.22rem;
+	padding: 0.14rem 0.38rem;
+	border-radius: 999px;
+	background: rgba(31, 91, 143, 0.1);
+	text-decoration: none;
+	line-height: 1.2;
+	transition: background-color 120ms ease;
+}
+
+.category-chip:hover,
+.category-chip:focus {
+	background: rgba(31, 91, 143, 0.2);
+}
+
+.category-chip .chip-count {
+	font-size: 0.72em;
+	opacity: 0.8;
+}

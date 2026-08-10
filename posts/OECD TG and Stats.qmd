@@ -5,7 +5,7 @@ author: "Zhenglei Gao"
 date: "01/03/2024"
 categories:
   - code
-  - Stats
+  - stats
   - R
 editor_options: 
   chunk_output_type: console
@@ -52,5 +52,6 @@ control. J. Amer. Statis. Assoc., 50: 1096-1121.
 are compared with a zero dose control. Biometrics, 27: 103-117.
 - Williams, D.A. (1972), The comparison of several dose levels with a zero dose control.
 Biometrics, 28: 510-531.
+
 
 

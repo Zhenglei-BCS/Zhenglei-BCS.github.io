@@ -1,5 +1,7 @@
 ---
 title: "Code & Curiosity Chronicles"
+include-after-body:
+  - category-cloud-include.html
 listing:
   contents: posts
   sort: "date desc"

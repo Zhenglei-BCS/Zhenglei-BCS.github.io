@@ -1,6 +1,8 @@
 ---
 title: "Zhenglei Gao"
 toc: false
+include-after-body:
+  - category-cloud-include.html
 about: 
   id: hero-heading
   template: trestles
